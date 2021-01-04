@@ -42,3 +42,4 @@ Ou pelo e-mail: [mapaosc@ipea.gov.br](mapaosc@ipea.gov.br)
 ## Licença
 
 Este projeto está licenciado sob a GNU General Public License v3.0 - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
