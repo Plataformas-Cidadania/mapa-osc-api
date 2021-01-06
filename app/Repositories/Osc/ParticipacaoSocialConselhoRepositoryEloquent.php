@@ -39,14 +39,6 @@ class ParticipacaoSocialConselhoRepositoryEloquent implements ParticipacaoSocial
     {
         $ps_conselho = $this->model->find($id);
 
-        $rep_conselho = $ps_conselho->representante_conselho;
-
-        //dd($rep_conselho);
-
-        $rep_conselho->update($data);
-
-        dd($rep_conselho);
-
         return $ps_conselho->update($data);
     }
 
