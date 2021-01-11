@@ -65,7 +65,13 @@ class Osc extends Model
         'ft_osc_ativa',
         'bo_osc_ativa',
         'bo_nao_possui_projeto',
-        'ft_nao_possui_projeto'
+        'ft_nao_possui_projeto',
+        'bo_nao_possui_ps_conselhos',
+        'ft_nao_possui_ps_conselhos',
+        'bo_nao_possui_ps_conferencias',
+        'ft_nao_possui_ps_conferencias',
+        'bo_nao_possui_ps_outros_espacos',
+        'ft_nao_possui_ps_outros_espacos',
     ];
 
     /**
@@ -90,7 +96,7 @@ class Osc extends Model
     /**
      * @var desativar coluna BD
      */
-    //public $timestamps = false;
+    public $timestamps = false;
 
     //------------------------------------------METODOS DE RELACIONAMENTOS-------------------------------------------------------------------------------------//
     /**

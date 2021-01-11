@@ -122,6 +122,24 @@ class OscController extends Controller
         }
     }
 
+    public function update($id, Request $request) {
+        try {
+            $dados = $request->all();
+
+            $osc = $this->service->update($id, $dados);
+
+            if ($osc)
+            {
+                return response()->json(['Resposta' => 'OSC atualizada com sucesso!'], Response::HTTP_OK);
+            }
+
+            return $osc;
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function store(Request $request) {
         //return [];
         //return ['tx_email_usuario' => 'teste@gmail.com'];

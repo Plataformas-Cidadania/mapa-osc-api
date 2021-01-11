@@ -61,7 +61,7 @@ class OscService
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        return $this->repo->update($id, $data);
     }
 
     public function destroy($id)
