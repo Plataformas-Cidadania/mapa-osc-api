@@ -21,7 +21,7 @@ $router->get('/api/', function () use ($router) {
         "homepage: https://mapaosc.ipea.gov.br/",
         "keywords: 'php', 'lumen', 'api', 'rest', 'server, 'http', 'json', 'mapaosc', 'ipea'",
         "license: LGPL-3.0",
-        "authors: {Thiago Giannini Ramos}"
+        "authors: {Thiago Giannini Ramos, Fábio Barreto, Bruno Passos, Relison Galvão}"
     ];
 });
 
