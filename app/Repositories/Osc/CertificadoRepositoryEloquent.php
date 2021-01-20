@@ -37,6 +37,15 @@ class CertificadoRepositoryEloquent implements CertificadoRepositoryInterface
 
     public function update($id, array $data)
     {
+        if($data["cd_uf"] == "NULL")
+        {
+            $data["cd_uf"] = NULL;
+        }
+        if($data["cd_municipio"] == "NULL")
+        {
+            $data["cd_municipio"] = NULL;
+        }
+
         return $this->model->find($id)->update($data);
     }
 
