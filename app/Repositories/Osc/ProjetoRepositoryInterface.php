@@ -11,6 +11,8 @@ interface ProjetoRepositoryInterface
 {
     public function __construct(Projeto $_projeto);
 
+    public function get($id);
+
     public function getProjetosPorOSC($_id_osc);
 
     public function store(array $data);

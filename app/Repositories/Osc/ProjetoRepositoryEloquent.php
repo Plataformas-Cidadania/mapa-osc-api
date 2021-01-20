@@ -16,6 +16,13 @@ class ProjetoRepositoryEloquent implements ProjetoRepositoryInterface
         $this->model = $_projeto;
     }
 
+    public function get($id)
+    {
+        return $this->model->find($id);
+
+        return $projeto;
+    }
+
     public function getProjetosPorOSC($_id_osc)
     {
         $projeto = $this->model->where('id_osc', $_id_osc)->get();

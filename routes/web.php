@@ -65,15 +65,18 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //INFORMAÇÕES DAS RELAÇÕES DE TRABALHO E GOVERNANÇA
     $router->get('/rel_trabalho_e_governanca/{id_osc}', 'OscController@getRelTrabalhoAndGovernanca');
+
     //---------------------Relações de Trabalho-----------------------------------//
     $router->get('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@get');
     $router->put('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@update');
     //$router->get('/rel_trabalho/{id}', 'RelacoesTrabalhoController@get');
+
     //---------------------Governança----------------------------------------------//
     $router->get('/governanca/{id}', 'GovernancaController@get');
     $router->put('/governanca/{id}', 'GovernancaController@update');
     $router->post('/governanca/', 'GovernancaController@store');
     $router->delete('/governanca/{id}', 'GovernancaController@delete');
+
     //---------------------Conselho Fiscal----------------------------------------------//
     $router->get('/conselho/{id}', 'ConselhoFiscalController@get');
     $router->post('/conselho/', 'ConselhoFiscalController@store');
@@ -103,13 +106,15 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/ps_outras/{id}', 'ParticipacaoSocialOutraController@getParticipacaoSocialOutraPorOSC');
     $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
     $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
-   
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
 
-
-
     //INFORMAÇÕES DE PROJETOS
-    $router->get('/projetos/{id_osc}', 'ProjetoController@getProjetosPorOSC');
+    //$router->get('/projetos/{id_osc}', 'ProjetoController@getProjetosPorOSC');
+    $router->get('/projetos/{id_osc}', 'OscController@getProjetos');
+    $router->get('/projeto/{id}', 'ProjetoController@get');
+    $router->put('/projeto/{id}', 'ProjetoController@update');
+    $router->post('/projeto/', 'ProjetoController@store');
+    $router->delete('/projeto/{id}', 'ProjetoController@delete');
 
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');

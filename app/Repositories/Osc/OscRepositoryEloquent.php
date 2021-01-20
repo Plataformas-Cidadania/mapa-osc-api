@@ -9,6 +9,7 @@ use App\Models\Osc\ObjetivoOsc;
 use App\Models\Osc\Osc;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use function Sodium\add;
 
 class OscRepositoryEloquent implements OscRepositoryInterface
 {
@@ -232,6 +233,26 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'conselho_fiscal' => $osc->conselho_fiscal,
             'relacoes_trabalho' => $relacoes_trabalho,
         ];
+
+        return $dados;
+    }
+
+    public function getProjetos($id)
+    {
+        $osc = $this->model->find($id);
+
+        $projetos = $osc->projetos;
+
+        //dump($projetos);
+
+        $dados = [];
+
+        foreach ($projetos as $projeto) {
+            //array_push($dados, ['nome_projeto'] => $projeto->tx_nome_projeto);
+             $var = ['id' => $projeto->id_projeto,'titulo' => $projeto->tx_nome_projeto, 'data inicio' => $projeto->dt_data_inicio_projeto];
+
+            $dados[] = $var;
+        }
 
         return $dados;
     }

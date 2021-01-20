@@ -76,6 +76,8 @@ class Projeto extends Model
      */
     protected $fillable = ['id_osc', 'cd_status_projeto', 'cd_abrangencia_projeto', 'cd_zona_atuacao_projeto', 'cd_municipio', 'cd_uf', 'tx_nome_projeto', 'ft_nome_projeto', 'ft_status_projeto', 'dt_data_inicio_projeto', 'ft_data_inicio_projeto', 'dt_data_fim_projeto', 'ft_data_fim_projeto', 'tx_link_projeto', 'ft_link_projeto', 'nr_total_beneficiarios', 'ft_total_beneficiarios', 'nr_valor_captado_projeto', 'ft_valor_captado_projeto', 'nr_valor_total_projeto', 'ft_valor_total_projeto', 'ft_abrangencia_projeto', 'ft_zona_atuacao_projeto', 'tx_descricao_projeto', 'ft_descricao_projeto', 'ft_metodologia_monitoramento', 'tx_metodologia_monitoramento', 'tx_identificador_projeto_externo', 'ft_identificador_projeto_externo', 'bo_oficial', 'tx_status_projeto_outro', 'ft_municipio', 'ft_uf'];
 
+    public $timestamps = false;
+
     protected $with = [
         'dc_abrangencia_projeto',
         'dc_zona_atuacao_projeto',

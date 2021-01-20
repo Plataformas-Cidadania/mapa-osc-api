@@ -112,6 +112,16 @@ class OscController extends Controller
         }
     }
 
+    public function getProjetos($id)
+    {
+        try {
+            return response()->json($this->service->getProjetos($id), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getParticipacaoSocial($id)
     {
         try {

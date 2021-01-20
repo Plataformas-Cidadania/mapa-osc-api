@@ -25,6 +25,8 @@ interface OscRepositoryInterface
 
     public function getRelTrabalhoAndGovernanca($id);
 
+    public function getProjetos($id);
+
     public function getParticipacaoSocial($id);
 
     public function update($id, array $data);

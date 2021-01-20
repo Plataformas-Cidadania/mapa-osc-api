@@ -49,6 +49,11 @@ class OscService
         return $this->repo->getRelTrabalhoAndGovernanca($id);
     }
 
+    public function getProjetos($id)
+    {
+        return $this->repo->getProjetos($id);
+    }
+
     public function getParticipacaoSocial($id)
     {
         return $this->repo->getParticipacaoSocial($id);

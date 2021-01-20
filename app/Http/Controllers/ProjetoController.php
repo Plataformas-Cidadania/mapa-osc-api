@@ -52,14 +52,39 @@ class ProjetoController extends Controller
     }
 
     public function store(Request $request) {
+        try {
+            $dados = $request->all();
 
+            //Retorna novo registro
+            return response()->json($this->service->store($dados), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function update($id, Request $request) {
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($id, $dados), Response::HTTP_OK);
+            $projeto = $this->service->update($id, $dados);
+
+            if ($projeto) {
+
+                return response()->json(['Resposta' => 'Projeto atualizado com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function delete($id_projeto) {
+        try {
+            if ($this->service->destroy($id_projeto))
+            {
+                return response()->json(['Resposta' => 'Projeto deletado com sucesso!'], Response::HTTP_OK);
+            }
         }
         catch (\Exception $e) {
             return $e->getMessage();

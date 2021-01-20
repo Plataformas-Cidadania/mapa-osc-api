@@ -36,7 +36,7 @@ class ProjetoService
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        return $this->repo->store($data);
     }
 
     public function update($id, array $data)
@@ -44,8 +44,8 @@ class ProjetoService
         return $this->repo->update($id, $data);
     }
 
-    public function destroy($id)
+    public function destroy($id_projeto)
     {
-        // TODO: Implement destroy() method.
+        return $this->repo->destroy($id_projeto);
     }
 }
