@@ -86,7 +86,7 @@ class Projeto extends Model
         'uf',
         'fontes_recursos_projeto',
         'tipo_parcerias_projeto',
-        'financiadores_projeto'
+        'financiadores_projeto'//TESTE MERGE
     ];
 
    //-----------------------------------------METODOS---------------------------------------//
