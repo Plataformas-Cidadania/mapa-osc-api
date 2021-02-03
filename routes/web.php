@@ -116,6 +116,20 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/projeto/', 'ProjetoController@store');
     $router->delete('/projeto/{id}', 'ProjetoController@delete');
 
+    //INFORMAÇÕES DE PARCEIRAS DE PROJETOS
+    $router->get('/projeto/parceiras/{id_projeto}', 'OscParceiraProjetoController@getParceriasPorProjeto');
+    $router->get('/projeto/parceira/{id}', 'OscParceiraProjetoController@get');
+    $router->put('/projeto/parceira/{id}', 'OscParceiraProjetoController@update');
+    $router->post('/projeto/parceira/', 'OscParceiraProjetoController@store');
+    $router->delete('/projeto/parceira/{id}', 'OscParceiraProjetoController@delete');
+
+    //Tipo Parcerias
+    $router->get('/projeto/parcerias/{id_projeto}', 'TipoParceriaProjetoController@getParceriasPorProjeto');
+    $router->get('/projeto/parceria/{id}', 'TipoParceriaProjetoController@get');
+    $router->put('/projeto/parceria/{id}', 'TipoParceriaProjetoController@update');
+    $router->post('/projeto/parceria/', 'TipoParceriaProjetoController@store');
+    $router->delete('/projeto/parceria/{id}', 'TipoParceriaProjetoController@delete');
+
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
     $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');

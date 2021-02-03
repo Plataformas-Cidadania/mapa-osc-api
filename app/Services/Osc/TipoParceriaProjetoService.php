@@ -3,13 +3,13 @@
 
 namespace App\Services\Osc;
 
-use App\Repositories\Osc\ProjetoRepositoryInterface;
+use App\Repositories\Osc\TipoParceriaProjetoRepositoryInterface;
 
-class ProjetoService
+class TipoParceriaProjetoService
 {
     private $repo;
 
-    public function __construct(ProjetoRepositoryInterface $_repo)
+    public function __construct(TipoParceriaProjetoRepositoryInterface $_repo)
     {
         $this->repo = $_repo;
     }
@@ -24,9 +24,9 @@ class ProjetoService
         return $this->repo->get($id);
     }
 
-    public function getProjetosPorOSC($id_osc)
+    public function getParceriasPorProjeto($id_projeto)
     {
-        return $this->repo->getProjetosPorOSC($id_osc);
+        return $this->repo->getParceriasPorProjeto($id_projeto);
     }
 
     public function store(array $data)
@@ -39,8 +39,8 @@ class ProjetoService
         return $this->repo->update($id, $data);
     }
 
-    public function destroy($id_projeto)
+    public function destroy($id)
     {
-        return $this->repo->destroy($id_projeto);
+        return $this->repo->destroy($id);
     }
 }

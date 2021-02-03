@@ -53,6 +53,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
                         'App\Repositories\Osc\ParticipacaoSocialOutraRepositoryInterface', 'App\Repositories\Osc\ParticipacaoSocialOutraRepositoryEloquent'
         );
+        $this->app->bind(
+                        'App\Repositories\Osc\OscParceiraProjetoRepositoryInterface', 'App\Repositories\Osc\OscParceiraProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+                        'App\Repositories\Osc\TipoParceriaProjetoRepositoryInterface', 'App\Repositories\Osc\TipoParceriaProjetoRepositoryEloquent'
+        );
         //DADOS DO SCHEMA SYST
         $this->app->bind(
             'App\Repositories\Syst\DCAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCAreaAtuacaoRepositoryEloquent'
