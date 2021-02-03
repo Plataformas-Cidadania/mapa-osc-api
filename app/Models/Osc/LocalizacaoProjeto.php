@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $bo_localizacao_prioritaria
  * @property string $ft_localizacao_prioritaria
  * @property boolean $bo_oficial
- * @property Osc $osc
+ * @property Projeto $projeto
  */
 class LocalizacaoProjeto extends Model
 {
