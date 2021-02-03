@@ -123,12 +123,19 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/projeto/parceira/', 'OscParceiraProjetoController@store');
     $router->delete('/projeto/parceira/{id}', 'OscParceiraProjetoController@delete');
 
-    //Tipo Parcerias
-    $router->get('/projeto/parcerias/{id_projeto}', 'TipoParceriaProjetoController@getParceriasPorProjeto');
-    $router->get('/projeto/parceria/{id}', 'TipoParceriaProjetoController@get');
-    $router->put('/projeto/parceria/{id}', 'TipoParceriaProjetoController@update');
-    $router->post('/projeto/parceria/', 'TipoParceriaProjetoController@store');
-    $router->delete('/projeto/parceria/{id}', 'TipoParceriaProjetoController@delete');
+        //Tipo Parcerias Projeto
+        $router->get('/projeto/parcerias/{id_projeto}', 'TipoParceriaProjetoController@getParceriasPorProjeto');
+        $router->get('/projeto/parceria/{id}', 'TipoParceriaProjetoController@get');
+        $router->put('/projeto/parceria/{id}', 'TipoParceriaProjetoController@update');
+        $router->post('/projeto/parceria/', 'TipoParceriaProjetoController@store');
+        $router->delete('/projeto/parceria/{id}', 'TipoParceriaProjetoController@delete');
+
+    //LOCALIZAÇÕES DE PROJETO
+    $router->get('/projeto/localizacoes/{id_projeto}', 'LocalizacaoProjetoController@getLocalizacoesPorProjeto');
+    $router->get('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@get');
+    $router->put('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@update');
+    $router->post('/projeto/localizacao/', 'LocalizacaoProjetoController@store');
+    $router->delete('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@delete');
 
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');

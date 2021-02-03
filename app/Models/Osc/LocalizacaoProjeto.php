@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $bo_localizacao_prioritaria
  * @property string $ft_localizacao_prioritaria
  * @property boolean $bo_oficial
- * @property Osc.tbProjeto $osc.tbProjeto
+ * @property Osc $osc
  */
 class LocalizacaoProjeto extends Model
 {
@@ -31,6 +31,8 @@ class LocalizacaoProjeto extends Model
      * @var string
      */
     protected $primaryKey = 'id_localizacao_projeto';
+
+    public $timestamps = false;
 
     /**
      * @var array
