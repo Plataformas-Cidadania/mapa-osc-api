@@ -36,6 +36,8 @@ class OscParceiraProjeto extends Model
 
     public $timestamps = false;
 
+    protected $with = ['osc'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
