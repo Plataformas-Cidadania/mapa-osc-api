@@ -2,6 +2,7 @@
 
 namespace App\Models\Osc;
 
+use App\Models\Syst\DCTipoParceria;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_tipo_parceria_projeto
  * @property int $id_fonte_recursos_projeto
  * @property string $ft_tipo_parceria_projeto
- * @property Osc.tbProjeto $osc.tbProjeto
- * @property Syst.dcTipoParcerium $syst.dcTipoParcerium
- * @property Osc.tbFonteRecursosProjeto $osc.tbFonteRecursosProjeto
+ * @property Projeto $projeto
+ * @property DCTipoParceria $dc_tipo_parceria_projeto
+ * @property FonteRecursosProjeto $fonte_recursos_projeto
  */
 class TipoParceriaProjeto extends Model
 {

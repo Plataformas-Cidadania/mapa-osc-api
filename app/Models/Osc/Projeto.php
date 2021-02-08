@@ -82,11 +82,8 @@ class Projeto extends Model
         'dc_abrangencia_projeto',
         'dc_zona_atuacao_projeto',
         'dc_status_projeto',
-        'municipio',
-        'uf',
         'fontes_recursos_projeto',
-        'tipo_parcerias_projeto',
-        'financiadores_projeto'//TESTE MERGE 2
+        'tipo_parcerias_projeto'
     ];
 
    //-----------------------------------------METODOS---------------------------------------//

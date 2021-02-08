@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_financiador
  * @property string $ft_nome_financiador
  * @property boolean $bo_oficial
- * @property Osc.tbProjeto $osc.tbProjeto
+ * @property Projeto $projeto
  */
 class FinanciadorProjeto extends Model
 {
@@ -32,6 +32,8 @@ class FinanciadorProjeto extends Model
      * @var array
      */
     protected $fillable = ['id_projeto', 'tx_nome_financiador', 'ft_nome_financiador', 'bo_oficial'];
+
+    public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
