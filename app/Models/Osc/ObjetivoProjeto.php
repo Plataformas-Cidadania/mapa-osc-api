@@ -2,6 +2,7 @@
 
 namespace App\Models\Osc;
 
+use App\Models\Syst\MetaProjeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_meta_projeto
  * @property string $ft_objetivo_projeto
  * @property boolean $bo_oficial
- * @property Osc.tbProjeto $osc.tbProjeto
- * @property Syst.dcMetaProjeto $syst.dcMetaProjeto
+ * @property Projeto $projeto
+ * @property MetaProjeto $meta_projeto
  */
 class ObjetivoProjeto extends Model
 {
@@ -33,6 +34,8 @@ class ObjetivoProjeto extends Model
      * @var array
      */
     protected $fillable = ['id_projeto', 'cd_meta_projeto', 'ft_objetivo_projeto', 'bo_oficial'];
+
+    public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

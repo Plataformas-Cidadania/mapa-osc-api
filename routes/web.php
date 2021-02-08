@@ -143,6 +143,13 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/projeto/financiador/', 'FinanciadorProjetoController@store');
     $router->delete('/projeto/financiador/{id}', 'FinanciadorProjetoController@delete');
 
+    //OBJETIVOS DE PROJETO
+    $router->get('/projeto/objetivos/{id_projeto}', 'ObjetivoProjetoController@getObjetivosPorProjeto');
+    $router->get('/projeto/objetivo/{id}', 'ObjetivoProjetoController@get');
+    $router->put('/projeto/objetivo/{id}', 'ObjetivoProjetoController@update');
+    $router->post('/projeto/objetivo/', 'ObjetivoProjetoController@store');
+    $router->delete('/projeto/objetivo/{id}', 'ObjetivoProjetoController@delete');
+
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
     $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');
