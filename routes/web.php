@@ -109,7 +109,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
 
     //INFORMAÇÕES DE PROJETOS
-    //$router->get('/projetos/{id_osc}', 'ProjetoController@getProjetosPorOSC');
     $router->get('/projetos/{id_osc}', 'OscController@getProjetos');
     $router->get('/projeto/{id}', 'ProjetoController@get');
     $router->put('/projeto/{id}', 'ProjetoController@update');
