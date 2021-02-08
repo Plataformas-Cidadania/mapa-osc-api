@@ -42,18 +42,47 @@ class FonteRecursosController extends Controller
         }
     }
 
-    public function store(Request $request) {
-
-    }
-
-    public function update($id, Request $request) {
+    public function store(Request $request)
+    {
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($id, $dados), Response::HTTP_OK);
+            //Retorna novo registro
+            return response()->json($this->service->store($dados), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
+
+    public function update($id, Request $request) {
+
+        try {
+            $dados = $request->all();
+
+            $fonte = $this->service->update($id, $dados);
+
+            if ($fonte)
+            {
+                return response()->json(['Resposta' => 'Fonte de Recurso atualizada com sucesso!'], Response::HTTP_OK);
+            }
+
+            return $fonte;
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function delete($id) {
+        try {
+            if ($this->service->delete($id))
+            {
+                return response()->json(['Resposta' => 'Fonte de Recurso deletada com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 }

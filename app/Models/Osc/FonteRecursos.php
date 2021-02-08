@@ -39,7 +39,7 @@ class FonteRecursos extends Model
      * @var array
      */
     protected $fillable = ['id_osc', 'cd_fonte_recursos_osc', 'ft_fonte_recursos_osc', 'dt_ano_recursos_osc', 'ft_ano_recursos_osc', 'nr_valor_recursos_osc', 'ft_valor_recursos_osc', 'bo_nao_possui', 'ft_nao_possui', 'cd_origem_fonte_recursos_osc'];
-
+    public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

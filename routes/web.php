@@ -119,6 +119,10 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
     $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');
+    $router->post('/fonte_recursos/', 'FonteRecursosController@store');
+    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
+    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
+
 });
 
 

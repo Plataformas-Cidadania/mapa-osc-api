@@ -26,7 +26,7 @@ class FonteRecursosService
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        return $this->repo->store($data);
     }
 
     public function update($id, array $data)
@@ -34,8 +34,8 @@ class FonteRecursosService
         return $this->repo->update($id, $data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        // TODO: Implement destroy() method.
+        return $this->repo->delete($id);
     }
 }

@@ -45,7 +45,7 @@ class FonteRecursosRepositoryEloquent implements FonteRecursosRepositoryInterfac
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         return $this->model->find($id)->delete();
     }
