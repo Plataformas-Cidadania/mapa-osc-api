@@ -83,7 +83,7 @@ class Projeto extends Model
         'dc_zona_atuacao_projeto',
         'dc_status_projeto',
         'fontes_recursos_projeto',
-        'tipo_parceria_projeto'
+        'tipo_parcerias_projeto'
     ];
 
    //-----------------------------------------METODOS---------------------------------------//
