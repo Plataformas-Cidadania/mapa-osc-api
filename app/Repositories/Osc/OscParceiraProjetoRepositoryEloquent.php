@@ -3,9 +3,11 @@
 
 namespace App\Repositories\Osc;
 
+use App\Models\Osc\DadosGerais;
 use App\Models\Osc\OscParceiraProjeto;
 use App\Repositories\Osc\OscParceiraProjetoRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Array_;
 
 class OscParceiraProjetoRepositoryEloquent implements OscParceiraProjetoRepositoryInterface
 {
@@ -25,9 +27,24 @@ class OscParceiraProjetoRepositoryEloquent implements OscParceiraProjetoReposito
 
     public function getParceriasPorProjeto($_id_projeto)
     {
-        $_parcerias = $this->model->where('id_projeto', $_id_projeto)->get();
+        $parceiras = $this->model->where('id_projeto', $_id_projeto)->get();
 
-        return $_parcerias;
+        $vetor_dados = [];
+        foreach ($parceiras as $parceira)
+        {
+            $dados = [
+                "id_osc" => $parceira->id_osc,
+                "id_projeto" => $parceira->id_projeto,
+                "ft_osc_parceira_projeto" => $parceira->ft_osc_parceira_projeto,
+                "bo_oficial" => $parceira->bo_oficial,
+                "id_osc_parceira_projeto" => $parceira->id_osc_parceira_projeto,
+                "tx_nome_fantasia_osc" => $parceira->osc->dados_gerais->tx_nome_fantasia_osc
+            ];
+
+            array_push($vetor_dados, $dados);
+        }
+
+        return $vetor_dados;
     }
 
     public function store(array $data)

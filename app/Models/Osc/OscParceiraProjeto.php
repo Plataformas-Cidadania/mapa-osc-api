@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_projeto
  * @property string $ft_osc_parceira_projeto
  * @property boolean $bo_oficial
- * @property Osc $osc.tbOsc
+ * @property Osc $osc
  * @property Projeto $projeto
  */
 class OscParceiraProjeto extends Model
@@ -36,12 +36,10 @@ class OscParceiraProjeto extends Model
 
     public $timestamps = false;
 
-    protected $with = ['osc'];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Osc()
+    public function osc()
     {
         return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
     }
@@ -49,7 +47,7 @@ class OscParceiraProjeto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Projeto()
+    public function projeto()
     {
         return $this->belongsTo('App\Models\Osc\Projeto', 'id_projeto', 'id_projeto');
     }

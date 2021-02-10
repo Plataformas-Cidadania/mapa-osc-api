@@ -150,7 +150,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         ObjetivoOsc::where('id_osc', $id)->whereNotIn('cd_meta_osc', $metas)->delete();
         $objetivos_metas = ObjetivoOsc::where('id_osc', $id)->get();
         
-        foreach ($metas  as $meta)
+        foreach ($metas as $meta)
         {
             $existe = false;
             foreach ($objetivos_metas as $item)
