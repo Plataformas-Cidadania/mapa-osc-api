@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Osc;
 
-use App\Models\Osc\DadosGerais;
 use App\Models\Osc\OscParceiraProjeto;
 use App\Repositories\Osc\OscParceiraProjetoRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;

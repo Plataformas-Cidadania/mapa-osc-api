@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -74,6 +75,12 @@ class AppServiceProvider extends ServiceProvider
         //DADOS DO SCHEMA SYST
         $this->app->bind(
             'App\Repositories\Syst\DCAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCAreaAtuacaoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCMetaProjetoRepositoryInterface', 'App\Repositories\Syst\DCMetaProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCObjetivoProjetoRepositoryInterface', 'App\Repositories\Syst\DCObjetivoProjetoRepositoryEloquent'
         );
     }
 }

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_objetivo_projeto
  * @property string $tx_nome_objetivo_projeto
  * @property string $tx_codigo_objetivo_projeto
- * @property Syst.dcMetaProjeto[] $syst.dcMetaProjetos
+ * @property MetaProjeto[] $metaProjetos
  */
-class ObjetivoProjeto extends Model
+class DCObjetivoProjeto extends Model
 {
     /**
      * The table associated with the model.
@@ -31,10 +31,12 @@ class ObjetivoProjeto extends Model
      */
     protected $fillable = ['tx_nome_objetivo_projeto', 'tx_codigo_objetivo_projeto'];
 
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function MetaProjetos()
+    public function meta_projetos()
     {
         return $this->hasMany('App\Models\Syst\MetaProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
     }

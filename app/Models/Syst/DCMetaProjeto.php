@@ -2,6 +2,7 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\ObjetivoOsc;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_objetivo_projeto
  * @property string $tx_nome_meta_projeto
  * @property string $tx_codigo_meta_projeto
- * @property Syst.dcObjetivoProjeto $syst.dcObjetivoProjeto
- * @property Osc.tbObjetivoOsc[] $osc.tbObjetivoOscs
- * @property Osc.tbObjetivoProjeto[] $osc.tbObjetivoProjetos
+ * @property ObjetivoProjeto $objetivoProjeto
+ * @property ObjetivoOsc[] $objetivoOscs
+ * @property ObjetivoProjeto[] $objetivoProjetos
  */
-class MetaProjeto extends Model
+class DCMetaProjeto extends Model
 {
     /**
      * The table associated with the model.
@@ -34,10 +35,12 @@ class MetaProjeto extends Model
      */
     protected $fillable = ['cd_objetivo_projeto', 'tx_nome_meta_projeto', 'tx_codigo_meta_projeto'];
 
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ObjetivoProjeto()
+    public function objetivo_projeto()
     {
         return $this->belongsTo('App\Models\Syst\ObjetivoProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
     }
@@ -45,7 +48,7 @@ class MetaProjeto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ObjetivoOscs()
+    public function objetivo_oscs()
     {
         return $this->hasMany('App\Models\Osc\ObjetivoOsc', 'cd_meta_osc', 'cd_meta_projeto');
     }
@@ -53,7 +56,7 @@ class MetaProjeto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ObjetivoProjetos()
+    public function objetivo_projetos()
     {
         return $this->hasMany('App\Models\Osc\ObjetivoProjeto', 'cd_meta_projeto', 'cd_meta_projeto');
     }
