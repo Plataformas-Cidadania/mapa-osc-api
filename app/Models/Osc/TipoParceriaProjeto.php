@@ -36,6 +36,8 @@ class TipoParceriaProjeto extends Model
      */
     protected $fillable = ['id_projeto', 'cd_tipo_parceria_projeto', 'id_fonte_recursos_projeto', 'ft_tipo_parceria_projeto'];
 
+    public $timestamps = false;
+
     protected $with = [
         'dc_tipo_parceria'
     ];

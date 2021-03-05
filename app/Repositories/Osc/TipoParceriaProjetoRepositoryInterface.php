@@ -13,7 +13,7 @@ interface TipoParceriaProjetoRepositoryInterface
 
     public function get($id);
 
-    public function getParceriasPorProjeto($_id_projeto);
+    public function getTipoParceriasPorProjeto($_id_projeto);
 
     public function store(array $data);
 

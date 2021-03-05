@@ -31,10 +31,10 @@ class TipoParceriaProjetoController extends Controller
         }
     }
 
-    public function getParceriasPorProjeto($id_projeto)
+    public function getTipoParceriasPorProjeto($id_projeto)
     {
         try {
-            return response()->json($this->service->getParceriasPorProjeto($id_projeto), Response::HTTP_OK);
+            return response()->json($this->service->getTipoParceriasPorProjeto($id_projeto), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

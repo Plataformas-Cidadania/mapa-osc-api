@@ -24,9 +24,9 @@ class TipoParceriaProjetoService
         return $this->repo->get($id);
     }
 
-    public function getParceriasPorProjeto($id_projeto)
+    public function getTipoParceriasPorProjeto($id_projeto)
     {
-        return $this->repo->getParceriasPorProjeto($id_projeto);
+        return $this->repo->getTipoParceriasPorProjeto($id_projeto);
     }
 
     public function store(array $data)

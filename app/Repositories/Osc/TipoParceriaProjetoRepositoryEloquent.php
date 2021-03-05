@@ -23,7 +23,7 @@ class TipoParceriaProjetoRepositoryEloquent implements TipoParceriaProjetoReposi
         return $_parceria;
     }
 
-    public function getParceriasPorProjeto($_id_projeto)
+    public function getTipoParceriasPorProjeto($_id_projeto)
     {
         $_parcerias = $this->model->where('id_projeto', $_id_projeto)->get();
 
