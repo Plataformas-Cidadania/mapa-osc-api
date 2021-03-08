@@ -111,6 +111,13 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
 
+    //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
+    $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
+    $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');
+    $router->post('/fonte_recursos/', 'FonteRecursosController@store');
+    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
+    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
+
     //INFORMAÇÕES DE PROJETOS
     $router->get('/projetos/{id_osc}', 'OscController@getProjetos');
     $router->get('/projeto/{id}', 'ProjetoController@get');
@@ -160,10 +167,10 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/projeto/publico/', 'PublicoBeneficiadoProjetoController@store');
     $router->delete('/projeto/publico/{id}', 'PublicoBeneficiadoProjetoController@delete');
 
-    //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
-    $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
-    $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');
-    $router->post('/fonte_recursos/', 'FonteRecursosController@store');
-    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
-    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
+    //-----------------------------------Fontes de Recursos Projeto---------------------------//
+    $router->get('/projeto/recursos/{id_projeto}', 'FonteRecursosProjetoController@getFonteRecursosPorProjeto');
+    $router->get('/projeto/recurso/{id}', 'FonteRecursosProjetoController@get');
+    $router->put('/projeto/recurso/{id}', 'FonteRecursosProjetoController@update');
+    $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
+    $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
 });

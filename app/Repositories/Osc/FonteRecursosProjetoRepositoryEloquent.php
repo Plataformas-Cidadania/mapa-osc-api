@@ -3,17 +3,17 @@
 
 namespace App\Repositories\Osc;
 
-use App\Models\Osc\ObjetivoProjeto;
-use App\Repositories\Osc\ObjetivoProjetoRepositoryInterface;
+use App\Models\Osc\FonteRecursosProjeto;
+use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class ObjetivoProjetoRepositoryEloquent implements ObjetivoProjetoRepositoryInterface
+class FonteRecursosProjetoRepositoryEloquent implements FonteRecursosProjetoRepositoryInterface
 {
     private $model;
 
-    public function __construct(ObjetivoProjeto $_objetivo)
+    public function __construct(FonteRecursosProjeto $_fonte)
     {
-        $this->model = $_objetivo;
+        $this->model = $_fonte;
     }
 
     public function get($id)
@@ -23,7 +23,7 @@ class ObjetivoProjetoRepositoryEloquent implements ObjetivoProjetoRepositoryInte
         return $_objetivo;
     }
 
-    public function getObjetivosPorProjeto($_id_projeto)
+    public function getFonteRecursosPorProjeto($_id_projeto)
     {
         $_objetivos = $this->model->where('id_projeto', $_id_projeto)->get();
 

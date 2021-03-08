@@ -2,6 +2,8 @@
 
 namespace App\Models\Osc;
 
+use App\Models\Syst\DCFonteRecursosProjeto;
+use App\Models\Syst\DCOrigemFonteRecursosProjeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,10 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_orgao_concedente
  * @property string $ft_orgao_concedente
  * @property string $tx_tipo_parceria_outro
- * @property Osc.tbProjeto $osc.tbProjeto
- * @property Syst.dcFonteRecursosProjeto $syst.dcFonteRecursosProjeto
- * @property Syst.dcOrigemFonteRecursosProjeto $syst.dcOrigemFonteRecursosProjeto
- * @property Osc.tbTipoParceriaProjeto[] $osc.tbTipoParceriaProjetos
+ * @property Projeto $projeto
+ * @property DCFonteRecursosProjeto $dc_fonte_recursos_projeto
+ * @property DCOrigemFonteRecursosProjeto $dc_origem_fonte_recursos_projeto
+ * @property TipoParceriaProjeto[] $tipo_parceria_projetos
  */
 class FonteRecursosProjeto extends Model
 {
@@ -39,6 +41,8 @@ class FonteRecursosProjeto extends Model
      * @var array
      */
     protected $fillable = ['id_projeto', 'cd_fonte_recursos_projeto', 'cd_origem_fonte_recursos_projeto', 'ft_fonte_recursos_projeto', 'bo_oficial', 'tx_orgao_concedente', 'ft_orgao_concedente', 'tx_tipo_parceria_outro'];
+
+    public $timestamps = false;
 
     protected $with = [
         'dc_fonte_recursos_projeto',

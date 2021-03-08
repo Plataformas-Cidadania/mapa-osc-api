@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -71,6 +72,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
                         'App\Repositories\Osc\PublicoBeneficiadoProjetoRepositoryInterface', 'App\Repositories\Osc\PublicoBeneficiadoProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+                        'App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface', 'App\Repositories\Osc\FonteRecursosProjetoRepositoryEloquent'
         );
         //DADOS DO SCHEMA SYST
         $this->app->bind(
