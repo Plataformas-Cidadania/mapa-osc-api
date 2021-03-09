@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_objetivo_projeto
  * @property string $tx_nome_objetivo_projeto
  * @property string $tx_codigo_objetivo_projeto
- * @property MetaProjeto[] $metaProjetos
+ * @property DCMetaProjeto[] $metaProjetos
  */
 class DCObjetivoProjeto extends Model
 {
@@ -38,6 +38,6 @@ class DCObjetivoProjeto extends Model
      */
     public function meta_projetos()
     {
-        return $this->hasMany('App\Models\Syst\MetaProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
+        return $this->hasMany('App\Models\Syst\DCMetaProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
     }
 }

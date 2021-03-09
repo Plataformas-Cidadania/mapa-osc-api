@@ -2,7 +2,7 @@
 
 namespace App\Models\Osc;
 
-use App\Models\Syst\MetaProjeto;
+use App\Models\Syst\DCMetaProjeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ft_objetivo_projeto
  * @property boolean $bo_oficial
  * @property Projeto $projeto
- * @property MetaProjeto $meta_projeto
+ * @property DCMetaProjeto $meta_projeto
  */
 class ObjetivoProjeto extends Model
 {
@@ -37,6 +37,8 @@ class ObjetivoProjeto extends Model
 
     public $timestamps = false;
 
+    protected $with = ['meta_projeto'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -48,8 +50,8 @@ class ObjetivoProjeto extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function MetaProjeto()
+    public function meta_projeto()
     {
-        return $this->belongsTo('App\Models\Syst\MetaProjeto', 'cd_meta_projeto', 'cd_meta_projeto');
+        return $this->belongsTo('App\Models\Syst\DCMetaProjeto', 'cd_meta_projeto', 'cd_meta_projeto');
     }
 }

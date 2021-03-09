@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_objetivo_projeto
  * @property string $tx_nome_meta_projeto
  * @property string $tx_codigo_meta_projeto
- * @property ObjetivoProjeto $objetivoProjeto
+ * @property DCObjetivoProjeto $objetivoProjeto
  * @property ObjetivoOsc[] $objetivoOscs
  * @property ObjetivoProjeto[] $objetivoProjetos
  */
@@ -37,12 +37,14 @@ class DCMetaProjeto extends Model
 
     public $timestamps = false;
 
+    protected $with = ['objetivo_projeto'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function objetivo_projeto()
     {
-        return $this->belongsTo('App\Models\Syst\ObjetivoProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
+        return $this->belongsTo('App\Models\Syst\DCObjetivoProjeto', 'cd_objetivo_projeto', 'cd_objetivo_projeto');
     }
 
     /**
