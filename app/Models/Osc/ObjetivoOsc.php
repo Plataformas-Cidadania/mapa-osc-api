@@ -2,6 +2,7 @@
 
 namespace App\Models\Osc;
 
+use App\Models\Syst\DCMetaProjeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_meta_osc
  * @property string $ft_objetivo_osc
  * @property boolean $bo_oficial
- * @property Osc.tbOsc $osc.tbOsc
- * @property Syst.dcMetaProjeto $syst.dcMetaProjeto
+ * @property Osc $osc
+ * @property DCMetaProjeto $dc_meta_projeto
  */
 class ObjetivoOsc extends Model
 {
@@ -39,16 +40,16 @@ class ObjetivoOsc extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Osc()
+    public function osc()
     {
-        return $this->belongsTo('App\Models\Osc\Osc.tbOsc', 'id_osc', 'id_osc');
+        return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function MetaProjeto()
+    public function meta_projeto()
     {
-        return $this->belongsTo('App\Models\Syst\MetaProjeto', 'cd_meta_osc', 'cd_meta_projeto');
+        return $this->belongsTo('App\Models\Syst\DCMetaProjeto', 'cd_meta_osc', 'cd_meta_projeto');
     }
 }

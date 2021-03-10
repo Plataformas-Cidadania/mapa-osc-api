@@ -58,6 +58,13 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/descricao/{id}', 'DadosGeraisController@getDescricao');
     $router->put('/descricao/{id}', 'DadosGeraisController@updateDescricao');
 
+    //---------------------------------Objetivos (ODS) OSC--------------------------------------//
+    $router->get('/objetivos/{id_projeto}', 'ObjetivoOscController@getObjetivosPorOsc');
+    $router->get('/objetivo/{id}', 'ObjetivoOscController@get');
+    $router->put('/objetivo/{id}', 'ObjetivoOscController@update');
+    $router->post('/objetivo/', 'ObjetivoOscController@store');
+    $router->delete('/objetivo/{id}', 'ObjetivoOscController@delete');
+
     //INFORMAÇÕES DE TITULAÇÕES E CERTIFICAÇÕES
     $router->get('/certificado/{id}', 'CertificadoController@get');
     $router->post('/certificado/', 'CertificadoController@store');
