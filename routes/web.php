@@ -52,7 +52,10 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //INFORMAÇÕES DE AREA E SUBAREA DE ATUAÇÃO DA OSC
     $router->get('/areas_atuacao/{id_osc}', 'AreaAtuacaoController@getAreasAtuacaoPorOSC');
-    $router->put('/areas_atuacao/{id_osc}', 'AreaAtuacaoController@updateAreasAtuacaoPorOSC');
+    $router->get('/area_atuacao/{id}', 'AreaAtuacaoController@get');
+    $router->put('/area_atuacao/{id}', 'AreaAtuacaoController@update');
+    $router->post('/area_atuacao/', 'AreaAtuacaoController@store');
+    $router->delete('/area_atuacao/{id}', 'AreaAtuacaoController@delete');
 
     //INFORMAÇÕES DE DESCRIÇÃO DA OSC
     $router->get('/descricao/{id}', 'DadosGeraisController@getDescricao');
@@ -69,7 +72,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/certificado/{id}', 'CertificadoController@get');
     $router->post('/certificado/', 'CertificadoController@store');
     $router->get('/certificados/{id_osc}', 'CertificadoController@getCertificadosPorOSC');
-    //$router->put('/certificados/{id_osc}', 'CertificadoController@updateCertificados');
     $router->delete('/certificado/{id_osc}', 'CertificadoController@delete');
     $router->put('/certificado/{id}', 'CertificadoController@update');
 
@@ -79,7 +81,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //---------------------Relações de Trabalho-----------------------------------//
     $router->get('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@get');
     $router->put('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@update');
-    //$router->get('/rel_trabalho/{id}', 'RelacoesTrabalhoController@get');
 
     //---------------------Governança----------------------------------------------//
     $router->get('/governanca/{id}', 'GovernancaController@get');

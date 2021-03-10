@@ -11,6 +11,8 @@ interface AreaAtuacaoRepositoryInterface
 {
     public function __construct(AreaAtuacao $_area_atuacao);
 
+    public function get($id);
+
     public function getAreasAtuacaoPorOSC($_id_osc);
 
     public function store(array $data);

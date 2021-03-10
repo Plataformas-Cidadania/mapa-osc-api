@@ -30,10 +30,6 @@ class DCAreaAtuacao extends Model
      */
     protected $fillable = ['tx_nome_area_atuacao'];
 
-    protected $with = [
-      'subareas_atuacao'
-    ];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

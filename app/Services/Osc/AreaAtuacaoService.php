@@ -36,7 +36,7 @@ class AreaAtuacaoService
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        return $this->repo->store($data);
     }
 
     public function update($id, array $data)
@@ -46,6 +46,6 @@ class AreaAtuacaoService
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        return $this->repo->destroy($id);
     }
 }

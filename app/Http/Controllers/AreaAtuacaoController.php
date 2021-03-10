@@ -52,14 +52,39 @@ class AreaAtuacaoController extends Controller
     }
 
     public function store(Request $request) {
+        try {
+            $dados = $request->all();
 
+            //Retorna novo registro
+            return response()->json($this->service->store($dados), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function update($id, Request $request) {
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($id, $dados), Response::HTTP_OK);
+            $area_atuacao = $this->service->update($id, $dados);
+
+            if ($area_atuacao) {
+
+                return response()->json(['Resposta' => 'Área de Atuação atualizada com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function delete($id) {
+        try {
+            if ($this->service->destroy($id))
+            {
+                return response()->json(['Resposta' => 'Área de Atuação deletada com sucesso!'], Response::HTTP_OK);
+            }
         }
         catch (\Exception $e) {
             return $e->getMessage();

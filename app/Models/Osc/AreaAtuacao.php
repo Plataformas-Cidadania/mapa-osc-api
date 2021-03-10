@@ -2,6 +2,8 @@
 
 namespace App\Models\Osc;
 
+use App\Models\Syst\DCAreaAtuacao;
+use App\Models\Syst\DCSubareaAtuacao;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,9 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ft_area_atuacao
  * @property boolean $bo_oficial
  * @property string $tx_nome_outra
- * @property Syst.dcAreaAtuacao $syst.dcAreaAtuacao
- * @property Syst.dcSubareaAtuacao $syst.dcSubareaAtuacao
- * @property Osc.tbOsc $osc.tbOsc
+ * @property DCAreaAtuacao $dc_area_atuacao
+ * @property DCSubareaAtuacao $dc_subarea_atuacao
+ * @property Osc $osc
  */
 class AreaAtuacao extends Model
 {
@@ -37,7 +39,10 @@ class AreaAtuacao extends Model
      */
     protected $fillable = ['id_osc', 'cd_area_atuacao', 'cd_subarea_atuacao', 'ft_area_atuacao', 'bo_oficial', 'tx_nome_outra'];
 
+    public $timestamps = false;
+
     protected $with = ['dc_area_atuacao', 'dc_subarea_atuacao'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
