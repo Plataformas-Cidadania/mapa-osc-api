@@ -37,6 +37,8 @@ class ObjetivoOsc extends Model
 
     public $timestamps = false;
 
+    protected $with = ['meta_projeto'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
