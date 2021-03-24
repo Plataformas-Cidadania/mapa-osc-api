@@ -159,4 +159,14 @@ class OscController extends Controller
 
         //return $user;
     }
+
+    public function getListaOscAtualizadas($tam_lista)
+    {
+        try {
+            return response()->json($this->service->getListaOscAtualizadas($tam_lista), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

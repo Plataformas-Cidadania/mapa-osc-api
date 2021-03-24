@@ -39,6 +39,9 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/{id}', 'OscController@update');
     $router->delete('/{id}', 'OscController@destroy');
 
+    //ROTAS PARA POPULAR DADOS DA HOME
+    $router->get('/lista_atualizada/{tam}', 'OscController@getListaOscAtualizadas');
+
     //INFORMAÇÕES PARA O GRÁFICO
     //$router->get('/total_oscs/', 'OscController@getNumeroTotalOSCs');
     //$router->get('/osc_com_certificacoes/', 'OscController@getNumeroOSCcomCertificacoes');

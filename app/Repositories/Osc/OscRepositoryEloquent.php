@@ -9,6 +9,7 @@ use App\Models\Osc\ObjetivoOsc;
 use App\Models\Osc\Osc;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use function Sodium\add;
 
 class OscRepositoryEloquent implements OscRepositoryInterface
@@ -286,5 +287,12 @@ class OscRepositoryEloquent implements OscRepositoryInterface
     public function update($id, array $data)
     {
         return $this->model->find($id)->update($data);
+    }
+
+    public function getListaOscAtualizadas($tam_lista)
+    {
+        $sql = 'SELECT id_osc, tx_nome_osc FROM portal.vw_log_alteracao ORDER BY dt_alteracao DESC LIMIT '.$tam_lista;
+
+        return DB::select($sql);
     }
 }

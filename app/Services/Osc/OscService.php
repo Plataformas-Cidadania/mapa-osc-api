@@ -73,4 +73,9 @@ class OscService
     {
         // TODO: Implement destroy() method.
     }
+
+    public function getListaOscAtualizadas($tam_lista)
+    {
+        return $this->repo->getListaOscAtualizadas($tam_lista);
+    }
 }
