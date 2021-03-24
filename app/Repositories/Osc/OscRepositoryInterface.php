@@ -32,4 +32,6 @@ interface OscRepositoryInterface
     public function getParticipacaoSocial($id);
 
     public function update($id, array $data);
+
+    public function getGrafico($tipo_graf);
 }

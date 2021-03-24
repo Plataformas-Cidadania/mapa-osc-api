@@ -244,8 +244,6 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         $projetos = $osc->projetos;
 
-        //dump($projetos);
-
         $dados = [];
 
         foreach ($projetos as $projeto) {
@@ -294,5 +292,22 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $sql = 'SELECT id_osc, tx_nome_osc FROM portal.vw_log_alteracao ORDER BY dt_alteracao DESC LIMIT '.$tam_lista;
 
         return DB::select($sql);
+    }
+
+    public function getGrafico($tipo_graf)
+    {
+        $sql = 'SELECT * FROM portal.tb_analise 
+                INNER JOIN syst.tb_tipo_grafico ON 
+                    tb_analise.tipo_grafico = tb_tipo_grafico.id_grafico 
+                WHERE tb_analise.ativo AND tb_analise.id_analise = ' . $tipo_graf;
+
+        $resultado = DB::select($sql);
+
+        $analise = $resultado[0];
+
+        $serie = json_decode($analise->series_1);
+        $analise->series_1 = $serie;
+
+        return $analise;
     }
 }

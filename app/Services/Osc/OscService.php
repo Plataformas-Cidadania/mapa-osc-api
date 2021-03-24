@@ -78,4 +78,9 @@ class OscService
     {
         return $this->repo->getListaOscAtualizadas($tam_lista);
     }
+
+    public function getGrafico($tipo_graf)
+    {
+        return $this->repo->getGrafico($tipo_graf);
+    }
 }

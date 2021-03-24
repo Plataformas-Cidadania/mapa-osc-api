@@ -41,6 +41,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //ROTAS PARA POPULAR DADOS DA HOME
     $router->get('/lista_atualizada/{tam}', 'OscController@getListaOscAtualizadas');
+    $router->get('/grafico/{tipo}', 'OscController@getGrafico');
 
     //INFORMAÇÕES PARA O GRÁFICO
     //$router->get('/total_oscs/', 'OscController@getNumeroTotalOSCs');

@@ -169,4 +169,14 @@ class OscController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getGrafico($tipo_graf)
+    {
+        try {
+            return response()->json($this->service->getGrafico($tipo_graf), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
