@@ -122,6 +122,23 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return $dados_gerais;
     }
 
+    public function updateLogo($id, array $data){
+        $dados_gerais = DadosGerais::find($id);
+
+        if (is_null($dados_gerais))
+        {
+            return false;
+        }
+        $dados_gerais->fill($data);
+        $dados_gerais->save();
+
+        $dados_atualizados = [
+            'im_logo' => $dados_gerais->im_logo,
+        ];
+
+        return $dados_atualizados;
+    }
+
     public function updateDadosGerais($id, array $data)
     {
 
