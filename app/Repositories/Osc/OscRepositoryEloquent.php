@@ -305,8 +305,11 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         $analise = $resultado[0];
 
-        $serie = json_decode($analise->series_1);
-        $analise->series_1 = $serie;
+        $serie1 = json_decode($analise->series_1);
+        $analise->series_1 = $serie1;
+
+        $serie2 = json_decode($analise->series_2);
+        $analise->series_2 = $serie2;
 
         return $analise;
     }
