@@ -21,7 +21,11 @@ interface OscRepositoryInterface
 
     public function getDadosGerais($id);
 
+
     public function getListaOscAtualizadas($tam_lista);
+
+    public function updateLogo($id, array $data);
+
 
     public function updateDadosGerais($id, array $data);
 
