@@ -6,6 +6,12 @@
     "keywords": ["php", "lumen", "api", "rest", "server", "http", "json", "mapaosc", "ipea"],
     "license": "LGPL-3.0",
     "authors": [
+        {
+            "name": "Thiago Giannini Ramos",
+            "email": "gianninimail@gmail.com",
+            "homepage": "https://www.naderman.de",
+            "role": "Project Leader / Developer"
+        }
     ],
     "type": "project",
     "require": {
