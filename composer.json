@@ -5,7 +5,7 @@
     "homepage": "https://mapaosc.ipea.gov.br/",
     "keywords": ["php", "lumen", "api", "rest", "server", "http", "json", "mapaosc", "ipea"],
     "license": "LGPL-3.0",
-    "authors": ["Thiago Giannini", "Fabio Barreto", "Bruno Passos"
+    "authors": [
     ],
     "type": "project",
     "require": {
