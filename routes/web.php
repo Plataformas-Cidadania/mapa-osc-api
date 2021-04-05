@@ -40,8 +40,16 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/{id}', 'OscController@destroy');
 
     //ROTAS PARA POPULAR DADOS DA HOME
+
+    //Listas das recentemente atualizadas
     $router->get('/lista_atualizada/{tam}', 'OscController@getListaOscAtualizadas');
+
+    //Gráficos da home
     $router->get('/grafico/{tipo}', 'OscController@getGrafico');
+
+    //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacao');
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
 
     //INFORMAÇÕES PARA O GRÁFICO
     //$router->get('/total_oscs/', 'OscController@getNumeroTotalOSCs');

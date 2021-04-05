@@ -96,4 +96,9 @@ class OscService
     {
         return $this->repo->getGrafico($tipo_graf);
     }
+
+    public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit)
+    {
+        return $this->repo->getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
+    }
 }

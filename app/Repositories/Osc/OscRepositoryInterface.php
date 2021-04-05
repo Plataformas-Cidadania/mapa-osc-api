@@ -21,11 +21,9 @@ interface OscRepositoryInterface
 
     public function getDadosGerais($id);
 
-
     public function getListaOscAtualizadas($tam_lista);
 
     public function updateLogo($id, array $data);
-
 
     public function updateDadosGerais($id, array $data);
 
@@ -38,4 +36,8 @@ interface OscRepositoryInterface
     public function update($id, array $data);
 
     public function getGrafico($tipo_graf);
+
+    public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
+
+    public function getPerfilLocalidadeCaracteristicas($id_localidade);
 }

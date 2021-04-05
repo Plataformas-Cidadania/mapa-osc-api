@@ -10,6 +10,8 @@ use App\Models\Osc\Osc;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Util\Json;
+use function MongoDB\BSON\toJSON;
 use function Sodium\add;
 
 class OscRepositoryEloquent implements OscRepositoryInterface
@@ -328,6 +330,60 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $serie2 = json_decode($analise->series_2);
         $analise->series_2 = $serie2;
 
+        $delimitadores = ["'", "{", "}"];//Utlizado para retirar impecilios para transformação em JSON
+
+        $fontes_n_chaves_e_aspas = str_replace($delimitadores, "", $analise->fontes);
+        $vet_fontes = explode(",", $fontes_n_chaves_e_aspas);
+        $analise->fontes = $vet_fontes;
+
+        $titulos_n_chaves_e_aspas = str_replace($delimitadores, "", $analise->titulo_colunas);
+        $vet_titulos = explode(",", $titulos_n_chaves_e_aspas);
+        $analise->titulo_colunas = $vet_titulos;
+
+        $configuracao_n_chaves_e_aspas = str_replace($delimitadores, "", $analise->configuracao);
+        $vet_configuracao = explode(",", $configuracao_n_chaves_e_aspas);
+        $analise->configuracao = $vet_configuracao;
+
         return $analise;
     }
+
+    public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit)
+    {
+        $sql = $query = 'SELECT * FROM portal.obter_osc_por_area_atuacao(?::INTEGER, ?::DOUBLE PRECISION[], ?::INTEGER, ?::INTEGER)';
+
+        $geo = '{' . 0 . ', ' . 0 . '}';
+        $params = [$areaAtuacao, $geo, $municipio, $limit];;
+
+        if ($params) {
+            $resultado = DB::select($sql, $params);
+        }
+        else {
+            $resultado = DB::select($sql);
+        }
+
+        $analise = $resultado;
+
+        return $analise;
+    }
+
+
+    public function getPerfilLocalidadeCaracteristicas($id_localidade)
+    {
+        $sql = $query = "SELECT
+			nome_localidade AS tx_localidade,
+			CASE
+				WHEN tipo_localidade = 'regiao' THEN 'Região'
+				WHEN tipo_localidade = 'estado' THEN 'Estado'
+				WHEN tipo_localidade = 'municipio' THEN 'Município'
+			END AS tx_tipo_localidade
+		FROM analysis.vw_perfil_localidade_caracteristicas
+		WHERE localidade = " . $id_localidade;
+
+        $resultado = DB::select($sql);
+
+        $analise = $resultado;
+
+        return $analise;
+    }
+
 }
