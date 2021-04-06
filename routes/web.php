@@ -56,6 +56,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //UPDATE IMAGEM OSC
     $router->post('/logo/{id}', 'OscController@updateLogo');
+    $router->get('/logo/{id}', 'OscController@getLogo');
 
     //INFORMAÇÕES DE AREA E SUBAREA DE ATUAÇÃO DA OSC
     $router->get('/areas_atuacao/{id_osc}', 'AreaAtuacaoController@getAreasAtuacaoPorOSC');

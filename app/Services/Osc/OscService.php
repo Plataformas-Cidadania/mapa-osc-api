@@ -48,13 +48,20 @@ class OscService
 
     public function updateLogo($id, $file)
     {
-        Log::info($file);
         $filename = str_replace(" ", "-", $file->getClientOriginalName());
         $filename = preg_replace("/[^A-Za-z0-9-.]/","", $filename);
         $filenameRandom = rand(1,10000)."-".$id."-".$filename;
         $this->successFile = Storage::putFileAs("/osc/", $file, $filenameRandom);
         $this->repo->updateLogo($id, ['im_logo' => $filenameRandom, 'ft_logo' => "Representante de OSC"]);
         return 'data:image/png;base64,'.base64_encode(file_get_contents(storage_path('app/osc/'.$filenameRandom)));
+    }
+
+    public function getLogo($id){
+        $logo = $this->repo->getLogo($id);
+        if($logo === false){
+            return null;
+        }
+        return 'data:image/png;base64,'.base64_encode(file_get_contents(storage_path('app/osc/'.$logo)));
     }
 
     public function getRelTrabalhoAndGovernanca($id)
