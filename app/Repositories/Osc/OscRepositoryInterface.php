@@ -25,6 +25,8 @@ interface OscRepositoryInterface
 
     public function updateLogo($id, array $data);
 
+    public function getLogo($id);
+
     public function updateDadosGerais($id, array $data);
 
     public function getRelTrabalhoAndGovernanca($id);

@@ -114,6 +114,16 @@ class OscController extends Controller
         }
     }
 
+    public function getLogo($id)
+    {
+        try {
+            return response()->json($this->service->getLogo($id), Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+
     public function getDescricao($id)
     {
         try {

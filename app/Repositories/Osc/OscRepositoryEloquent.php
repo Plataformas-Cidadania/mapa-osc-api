@@ -142,6 +142,15 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return $dados_atualizados;
     }
 
+    public function getLogo($id){
+        $dados_gerais = DadosGerais::find($id);
+
+        if(is_null($dados_gerais)){
+            return false;
+        }
+        return $dados_gerais->im_logo;
+    }
+
     public function updateDadosGerais($id, array $data)
     {
 
@@ -385,5 +394,6 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         return $analise;
     }
+
 
 }
