@@ -197,4 +197,12 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/projeto/recurso/{id}', 'FonteRecursosProjetoController@update');
     $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
     $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
+
+
+    //--------------------------//-----------------------------------------------------------//
+    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
+    $router->get('/geo/{id}', 'DCGeoClusterController@get');
+    $router->get('/geo/regiao/', 'DCGeoClusterController@getRegiaoAll');
+    $router->get('/geo/estado/', 'DCGeoClusterController@getEstadoAll');
+    //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
 });
