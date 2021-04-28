@@ -23,22 +23,22 @@ class DCGeoClusterRepositoryEloquent implements DCGeoClusterRepositoryInterface
 
     public function get($_id)
     {
-        $meta = $this->model->find($_id);
+        $geocluster = $this->model->find($_id);
 
-        return $meta;
+        return $geocluster;
     }
 
     public function getRegiaoAll()
     {
-        $meta = $this->model->all()->where('cd_tipo_regiao', 1);
+        $geoclusters = $this->model->all()->where('cd_tipo_regiao', 1);
 
-        return $meta;
+        return $geoclusters;
     }
 
     public function getEstadoAll()
     {
-        $meta = $this->model->all()->where('cd_tipo_regiao', 2);
+        $geoclusters = $this->model->all()->where('cd_tipo_regiao', 2);
 
-        return $meta;
+        return $geoclusters;
     }
 }

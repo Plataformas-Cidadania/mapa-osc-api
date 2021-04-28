@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Osc\AreaAtuacaoRepositoryInterface', 'App\Repositories\Osc\AreaAtuacaoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Osc\AreaAtuacaoRepresentanteRepositoryInterface', 'App\Repositories\Osc\AreaAtuacaoRepresentanteRepositoryEloquent'
         );
         $this->app->bind(
             'App\Repositories\Osc\CertificadoRepositoryInterface', 'App\Repositories\Osc\CertificadoRepositoryEloquent'
@@ -96,6 +100,11 @@ class AppServiceProvider extends ServiceProvider
         //DADOS DO SCHEMA SPAT
         $this->app->bind(
             'App\Repositories\Spat\DCGeoClusterRepositoryInterface', 'App\Repositories\Spat\DCGeoClusterRepositoryEloquent'
+        );
+
+        //DADOS DO SCHEMA IPEADATA
+        $this->app->bind(
+            'App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface', 'App\Repositories\Ipeadata\DCIpeadataUffRepositoryEloquent'
         );
     }
 }
