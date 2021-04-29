@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\IpeaData;
+namespace App\Models\Ipeadata;
 
 use Illuminate\Database\Eloquent\Model;
 

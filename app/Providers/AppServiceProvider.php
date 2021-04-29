@@ -106,5 +106,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface', 'App\Repositories\Ipeadata\DCIpeadataUffRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryInterface', 'App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryEloquent'
+        );
     }
 }

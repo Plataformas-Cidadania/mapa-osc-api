@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Ipeadata\DCIpeadataMunicipioService;
+use App\Services\Ipeadata\DCIpeadataUffService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DCIpeadataMunicipioController extends Controller
+class DCIpeadataUffController extends Controller
 {
     private $service;
 
     /**
      * Create a new controller instance.
      *
-     * @param DCIpeadataMunicipioService $service
+     * @param DCIpeadataUffService $service
      */
-    public function __construct(DCIpeadataMunicipioService $_service)
+    public function __construct(DCIpeadataUffService $_service)
     {
         $this->service = $_service;
     }

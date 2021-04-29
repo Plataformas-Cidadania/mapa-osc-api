@@ -83,7 +83,7 @@ class Uf extends Model
      */
     public function ipea_data_uf()
     {
-        return $this->hasMany('App\Models\IpeaData\IpeaDataUf', 'cd_uf', 'eduf_cd_uf');
+        return $this->hasMany('App\Models\IpeaData\DCIpeadataUff', 'cd_uf', 'eduf_cd_uf');
     }
 
     /**

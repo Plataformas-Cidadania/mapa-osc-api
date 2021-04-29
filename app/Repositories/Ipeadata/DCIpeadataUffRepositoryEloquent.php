@@ -3,15 +3,15 @@
 
 namespace App\Repositories\Ipeadata;
 
-use App\Models\Ipeadata\DCIpeadataMunicipio;
-use App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryInterface;
+use App\Models\Ipeadata\DCIpeadataUff;
+use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class DCIpeadataMunicipioRepositoryEloquent implements DCIpeadataMunicipioRepositoryInterface
+class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterface
 {
     private $model;
 
-    public function __construct(DCIpeadataMunicipio $_modelo)
+    public function __construct(DCIpeadataUff $_modelo)
     {
         $this->model = $_modelo;
     }
@@ -23,19 +23,17 @@ class DCIpeadataMunicipioRepositoryEloquent implements DCIpeadataMunicipioReposi
 
     public function get($_id)
     {
-        $municipio = $this->model->find($_id);
+        $ipeadata = $this->model->find($_id);
 
-        //dd($municipio);
-
-        $valores = $municipio->edmu_geometry;
+        $valores = $ipeadata->eduf_geometry;
 
         //dd($valores);
 
-        //$teste = $this->mountAreas($valores, null);
+        $teste = $this->mountAreas($valores, null);
 
-        //dd($teste);
+        dd($teste);
 
-        return $municipio;
+        return $ipeadata;
     }
 
     private function mountAreas($valores, $area){

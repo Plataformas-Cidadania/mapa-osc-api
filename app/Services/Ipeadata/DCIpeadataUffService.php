@@ -3,14 +3,14 @@
 
 namespace App\Services\Ipeadata;
 
-use App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryInterface;
+use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 
-class DCIpeadataMunicipioService
+class DCIpeadataUffService
 {
 
     private $repo;
 
-    public function __construct(DCIpeadataMunicipioRepositoryInterface $_repo)
+    public function __construct(DCIpeadataUffRepositoryInterface $_repo)
     {
         $this->repo = $_repo;
     }

@@ -208,11 +208,14 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
     $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
-    $router->get('/geo/regiao/', 'DCGeoClusterController@getRegiaoAll');
-    $router->get('/geo/estado/', 'DCGeoClusterController@getEstadoAll');
+    $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
+    $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
 
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO IPEADATA
-    $router->get('/ipeadata/uff/{id}', 'DCIpeadataController@get');
-    $router->get('/ipeadata/uffs/', 'DCIpeadataController@getAll');
+    $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
+    $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
+
+    $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
+    $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
 });

@@ -11,26 +11,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $eduf_geometry
  * @property float $nr_valor
  */
-class DCIpeadataMunicipio extends Model
+class DCIpeadataUff extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'ipeadata.vw_dados_geograficos_idh_municipio';
+    protected $table = 'ipeadata.vw_dados_geograficos_idh_uf';
 
     /**
      * The primary key for the model.
      * 
      * @var string
      */
-    protected $primaryKey = 'edmu_cd_municipio';
+    protected $primaryKey = 'eduf_cd_uf';
 
     /**
      * @var array
      */
-    protected $fillable = ['edmu_nm_municipio', 'eduf_cd_uf', 'edmu_geometry', 'nr_valor'];
+    protected $fillable = ['eduf_nm_uf', 'edre_cd_regiao', 'eduf_geometry', 'nr_valor'];
 
     public $timestamps = false;
 }

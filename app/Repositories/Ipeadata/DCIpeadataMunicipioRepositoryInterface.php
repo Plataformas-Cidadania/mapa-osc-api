@@ -3,12 +3,12 @@
 
 namespace App\Repositories\Ipeadata;
 
-use App\Models\Ipeadata\DCIpeadataUff;
+use App\Models\Ipeadata\DCIpeadataMunicipio;
 use Illuminate\Database\Eloquent\Model;
 
-interface DCIpeadataUffRepositoryInterface
+interface DCIpeadataMunicipioRepositoryInterface
 {
-    public function __construct(DCIpeadataUff $_modelo);
+    public function __construct(DCIpeadataMunicipio $_modelo);
 
     public function getAll();
 
