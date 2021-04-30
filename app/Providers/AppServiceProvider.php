@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Osc\ProjetoRepositoryInterface', 'App\Repositories\Osc\ProjetoRepositoryEloquent'
         );
         $this->app->bind(
-            'App\Repositories\Osc\FonteRecursosRepositoryInterface', 'App\Repositories\Osc\FonteRecursosRepositoryEloquent'
+            'App\Repositories\Osc\RecursosOSCRepositoryInterface', 'App\Repositories\Osc\RecursosOSCRepositoryEloquent'
         );
         $this->app->bind(
             'App\Repositories\Osc\RelacoesTrabalhoRepositoryInterface', 'App\Repositories\Osc\RelacoesTrabalhoRepositoryEloquent'

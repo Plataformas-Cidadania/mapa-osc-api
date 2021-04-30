@@ -39,4 +39,5 @@ class DCFonteRecursosOsc extends Model
     {
         return $this->hasOne('App\Models\Syst\DCOrigemFonteRecursosOsc', 'cd_origem_fonte_recursos_osc', 'cd_origem_fonte_recursos_osc');
     }
+   
 }

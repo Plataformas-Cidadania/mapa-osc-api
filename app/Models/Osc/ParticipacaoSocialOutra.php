@@ -40,6 +40,6 @@ class ParticipacaoSocialOutra extends Model
      */
     public function Osc()
     {
-        return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
+        return $this->belongsTo();
     }
 }

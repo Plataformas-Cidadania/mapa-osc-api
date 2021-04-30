@@ -13,20 +13,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ft_ano_recursos_osc
  * @property float $nr_valor_recursos_osc
  * @property string $ft_valor_recursos_osc
- * @property boolean $bo_nao_possui
- * @property string $ft_nao_possui
- * @property int $cd_origem_fonte_recursos_osc
  * @property Syst.dcFonteRecursosOsc $syst.dcFonteRecursosOsc
  * @property Osc.tbOsc $osc.tbOsc
  */
-class FonteRecursos extends Model
+class Recurso extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'osc.tb_recursos_osc';
+    protected $table = 'osc.tb_recursos_osc_';
 
     /**
      * The primary key for the model.
@@ -38,22 +35,22 @@ class FonteRecursos extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_fonte_recursos_osc', 'ft_fonte_recursos_osc', 'dt_ano_recursos_osc', 'ft_ano_recursos_osc', 'nr_valor_recursos_osc', 'ft_valor_recursos_osc', 'bo_nao_possui', 'ft_nao_possui', 'cd_origem_fonte_recursos_osc'];
+    protected $fillable = ['id_osc', 'cd_fonte_recursos_osc', 'ft_fonte_recursos_osc', 'dt_ano_recursos_osc', 'ft_ano_recursos_osc', 'nr_valor_recursos_osc', 'ft_valor_recursos_osc'];
     public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function dc_fonte_recursos()
+    public function dc_fonte_recurso()
     {
         return $this->hasOne('App\Models\Syst\DCFonteRecursosOsc', 'cd_fonte_recursos_osc', 'cd_fonte_recursos_osc');
     }
-
+ 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function osc()
     {
         return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
-    }
+    }    
 }

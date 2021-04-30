@@ -2,29 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Osc\FonteRecursos;
-use App\Services\Osc\FonteRecursosService;
+use App\Models\Osc\Recurso;
+use App\Services\Osc\RecursosOSCService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class FonteRecursosController extends Controller
+class RecursosOSCController extends Controller
 {
     private $service;
 
     /**
      * Create a new controller instance.
      *
-     * @param FonteRecursosService $service
+     * @param RecursosOSCService $service
      */
-    public function __construct(FonteRecursosService $_service)
+    public function __construct(RecursosOSCService $_service)
     {
         $this->service = $_service;
     }
 
-    public function getFonteRecursosPorOSC($id_osc)
+    public function getRecursosPorOSC($id_osc)
     {
         try {
-            return response()->json($this->service->getFonteRecursosPorOSC($id_osc), Response::HTTP_OK);
+            return response()->json($this->service->getRecursosPorOSC($id_osc), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getNRecursosPorOSC($id_osc)
+    {
+        try {
+            return response()->json($this->service->getNRecursosPorOSC($id_osc), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -32,10 +41,10 @@ class FonteRecursosController extends Controller
     }
 
     //cd_fonte_recurso_osc + ano formatado (yyyy)
-    public function getAnoFonteRecursosPorOSC($id_osc)
+    public function getAnoRecursosPorOSC($id_osc)
     {
         try {
-            return response()->json($this->service->getAnoFonteRecursosPorOSC($id_osc), Response::HTTP_OK);
+            return response()->json($this->service->getAnoRecursosPorOSC($id_osc), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -64,7 +73,7 @@ class FonteRecursosController extends Controller
 
             if ($fonte)
             {
-                return response()->json(['Resposta' => 'Fonte de Recurso atualizada com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'Recurso atualizado com sucesso!'], Response::HTTP_OK);
             }
 
             return $fonte;
@@ -77,7 +86,7 @@ class FonteRecursosController extends Controller
         try {
             if ($this->service->delete($id))
             {
-                return response()->json(['Resposta' => 'Fonte de Recurso deletada com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'Recurso deletado com sucesso!'], Response::HTTP_OK);
             }
         }
         catch (\Exception $e) {
