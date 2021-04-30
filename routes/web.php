@@ -73,6 +73,13 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/area_atuacao/', 'AreaAtuacaoController@store');
     $router->delete('/area_atuacao/{id}', 'AreaAtuacaoController@delete');
 
+    //INFORMAÇÕES DE AREA E SUBAREA DE ATUAÇÃO DA OSC DEFINIDAS PELO REPRESENTANTE
+    $router->get('/areas_atuacao_rep/{id_osc}', 'AreaAtuacaoRepresentanteController@getAreasAtuacaoRepPorOSC');
+    $router->get('/area_atuacao_rep/{id}', 'AreaAtuacaoRepresentanteController@get');
+    $router->put('/area_atuacao_rep/{id}', 'AreaAtuacaoRepresentanteController@update');
+    $router->post('/area_atuacao_rep/', 'AreaAtuacaoRepresentanteController@store');
+    $router->delete('/area_atuacao_rep/{id}', 'AreaAtuacaoRepresentanteController@delete');
+
     //INFORMAÇÕES DE DESCRIÇÃO DA OSC
     $router->get('/descricao/{id}', 'DadosGeraisController@getDescricao');
     $router->put('/descricao/{id}', 'DadosGeraisController@updateDescricao');
@@ -198,4 +205,18 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/projeto/recurso/{id}', 'FonteRecursosProjetoController@update');
     $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
     $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
+
+    //--------------------------//-----------------------------------------------------------//
+    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
+    $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
+    $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
+    $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
+
+    //--------------------------//-----------------------------------------------------------//
+    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO IPEADATA
+    $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
+    $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
+
+    $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
+    $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
 });

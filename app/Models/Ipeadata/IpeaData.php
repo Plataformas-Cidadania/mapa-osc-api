@@ -1,38 +1,38 @@
 <?php
 
-namespace App\Models\IpeaData;
+namespace App\Models\Ipeadata;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $id_ipeadata_uf
- * @property float $cd_uf
+ * @property int $id_ipeadata
+ * @property float $cd_municipio
  * @property int $cd_indice
  * @property int $nr_ano
  * @property float $nr_valor
  * @property Ipeadata.tbIndice $ipeadata.tbIndice
- * @property Spat.edUf $spat.edUf
+ * @property Spat.edMunicipio $spat.edMunicipio
  */
-class IpeaDataUf extends Model
+class IpeaData extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'ipeadata.tb_ipeadata_uf';
+    protected $table = 'ipeadata.tb_ipeadata';
 
     /**
      * The primary key for the model.
      * 
      * @var string
      */
-    protected $primaryKey = 'id_ipeadata_uf';
+    protected $primaryKey = 'id_ipeadata';
 
     /**
      * @var array
      */
-    protected $fillable = ['cd_uf', 'cd_indice', 'nr_ano', 'nr_valor'];
+    protected $fillable = ['cd_municipio', 'cd_indice', 'nr_ano', 'nr_valor'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -45,8 +45,8 @@ class IpeaDataUf extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Ufs()
+    public function Municipio()
     {
-        return $this->belongsTo('App\Models\Spat\Uf', 'cd_uf', 'eduf_cd_uf');
+        return $this->belongsTo('App\Models\Spat\Municipio', 'cd_municipio', 'edmu_cd_municipio');
     }
 }

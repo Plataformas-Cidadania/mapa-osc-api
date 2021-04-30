@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\IpeaData;
+namespace App\Models\Ipeadata;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,6 +46,6 @@ class Indice extends Model
      */
     public function IpeadataUfs()
     {
-        return $this->hasMany('App\Models\IpeaData\IpeaDataUf', 'cd_indice', 'cd_indice');
+        return $this->hasMany('App\Models\IpeaData\DCIpeadataUff', 'cd_indice', 'cd_indice');
     }
 }
