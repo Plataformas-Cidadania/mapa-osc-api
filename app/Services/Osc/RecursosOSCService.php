@@ -18,10 +18,6 @@ class RecursosOSCService
     {
         return $this->repo->getRecursosPorOSC($id_osc);
     }
-    public function getNRecursosPorOSC($id_osc)
-    {
-        return $this->repo->getNRecursosPorOSC($id_osc);
-    }
 
     public function getAnoRecursosPorOSC($id_osc)
     {
