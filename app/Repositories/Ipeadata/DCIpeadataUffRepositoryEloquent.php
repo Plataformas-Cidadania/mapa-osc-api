@@ -6,6 +6,7 @@ namespace App\Repositories\Ipeadata;
 use App\Models\Ipeadata\DCIpeadataUff;
 use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterface
 {
@@ -18,22 +19,26 @@ class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterfac
 
     public function getAll()
     {
-        return $this->model->all();
+        //Utilização de Funções do BD dentro de comandos ELOQUENT
+        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as geometry'))->get();
+
+        return $this->mountAreas($ipeadata, null);
     }
 
     public function get($_id)
     {
-        $ipeadata = $this->model->find($_id);
+        /*
+        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as eduf_geometry'))->find($_id);
 
+        //dd($valores = $ipeadata->eduf_geometry);
         $valores = $ipeadata->eduf_geometry;
-
-        //dd($valores);
 
         $teste = $this->mountAreas($valores, null);
 
         dd($teste);
 
         return $ipeadata;
+        */
     }
 
     private function mountAreas($valores, $area){
@@ -55,12 +60,12 @@ class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterfac
             $areas['features'][$index]['geometry'] = $valor->geometry;
             //$areas['features'][$index]['centro'] = $valor->centro_de_tudo;
         }
-        $areas['bounding_box_total'] = [];
-        $areas['bounding_box_total']['type'] = 'FeatureCollection';
-        $areas['bounding_box_total']['features'] = [];
-        $object_bounding_box_total = json_decode($area[0]->bounding_box_total);
-        $bounding_box_total = $object_bounding_box_total->coordinates;
-        $areas['bounding_box_total'] = $bounding_box_total;
+        //$areas['bounding_box_total'] = [];
+        //$areas['bounding_box_total']['type'] = 'FeatureCollection';
+        //$areas['bounding_box_total']['features'] = [];
+        //$object_bounding_box_total = json_decode($area[0]->bounding_box_total);
+        //$bounding_box_total = $object_bounding_box_total->coordinates;
+        //$areas['bounding_box_total'] = $bounding_box_total;
         //$areas['bounding_box_total'] = null;
         return $areas;
     }
