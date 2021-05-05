@@ -55,15 +55,12 @@ class SemRecursosOSCRepositoryEloquent implements SemRecursosOSCRepositoryInterf
 
     public function delete($id, array $oscAnoOrigem)
     {
-        dd($id,$oscAnoOrigem);
+       // dd($id,$oscAnoOrigem);
    
         $semRecurso =  $this->model->where('id_osc',$id)
                                    ->where('ano',$oscAnoOrigem['ano'])
                                    ->where('cd_origem_fonte_recursos_osc',$oscAnoOrigem['origem'])
                                    ->delete();       
-   
-        dd($semRecurso);
-
-      return  $semRecurso;
+        return  $semRecurso;
     }
 }
