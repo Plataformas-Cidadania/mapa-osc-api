@@ -144,11 +144,17 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //INFORMAÇÕES DE RECURSOS DA OSC
     $router->get('/recursos/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
-    $router->get('/nrecursos/{id_osc}', 'RecursosOSCController@getNRecursosPorOSC');
     $router->get('/anos_recursos/{id_osc}', 'RecursosOSCController@getAnoRecursosPorOSC');
     $router->post('/recursos/', 'RecursosOSCController@store');
     $router->put('/recursos/{id}', 'RecursosOSCController@update');
     $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
+
+    //INFORMAÇÕES DE ANOS QUE NÃO OBTEVERAM RECURSOS DA OSC
+    $router->get('/sem_recursos/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
+    $router->post('/sem_recursos/', 'SemRecursosOSCController@store');
+    $router->delete('/sem_recursos/{id}', 'SemRecursosOSCController@delete');
+
+
 
     //INFORMAÇÕES DE PROJETOS
     $router->get('/projetos/{id_osc}', 'OscController@getProjetos');

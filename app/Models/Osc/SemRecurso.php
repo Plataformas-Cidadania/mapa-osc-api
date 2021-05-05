@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_osc
  * @property int $ano
  * @property string $ft_nao_possui
- * @property Syst.dcOrigemFonteRecursoOsc $syst.dcOrigemFonteRecursoOsc
+ * @property dcOrigemFonteRecursoOsc $syst.dcOrigemFonteRecursoOsc
  */
-class NaoRecurso extends Model
+class SemRecurso extends Model
 {
     /**
      * The table associated with the model.
@@ -25,7 +25,8 @@ class NaoRecurso extends Model
      * 
      * @var string
      */
-    protected $primaryKey = ['id_osc','ano','cd_origem_fonte_recursos_osc'];
+    //protected $primaryKey = 'id_osc','ano','cd_origem_fonte_recursos_osc';
+    protected $primaryKey = 'id_osc';
 
 
     /**
@@ -33,6 +34,7 @@ class NaoRecurso extends Model
      */
     protected $fillable = ['id_osc', 'ano', 'cd_origem_fonte_recursos_osc', 'ft_nao_possui'];
     public $timestamps = false;
+    protected $with = ['dc_origem_fonte_recurso'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -47,6 +49,7 @@ class NaoRecurso extends Model
      */
     public function osc()
     {
-        return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
+        return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc'); 
+
     }    
 }

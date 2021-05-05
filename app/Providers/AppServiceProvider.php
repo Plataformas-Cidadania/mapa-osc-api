@@ -47,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Osc\RecursosOSCRepositoryInterface', 'App\Repositories\Osc\RecursosOSCRepositoryEloquent'
         );
         $this->app->bind(
+            'App\Repositories\Osc\SemRecursosOSCRepositoryInterface', 'App\Repositories\Osc\SemRecursosOSCRepositoryEloquent'
+        );
+        $this->app->bind(
             'App\Repositories\Osc\RelacoesTrabalhoRepositoryInterface', 'App\Repositories\Osc\RelacoesTrabalhoRepositoryEloquent'
         );
         $this->app->bind(
