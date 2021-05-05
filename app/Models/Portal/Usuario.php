@@ -2,7 +2,12 @@
 
 namespace App\Models\Portal;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Lumen\Auth\Authorizable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @property int $id_usuario
@@ -31,8 +36,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Portal.tbToken[] $portal.tbTokens
  * @property Portal.tbRepresentacao[] $portal.tbRepresentacaos
  */
-class Usuario extends Model
+class Usuario extends Model  implements AuthenticatableContract, AuthorizableContract
 {
+    use HasApiTokens, Authenticatable, Authorizable;
+
     /**
      * The table associated with the model.
      * 
@@ -50,7 +57,27 @@ class Usuario extends Model
     /**
      * @var array
      */
-    protected $fillable = ['cd_tipo_usuario', 'cd_municipio', 'cd_uf', 'tx_email_usuario', 'tx_senha_usuario', 'tx_nome_usuario', 'nr_cpf_usuario', 'bo_lista_email', 'bo_ativo', 'dt_cadastro', 'dt_atualizacao', 'bo_email_confirmado', 'tx_telefone_1', 'tx_telefone_2', 'tx_orgao_trabalha', 'tx_dado_institucional', 'tx_email_confirmacao', 'bo_lista_atualizacao_anual', 'bo_lista_atualizacao_trimestral'];
+    protected $fillable = [
+        'cd_tipo_usuario',
+        'cd_municipio',
+        'cd_uf',
+        'tx_email_usuario',
+        'tx_senha_usuario',
+        'tx_nome_usuario',
+        'nr_cpf_usuario',
+        'bo_lista_email',
+        'bo_ativo',
+        'dt_cadastro',
+        'dt_atualizacao',
+        'bo_email_confirmado',
+        'tx_telefone_1',
+        'tx_telefone_2',
+        'tx_orgao_trabalha',
+        'tx_dado_institucional',
+        'tx_email_confirmacao',
+        'bo_lista_atualizacao_anual',
+        'bo_lista_atualizacao_trimestral'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

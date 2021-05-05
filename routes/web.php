@@ -27,6 +27,8 @@ $router->get('/api/', function () use ($router) {
 
 $router->post('/api/user/', 'UsuarioController@store');
 
+$router->post('/register','UsuarioController@register');
+
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
 
@@ -201,8 +203,8 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
-    $router->get('/geo/{id}', 'DCGeoClusterController@get');
     $router->get('/geo/regiao/', 'DCGeoClusterController@getRegiaoAll');
     $router->get('/geo/estado/', 'DCGeoClusterController@getEstadoAll');
+    $router->get('/geo/{id}', 'DCGeoClusterController@get');
     //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
 });
