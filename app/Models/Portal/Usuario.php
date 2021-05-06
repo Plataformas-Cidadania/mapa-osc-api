@@ -6,6 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
@@ -78,6 +79,16 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
         'bo_lista_atualizacao_anual',
         'bo_lista_atualizacao_trimestral'
     ];
+
+    public function findForPassport($username) {
+        return $this->where('tx_email_usuario', $username)->first();
+    }
+
+    public function validateForPassportPasswordGrant($password)
+    {
+        return Hash::check($password, $this->tx_senha_usuario);
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

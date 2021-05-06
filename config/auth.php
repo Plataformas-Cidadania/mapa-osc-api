@@ -3,6 +3,7 @@ return [
     'defaults' => [
         'guard' => 'api',
         'passwords' => 'users',
+        //'passwords' => 'tb_usuario',
     ],
     'guards' => [
         'api' => [

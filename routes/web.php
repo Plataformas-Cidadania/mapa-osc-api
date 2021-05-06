@@ -28,6 +28,10 @@ $router->get('/api/', function () use ($router) {
 $router->post('/api/user/', 'UsuarioController@store');
 
 $router->post('/register','UsuarioController@register');
+//Esta rota deve ser usada para gerar um key que deve ser colocado no .env. Esse key necessario para o uso do passport
+$router->get('/key', function() {
+    return \Illuminate\Support\Str::random(32);
+});
 
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
@@ -208,3 +212,4 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/geo/{id}', 'DCGeoClusterController@get');
     //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
 });
+

@@ -25,6 +25,9 @@ $app->withFacades();
 
 $app->withEloquent();
 
+// Load auth config files
+$app->configure('auth');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -67,7 +70,6 @@ $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 $app->configure('cors');
 
-$app->configure('auth');
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class
@@ -79,6 +81,8 @@ $app->middleware([
 
 $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
+
+    //'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 ]);
 
 /*
@@ -115,7 +119,7 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
-\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'v1/oauth']);
+\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'api/v1/oauth']);
 
 
 return $app;
