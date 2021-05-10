@@ -23,7 +23,7 @@ class Recurso extends Model
      * 
      * @var string
      */
-    protected $table = 'osc.tb_recursos_osc_';
+    protected $table = 'osc.tb_recursos_osc';
 
     /**
      * The primary key for the model.
