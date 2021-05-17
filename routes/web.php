@@ -30,6 +30,9 @@ $router->post('/api/user/', 'UsuarioController@store');
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
 
+//PERFIL LOCALIDADE
+$router->get('/api/perfil_localidade/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
+
 $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //ROTAS GERAIS DO MODELO OSC

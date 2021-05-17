@@ -20,27 +20,28 @@ class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterfac
     public function getAll()
     {
         //Utilização de Funções do BD dentro de comandos ELOQUENT
+        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as eduf_geometry'))->get();
+
+        return $ipeadata;
+    }
+
+    public function get($_id)
+    {
+
+        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as eduf_geometry'))->find($_id);
+
+        return $ipeadata;
+    }
+
+    public function getAllLiftLeft()
+    {
+        //Utilização de Funções do BD dentro de comandos ELOQUENT
         $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as geometry'))->get();
 
         return $this->mountAreas($ipeadata, null);
     }
 
-    public function get($_id)
-    {
-        /*
-        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(eduf_geometry) as eduf_geometry'))->find($_id);
-
-        //dd($valores = $ipeadata->eduf_geometry);
-        $valores = $ipeadata->eduf_geometry;
-
-        $teste = $this->mountAreas($valores, null);
-
-        dd($teste);
-
-        return $ipeadata;
-        */
-    }
-
+    //Criar padrão para o Lift
     private function mountAreas($valores, $area){
         $areas = [];
         $areas['type'] = 'FeatureCollection';
@@ -57,7 +58,7 @@ class DCIpeadataUffRepositoryEloquent implements DCIpeadataUffRepositoryInterfac
             //erro de memória no log "Allowed memory size of 536870912 bytes exhausted" com a linha abaixo.
             //Log::info([$valor->geometry]);
             //$areas['features'][$index]['geometry'] = json_decode($valor->geometry);
-            $areas['features'][$index]['geometry'] = $valor->geometry;
+            //$areas['features'][$index]['geometry'] = $valor->geometry;
             //$areas['features'][$index]['centro'] = $valor->centro_de_tudo;
         }
         //$areas['bounding_box_total'] = [];

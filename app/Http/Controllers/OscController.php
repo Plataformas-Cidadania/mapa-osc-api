@@ -123,7 +123,6 @@ class OscController extends Controller
         }
     }
 
-
     public function getDescricao($id)
     {
         try {
@@ -183,13 +182,6 @@ class OscController extends Controller
     }
 
     public function store(Request $request) {
-        //return [];
-        //return ['tx_email_usuario' => 'teste@gmail.com'];
-        //return ['tx_nome_usuario' => '', 'tx_email_usuario' => '', 'tx_senha_usuario' => ''];
-
-        //$user = new Usuario($request->all());
-
-        //return $user;
     }
 
     public function getListaOscAtualizadas($tam_lista)
