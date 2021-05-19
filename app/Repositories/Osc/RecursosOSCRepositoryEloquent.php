@@ -17,9 +17,9 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
         $this->recursoModel = $_recurso;
     }
 
-    public function getRecursosPorOSC($_id_osc)
+    public function getRecursosPorOSC($_id_osc, $ano)
     {
-        $_recursos = $this->recursoModel->where('id_osc', $_id_osc)->with('dc_fonte_recurso.dc_origem_fonte_recurso')
+        $_recursos = $this->recursoModel->where('dt_ano_recursos_osc', 'like', $ano.'%')->where('id_osc', $_id_osc)->with('dc_fonte_recurso.dc_origem_fonte_recurso')
                                       ->orderBy('dt_ano_recursos_osc','asc')
                                       ->orderBy('cd_fonte_recursos_osc','asc')
                                       ->get();             

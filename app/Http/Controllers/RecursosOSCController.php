@@ -21,10 +21,10 @@ class RecursosOSCController extends Controller
         $this->service = $_service;
     }
 
-    public function getRecursosPorOSC($id_osc)
+    public function getRecursosPorOSC($id_osc,  $ano)
     {
         try {
-            return response()->json($this->service->getRecursosPorOSC($id_osc), Response::HTTP_OK);
+            return response()->json($this->service->getRecursosPorOSC($id_osc,  $ano), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

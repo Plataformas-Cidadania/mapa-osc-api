@@ -14,9 +14,9 @@ class RecursosOSCService
         $this->repo = $_repo;
     }
 
-    public function getRecursosPorOSC($id_osc)
+    public function getRecursosPorOSC($id_osc,  $ano)
     {
-        return $this->repo->getRecursosPorOSC($id_osc);
+        return $this->repo->getRecursosPorOSC($id_osc,  $ano);
     }
 
     public function getAnoRecursosPorOSC($id_osc)

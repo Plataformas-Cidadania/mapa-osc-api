@@ -146,7 +146,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
 
     //INFORMAÇÕES DE RECURSOS DA OSC
-    $router->get('/recursos/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
+    $router->get('/recursos/{ano}/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
     $router->get('/anos_recursos/{id_osc}', 'RecursosOSCController@getAnoRecursosPorOSC');
     $router->post('/recursos/', 'RecursosOSCController@store');
     $router->put('/recursos/{id}', 'RecursosOSCController@update');

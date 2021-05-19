@@ -11,7 +11,7 @@ interface RecursosOSCRepositoryInterface
 {
     public function __construct(Recurso $_recurso);
 
-    public function getRecursosPorOSC($_id_osc);
+    public function getRecursosPorOSC($_id_osc,  $ano);
 
     public function getAnoRecursosPorOSC($_id_osc);
 
