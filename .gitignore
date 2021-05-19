@@ -44,3 +44,5 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+public/porto_alegre-rs.html
