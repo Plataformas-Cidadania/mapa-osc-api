@@ -20,4 +20,9 @@ class DCPerfilLocalidadeService
     {
         return $this->repo->getEvolucaoQtdOscPorAno($idlocalidade);
     }
+
+    public function getCaracteristicas($idlocalidade)
+    {
+        return $this->repo->getCaracteristicas($idlocalidade);
+    }
 }

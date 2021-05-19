@@ -30,4 +30,14 @@ class DCPerfilLocalidadeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getCaracteristicas($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getCaracteristicas($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

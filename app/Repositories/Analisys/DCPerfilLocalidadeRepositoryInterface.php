@@ -12,4 +12,6 @@ interface DCPerfilLocalidadeRepositoryInterface
     public function getAll();
 
     public function getEvolucaoQtdOscPorAno($id_localidade);
+
+    public function getCaracteristicas($id_localidade);
 }

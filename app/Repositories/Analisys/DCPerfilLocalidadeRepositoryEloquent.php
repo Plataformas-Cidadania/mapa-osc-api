@@ -85,4 +85,90 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         return $resultado;
     }
+
+    public function getCaracteristicas($id_localidade)
+    {
+        //SERIES
+        $query = "SELECT
+			localidade, 
+            nome_localidade,
+            tipo_localidade,
+            nr_quantidade_osc,
+            ft_quantidade_osc,
+            nr_quantidade_trabalhadores,
+            ft_quantidade_trabalhadores,
+            nr_quantidade_recursos,
+            ft_quantidade_recursos,
+            nr_quantidade_projetos,
+            ft_quantidade_projetos,
+            nr_orcamento_empenhado,
+            ft_orcamento_empenhado
+		FROM analysis.vw_perfil_localidade_caracteristicas_gerais
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $perfil = $regs[0];
+
+        $vetReplace = ['{', '}', '"'];
+        $fontes_orcamento = [];
+        $valorSemChaves = str_replace($vetReplace, '', $perfil->ft_orcamento_empenhado);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes_orcamento) === false) {
+                array_push($fontes_orcamento, $f);
+            }
+        }
+
+        $fontes_qtd_oscs = [];
+        $valorSemChaves = str_replace($vetReplace, '', $perfil->ft_quantidade_osc);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes_qtd_oscs) === false) {
+                array_push($fontes_qtd_oscs, $f);
+            }
+        }
+
+        $fontes_qtd_projetos = [];
+        $valorSemChaves = str_replace($vetReplace, '', $perfil->ft_quantidade_projetos);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes_qtd_projetos) === false) {
+                array_push($fontes_qtd_projetos, $f);
+            }
+        }
+
+        $fontes_qtd_recursos = [];
+        $valorSemChaves = str_replace($vetReplace, '', $perfil->ft_quantidade_recursos);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes_qtd_recursos) === false) {
+                array_push($fontes_qtd_recursos, $f);
+            }
+        }
+
+        $fontes_qtd_trabalhadores = [];
+        $valorSemChaves = str_replace($vetReplace, '', $perfil->ft_quantidade_trabalhadores);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes_qtd_trabalhadores) === false) {
+                array_push($fontes_qtd_trabalhadores, $f);
+            }
+        }
+
+        $resultado = ['caracteristicas' => [
+            'ft_orcamento_empenhado' => $fontes_orcamento,
+            'ft_quantidade_osc' => $fontes_qtd_oscs,
+            'ft_quantidade_projetos' => $fontes_qtd_projetos,
+            'ft_quantidade_recursos' => $fontes_qtd_recursos,
+            'ft_quantidade_trabalhadores' => $fontes_qtd_trabalhadores,
+
+            'nr_orcamento_empenhado' => $perfil->nr_orcamento_empenhado,
+            'nr_quantidade_osc' => $perfil->nr_quantidade_osc,
+            'nr_quantidade_projetos' => $perfil->nr_quantidade_projetos,
+            'nr_quantidade_recursos' => $perfil->nr_quantidade_recursos,
+            'nr_quantidade_trabalhadores' => $perfil->nr_quantidade_trabalhadores,
+        ]];
+
+        return $resultado;
+    }
 }
