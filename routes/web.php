@@ -31,7 +31,7 @@ $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
 
 //PERFIL LOCALIDADE
-$router->get('/api/perfil_localidade/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
+$router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
 
 $router->group(['prefix' => '/api/osc'], function() use ($router){
 
