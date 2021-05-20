@@ -395,5 +395,8 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return $analise;
     }
 
+    public function getListaOscsPorIds(array $ids){
+        return DB::table('osc.vw_busca_osc')->whereIn('id_osc', $ids)->get();
+    }
 
 }

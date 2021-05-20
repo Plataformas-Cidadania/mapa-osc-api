@@ -44,7 +44,8 @@ class UsuarioController extends Controller
         }
 
         $input = $request->all();
-        $input['tx_senha_usuario'] = Hash::make($input['tx_senha_usuario']);
+        //$input['tx_senha_usuario'] = Hash::make($input['tx_senha_usuario']);
+        $input['tx_senha_usuario'] = sha1($input['tx_senha_usuario']);
         //$user = Usuario::create($input);
         $user = Usuario::insert($input);
         $user = Usuario::where('tx_email_usuario', $input['tx_email_usuario'])->first();

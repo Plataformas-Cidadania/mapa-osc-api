@@ -40,6 +40,115 @@ $router->get('/key', function() {
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
 
+$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
+
+    //ROTAS GERAIS DO MODELO OSC
+    $router->get('/list-oscs-usuario', 'OscController@getListaOscUsuarioAutenticado');
+    $router->post('/', 'OscController@store');
+    $router->post('/user', 'OscController@getFromUsuario');
+    $router->put('/{id}', 'OscController@update');
+    $router->delete('/{id}', 'OscController@destroy');
+
+    //INFORMAÇÕES DE DADOS GERAIS
+    $router->put('/dados_gerais/{id}', 'OscController@updateDadosGerais');
+
+    //UPDATE IMAGEM OSC
+    $router->post('/logo/{id}', 'OscController@updateLogo');
+
+    //INFORMAÇÕES DE AREA E SUBAREA DE ATUAÇÃO DA OSC
+    $router->put('/area_atuacao/{id}', 'AreaAtuacaoController@update');
+    $router->post('/area_atuacao/', 'AreaAtuacaoController@store');
+    $router->delete('/area_atuacao/{id}', 'AreaAtuacaoController@delete');
+
+    //INFORMAÇÕES DE DESCRIÇÃO DA OSC
+    $router->put('/descricao/{id}', 'DadosGeraisController@updateDescricao');
+
+    //---------------------------------Objetivos (ODS) OSC--------------------------------------//
+    $router->put('/objetivo/{id}', 'ObjetivoOscController@update');
+    $router->post('/objetivo/', 'ObjetivoOscController@store');
+    $router->delete('/objetivo/{id}', 'ObjetivoOscController@delete');
+
+    //INFORMAÇÕES DE TITULAÇÕES E CERTIFICAÇÕES
+    $router->post('/certificado/', 'CertificadoController@store');
+    $router->delete('/certificado/{id_osc}', 'CertificadoController@delete');
+    $router->put('/certificado/{id}', 'CertificadoController@update');
+
+
+    //---------------------Relações de Trabalho-----------------------------------//
+    $router->put('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@update');
+
+    //---------------------Governança----------------------------------------------//
+    $router->put('/governanca/{id}', 'GovernancaController@update');
+    $router->post('/governanca/', 'GovernancaController@store');
+    $router->delete('/governanca/{id}', 'GovernancaController@delete');
+
+    //---------------------Conselho Fiscal----------------------------------------------//
+    $router->post('/conselho/', 'ConselhoFiscalController@store');
+    $router->put('/conselho/{id}', 'ConselhoFiscalController@update');
+    $router->delete('/conselho/{id}', 'ConselhoFiscalController@delete');
+
+    //------------------------------Conselho-----------------------------//
+    $router->post('/ps_conselho/', 'ParticipacaoSocialConselhoController@store');
+    $router->put('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@update');
+    $router->delete('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@delete');
+
+    //--------------------------------Conferência-------------------------//
+    $router->post('/ps_conferencia/', 'ParticipacaoSocialConferenciaController@store');
+    $router->put('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@update');
+    $router->delete('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@delete');
+
+    //-----------------------------------Outra-------------------------------//
+    $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
+    $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
+    $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
+
+    //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
+    $router->post('/fonte_recursos/', 'FonteRecursosController@store');
+    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
+    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
+
+    //INFORMAÇÕES DE PROJETOS
+    $router->put('/projeto/{id}', 'ProjetoController@update');
+    $router->post('/projeto/', 'ProjetoController@store');
+    $router->delete('/projeto/{id}', 'ProjetoController@delete');
+
+    //------------------------------Parceiras OSC Projeto--------------------------------------//
+    $router->put('/projeto/parceira/{id}', 'OscParceiraProjetoController@update');
+    $router->post('/projeto/parceira/', 'OscParceiraProjetoController@store');
+    $router->delete('/projeto/parceira/{id}', 'OscParceiraProjetoController@delete');
+
+    //-------------------Tipo Parcerias Projeto-----------------------//
+    $router->put('/projeto/tipo_parceria/{id}', 'TipoParceriaProjetoController@update');
+    $router->post('/projeto/tipo_parceria/', 'TipoParceriaProjetoController@store');
+    $router->delete('/projeto/tipo_parceria/{id}', 'TipoParceriaProjetoController@delete');
+
+    //----------------------------Localizações Projeto---------------------------//
+    $router->put('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@update');
+    $router->post('/projeto/localizacao/', 'LocalizacaoProjetoController@store');
+    $router->delete('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@delete');
+
+    //-----------------------------Financiador Projeto------------------------------//
+    $router->put('/projeto/financiador/{id}', 'FinanciadorProjetoController@update');
+    $router->post('/projeto/financiador/', 'FinanciadorProjetoController@store');
+    $router->delete('/projeto/financiador/{id}', 'FinanciadorProjetoController@delete');
+
+    //---------------------------------Objetivos Projeto--------------------------------------//
+    $router->put('/projeto/objetivo/{id}', 'ObjetivoProjetoController@update');
+    $router->post('/projeto/objetivo/', 'ObjetivoProjetoController@store');
+    $router->delete('/projeto/objetivo/{id}', 'ObjetivoProjetoController@delete');
+
+    //-----------------------------------Publico Beneficiado Projeto---------------------------//
+    $router->put('/projeto/publico/{id}', 'PublicoBeneficiadoProjetoController@update');
+    $router->post('/projeto/publico/', 'PublicoBeneficiadoProjetoController@store');
+    $router->delete('/projeto/publico/{id}', 'PublicoBeneficiadoProjetoController@delete');
+
+    //-----------------------------------Fontes de Recursos Projeto---------------------------//
+    $router->put('/projeto/recurso/{id}', 'FonteRecursosProjetoController@update');
+    $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
+    $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
+
+});
+
 $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //ROTAS GERAIS DO MODELO OSC
@@ -226,110 +335,5 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
 });
 
-$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
-    //ROTAS GERAIS DO MODELO OSC
-    $router->post('/', 'OscController@store');
-    $router->put('/{id}', 'OscController@update');
-    $router->delete('/{id}', 'OscController@destroy');
-
-    //INFORMAÇÕES DE DADOS GERAIS
-    $router->put('/dados_gerais/{id}', 'OscController@updateDadosGerais');
-
-    //UPDATE IMAGEM OSC
-    $router->post('/logo/{id}', 'OscController@updateLogo');
-
-    //INFORMAÇÕES DE AREA E SUBAREA DE ATUAÇÃO DA OSC
-    $router->put('/area_atuacao/{id}', 'AreaAtuacaoController@update');
-    $router->post('/area_atuacao/', 'AreaAtuacaoController@store');
-    $router->delete('/area_atuacao/{id}', 'AreaAtuacaoController@delete');
-
-    //INFORMAÇÕES DE DESCRIÇÃO DA OSC
-    $router->put('/descricao/{id}', 'DadosGeraisController@updateDescricao');
-
-    //---------------------------------Objetivos (ODS) OSC--------------------------------------//
-    $router->put('/objetivo/{id}', 'ObjetivoOscController@update');
-    $router->post('/objetivo/', 'ObjetivoOscController@store');
-    $router->delete('/objetivo/{id}', 'ObjetivoOscController@delete');
-
-    //INFORMAÇÕES DE TITULAÇÕES E CERTIFICAÇÕES
-    $router->post('/certificado/', 'CertificadoController@store');
-    $router->delete('/certificado/{id_osc}', 'CertificadoController@delete');
-    $router->put('/certificado/{id}', 'CertificadoController@update');
-
-
-    //---------------------Relações de Trabalho-----------------------------------//
-    $router->put('/rel_trabalho/{id_osc}', 'RelacoesTrabalhoController@update');
-
-    //---------------------Governança----------------------------------------------//
-    $router->put('/governanca/{id}', 'GovernancaController@update');
-    $router->post('/governanca/', 'GovernancaController@store');
-    $router->delete('/governanca/{id}', 'GovernancaController@delete');
-
-    //---------------------Conselho Fiscal----------------------------------------------//
-    $router->post('/conselho/', 'ConselhoFiscalController@store');
-    $router->put('/conselho/{id}', 'ConselhoFiscalController@update');
-    $router->delete('/conselho/{id}', 'ConselhoFiscalController@delete');
-
-    //------------------------------Conselho-----------------------------//
-    $router->post('/ps_conselho/', 'ParticipacaoSocialConselhoController@store');
-    $router->put('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@update');
-    $router->delete('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@delete');
-
-    //--------------------------------Conferência-------------------------//
-    $router->post('/ps_conferencia/', 'ParticipacaoSocialConferenciaController@store');
-    $router->put('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@update');
-    $router->delete('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@delete');
-
-    //-----------------------------------Outra-------------------------------//
-    $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
-    $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
-    $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
-
-    //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
-    $router->post('/fonte_recursos/', 'FonteRecursosController@store');
-    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
-    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
-
-    //INFORMAÇÕES DE PROJETOS
-    $router->put('/projeto/{id}', 'ProjetoController@update');
-    $router->post('/projeto/', 'ProjetoController@store');
-    $router->delete('/projeto/{id}', 'ProjetoController@delete');
-
-    //------------------------------Parceiras OSC Projeto--------------------------------------//
-    $router->put('/projeto/parceira/{id}', 'OscParceiraProjetoController@update');
-    $router->post('/projeto/parceira/', 'OscParceiraProjetoController@store');
-    $router->delete('/projeto/parceira/{id}', 'OscParceiraProjetoController@delete');
-
-    //-------------------Tipo Parcerias Projeto-----------------------//
-    $router->put('/projeto/tipo_parceria/{id}', 'TipoParceriaProjetoController@update');
-    $router->post('/projeto/tipo_parceria/', 'TipoParceriaProjetoController@store');
-    $router->delete('/projeto/tipo_parceria/{id}', 'TipoParceriaProjetoController@delete');
-
-    //----------------------------Localizações Projeto---------------------------//
-    $router->put('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@update');
-    $router->post('/projeto/localizacao/', 'LocalizacaoProjetoController@store');
-    $router->delete('/projeto/localizacao/{id}', 'LocalizacaoProjetoController@delete');
-
-    //-----------------------------Financiador Projeto------------------------------//
-    $router->put('/projeto/financiador/{id}', 'FinanciadorProjetoController@update');
-    $router->post('/projeto/financiador/', 'FinanciadorProjetoController@store');
-    $router->delete('/projeto/financiador/{id}', 'FinanciadorProjetoController@delete');
-
-    //---------------------------------Objetivos Projeto--------------------------------------//
-    $router->put('/projeto/objetivo/{id}', 'ObjetivoProjetoController@update');
-    $router->post('/projeto/objetivo/', 'ObjetivoProjetoController@store');
-    $router->delete('/projeto/objetivo/{id}', 'ObjetivoProjetoController@delete');
-
-    //-----------------------------------Publico Beneficiado Projeto---------------------------//
-    $router->put('/projeto/publico/{id}', 'PublicoBeneficiadoProjetoController@update');
-    $router->post('/projeto/publico/', 'PublicoBeneficiadoProjetoController@store');
-    $router->delete('/projeto/publico/{id}', 'PublicoBeneficiadoProjetoController@delete');
-
-    //-----------------------------------Fontes de Recursos Projeto---------------------------//
-    $router->put('/projeto/recurso/{id}', 'FonteRecursosProjetoController@update');
-    $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
-    $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
-
-});
 

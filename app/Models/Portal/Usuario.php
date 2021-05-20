@@ -86,7 +86,8 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
 
     public function validateForPassportPasswordGrant($password)
     {
-        return Hash::check($password, $this->tx_senha_usuario);
+        //return Hash::check($password, $this->tx_senha_usuario);
+        return sha1($password) === $this->tx_senha_usuario;
     }
 
 
@@ -128,5 +129,9 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
     public function representacoes()
     {
         return $this->hasMany('App\Models\Portal\Representacao', 'id_usuario', 'id_usuario');
+    }
+
+    public function oscs(){
+        return $this->belongsToMany('\App\Models\Osc\Osc', 'portal.tb_representacao', 'id_usuario', 'id_osc');
     }
 }
