@@ -14,4 +14,8 @@ interface DCPerfilLocalidadeRepositoryInterface
     public function getEvolucaoQtdOscPorAno($id_localidade);
 
     public function getCaracteristicas($id_localidade);
+
+    public function getQtdNaturezaJuridica($id_localidade);
+
+    public function getTransferenciasFederais($id_localidade);
 }

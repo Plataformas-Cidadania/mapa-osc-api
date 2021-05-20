@@ -171,4 +171,124 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         return $resultado;
     }
+
+    public function getQtdNaturezaJuridica($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            natureza_juridica,
+            quantidade_oscs,
+            fontes
+		FROM analysis.vw_perfil_localidade_qtd_natureza_juridica
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $fontes = [];
+        $serie = [];
+        $vetReplace = ['{', '}', '"'];
+        foreach ($regs as $nat) {
+            $serie += [$nat->natureza_juridica => $nat->quantidade_oscs];
+            $valorSemChaves = str_replace($vetReplace, '', $nat->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+
+        //DADOS DO TEXTO DO GRAFICO
+        $query = "SELECT
+            natureza_juridica,
+            porcertagem_maior
+		FROM analysis.vw_perfil_localidade_maior_qtd_natureza_juridica
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $natureza_juridica = ($regs[0])->natureza_juridica;
+        $nr_porcentagem_maior = ($regs[0])->porcertagem_maior;
+
+        $query = "SELECT
+            dado,
+            valor
+		FROM analysis.vw_perfil_localidade_medias_nacional
+		WHERE tipo_dado = 'maior_natureza_juridica'";
+        $regs = DB::select($query);
+
+        $nr_porcentagem_maior_media_nacional = ($regs[0])->valor;
+        $tx_porcentagem_maior_media_nacional = ($regs[0])->dado;
+
+        //JSON RESULTANTE
+        $resultado = ['natureza_juridica' => [
+            'nr_porcentagem_maior' => $nr_porcentagem_maior,
+            'nr_porcentagem_maior_media_nacional' => $nr_porcentagem_maior_media_nacional,
+            'tx_porcentagem_maior' => $natureza_juridica,
+            'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
+            'series' => $serie,
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
+
+    public function getTransferenciasFederais($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            natureza_juridica,
+            quantidade_oscs,
+            fontes
+		FROM analysis.vw_perfil_localidade_qtd_natureza_juridica
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $fontes = [];
+        $serie = [];
+        $vetReplace = ['{', '}', '"'];
+        foreach ($regs as $nat) {
+            $serie += [$nat->natureza_juridica => $nat->quantidade_oscs];
+            $valorSemChaves = str_replace($vetReplace, '', $nat->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+
+        //DADOS DO TEXTO DO GRAFICO
+        $query = "SELECT
+            natureza_juridica,
+            porcertagem_maior
+		FROM analysis.vw_perfil_localidade_maior_qtd_natureza_juridica
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $natureza_juridica = ($regs[0])->natureza_juridica;
+        $nr_porcentagem_maior = ($regs[0])->porcertagem_maior;
+
+        $query = "SELECT
+            dado,
+            valor
+		FROM analysis.vw_perfil_localidade_medias_nacional
+		WHERE tipo_dado = 'maior_natureza_juridica'";
+        $regs = DB::select($query);
+
+        $nr_porcentagem_maior_media_nacional = ($regs[0])->valor;
+        $tx_porcentagem_maior_media_nacional = ($regs[0])->dado;
+
+        //JSON RESULTANTE
+        $resultado = ['natureza_juridica' => [
+            'nr_porcentagem_maior' => $nr_porcentagem_maior,
+            'nr_porcentagem_maior_media_nacional' => $nr_porcentagem_maior_media_nacional,
+            'tx_porcentagem_maior' => $natureza_juridica,
+            'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
+            'series' => $serie,
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
 }

@@ -25,4 +25,9 @@ class DCPerfilLocalidadeService
     {
         return $this->repo->getCaracteristicas($idlocalidade);
     }
+
+    public function getQtdNaturezaJuridica($idlocalidade)
+    {
+        return $this->repo->getQtdNaturezaJuridica($idlocalidade);
+    }
 }

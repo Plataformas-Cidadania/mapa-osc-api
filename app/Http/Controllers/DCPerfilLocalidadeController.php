@@ -40,4 +40,14 @@ class DCPerfilLocalidadeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getQtdNaturezaJuridica($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getQtdNaturezaJuridica($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
