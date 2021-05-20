@@ -46,3 +46,7 @@ Homestead.json
 .phpunit.result.cache
 
 public/porto_alegre-rs.html
+
+composer.lock
+
+composer4.lock
