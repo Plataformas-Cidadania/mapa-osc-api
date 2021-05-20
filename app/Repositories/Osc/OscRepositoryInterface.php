@@ -42,4 +42,6 @@ interface OscRepositoryInterface
     public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
 
     public function getPerfilLocalidadeCaracteristicas($id_localidade);
+
+    public function getListaOscsPorIds(array $ids);
 }

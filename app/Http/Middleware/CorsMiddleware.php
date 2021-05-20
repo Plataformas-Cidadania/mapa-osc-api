@@ -32,10 +32,34 @@ class CorsMiddleware
         }
 
         $response = $next($request);
-        foreach($headers as $key => $value)
+
+        //////////////////////////////////////////////////////////////
+        //BLOCO ALTERADO EM FUNÇÃO DA AUTENTICAÇÃO COM PASSPORT QUE UTILIZA UM RESPONSE DIFERENTE
+        //DESTA FORMA SÃO COLOCADAS AS CODINDIÇÕES PARA VERIFICAR QUAL RESPONSE ESTÁ SENDO UTILIZADO.
+
+        /*foreach($headers as $key => $value)
         {
             $response->header($key, $value);
+        }*/
+
+        $IlluminateResponse = 'Illuminate\Http\Response';
+        $SymfonyResopnse = 'Symfony\Component\HttpFoundation\Response';
+
+        if($response instanceof $IlluminateResponse) {
+            foreach ($headers as $key => $value) {
+                $response->header($key, $value);
+            }
+            return $response;
         }
+
+        if($response instanceof $SymfonyResopnse) {
+            foreach ($headers as $key => $value) {
+                $response->headers->set($key, $value);
+            }
+            return $response;
+        }
+        //////////////////////////////////////////////////////////////
+
 
         return $response;
     }

@@ -3,7 +3,9 @@
 
 namespace App\Services\Osc;
 
+use App\Models\Portal\Usuario;
 use App\Repositories\Osc\OscRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -108,5 +110,14 @@ class OscService
     public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit)
     {
         return $this->repo->getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
+    }
+
+    public function getListaOscUsuarioAutenticado(){
+        $oscs = Auth::user()->oscs;
+        $idsOscs = [];
+        foreach ($oscs as $osc) {
+            array_push($idsOscs, $osc->id_osc);
+        }
+        return $this->repo->getListaOscsPorIds($idsOscs);
     }
 }
