@@ -63,7 +63,7 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
     
     public function getAnoRecursosPorOSC($_id_osc)
     {
-        $anos_fonte_recursos = $this->recursoModel->where('id_osc', $_id_osc)->groupBy('id_osc','dt_ano_recursos_osc')->get(['id_osc', 'dt_ano_recursos_osc']);
+        $anos_fonte_recursos = $this->recursoModel->where('id_osc', $_id_osc)->groupBy('id_osc','dt_ano_recursos_osc')->orderBy('dt_ano_recursos_osc')->get(['id_osc', 'dt_ano_recursos_osc']);
 
         foreach ($anos_fonte_recursos as $item)
         {
