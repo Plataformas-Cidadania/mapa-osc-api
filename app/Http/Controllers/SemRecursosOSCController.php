@@ -21,10 +21,10 @@ class SemRecursosOSCController extends Controller
         $this->service = $_service;
     }
 
-    public function getAnosSemRecursosPorOSC($id_osc)
+    public function getAnosSemRecursosPorOSC($id_osc, $ano)
     {
         try {
-            return response()->json($this->service->getAnosSemRecursosPorOSC($id_osc), Response::HTTP_OK);
+            return response()->json($this->service->getAnosSemRecursosPorOSC($id_osc, $ano), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

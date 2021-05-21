@@ -11,7 +11,7 @@ interface SemRecursosOSCRepositoryInterface
 {
     public function __construct(SemRecurso $_recurso);
 
-    public function getAnosSemRecursosPorOSC($_id_osc);
+    public function getAnosSemRecursosPorOSC($_id_osc, $ano);
 
     public function store(array $data);
 

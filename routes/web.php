@@ -290,6 +290,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //INFORMAÇÕES DE ANOS QUE NÃO OBTEVERAM RECURSOS DA OSC
     $router->get('/sem_recursos/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
+    $router->get('/sem_recursos/{ano}/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
     $router->post('/sem_recursos/', 'SemRecursosOSCController@store');
     $router->delete('/sem_recursos/{id}', 'SemRecursosOSCController@delete');
 

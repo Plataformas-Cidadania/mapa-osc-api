@@ -14,9 +14,9 @@ class SemRecursosOSCService
         $this->repo = $_repo;
     }
 
-    public function getAnosSemRecursosPorOSC($id_osc)
+    public function getAnosSemRecursosPorOSC($id_osc, $ano)
     {
-        return $this->repo->getAnosSemRecursosPorOSC($id_osc);
+        return $this->repo->getAnosSemRecursosPorOSC($id_osc, $ano);
     }
   
     public function store(array $data)

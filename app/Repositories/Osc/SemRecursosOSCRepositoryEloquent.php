@@ -17,9 +17,9 @@ class SemRecursosOSCRepositoryEloquent implements SemRecursosOSCRepositoryInterf
         $this->model = $_recurso;
     }
 
-    public function getAnosSemRecursosPorOSC($_id_osc)
+    public function getAnosSemRecursosPorOSC($_id_osc, $ano)
     {
-        $_recursos = $this->model->where('id_osc', $_id_osc)->get();
+        $_recursos = $this->model->where('id_osc', $_id_osc)->where('ano',$ano)->get();
        
         $nrecursos_ano_origem = [];
 
