@@ -69,15 +69,16 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $labels = array_keys($mapa);
 
         $resultado = ['qtd_osc_por_ano' => [
-            'type' => 'line',
             'dataLabels' => $labels,
             'series' => [
                 [
-                'name' => 'Evolução quantidade de OSCs por ano de fundação',
-                'data' => $series],
+                    'type' => 'line',
+                    'name' => 'Evolução quantidade de OSCs por ano de fundação',
+                    'data' => $series],
                 [
-                'name' => 'Evolução quantidade de OSCs Acumuladas por ano de fundação',
-                'data' => $serieAcumulado
+                    'type' => 'line',
+                    'name' => 'Evolução quantidade de OSCs Acumuladas por ano de fundação',
+                    'data' => $serieAcumulado
                 ],
             ],
             'fontes' => $fontes
