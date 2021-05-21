@@ -162,10 +162,10 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             'ft_quantidade_recursos' => $fontes_qtd_recursos,
             'ft_quantidade_trabalhadores' => $fontes_qtd_trabalhadores,
 
-            'nr_orcamento_empenhado' => $perfil->nr_orcamento_empenhado,
+            'nr_orcamento_empenhado' => floatval($perfil->nr_orcamento_empenhado),
             'nr_quantidade_osc' => $perfil->nr_quantidade_osc,
             'nr_quantidade_projetos' => $perfil->nr_quantidade_projetos,
-            'nr_quantidade_recursos' => $perfil->nr_quantidade_recursos,
+            'nr_quantidade_recursos' => floatval($perfil->nr_quantidade_recursos),
             'nr_quantidade_trabalhadores' => $perfil->nr_quantidade_trabalhadores,
         ]];
 
