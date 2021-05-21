@@ -16,11 +16,6 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //$this->model = $_modelo;
     }
 
-    public function getAll()
-    {
-
-    }
-
     public function getEvolucaoQtdOscPorAno($id_localidade)
     {
         //SERIES
@@ -74,7 +69,8 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 [
                     'type' => 'line',
                     'name' => 'Evolução quantidade de OSCs por ano de fundação',
-                    'data' => $series],
+                    'data' => $series
+                ],
                 [
                     'type' => 'line',
                     'name' => 'Evolução quantidade de OSCs Acumuladas por ano de fundação',
@@ -186,10 +182,12 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $regs = DB::select($query);
 
         $fontes = [];
-        $serie = [];
+        $series = [];
+        $labels = [];
         $vetReplace = ['{', '}', '"'];
         foreach ($regs as $nat) {
-            $serie += [$nat->natureza_juridica => $nat->quantidade_oscs];
+            array_push($series, $nat->quantidade_oscs);
+            array_push($labels, $nat->natureza_juridica);
             $valorSemChaves = str_replace($vetReplace, '', $nat->fontes);
             $vet = explode(',', $valorSemChaves);
             foreach ($vet as $f) {
@@ -222,11 +220,16 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         //JSON RESULTANTE
         $resultado = ['natureza_juridica' => [
-            'nr_porcentagem_maior' => $nr_porcentagem_maior,
-            'nr_porcentagem_maior_media_nacional' => $nr_porcentagem_maior_media_nacional,
+            'nr_porcentagem_maior' => floatval($nr_porcentagem_maior),
+            'nr_porcentagem_maior_media_nacional' => floatval($nr_porcentagem_maior_media_nacional),
             'tx_porcentagem_maior' => $natureza_juridica,
             'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
-            'series' => $serie,
+            'labels' => $labels,
+            'series' => [
+                'type' => 'bar',
+                'name' => 'Quantidades de OSCs',
+                'data' => $series
+                ],
             'fontes' => $fontes
         ]];
 
