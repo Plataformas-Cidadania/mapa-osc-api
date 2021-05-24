@@ -45,6 +45,9 @@ $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasP
 $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
 $router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
 $router->get('/api/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
+$router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
+$router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
+$router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======
@@ -279,7 +282,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');*/
 
-    //INFORMAÇÕES DE RECURSOS DA OSC
+  //INFORMAÇÕES DE RECURSOS DA OSC
     $router->get('/recursos/{ano}/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
     $router->get('/anos_recursos/{id_osc}', 'RecursosOSCController@getAnoRecursosPorOSC');
     $router->post('/recursos/', 'RecursosOSCController@store');
@@ -287,11 +290,9 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
 
     //INFORMAÇÕES DE ANOS QUE NÃO OBTEVERAM RECURSOS DA OSC
-    //$router->get('/sem_recursos/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
     $router->get('/sem_recursos/{ano}/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
     $router->post('/sem_recursos/', 'SemRecursosOSCController@store');
     $router->delete('/sem_recursos/{id_osc}/{ano}/{origem}', 'SemRecursosOSCController@delete');
-
 
     //INFORMAÇÕES DE PROJETOS
     $router->get('/projetos/{id_osc}', 'OscController@getProjetos');
