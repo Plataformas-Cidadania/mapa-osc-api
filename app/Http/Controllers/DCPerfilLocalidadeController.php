@@ -50,4 +50,14 @@ class DCPerfilLocalidadeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getTransferenciasFederais($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getTransferenciasFederais($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

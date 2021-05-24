@@ -45,6 +45,7 @@ $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasP
 $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
 $router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
 $router->get('/api/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
+$router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
 
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======

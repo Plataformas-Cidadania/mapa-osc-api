@@ -30,4 +30,9 @@ class DCPerfilLocalidadeService
     {
         return $this->repo->getQtdNaturezaJuridica($idlocalidade);
     }
+
+    public function getTransferenciasFederais($idlocalidade)
+    {
+        return $this->repo->getTransferenciasFederais($idlocalidade);
+    }
 }
