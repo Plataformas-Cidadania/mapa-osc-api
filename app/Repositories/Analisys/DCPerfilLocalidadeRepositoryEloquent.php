@@ -226,7 +226,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
             'labels' => $labels,
             'series' => [
-                'type' => 'bar',
+                'type' => 'column',
                 'name' => 'Quantidades de OSCs',
                 'data' => $series
                 ],
@@ -357,6 +357,61 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             'series' => [
                 'type' => 'line',
                 'name' => 'Área de Atuação',
+                'data' => $series
+            ],
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
+
+    public function getQtdTrabalhadores($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            vinculos,
+            deficiencia,
+            voluntarios,
+            total,
+            fontes
+		FROM analysis.vw_perfil_localidade_qtd_trabalhadores
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $fontes = [];
+        $series = [];
+        $labels = [];
+        $vetReplace = ['{', '}', '"'];
+        $reg = $regs[0];
+
+        {
+            array_push($series, $reg->deficiencia);
+            array_push($labels, 'Vínculos formais de pessoas com deficiência');
+
+            array_push($series, $reg->vinculos);
+            array_push($labels, 'Vínculos formais');
+
+            array_push($series, $reg->voluntarios);
+            array_push($labels, 'Trabalhadores voluntários');
+
+            //TRATAMENTO DE FONTES
+            $valorSemChaves = str_replace($vetReplace, '', $reg->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+
+        //JSON RESULTANTE
+        $resultado = ['qtd_trabalhores' => [
+            'nr_total_trabalhadores' => $reg->total,
+            'labels' => $labels,
+            'series' => [
+                'type' => 'bar',
+                'name' => 'Número de Trabalhores',
                 'data' => $series
             ],
             'fontes' => $fontes
