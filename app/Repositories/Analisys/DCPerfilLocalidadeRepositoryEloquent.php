@@ -16,11 +16,6 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //$this->model = $_modelo;
     }
 
-    public function getAll()
-    {
-
-    }
-
     public function getEvolucaoQtdOscPorAno($id_localidade)
     {
         //SERIES
@@ -74,7 +69,8 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 [
                     'type' => 'line',
                     'name' => 'Evolução quantidade de OSCs por ano de fundação',
-                    'data' => $series],
+                    'data' => $series
+                ],
                 [
                     'type' => 'line',
                     'name' => 'Evolução quantidade de OSCs Acumuladas por ano de fundação',
@@ -186,10 +182,12 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $regs = DB::select($query);
 
         $fontes = [];
-        $serie = [];
+        $series = [];
+        $labels = [];
         $vetReplace = ['{', '}', '"'];
         foreach ($regs as $nat) {
-            $serie += [$nat->natureza_juridica => $nat->quantidade_oscs];
+            array_push($series, $nat->quantidade_oscs);
+            array_push($labels, $nat->natureza_juridica);
             $valorSemChaves = str_replace($vetReplace, '', $nat->fontes);
             $vet = explode(',', $valorSemChaves);
             foreach ($vet as $f) {
@@ -222,11 +220,16 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         //JSON RESULTANTE
         $resultado = ['natureza_juridica' => [
-            'nr_porcentagem_maior' => $nr_porcentagem_maior,
-            'nr_porcentagem_maior_media_nacional' => $nr_porcentagem_maior_media_nacional,
+            'nr_porcentagem_maior' => floatval($nr_porcentagem_maior),
+            'nr_porcentagem_maior_media_nacional' => floatval($nr_porcentagem_maior_media_nacional),
             'tx_porcentagem_maior' => $natureza_juridica,
             'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
-            'series' => $serie,
+            'labels' => $labels,
+            'series' => [
+                'type' => 'bar',
+                'name' => 'Quantidades de OSCs',
+                'data' => $series
+                ],
             'fontes' => $fontes
         ]];
 
@@ -238,18 +241,26 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //SERIES PARA GRAFICO PRINCIPAL
         $query = "SELECT
 			localidade, 
-            natureza_juridica,
-            quantidade_oscs,
+            nome_localidade,
+            ano,
+            empenhado,
             fontes
-		FROM analysis.vw_perfil_localidade_qtd_natureza_juridica
-		WHERE localidade = " . "'" . $id_localidade . "'";
+		FROM analysis.vw_perfil_localidade_transferencias_federais
+		WHERE localidade = " . "'" . $id_localidade . "'
+		ORDER BY ano";
         $regs = DB::select($query);
 
+
+
         $fontes = [];
-        $serie = [];
+        $series = [];
+        $labels = [];
         $vetReplace = ['{', '}', '"'];
         foreach ($regs as $nat) {
-            $serie += [$nat->natureza_juridica => $nat->quantidade_oscs];
+            array_push($series, $nat->empenhado);
+            array_push($labels, $nat->ano);
+
+            //TRATAMENTO DE FONTES
             $valorSemChaves = str_replace($vetReplace, '', $nat->fontes);
             $vet = explode(',', $valorSemChaves);
             foreach ($vet as $f) {
@@ -259,34 +270,95 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             }
         }
 
-        //DADOS DO TEXTO DO GRAFICO
+        //VALORES REFERENTES A MEDIAS DE TRANSFERENCIAS
         $query = "SELECT
-            natureza_juridica,
-            porcertagem_maior
-		FROM analysis.vw_perfil_localidade_maior_qtd_natureza_juridica
+			tipo_localidade, 
+            media,
+            quantidade_localidades
+		FROM analysis.vw_perfil_localidade_medias_transferencias_federais";
+        $regs = DB::select($query);
+
+        $reg = $regs[2];
+        $nr_media = $reg->media;
+        $nr_quantidade_localidade = $reg->quantidade_localidades;
+
+        //JSON RESULTANTE
+        $resultado = ['transferencias_federais' => [
+            'media' => floatval($nr_media),
+            'quantidade_localidades' => floatval($nr_quantidade_localidade),
+            'labels' => $labels,
+            'series' => [
+                'type' => 'line',
+                'name' => 'Orçamento Empenhado',
+                'data' => $series
+            ],
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
+
+    public function getQtdOscPorAreasAtuacao($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            area_atuacao,
+            quantidade_oscs,
+            fontes
+		FROM analysis.vw_perfil_localidade_qtd_oscs_areas_atuacao
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
-        $natureza_juridica = ($regs[0])->natureza_juridica;
-        $nr_porcentagem_maior = ($regs[0])->porcertagem_maior;
 
+
+        $fontes = [];
+        $series = [];
+        $labels = [];
+        $vetReplace = ['{', '}', '"'];
+        $tx_porcentagem_maior = '';
+        $maiorValor = 0;
+        foreach ($regs as $area) {
+            array_push($series, $area->quantidade_oscs);
+            array_push($labels, $area->area_atuacao);
+            if ($maiorValor < $area->quantidade_oscs) {
+                $maiorValor = $area->quantidade_oscs;
+                $tx_porcentagem_maior = $area->area_atuacao;
+            }
+
+            //TRATAMENTO DE FONTES
+            $valorSemChaves = str_replace($vetReplace, '', $area->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+
+        //VALORES REFERENTES A MEDIAS DE TRANSFERENCIAS
         $query = "SELECT
-            dado,
+			area_atuacao, 
+            quantidade_osc,
             valor
-		FROM analysis.vw_perfil_localidade_medias_nacional
-		WHERE tipo_dado = 'maior_natureza_juridica'";
+		FROM analysis.vw_perfil_localidade_medias_nacional_areas_atuacao
+		WHERE area_atuacao = '" . $tx_porcentagem_maior . "'";
         $regs = DB::select($query);
 
-        $nr_porcentagem_maior_media_nacional = ($regs[0])->valor;
-        $tx_porcentagem_maior_media_nacional = ($regs[0])->dado;
+        $reg = $regs[0];
+        $nr_media = $reg->valor;
 
         //JSON RESULTANTE
-        $resultado = ['natureza_juridica' => [
-            'nr_porcentagem_maior' => $nr_porcentagem_maior,
-            'nr_porcentagem_maior_media_nacional' => $nr_porcentagem_maior_media_nacional,
-            'tx_porcentagem_maior' => $natureza_juridica,
-            'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
-            'series' => $serie,
+        $resultado = ['qtd_area_atuacao' => [
+            'nr_media_nacional' => floatval($nr_media),
+            'tx_media_area_atuacao' => $tx_porcentagem_maior,
+            'tx_porcentagem_maior' => $tx_porcentagem_maior,
+            'labels' => $labels,
+            'series' => [
+                'type' => 'line',
+                'name' => 'Área de Atuação',
+                'data' => $series
+            ],
             'fontes' => $fontes
         ]];
 
