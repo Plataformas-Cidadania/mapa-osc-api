@@ -14,6 +14,5 @@ interface SemRecursosOSCRepositoryInterface
     public function getAnosSemRecursosPorOSC($_id_osc, $ano);
 
     public function store(array $data);
-
-    public function delete($id, array $oscAnoOrigem);
+    public function delete($id_osc, $ano, $origem);
 }

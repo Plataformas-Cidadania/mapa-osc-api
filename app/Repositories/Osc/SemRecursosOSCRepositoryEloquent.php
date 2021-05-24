@@ -25,7 +25,7 @@ class SemRecursosOSCRepositoryEloquent implements SemRecursosOSCRepositoryInterf
 
         $anoAnt  =  NULL;
         $origemAnt = NULL;
-      //  dd($_recursos);
+
         foreach ($_recursos as $item)
         {
             $ano = $item->ano;
@@ -53,14 +53,12 @@ class SemRecursosOSCRepositoryEloquent implements SemRecursosOSCRepositoryInterf
         return $this->model->create($data);
     }
 
-    public function delete($id, array $oscAnoOrigem)
+    public function delete($id_osc, $ano, $origem)
     {
-       // dd($id,$oscAnoOrigem);
-   
-        $semRecurso =  $this->model->where('id_osc',$id)
-                                   ->where('ano',$oscAnoOrigem['ano'])
-                                   ->where('cd_origem_fonte_recursos_osc',$oscAnoOrigem['origem'])
-                                   ->delete();       
+        $semRecurso =  $this->model->where('id_osc',$id_osc)
+                            ->where('ano',$ano)
+        ->where('cd_origem_fonte_recursos_osc',$origem)
+        ->delete();       
         return  $semRecurso;
     }
 }

@@ -25,7 +25,6 @@ class SemRecurso extends Model
      * 
      * @var string
      */
-    //protected $primaryKey = 'id_osc','ano','cd_origem_fonte_recursos_osc';
     protected $primaryKey = 'id_osc';
 
 

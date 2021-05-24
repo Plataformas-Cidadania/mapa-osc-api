@@ -279,8 +279,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
     $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');*/
 
-    //ATENÇÃO!!! VERIFICAR ESSAS ROTAS, POIS DERAM CONFLITOS EM UM MERGE. FORAM MANTIDOS OS DOIS BLOCOS PARA VERIFICAÇÃO.
-//<<<<<<< HEAD
     //INFORMAÇÕES DE RECURSOS DA OSC
     $router->get('/recursos/{ano}/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
     $router->get('/anos_recursos/{id_osc}', 'RecursosOSCController@getAnoRecursosPorOSC');
@@ -289,20 +287,11 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
 
     //INFORMAÇÕES DE ANOS QUE NÃO OBTEVERAM RECURSOS DA OSC
-    $router->get('/sem_recursos/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
+    //$router->get('/sem_recursos/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
     $router->get('/sem_recursos/{ano}/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
     $router->post('/sem_recursos/', 'SemRecursosOSCController@store');
-    $router->delete('/sem_recursos/{id}', 'SemRecursosOSCController@delete');
+    $router->delete('/sem_recursos/{id_osc}/{ano}/{origem}', 'SemRecursosOSCController@delete');
 
-
-//=======
-    //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
-    $router->get('/fonte_recursos/{id_osc}', 'FonteRecursosController@getFonteRecursosPorOSC');
-    $router->get('/anos_fonte_recursos/{id_osc}', 'FonteRecursosController@getAnoFonteRecursosPorOSC');
-    /*$router->post('/fonte_recursos/', 'FonteRecursosController@store');
-    $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
-    $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');*/
-//>>>>>>> MOSC-2259
 
     //INFORMAÇÕES DE PROJETOS
     $router->get('/projetos/{id_osc}', 'OscController@getProjetos');

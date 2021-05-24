@@ -24,8 +24,8 @@ class SemRecursosOSCService
         return $this->repo->store($data);
     }
 
-    public function delete($id, array $oscAnoOrigem)
+    public function delete($id_osc, $ano, $origem)
     {
-        return $this->repo->delete($id, $oscAnoOrigem);
+        return $this->repo->delete($id_osc, $ano, $origem);
     }
 }

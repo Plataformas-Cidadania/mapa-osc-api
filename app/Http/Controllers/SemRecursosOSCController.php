@@ -44,10 +44,10 @@ class SemRecursosOSCController extends Controller
         }
     }
 
-    public function delete($id, Request $request) {
+    public function delete($id_osc, $ano, $origem) {
         try {
-            $dados = $request->all();
-            if ($this->service->delete($id, $dados))
+
+            if ($this->service->delete($id_osc, $ano, $origem))
             {
                 return response()->json(['Resposta' => 'Recurso deletado com sucesso!'], Response::HTTP_OK);
             }
