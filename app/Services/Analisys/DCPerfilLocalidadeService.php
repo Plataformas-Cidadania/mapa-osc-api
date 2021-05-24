@@ -35,4 +35,9 @@ class DCPerfilLocalidadeService
     {
         return $this->repo->getTransferenciasFederais($idlocalidade);
     }
+
+    public function getQtdOscPorAreasAtuacao($idlocalidade)
+    {
+        return $this->repo->getQtdOscPorAreasAtuacao($idlocalidade);
+    }
 }

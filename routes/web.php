@@ -46,6 +46,7 @@ $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLo
 $router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
 $router->get('/api/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
 $router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
+$router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
 
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======

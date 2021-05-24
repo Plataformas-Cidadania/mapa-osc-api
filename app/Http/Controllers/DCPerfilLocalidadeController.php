@@ -60,4 +60,14 @@ class DCPerfilLocalidadeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getQtdOscPorAreasAtuacao($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getQtdOscPorAreasAtuacao($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

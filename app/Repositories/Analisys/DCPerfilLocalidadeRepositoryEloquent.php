@@ -297,4 +297,71 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         return $resultado;
     }
+
+    public function getQtdOscPorAreasAtuacao($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            area_atuacao,
+            quantidade_oscs,
+            fontes
+		FROM analysis.vw_perfil_localidade_qtd_oscs_areas_atuacao
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+
+
+        $fontes = [];
+        $series = [];
+        $labels = [];
+        $vetReplace = ['{', '}', '"'];
+        $tx_porcentagem_maior = '';
+        $maiorValor = 0;
+        foreach ($regs as $area) {
+            array_push($series, $area->quantidade_oscs);
+            array_push($labels, $area->area_atuacao);
+            if ($maiorValor < $area->quantidade_oscs) {
+                $maiorValor = $area->quantidade_oscs;
+                $tx_porcentagem_maior = $area->area_atuacao;
+            }
+
+            //TRATAMENTO DE FONTES
+            $valorSemChaves = str_replace($vetReplace, '', $area->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+
+        //VALORES REFERENTES A MEDIAS DE TRANSFERENCIAS
+        $query = "SELECT
+			area_atuacao, 
+            quantidade_osc,
+            valor
+		FROM analysis.vw_perfil_localidade_medias_nacional_areas_atuacao
+		WHERE area_atuacao = '" . $tx_porcentagem_maior . "'";
+        $regs = DB::select($query);
+
+        $reg = $regs[0];
+        $nr_media = $reg->valor;
+
+        //JSON RESULTANTE
+        $resultado = ['qtd_area_atuacao' => [
+            'nr_media_nacional' => floatval($nr_media),
+            'tx_media_area_atuacao' => $tx_porcentagem_maior,
+            'tx_porcentagem_maior' => $tx_porcentagem_maior,
+            'labels' => $labels,
+            'series' => [
+                'type' => 'line',
+                'name' => 'Área de Atuação',
+                'data' => $series
+            ],
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
 }

@@ -16,4 +16,6 @@ interface DCPerfilLocalidadeRepositoryInterface
     public function getQtdNaturezaJuridica($id_localidade);
 
     public function getTransferenciasFederais($id_localidade);
+
+    public function getQtdOscPorAreasAtuacao($id_localidade);
 }
