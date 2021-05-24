@@ -70,4 +70,14 @@ class DCPerfilLocalidadeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getQtdTrabalhadores($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getQtdTrabalhadores($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

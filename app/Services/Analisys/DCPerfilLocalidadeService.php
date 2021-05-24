@@ -40,4 +40,9 @@ class DCPerfilLocalidadeService
     {
         return $this->repo->getQtdOscPorAreasAtuacao($idlocalidade);
     }
+
+    public function getQtdTrabalhadores($idlocalidade)
+    {
+        return $this->repo->getQtdTrabalhadores($idlocalidade);
+    }
 }

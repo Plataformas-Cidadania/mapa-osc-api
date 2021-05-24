@@ -18,4 +18,6 @@ interface DCPerfilLocalidadeRepositoryInterface
     public function getTransferenciasFederais($id_localidade);
 
     public function getQtdOscPorAreasAtuacao($id_localidade);
+
+    public function getQtdTrabalhadores($id_localidade);
 }

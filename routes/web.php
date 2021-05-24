@@ -47,6 +47,7 @@ $router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilL
 $router->get('/api/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
 $router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
 $router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
+$router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======
