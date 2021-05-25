@@ -32,6 +32,9 @@ $router->get('/api/', function () use ($router) {
 //$router->post('/api/user/', 'UsuarioController@store');
 
 $router->post('/api/user/','UsuarioController@register');
+$router->group(['middleware' => 'auth'], function() use ($router){
+    $router->get('/api/get-user-auth', 'UsuarioController@getUserAuth');
+});
 //Esta rota deve ser usada para gerar um key que deve ser colocado no .env. Esse key necessario para o uso do passport
 $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);

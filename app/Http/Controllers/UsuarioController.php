@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Portal\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -54,5 +55,9 @@ class UsuarioController extends Controller
         $data['tx_nome_usuario'] =  $user->tx_nome_usuario;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
+    }
+
+    public function getUserAuth(){
+        return Auth::user();
     }
 }
