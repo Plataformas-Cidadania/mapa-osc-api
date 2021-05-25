@@ -119,6 +119,11 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     $router->put('/fonte_recursos/{id}', 'FonteRecursosController@update');
     $router->delete('/fonte_recursos/{id}', 'FonteRecursosController@delete');
 
+    //INFORMAÇÕES DE RECURSOS DA OSC
+    $router->post('/recursos/', 'RecursosOSCController@store');
+    $router->put('/recursos/{id}', 'RecursosOSCController@update');
+    $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
+
     //INFORMAÇÕES DE PROJETOS
     $router->put('/projeto/{id}', 'ProjetoController@update');
     $router->post('/projeto/', 'ProjetoController@store');
@@ -285,9 +290,9 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
   //INFORMAÇÕES DE RECURSOS DA OSC
     $router->get('/recursos/{ano}/{id_osc}', 'RecursosOSCController@getRecursosPorOSC');
     $router->get('/anos_recursos/{id_osc}', 'RecursosOSCController@getAnoRecursosPorOSC');
-    $router->post('/recursos/', 'RecursosOSCController@store');
-    $router->put('/recursos/{id}', 'RecursosOSCController@update');
-    $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
+    //$router->post('/recursos/', 'RecursosOSCController@store');
+    //$router->put('/recursos/{id}', 'RecursosOSCController@update');
+    //$router->delete('/recursos/{id}', 'RecursosOSCController@delete');
 
     //INFORMAÇÕES DE ANOS QUE NÃO OBTEVERAM RECURSOS DA OSC
     $router->get('/sem_recursos/{ano}/{id_osc}', 'SemRecursosOSCController@getAnosSemRecursosPorOSC');
