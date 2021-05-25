@@ -21,7 +21,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //SERIES
         $query = "SELECT
 			localidade, ano_fundacao, quantidade_oscs, fontes
-		FROM analysis.vw_perfil_localidade_evolucao_qtd_osc_por_ano
+		FROM analysis.vw_perfil_localidade_evolucao_anual
 		WHERE localidade = " . "'" . $id_localidade . "'"
         . "ORDER BY ano_fundacao";
         $regs = DB::select($query);
@@ -100,7 +100,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             ft_quantidade_projetos,
             nr_orcamento_empenhado,
             ft_orcamento_empenhado
-		FROM analysis.vw_perfil_localidade_caracteristicas_gerais
+		FROM analysis.vw_perfil_localidade_caracteristicas
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
@@ -177,7 +177,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             natureza_juridica,
             quantidade_oscs,
             fontes
-		FROM analysis.vw_perfil_localidade_qtd_natureza_juridica
+		FROM analysis.vw_perfil_localidade_natureza_juridica
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
@@ -201,7 +201,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $query = "SELECT
             natureza_juridica,
             porcertagem_maior
-		FROM analysis.vw_perfil_localidade_maior_qtd_natureza_juridica
+		FROM analysis.vw_perfil_localidade_maior_natureza_juridica
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
@@ -211,7 +211,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $query = "SELECT
             dado,
             valor
-		FROM analysis.vw_perfil_localidade_medias_nacional
+		FROM analysis.vw_perfil_localidade_media_nacional
 		WHERE tipo_dado = 'maior_natureza_juridica'";
         $regs = DB::select($query);
 
@@ -236,6 +236,119 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         return $resultado;
     }
 
+    public function getRepasseRecursos($id_localidade)
+    {
+        //SERIES PARA GRAFICO PRINCIPAL
+        $query = "SELECT
+			localidade, 
+            fonte_recursos,
+            ano,
+            valor_recursos,
+            fontes
+		FROM analysis.vw_perfil_localidade_repasse_recursos
+		WHERE localidade = " . "'" . $id_localidade . "'
+		ORDER BY ano";
+        $regs = DB::select($query);
+
+        unset($regs[26]);
+
+        $fontes = [];
+        $mapaAno = [];
+        $vetOrigens = [];
+        $vetReplace = ['{', '}', '"'];
+        foreach ($regs as $rec) {
+            $mapaFonteValor = [$rec->fonte_recursos => $rec->valor_recursos];
+            if (array_search($rec->fonte_recursos, $vetOrigens) === false) {
+                array_push($vetOrigens, $rec->fonte_recursos);
+            }
+            if (!array_key_exists($rec->ano, $mapaAno)) {
+                //dd('teste IF 1');
+                $mapaAno += [$rec->ano => $mapaFonteValor];
+            }
+            else {
+                $mapaAno[$rec->ano] += $mapaFonteValor;
+
+            }
+            $valorSemChaves = str_replace($vetReplace, '', $rec->fontes);
+            $vet = explode(',', $valorSemChaves);
+            foreach ($vet as $f) {
+                if (array_search($f, $fontes) === false) {
+                    array_push($fontes, $f);
+                }
+            }
+        }
+        array_filter($mapaAno);
+        $anoi = min(array_keys($mapaAno));
+        $anof = max(array_keys($mapaAno));
+        $series = [];
+
+        $somaRecursos = 0;
+        $qtdRecursos = 0;
+        foreach ($vetOrigens as $origen) {
+            $data = [];
+            for ($i = $anoi; $i <= $anof; $i++) {
+                $mapaFonteValor = $mapaAno[$i];
+                if (!array_key_exists($origen, $mapaFonteValor)) {
+                    $mapaFonteValor = [$origen => 0];
+                    $mapaAno[$i] += $mapaFonteValor;
+                }
+                $somaRecursos += $mapaFonteValor[$origen];
+                $qtdRecursos += 1;
+                array_push($data, $mapaFonteValor[$origen]);
+            }
+            array_push($series, ['type' => 'line', 'name' => $origen, 'data' => $data]);
+        }
+        $labels = array_keys($mapaAno);
+
+        //dd($mapaAno);
+        //DADOS DO TEXTO DO GRAFICO
+        $query = "SELECT
+			rank
+		FROM analysis.vw_perfil_localidade_ranking_repasse_recursos
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $nr_rank = $regs[0]->rank;
+
+        $query = "SELECT
+			dado,
+            valor
+		FROM analysis.vw_perfil_localidade_media_nacional
+		WHERE tipo_dado = 'media_repasse_recursos'";
+        $regs = DB::select($query);
+
+        $nr_repasse_media_nacional = $regs[0]->valor;
+
+        //dd('teste');
+
+        $query = "SELECT
+			tipo_repasse,
+            media,
+            porcertagem_maior,
+            fontes
+		FROM analysis.vw_perfil_localidade_repasse_recursos_maior_medias
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $tx_maior_tipo_repasse = $regs[0]->tipo_repasse;
+        $nr_porcentagem_maior = $regs[0]->porcertagem_maior;
+        $nr_repasse_media = $somaRecursos / $qtdRecursos;
+
+        //JSON RESULTANTE
+        $resultado = ['repasse_recursos' => [
+            'nr_colocacao_nacional' => floatval($nr_rank),
+            'nr_porcentagem_maior_tipo_repasse' => floatval($nr_porcentagem_maior),
+            'nr_repasse_media' => ($nr_repasse_media),
+            'nr_repasse_media_nacional' => floatval($nr_repasse_media_nacional),
+            'tx_maior_tipo_repasse' => $tx_maior_tipo_repasse,
+            'labels' => $labels,
+            'series' => $series,
+            'fontes' => $fontes
+        ]];
+
+        return $resultado;
+    }
+
     public function getTransferenciasFederais($id_localidade)
     {
         //SERIES PARA GRAFICO PRINCIPAL
@@ -245,7 +358,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             ano,
             empenhado,
             fontes
-		FROM analysis.vw_perfil_localidade_transferencias_federais
+		FROM analysis.vw_perfil_localidade_orcamento
 		WHERE localidade = " . "'" . $id_localidade . "'
 		ORDER BY ano";
         $regs = DB::select($query);
@@ -275,7 +388,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 			tipo_localidade, 
             media,
             quantidade_localidades
-		FROM analysis.vw_perfil_localidade_medias_transferencias_federais";
+		FROM analysis.vw_perfil_localidade_orcamento_media_nacional";
         $regs = DB::select($query);
 
         $reg = $regs[2];
@@ -306,7 +419,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             area_atuacao,
             quantidade_oscs,
             fontes
-		FROM analysis.vw_perfil_localidade_qtd_oscs_areas_atuacao
+		FROM analysis.vw_perfil_localidade_area_atuacao
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
@@ -341,7 +454,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 			area_atuacao, 
             quantidade_osc,
             valor
-		FROM analysis.vw_perfil_localidade_medias_nacional_areas_atuacao
+		FROM analysis.vw_perfil_localidade_area_atuacao_nacional
 		WHERE area_atuacao = '" . $tx_porcentagem_maior . "'";
         $regs = DB::select($query);
 
@@ -375,7 +488,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             voluntarios,
             total,
             fontes
-		FROM analysis.vw_perfil_localidade_qtd_trabalhadores
+		FROM analysis.vw_perfil_localidade_trabalhadores
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 

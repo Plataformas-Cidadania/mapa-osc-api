@@ -51,6 +51,16 @@ class DCPerfilLocalidadeController extends Controller
         }
     }
 
+    public function getRepasseRecursos($idlocalidade)
+    {
+        try {
+            return response()->json($this->service->getRepasseRecursos($idlocalidade), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getTransferenciasFederais($idlocalidade)
     {
         try {
