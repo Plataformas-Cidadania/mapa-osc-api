@@ -256,12 +256,11 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $vetReplace = ['{', '}', '"'];
         foreach ($regs as $rec) {
             if ($rec->ano != null) {
-                $mapaFonteValor = [$rec->fonte_recursos => $rec->valor_recursos];
+                $mapaFonteValor = [$rec->fonte_recursos => floatval($rec->valor_recursos)];
                 if (array_search($rec->fonte_recursos, $vetOrigens) === false) {
                     array_push($vetOrigens, $rec->fonte_recursos);
                 }
                 if (!array_key_exists($rec->ano, $mapaAno)) {
-                    //dd('teste IF 1');
                     $mapaAno += [$rec->ano => $mapaFonteValor];
                 }
                 else {
@@ -289,7 +288,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             for ($i = $anoi; $i <= $anof; $i++) {
                 $mapaFonteValor = $mapaAno[$i];
                 if (!array_key_exists($origen, $mapaFonteValor)) {
-                    $mapaFonteValor = [$origen => 0];
+                    $mapaFonteValor = [$origen => null];
                     $mapaAno[$i] += $mapaFonteValor;
                 }
                 $somaRecursos += $mapaFonteValor[$origen];
@@ -300,7 +299,6 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         }
         $labels = array_keys($mapaAno);
 
-        //dd($mapaAno);
         //DADOS DO TEXTO DO GRAFICO
         $query = "SELECT
 			rank
@@ -318,8 +316,6 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $regs = DB::select($query);
 
         $nr_repasse_media_nacional = $regs[0]->valor;
-
-        //dd('teste');
 
         $query = "SELECT
 			tipo_repasse,
