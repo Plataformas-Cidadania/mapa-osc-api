@@ -250,30 +250,30 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 		ORDER BY ano";
         $regs = DB::select($query);
 
-        unset($regs[26]);
-
         $fontes = [];
         $mapaAno = [];
         $vetOrigens = [];
         $vetReplace = ['{', '}', '"'];
         foreach ($regs as $rec) {
-            $mapaFonteValor = [$rec->fonte_recursos => $rec->valor_recursos];
-            if (array_search($rec->fonte_recursos, $vetOrigens) === false) {
-                array_push($vetOrigens, $rec->fonte_recursos);
-            }
-            if (!array_key_exists($rec->ano, $mapaAno)) {
-                //dd('teste IF 1');
-                $mapaAno += [$rec->ano => $mapaFonteValor];
-            }
-            else {
-                $mapaAno[$rec->ano] += $mapaFonteValor;
+            if ($rec->ano != null) {
+                $mapaFonteValor = [$rec->fonte_recursos => $rec->valor_recursos];
+                if (array_search($rec->fonte_recursos, $vetOrigens) === false) {
+                    array_push($vetOrigens, $rec->fonte_recursos);
+                }
+                if (!array_key_exists($rec->ano, $mapaAno)) {
+                    //dd('teste IF 1');
+                    $mapaAno += [$rec->ano => $mapaFonteValor];
+                }
+                else {
+                    $mapaAno[$rec->ano] += $mapaFonteValor;
 
-            }
-            $valorSemChaves = str_replace($vetReplace, '', $rec->fontes);
-            $vet = explode(',', $valorSemChaves);
-            foreach ($vet as $f) {
-                if (array_search($f, $fontes) === false) {
-                    array_push($fontes, $f);
+                }
+                $valorSemChaves = str_replace($vetReplace, '', $rec->fontes);
+                $vet = explode(',', $valorSemChaves);
+                foreach ($vet as $f) {
+                    if (array_search($f, $fontes) === false) {
+                        array_push($fontes, $f);
+                    }
                 }
             }
         }
