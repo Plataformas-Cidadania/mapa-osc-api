@@ -326,7 +326,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             media,
             porcertagem_maior,
             fontes
-		FROM analysis.vw_perfil_localidade_repasse_recursos_maior_medias
+		FROM analysis.vw_perfil_localidade_maior_media_repasse_recursos
 		WHERE localidade = " . "'" . $id_localidade . "'";
         $regs = DB::select($query);
 
