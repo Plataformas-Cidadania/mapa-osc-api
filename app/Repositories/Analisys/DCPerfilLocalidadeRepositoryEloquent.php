@@ -481,7 +481,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 array_push($fontes, $f);
             }
         }
-        
+
         //JSON RESULTANTE
         $resultado = ['qtd_area_atuacao' => [
             'nr_media_nacional_area_atuacao' => floatval($nr_area_atuacao),

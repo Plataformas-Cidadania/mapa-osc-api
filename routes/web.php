@@ -40,10 +40,14 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
+//PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+//---ODS----//
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
+//---AREA E SUBAREA DE ATUAÇÃO----//
+$router->get('/api/area_atuacao/', 'DCAreaAtuacaoController@getAll');
+$router->get('/api/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
-//<<<<<<< HEAD
 //PERFIL LOCALIDADE
 $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
 $router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');

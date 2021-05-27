@@ -97,6 +97,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Syst\DCAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCAreaAtuacaoRepositoryEloquent'
         );
         $this->app->bind(
+            'App\Repositories\Syst\DCSubAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCSubAreaAtuacaoRepositoryEloquent'
+        );
+        $this->app->bind(
             'App\Repositories\Syst\DCMetaProjetoRepositoryInterface', 'App\Repositories\Syst\DCMetaProjetoRepositoryEloquent'
         );
         $this->app->bind(
