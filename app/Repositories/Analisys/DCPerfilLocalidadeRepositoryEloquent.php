@@ -222,8 +222,8 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $resultado = ['natureza_juridica' => [
             'nr_porcentagem_maior' => floatval($nr_porcentagem_maior),
             'nr_porcentagem_maior_media_nacional' => floatval($nr_porcentagem_maior_media_nacional),
-            'tx_porcentagem_maior' => $natureza_juridica,
-            'tx_porcentagem_maior_media_nacional' => $tx_porcentagem_maior_media_nacional,
+            'tx_porcentagem_maior' => str_replace($vetReplace, '', $natureza_juridica),
+            'tx_porcentagem_maior_media_nacional' => str_replace($vetReplace, '', $tx_porcentagem_maior_media_nacional),
             'labels' => $labels,
             'series' => [
                 'type' => 'column',
