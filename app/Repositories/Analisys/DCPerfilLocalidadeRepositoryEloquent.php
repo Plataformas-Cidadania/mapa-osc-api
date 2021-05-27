@@ -485,9 +485,9 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //JSON RESULTANTE
         $resultado = ['qtd_area_atuacao' => [
             'nr_media_nacional_area_atuacao' => floatval($nr_area_atuacao),
-            'tx_media_nacional_area_atuacao' => $tx_area_atuacao,
+            'tx_media_nacional_area_atuacao' => str_replace($vetReplace, '', $tx_area_atuacao),
             'nr_porcentagem_maior' => floatval($nr_porcentagem_maior),
-            'tx_porcentagem_maior' => $tx_porcentagem_maior,
+            'tx_porcentagem_maior' => str_replace($vetReplace, '', $tx_porcentagem_maior),
             'labels' => $labels,
             'series' => [
                 'type' => 'line',
