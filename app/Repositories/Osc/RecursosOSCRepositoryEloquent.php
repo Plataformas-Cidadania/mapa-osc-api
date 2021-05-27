@@ -4,6 +4,7 @@
 namespace App\Repositories\Osc;
 
 use App\Models\Osc\Recurso;
+use App\Models\Osc\SemRecurso;
 use App\Repositories\Osc\RecursosOSCRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -62,15 +63,21 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
     }
     
     public function getAnoRecursosPorOSC($_id_osc)
-    {
-        $anos_fonte_recursos = $this->recursoModel->where('id_osc', $_id_osc)->groupBy('id_osc','dt_ano_recursos_osc')->orderBy('dt_ano_recursos_osc')->get(['id_osc', 'dt_ano_recursos_osc']);
-
-        foreach ($anos_fonte_recursos as $item)
-        {
-            $item->dt_ano_recursos_osc = substr($item->dt_ano_recursos_osc, 0, -6);
+    {   $anos=[];
+        $anos_recursos = $this->recursoModel->where('id_osc', $_id_osc)->groupBy('id_osc','dt_ano_recursos_osc')->orderBy('dt_ano_recursos_osc')->get(['id_osc', 'dt_ano_recursos_osc']);
+        $anos_sem_recursos = SemRecurso::where('id_osc', $_id_osc)->get();
+        foreach ($anos_recursos as $item)
+        {   
+            array_push($anos,(int)substr($item->dt_ano_recursos_osc, 0, -6));          
         }
-
-        return $anos_fonte_recursos;
+        foreach ($anos_sem_recursos as $item)
+        {
+            array_push($anos,$item->ano);
+        }
+        $anos=array_unique($anos);
+        ksort($anos);
+        //dd($anos);
+        return $anos;
     }
 
     public function store(array $data)
