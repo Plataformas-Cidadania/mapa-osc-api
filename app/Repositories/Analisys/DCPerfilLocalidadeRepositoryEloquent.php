@@ -445,22 +445,48 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             }
         }
 
-        //VALORES REFERENTES A MEDIAS DE TRANSFERENCIAS
+        //VALORES REFERENTES A MEDIAS NACIONAIS AREA DE ATUAÇÃO
         $query = "SELECT
-			area_atuacao, 
-            quantidade_osc,
+			tipo_dado, 
+            dado,
             valor
-		FROM analysis.vw_perfil_localidade_area_atuacao_nacional
-		WHERE area_atuacao = '" . $tx_porcentagem_maior . "'";
+		FROM analysis.vw_perfil_localidade_media_nacional
+		WHERE tipo_dado = 'maior_area_atuacao'";
         $regs = DB::select($query);
 
         $reg = $regs[0];
-        $nr_media = $reg->valor;
+        $nr_area_atuacao = $reg->valor;
+        $tx_area_atuacao = ($reg->dado);
 
+        //VALORES REFERENTES A MEDIAS NACIONAIS AREA DE ATUAÇÃO
+        $query = "SELECT
+			localidade, 
+            area_atuacao,
+            porcertagem_maior,
+            fontes
+		FROM analysis.vw_perfil_localidade_maior_area_atuacao
+		WHERE localidade = " . "'" . $id_localidade . "'";
+        $regs = DB::select($query);
+
+        $reg = $regs[0];
+        $nr_porcentagem_maior = $reg->porcertagem_maior;
+        $tx_porcentagem_maior = ($reg->area_atuacao);
+
+
+        //TRATAMENTO DE FONTES
+        $valorSemChaves = str_replace($vetReplace, '', $reg->fontes);
+        $vet = explode(',', $valorSemChaves);
+        foreach ($vet as $f) {
+            if (array_search($f, $fontes) === false) {
+                array_push($fontes, $f);
+            }
+        }
+        
         //JSON RESULTANTE
         $resultado = ['qtd_area_atuacao' => [
-            'nr_media_nacional' => floatval($nr_media),
-            'tx_media_area_atuacao' => $tx_porcentagem_maior,
+            'nr_media_nacional_area_atuacao' => floatval($nr_area_atuacao),
+            'tx_media_nacional_area_atuacao' => $tx_area_atuacao,
+            'nr_porcentagem_maior' => floatval($nr_porcentagem_maior),
             'tx_porcentagem_maior' => $tx_porcentagem_maior,
             'labels' => $labels,
             'series' => [
