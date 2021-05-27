@@ -11,6 +11,12 @@
             "email": "gianninimail@gmail.com",
             "homepage": "https://www.naderman.de",
             "role": "Project Leader / Developer"
+        },
+        {
+            "name": "Bruno da Silva Passos",
+            "email": "brpassos.programador@gmail.com",
+            "homepage": "https://www.brunopassos.com.br",
+            "role": "Developer"
         }
     ],
     "type": "project",

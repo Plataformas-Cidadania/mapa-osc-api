@@ -80,6 +80,8 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
         'bo_lista_atualizacao_trimestral'
     ];
 
+    public $timestamps = false;
+
     public function findForPassport($username) {
         return $this->where('tx_email_usuario', $username)->first();
     }

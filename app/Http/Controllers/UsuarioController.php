@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portal\Usuario;
+use App\Services\Portal\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,12 +16,15 @@ class UsuarioController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private $service;
+
+    public function __construct(UsuarioService $_service)
     {
-        //
+        $this->service = $_service;
     }
 
-    public function store(Request $request) {
+    /*public function store(Request $request) {
         //return [];
         //return ['tx_email_usuario' => 'teste@gmail.com'];
         //return ['tx_nome_usuario' => '', 'tx_email_usuario' => '', 'tx_senha_usuario' => ''];
@@ -28,14 +32,17 @@ class UsuarioController extends Controller
         $user = new Usuario($request->all());
 
         return $user;
-    }
+    }*/
 
-    public function register(Request $request)
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+        $data['nr_cpf_usuario'] = preg_replace('/[^0-9]/', '', $data['nr_cpf_usuario']);
+        $validator = Validator::make($data, [
             'tx_nome_usuario' => 'required',
-            'tx_email_usuario' => 'required|email',
-            'tx_senha_usuario' => 'required'
+            'tx_email_usuario' => 'required|email|unique:pgsql.portal.tb_usuario',
+            'tx_senha_usuario' => 'required',
+            'nr_cpf_usuario' => 'required|unique:pgsql.portal.tb_usuario'
         ]);
 
         //return $request->all();
@@ -44,12 +51,7 @@ class UsuarioController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $input = $request->all();
-        //$input['tx_senha_usuario'] = Hash::make($input['tx_senha_usuario']);
-        $input['tx_senha_usuario'] = sha1($input['tx_senha_usuario']);
-        //$user = Usuario::create($input);
-        $user = Usuario::insert($input);
-        $user = Usuario::where('tx_email_usuario', $input['tx_email_usuario'])->first();
+        $user = $this->service->store($data);
         /**Take note of this: Your user authentication access token is generated here **/
         $data['token'] =  $user->createToken('MyApp')->accessToken;
         $data['tx_nome_usuario'] =  $user->tx_nome_usuario;

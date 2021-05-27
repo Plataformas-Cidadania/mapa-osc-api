@@ -31,7 +31,7 @@ $router->get('/api/', function () use ($router) {
 
 //$router->post('/api/user/', 'UsuarioController@store');
 
-$router->post('/api/user/','UsuarioController@register');
+$router->post('/api/user/','UsuarioController@store');
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('/api/get-user-auth', 'UsuarioController@getUserAuth');
 });
