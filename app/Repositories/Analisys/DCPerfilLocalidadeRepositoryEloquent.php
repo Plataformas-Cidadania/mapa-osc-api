@@ -68,12 +68,12 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             'series' => [
                 [
                     'type' => 'line',
-                    'name' => 'Evolução quantidade de OSCs por ano de fundação',
+                    'name' => 'Quantidade de OSCs',
                     'data' => $series
                 ],
                 [
                     'type' => 'line',
-                    'name' => 'Evolução quantidade de OSCs Acumuladas por ano de fundação',
+                    'name' => 'Quantidade de OSCs Acumuladas',
                     'data' => $serieAcumulado
                 ],
             ],
