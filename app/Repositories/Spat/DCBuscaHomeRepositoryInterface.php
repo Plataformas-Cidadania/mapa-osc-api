@@ -10,4 +10,5 @@ interface DCBuscaHomeRepositoryInterface
     public function __construct();
 
     public function getListaMunicipios($texto_busca);
+    public function getListaEstados($texto_busca);
 }

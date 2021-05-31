@@ -20,4 +20,8 @@ class DCBuscaHomeService
     {
         return $this->repo->getListaMunicipios($texto_busca);
     }
+    public function getListaEstados($texto_busca)
+    {
+        return $this->repo->getListaEstados($texto_busca);
+    }
 }

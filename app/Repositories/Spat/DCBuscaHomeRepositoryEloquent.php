@@ -32,4 +32,22 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
 
         return $regs;
     }
+
+    public function getListaEstados($texto_busca)
+    {
+        $vetReplace = ['_', '-', '%20'];
+        $texto_busca = str_replace($vetReplace, '', $texto_busca);
+
+        //dd($texto_busca);
+
+        $query = "SELECT
+                    eduf_cd_uf, eduf_nm_uf
+                FROM spat.vw_estado
+                WHERE eduf_nm_uf_ajustado ILIKE " . "'" . $texto_busca . "%'"
+        . "ORDER BY eduf_nm_uf";
+        $regs = DB::select($query);
+
+        return $regs;
+    }
+
 }
