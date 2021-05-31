@@ -44,9 +44,14 @@ $router->get('/key', function() {
 //---ODS----//
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
+
 //---AREA E SUBAREA DE ATUAÇÃO----//
 $router->get('/api/area_atuacao/', 'DCAreaAtuacaoController@getAll');
 $router->get('/api/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
+
+//---ROTAS da BUSCA HOME----//
+$router->get('/api/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
+
 
 //PERFIL LOCALIDADE
 $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');

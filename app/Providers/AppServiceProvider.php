@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
+use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -109,6 +110,9 @@ class AppServiceProvider extends ServiceProvider
         //DADOS DO SCHEMA SPAT
         $this->app->bind(
             'App\Repositories\Spat\DCGeoClusterRepositoryInterface', 'App\Repositories\Spat\DCGeoClusterRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Spat\DCBuscaHomeRepositoryInterface', 'App\Repositories\Spat\DCBuscaHomeRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA IPEADATA
