@@ -120,4 +120,8 @@ class OscService
         }
         return $this->repo->getListaOscsPorIds($idsOscs);
     }
+
+    public function getListaOscCnpjAutocomplete($cnpj){
+        return $this->repo->getListaOscCnpjAutocomplete($cnpj);
+    }
 }
