@@ -53,8 +53,8 @@ class UsuarioController extends Controller
 
         $user = $this->service->store($data);
         /**Take note of this: Your user authentication access token is generated here **/
-        $data['token'] =  $user->createToken('MyApp')->accessToken;
-        $data['tx_nome_usuario'] =  $user->tx_nome_usuario;
+        //$data['token'] =  $user->createToken('MyApp')->accessToken;
+        //$data['tx_nome_usuario'] =  $user->tx_nome_usuario;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
     }
