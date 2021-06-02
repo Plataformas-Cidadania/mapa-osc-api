@@ -49,5 +49,21 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
 
         return $regs;
     }
+    public function getListaRegioes($texto_busca)
+    {
+        $vetReplace = ['_', '-', '%20'];
+        $texto_busca = str_replace($vetReplace, '', $texto_busca);
+
+        //dd($texto_busca);
+
+        $query = "SELECT
+                    edre_cd_regiao, edre_nm_regiao
+                FROM spat.vw_regiao
+                WHERE edre_nm_regiao_ajustado ILIKE " . "'" . $texto_busca . "%'"
+        . "ORDER BY edre_nm_regiao";
+        $regs = DB::select($query);
+
+        return $regs;
+    }
 
 }

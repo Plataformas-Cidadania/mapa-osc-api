@@ -52,6 +52,7 @@ $router->get('/api/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 //---ROTAS da BUSCA HOME----//
 $router->get('/api/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
 $router->get('/api/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
+$router->get('/api/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
 
 
 //PERFIL LOCALIDADE

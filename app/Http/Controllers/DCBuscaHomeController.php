@@ -39,4 +39,13 @@ class DCBuscaHomeController extends Controller
             return $e->getMessage();
         }
     }
+    public function getListaRegioes($texto_busca)
+    {
+        try {
+            return response()->json($this->service->getListaRegioes($texto_busca), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
