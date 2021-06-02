@@ -16,7 +16,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         //$this->model = $_modelo;
     }
 
-    public function getEvolucaoQtdOscPorAno($id_localidade)//PAINEL PRINCIPAL DE OSCs da Página Perfil Localidade
+    public function getEvolucaoQtdOscPorAno($id_localidade)
     {
         //SERIES
         $query = "SELECT
@@ -64,7 +64,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 $mapa += [$i => NULL];
                 $mapaAcumulado += [$i => NULL];
                 //dd($i);
-                dd($mapaAcumulado);
+                //dd($mapaAcumulado);
                 //dd($mapaAcumulado[1922]);
                 //$mapaAcumulado += [$i => $mapaAcumulado[$i-1]];
             }
@@ -134,7 +134,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         return $resultado;
     }
 
-    public function getCaracteristicas($id_localidade)
+    public function getCaracteristicas($id_localidade)//PAINEL PRINCIPAL DE OSCs da Página Perfil Localidade
     {
         //SERIES
         $query = "SELECT
