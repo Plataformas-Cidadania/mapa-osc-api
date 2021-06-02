@@ -41,6 +41,7 @@ $router->get('/key', function() {
 });
 
 //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+
 //---ODS----//
 $router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
 $router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
@@ -53,6 +54,7 @@ $router->get('/api/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 $router->get('/api/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
 $router->get('/api/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
 $router->get('/api/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
+$router->get('/api/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
 
 
 //PERFIL LOCALIDADE
@@ -64,8 +66,6 @@ $router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'D
 $router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
 $router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
-//SEARCH AUTOCOMPLETE
-$router->get('/api/search/cnpj/autocomplete/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
 
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======
