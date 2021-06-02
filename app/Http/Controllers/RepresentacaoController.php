@@ -41,6 +41,14 @@ class RepresentacaoController extends Controller
     }
 
     public function store(Request $request) {
+        try {
+            $dados = $request->all();
+
+            return response()->json($this->service->store($dados), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
         //return [];
         //return ['tx_email_usuario' => 'teste@gmail.com'];
         //return ['tx_nome_usuario' => '', 'tx_email_usuario' => '', 'tx_senha_usuario' => ''];
@@ -48,5 +56,17 @@ class RepresentacaoController extends Controller
         //$user = new Usuario($request->all());
 
         //return $user;
+    }
+
+    public function delete($id_osc) {
+        try {
+            if ($this->service->delete($id_osc))
+            {
+                return response()->json(['Resposta' => 'Representação de osc deletada com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

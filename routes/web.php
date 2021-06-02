@@ -71,6 +71,11 @@ $router->get('/api/search/cnpj/autocomplete/{cnpj}', 'OscController@getListaOscC
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 //>>>>>>> MOSC-2259
 
+
+    //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
+    $router->post('/representacao/', 'RepresentacaoController@store');
+    $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
+
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/list-oscs-usuario', 'OscController@getListaOscUsuarioAutenticado');
     $router->post('/', 'OscController@store');

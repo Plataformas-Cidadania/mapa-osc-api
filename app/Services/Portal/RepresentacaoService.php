@@ -5,6 +5,8 @@ namespace App\Services\Portal;
 
 
 use App\Repositories\Portal\RepresentacaoRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RepresentacaoService
 {
@@ -27,7 +29,8 @@ class RepresentacaoService
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        $data['id_usuario'] = Auth::user()->id_usuario;
+        return $this->repo->store($data);
     }
 
     public function update($id, array $data)
@@ -35,8 +38,11 @@ class RepresentacaoService
         // TODO: Implement update() method.
     }
 
-    public function destroy($id)
+    public function delete($id_osc)
     {
-        // TODO: Implement destroy() method.
+        $id_usuario = Auth::user()->id_usuario;
+        $representacao = $this->repo->getId($id_osc, $id_usuario);
+        Log::info($representacao);
+        return $this->repo->destroy($representacao->id_representacao);
     }
 }

@@ -25,9 +25,18 @@ class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterfac
         return $this->model->with('usuario')->with('osc')->where('id_representacao', $id)->get();
     }
 
+    public function getId($id_osc, $id_usuario)
+    {
+        return $this->model->with('usuario')
+            ->with('osc')
+            ->where('id_osc', $id_osc)
+            ->where('id_usuario', $id_usuario)
+            ->first();
+    }
+
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        return $this->model->create($data);
     }
 
     public function update($id, array $data)
@@ -37,6 +46,6 @@ class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterfac
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        return $this->model->find($id)->delete();
     }
 }
