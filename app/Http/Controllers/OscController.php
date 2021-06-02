@@ -242,4 +242,13 @@ class OscController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getListaOscCnpjAutocomplete($cnpj){
+        try {
+            return response()->json($this->service->getListaOscCnpjAutocomplete($cnpj), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

@@ -28,7 +28,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
 
         $mapa = [];
         $fontes = [];
-        $serieAcumulado = [];
+        $mapaAcumulado = [];
         $vetReplace = ['{', '}', '"'];
         $qtd_osc_acumulado = 0;
         foreach ($regs as $reg) {
@@ -36,8 +36,8 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             $mapa += [$reg->ano_fundacao => $reg->quantidade_oscs];
 
             //SERIE DO ACUMULADO ANUAL DOS ANOS
-            array_push($serieAcumulado, $qtd_osc_acumulado);
             $qtd_osc_acumulado += $reg->quantidade_oscs;
+            $mapaAcumulado += [$reg->ano_fundacao => $qtd_osc_acumulado];
 
             //VETOR AGRUPADO DE FONTES DAS INFORMAÇÕES
             $valorSemChaves = str_replace($vetReplace, '', $reg->fontes);
@@ -52,10 +52,21 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $anoi = min(array_keys($mapa));
         $anof = max(array_keys($mapa));
 
+        //dd($anoi);
+        //dd($anof);
         for ($i = $anoi; $i <= $anof; $i++) {
             $ano = array_search($i, $mapa);
+            //dd($mapaAcumulado);
+            //dd($ano);
             if(!$ano) {
+                //dd($i);
+
                 $mapa += [$i => NULL];
+                $mapaAcumulado += [$i => NULL];
+                //dd($i);
+                //dd($mapaAcumulado);
+                //dd($mapaAcumulado[1922]);
+                //$mapaAcumulado += [$i => $mapaAcumulado[$i-1]];
             }
         }
 
@@ -63,7 +74,47 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $series = array_values($mapa);
         $labels = array_keys($mapa);
 
+
+        $query = "SELECT
+			localidade, nome_localidade, nr_quantidade_osc, rank, tipo_rank
+		FROM analysis.vw_perfil_localidade_ranking_quantidade_osc
+		WHERE localidade = " . "'" . $id_localidade . "'"
+            . " OR rank <= 1 
+                OR rank = (
+                    SELECT MAX(rank) FROM analysis.vw_perfil_localidade_ranking_quantidade_osc WHERE tipo_rank = 'municipio'
+                )
+                OR (
+                        rank = (SELECT MAX(rank) FROM analysis.vw_perfil_localidade_ranking_quantidade_osc WHERE tipo_rank = 'estado')  
+                        AND tipo_rank = 'estado'
+                )
+            ORDER BY rank, tipo_rank LIMIT 6";
+        $regs = DB::select($query);
+
+        if (count($regs) > 5) {
+            $nr_colocacao_nacional = $regs[3]->rank;
+            $nr_quantidade_oscs_primeiro_colocado_estado = $regs[0]->nr_quantidade_osc;
+            $nr_quantidade_oscs_primeiro_colocado_municipio = $regs[1]->nr_quantidade_osc;
+            $nr_quantidade_oscs_ultimo_colocado_estado = $regs[4]->nr_quantidade_osc;
+            $nr_quantidade_oscs_ultimo_colocado_municipio = $regs[5]->nr_quantidade_osc;
+
+            $tx_primeiro_colocado_estado = $regs[0]->nome_localidade;
+            $tx_primeiro_colocado_municipio = $regs[1]->nome_localidade;
+            $tx_ultimo_colocado_estado = $regs[4]->nome_localidade;
+            $tx_ultimo_colocado_municipio = $regs[5]->nome_localidade;
+        }
+
         $resultado = ['qtd_osc_por_ano' => [
+            'nr_colocacao_nacional' => $nr_colocacao_nacional,
+            'nr_quantidade_oscs_primeiro_colocado_estado' => $nr_quantidade_oscs_primeiro_colocado_estado,
+            'nr_quantidade_oscs_primeiro_colocado_municipio' => $nr_quantidade_oscs_primeiro_colocado_municipio,
+            'nr_quantidade_oscs_ultimo_colocado_estado' => $nr_quantidade_oscs_ultimo_colocado_estado,
+            'nr_quantidade_oscs_ultimo_colocado_municipio' => $nr_quantidade_oscs_ultimo_colocado_municipio,
+
+            'tx_primeiro_colocado_estado' => $tx_primeiro_colocado_estado,
+            'tx_primeiro_colocado_municipio' => $tx_primeiro_colocado_municipio,
+            'tx_ultimo_colocado_estado' => $tx_ultimo_colocado_estado,
+            'tx_ultimo_colocado_municipio' => $tx_ultimo_colocado_municipio,
+
             'dataLabels' => $labels,
             'series' => [
                 [
@@ -74,7 +125,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 [
                     'type' => 'line',
                     'name' => 'Quantidade de OSCs Acumuladas',
-                    'data' => $serieAcumulado
+                    'data' => 0
                 ],
             ],
             'fontes' => $fontes
@@ -83,7 +134,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         return $resultado;
     }
 
-    public function getCaracteristicas($id_localidade)
+    public function getCaracteristicas($id_localidade)//PAINEL PRINCIPAL DE OSCs da Página Perfil Localidade
     {
         //SERIES
         $query = "SELECT

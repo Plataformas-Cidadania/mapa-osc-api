@@ -14,6 +14,8 @@ interface RepresentacaoRepositoryInterface
 
     public function get($id);
 
+    public function getId($id_osc, $id_usuario);
+
     public function store(array $data);
 
     public function update($id, array $data);

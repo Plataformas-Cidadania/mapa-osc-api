@@ -64,10 +64,18 @@ $router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'D
 $router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
 $router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
+//SEARCH AUTOCOMPLETE
+$router->get('/api/search/cnpj/autocomplete/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
+
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 //=======
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 //>>>>>>> MOSC-2259
+
+
+    //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
+    $router->post('/representacao/', 'RepresentacaoController@store');
+    $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/list-oscs-usuario', 'OscController@getListaOscUsuarioAutenticado');
