@@ -52,27 +52,18 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
         $anoi = min(array_keys($mapa));
         $anof = max(array_keys($mapa));
 
-        //dd($anoi);
-        //dd($anof);
         for ($i = $anoi; $i <= $anof; $i++) {
-            $ano = array_search($i, $mapa);
-            //dd($mapaAcumulado);
-            //dd($ano);
-            if(!$ano) {
-                //dd($i);
-
+            if(!array_key_exists($i, $mapa)) {
                 $mapa += [$i => NULL];
-                $mapaAcumulado += [$i => NULL];
-                //dd($i);
-                //dd($mapaAcumulado);
-                //dd($mapaAcumulado[1922]);
-                //$mapaAcumulado += [$i => $mapaAcumulado[$i-1]];
+                $mapaAcumulado += [$i => $mapaAcumulado[$i-1]];
             }
         }
 
         ksort($mapa);
         $series = array_values($mapa);
         $labels = array_keys($mapa);
+        ksort($mapaAcumulado);
+        $seriesAcumulado = array_values($mapaAcumulado);
 
 
         $query = "SELECT
@@ -125,7 +116,7 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
                 [
                     'type' => 'line',
                     'name' => 'Quantidade de OSCs Acumuladas',
-                    'data' => 0
+                    'data' => $seriesAcumulado
                 ],
             ],
             'fontes' => $fontes
