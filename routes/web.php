@@ -56,6 +56,11 @@ $router->get('/api/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaE
 $router->get('/api/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
 $router->get('/api/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
 
+//---ROTAS LISTA OSC POR REGIÃO----//
+$router->get('/api/lista_osc/estado/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
+$router->get('/api/lista_osc/municipio/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
+$router->get('/api/lista_osc/regiao/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
+
 
 //PERFIL LOCALIDADE
 $router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');

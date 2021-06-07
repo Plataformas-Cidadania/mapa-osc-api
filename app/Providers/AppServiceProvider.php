@@ -92,6 +92,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface', 'App\Repositories\Osc\FonteRecursosProjetoRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryInterface', 'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
