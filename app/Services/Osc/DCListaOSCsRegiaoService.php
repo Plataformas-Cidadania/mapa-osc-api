@@ -15,18 +15,18 @@ class DCListaOSCsRegiaoService
         $this->repo = $_repo;
     }
 
-    public function getListaOSCsMunicipio($id_localidade)
+    public function getListaOSCsMunicipio($id_localidade, $pagina)
     {
-        return $this->repo->getListaOSCsMunicipio($id_localidade);
+        return $this->repo->getListaOSCsMunicipio($id_localidade, $pagina);
     }
 
-    public function getListaOSCsEstado($id_localidade)
+    public function getListaOSCsEstado($id_localidade, $pagina)
     {
-        return $this->repo->getListaOSCsEstado($id_localidade);
+        return $this->repo->getListaOSCsEstado($id_localidade, $pagina);
     }
 
-    public function getListaOSCsRegiao($id_localidade)
+    public function getListaOSCsRegiao($id_localidade, $pagina)
     {
-        return $this->repo->getListaOSCsRegiao($id_localidade);
+        return $this->repo->getListaOSCsRegiao($id_localidade, $pagina);
     }
 }

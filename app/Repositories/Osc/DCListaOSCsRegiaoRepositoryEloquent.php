@@ -16,7 +16,7 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
         //$this->model = $_modelo;
     }
 
-    public function getListaOSCsMunicipio($id_localidade)
+    public function getListaOSCsMunicipio($id_localidade, $pagina)
     {
         $query = "SELECT
 			id_osc,
@@ -28,6 +28,22 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
 			geo_lng,
 			tx_nome_atividade_economica,
 			im_logo
+		FROM osc.vw_busca_resultado
+		WHERE vw_busca_resultado.id_osc IN (
+			SELECT a.id_osc FROM (
+                SELECT 
+                    vw_busca_osc_geo.id_osc 
+                FROM 
+                    osc.vw_busca_osc_geo 
+                WHERE 
+                    vw_busca_osc_geo.cd_municipio = " . $id_localidade . " LIMIT 10 OFFSET " . $pagina . "
+            ) a
+        )";
+
+        $regs = DB::select($query);
+
+        $query = "SELECT
+			COUNT (*)
 		FROM osc.vw_busca_resultado
 		WHERE vw_busca_resultado.id_osc IN (
 			SELECT a.id_osc FROM (
@@ -40,12 +56,17 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
             ) a
         )";
 
-        $regs = DB::select($query);
+        $total = DB::select($query);
 
-        return $regs;
+        $resultado = [
+            "total" => $total[0]->count,
+            "lista" => $regs
+        ];
+
+        return $resultado;
     }
 
-    public function getListaOSCsEstado($id_localidade)//PAINEL PRINCIPAL DE OSCs da Página Perfil Localidade
+    public function getListaOSCsEstado($id_localidade, $pagina)//PAINEL PRINCIPAL DE OSCs da Página Perfil Localidade
     {
         $query = "SELECT
 			id_osc,
@@ -57,6 +78,22 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
 			geo_lng,
 			tx_nome_atividade_economica,
 			im_logo
+		FROM osc.vw_busca_resultado
+		WHERE vw_busca_resultado.id_osc IN (
+			SELECT a.id_osc FROM (
+                SELECT 
+                    vw_busca_osc_geo.id_osc 
+                FROM 
+                    osc.vw_busca_osc_geo 
+                WHERE 
+                    vw_busca_osc_geo.cd_estado = " . $id_localidade . " LIMIT 10 OFFSET " . $pagina . "
+            ) a
+        )";
+
+        $regs = DB::select($query);
+
+        $query = "SELECT
+			COUNT (*)
 		FROM osc.vw_busca_resultado
 		WHERE vw_busca_resultado.id_osc IN (
 			SELECT a.id_osc FROM (
@@ -69,12 +106,17 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
             ) a
         )";
 
-        $regs = DB::select($query);
+        $total = DB::select($query);
 
-        return $regs;
+        $resultado = [
+            "total" => $total[0]->count,
+            "lista" => $regs
+        ];
+
+        return $resultado;
     }
 
-    public function getListaOSCsRegiao($id_localidade)
+    public function getListaOSCsRegiao($id_localidade, $pagina)
     {
         $query = "SELECT
 			id_osc,
@@ -94,12 +136,33 @@ class DCListaOSCsRegiaoRepositoryEloquent implements DCListaOSCsRegiaoRepository
                 FROM 
                     osc.vw_busca_osc_geo 
                 WHERE 
-                    vw_busca_osc_geo.cd_regiao = " . $id_localidade . "
+                    vw_busca_osc_geo.cd_regiao = " . $id_localidade . " LIMIT 10 OFFSET " . $pagina . "
             ) a
         )";
 
         $regs = DB::select($query);
 
-        return $regs;
+        $query = "SELECT
+			COUNT (*)
+		FROM osc.vw_busca_resultado
+		WHERE vw_busca_resultado.id_osc IN (
+			SELECT a.id_osc FROM (
+                SELECT 
+                    vw_busca_osc_geo.id_osc 
+                FROM 
+                    osc.vw_busca_osc_geo 
+                WHERE 
+                    vw_busca_osc_geo.cd_regiao = " . $id_localidade . "
+            ) a
+        )";
+
+        $total = DB::select($query);
+
+        $resultado = [
+            "total" => $total[0]->count,
+            "lista" => $regs
+        ];
+
+        return $resultado;
     }
 }

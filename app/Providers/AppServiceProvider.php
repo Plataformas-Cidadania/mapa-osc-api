@@ -30,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Osc\OscRepositoryInterface', 'App\Repositories\Osc\OscRepositoryEloquent'
         );
         $this->app->bind(
+            'App\Repositories\Portal\BarratransparenciaRepositoryInterface', 'App\Repositories\Portal\BarratransparenciaRepositoryEloquent'
+        );
+        $this->app->bind(
             'App\Repositories\Osc\DadosGeraisRepositoryInterface', 'App\Repositories\Osc\DadosGeraisRepositoryEloquent'
         );
         $this->app->bind(
