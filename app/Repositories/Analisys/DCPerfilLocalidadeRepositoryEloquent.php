@@ -194,7 +194,10 @@ class DCPerfilLocalidadeRepositoryEloquent implements DCPerfilLocalidadeReposito
             }
         }
 
-        $resultado = ['caracteristicas' => [
+        $resultado = [
+            'caracteristicas' => [
+            'tx_localidade' => $perfil->nome_localidade,
+            'tx_tipo_localidade' => $perfil->tipo_localidade,
             'ft_orcamento_empenhado' => $fontes_orcamento,
             'ft_quantidade_osc' => $fontes_qtd_oscs,
             'ft_quantidade_projetos' => $fontes_qtd_projetos,
