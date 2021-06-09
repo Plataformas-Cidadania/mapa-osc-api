@@ -21,30 +21,30 @@ class DCListaOSCsRegiaoController extends Controller
         $this->service = $_service;
     }
 
-    public function getListaOSCsMunicipio($idlocalidade)
+    public function getListaOSCsMunicipio($id_localidade, $pagina)
     {
         try {
-            return response()->json($this->service->getListaOSCsMunicipio($idlocalidade), Response::HTTP_OK);
+            return response()->json($this->service->getListaOSCsMunicipio($id_localidade, $pagina), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getListaOSCsEstado($idlocalidade)
+    public function getListaOSCsEstado($id_localidade, $pagina)
     {
         try {
-            return response()->json($this->service->getListaOSCsEstado($idlocalidade), Response::HTTP_OK);
+            return response()->json($this->service->getListaOSCsEstado($id_localidade, $pagina), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getListaOSCsRegiao($idlocalidade)
+    public function getListaOSCsRegiao($id_localidade, $pagina)
     {
         try {
-            return response()->json($this->service->getListaOSCsRegiao($idlocalidade), Response::HTTP_OK);
+            return response()->json($this->service->getListaOSCsRegiao($id_localidade, $pagina), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

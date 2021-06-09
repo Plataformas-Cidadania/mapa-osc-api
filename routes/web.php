@@ -57,9 +57,9 @@ $router->get('/api/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaR
 $router->get('/api/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
 
 //---ROTAS LISTA OSC POR REGIÃO----//
-$router->get('/api/lista_osc/estado/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
-$router->get('/api/lista_osc/municipio/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
-$router->get('/api/lista_osc/regiao/{id_regiao}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
+$router->get('/api/lista_osc/estado/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
+$router->get('/api/lista_osc/municipio/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
+$router->get('/api/lista_osc/regiao/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
 
 
 //PERFIL LOCALIDADE
@@ -72,11 +72,8 @@ $router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerf
 $router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
 
-//$router->group(['prefix' => '/api/osc'], function() use ($router){
-//=======
-$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
-//>>>>>>> MOSC-2259
 
+$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');
@@ -195,6 +192,9 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
 });
 
 $router->group(['prefix' => '/api/osc'], function() use ($router){
+
+    //ROTAS BARRA DE TRANSPARENCIA OSC
+    $router->get('/barra_transparencia/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
 
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/', 'OscController@getAll');
@@ -386,7 +386,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
     //ATENÇÃO!!! VERIFICAR ESSAS ROTAS, POIS DERAM CONFLITOS EM UM MERGE. FORAM MANTIDOS OS DOIS BLOCOS PARA VERIFICAÇÃO.
-//<<<<<<< HEAD
     $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
     $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
     $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
@@ -398,12 +397,12 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
     $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
-//=======
+
     $router->get('/geo/regiao/', 'DCGeoClusterController@getRegiaoAll');
     $router->get('/geo/estado/', 'DCGeoClusterController@getEstadoAll');
     $router->get('/geo/{id}', 'DCGeoClusterController@get');
     //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
-//>>>>>>> MOSC-2259
+
 });
 
 
