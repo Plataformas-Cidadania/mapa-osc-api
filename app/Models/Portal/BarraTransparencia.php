@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $transparencia_fontes_recursos
  * @property float $peso_fontes_recursos
  * @property float $transparencia_osc
- * @property Osc.tbOsc $osc.tbOsc
+ * @property Osc $osc
  */
 class BarraTransparencia extends Model
 {
