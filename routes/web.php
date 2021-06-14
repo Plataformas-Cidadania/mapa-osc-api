@@ -19,7 +19,7 @@ $router->get('/api/check-token', ['middleware' => 'auth', function(){
     return 1;
 }]);
 
-$router->get('/api/', function () use ($router) {
+$router->get('/api/', function () {
         return ["description: API de dados do Mapa das Organizações da Sociedade Civil.",
         "version: 3.0.0",
         "homepage: https://mapaosc.ipea.gov.br/",
