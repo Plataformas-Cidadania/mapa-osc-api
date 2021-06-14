@@ -71,10 +71,6 @@ $router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'D
 $router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
 $router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
 
-//SEARCH AUTOCOMPLETE
-$router->get('/api/search/cnpj/autocomplete/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
-
-
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
