@@ -194,7 +194,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
 $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //ROTAS BARRA DE TRANSPARENCIA OSC
-    $router->get('/barra_transparencia/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
+    $router->get('/indice_preenchimento/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
 
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/', 'OscController@getAll');
