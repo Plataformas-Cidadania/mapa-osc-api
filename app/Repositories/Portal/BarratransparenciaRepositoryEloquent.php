@@ -18,10 +18,8 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
     public function getBarraPorOSC($id_osc)
     {
         $regs = $this->model->where('id_osc', $id_osc)->get();
-        $teste = $regs[0];
-        foreach ($teste as $atribs) {
-            dd($teste);
-        }
+
+        return $regs;
     }
 
     public function store(array $data)
