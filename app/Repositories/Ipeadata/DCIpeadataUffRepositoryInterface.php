@@ -12,5 +12,7 @@ interface DCIpeadataUffRepositoryInterface
 
     public function getAll();
 
+    public function getAllPorRegiao($id_regiao);
+
     public function get($_id);
 }

@@ -20,6 +20,11 @@ class DCIpeadataUffService
         return $this->repo->getAll();
     }
 
+    public function getAllPorRegiao($id_regiao)
+    {
+        return $this->repo->getAllPorRegiao($id_regiao);
+    }
+
     public function get($id)
     {
         return $this->repo->get($id);

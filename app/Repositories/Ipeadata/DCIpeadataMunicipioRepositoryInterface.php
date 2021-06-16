@@ -12,5 +12,7 @@ interface DCIpeadataMunicipioRepositoryInterface
 
     public function getAll();
 
+    public function getAllPorEstado($id_estado);
+
     public function get($_id);
 }

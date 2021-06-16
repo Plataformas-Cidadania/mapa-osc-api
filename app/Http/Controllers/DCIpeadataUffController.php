@@ -30,6 +30,16 @@ class DCIpeadataUffController extends Controller
         }
     }
 
+    public function getAllPorRegiao($id_regiao)
+    {
+        try {
+            return response()->json($this->service->getAllPorRegiao($id_regiao), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

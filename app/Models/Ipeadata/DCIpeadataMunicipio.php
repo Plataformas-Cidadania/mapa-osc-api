@@ -30,7 +30,7 @@ class DCIpeadataMunicipio extends Model
     /**
      * @var array
      */
-    protected $fillable = ['edmu_nm_municipio', 'eduf_cd_uf', 'edmu_geometry', 'nr_valor'];
+    protected $fillable = ['edmu_nm_municipio', 'eduf_cd_uf', 'edmu_geometry', 'edmu_centroid', 'edmu_bounding_box', 'nr_valor'];
 
     public $timestamps = false;
 }

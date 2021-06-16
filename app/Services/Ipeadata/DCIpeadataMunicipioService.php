@@ -20,6 +20,11 @@ class DCIpeadataMunicipioService
         return $this->repo->getAll();
     }
 
+    public function getAllPorEstado($id_estado)
+    {
+        return $this->repo->getAllPorEstado($id_estado);
+    }
+
     public function get($id)
     {
         return $this->repo->get($id);

@@ -320,10 +320,11 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO IPEADATA
     $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
     $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
+    $router->get('/ipeadata/uffs/regiao/{id_regiao}', 'DCIpeadataUffController@getAllPorRegiao');
 
     $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
     $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
-    $router->get('/ipeadata/municipios/estado/{id}', 'DCIpeadataMunicipioController@getAllPorEstado');
+    $router->get('/ipeadata/municipios/estado/{id_estado}', 'DCIpeadataMunicipioController@getAllPorEstado');
 });
 
 

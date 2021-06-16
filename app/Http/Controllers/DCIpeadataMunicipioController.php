@@ -30,6 +30,16 @@ class DCIpeadataMunicipioController extends Controller
         }
     }
 
+    public function getAllPorEstado($id_estado)
+    {
+        try {
+            return response()->json($this->service->getAllPorEstado($id_estado), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

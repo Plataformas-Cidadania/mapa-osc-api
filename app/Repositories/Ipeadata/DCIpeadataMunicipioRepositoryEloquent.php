@@ -6,6 +6,7 @@ namespace App\Repositories\Ipeadata;
 use App\Models\Ipeadata\DCIpeadataMunicipio;
 use App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DCIpeadataMunicipioRepositoryEloquent implements DCIpeadataMunicipioRepositoryInterface
 {
@@ -21,19 +22,16 @@ class DCIpeadataMunicipioRepositoryEloquent implements DCIpeadataMunicipioReposi
         return $this->model->all();
     }
 
+    public function getAllPorEstado($id_estado)
+    {
+        $ipeadata = $this->model->select('*', DB::Raw('ST_AsGeoJSON(edmu_geometry) as edmu_geometry'))->where("eduf_cd_uf", $id_estado)->get();
+
+        return $ipeadata;
+    }
+
     public function get($_id)
     {
         $municipio = $this->model->find($_id);
-
-        //dd($municipio);
-
-        $valores = $municipio->edmu_geometry;
-
-        //dd($valores);
-
-        //$teste = $this->mountAreas($valores, null);
-
-        //dd($teste);
 
         return $municipio;
     }
