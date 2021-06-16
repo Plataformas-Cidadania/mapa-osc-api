@@ -30,6 +30,11 @@ class DCGeoClusterService
         return $this->repo->getEstadosPorRegiao($id_regiao);
     }
 
+    public function getOSCsPorEstado($id_regiao)
+    {
+        return $this->repo->getOSCsPorEstado($id_regiao);
+    }
+
     public function get($id)
     {
         return $this->repo->get($id);

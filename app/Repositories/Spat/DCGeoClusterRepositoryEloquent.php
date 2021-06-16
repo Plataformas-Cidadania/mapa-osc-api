@@ -64,6 +64,22 @@ class DCGeoClusterRepositoryEloquent implements DCGeoClusterRepositoryInterface
         return $regs;
     }
 
+    public function getOSCsPorEstado($id_regiao)
+    {
+        $query = "SELECT
+			id_osc,
+            tx_apelido_osc,
+            geo_lat,
+            geo_lng,
+            geo_centroid_municipio
+		FROM osc.vw_geo_osc
+		WHERE cd_estado = " . $id_regiao;
+
+        $regs = DB::select($query);
+
+        return $regs;
+    }
+
     public function get($_id)
     {
         $geocluster = $this->model->find($_id);

@@ -206,10 +206,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //Gráficos da home
     $router->get('/grafico/{tipo}', 'OscController@getGrafico');
 
-    //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
-    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacao');
-    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
-
     //INFORMAÇÕES DE CABEÇALHO
     $router->get('/cabecalho/{id}', 'OscController@getCabecalho');
 
@@ -308,6 +304,11 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/projeto/recurso/{id}', 'FonteRecursosProjetoController@get');
 
     //--------------------------//-----------------------------------------------------------//
+
+    //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacao');
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
+
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
     $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
     $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
@@ -315,9 +316,10 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     $router->get('/geo/estados/regiao/{id_regiao}', 'DCGeoClusterController@getEstadosPorRegiao');
     $router->get('/geo/municipios/estado/{id_estado}', 'DCGeoClusterController@getMunicipiosPorEstado');
+    $router->get('/geo/oscs/estado/{id_estado}', 'DCGeoClusterController@getOSCsPorEstado');
 
     //--------------------------//-----------------------------------------------------------//
-    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO IPEADATA
+    //---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
     $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
     $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
     $router->get('/ipeadata/uffs/regiao/{id_regiao}', 'DCIpeadataUffController@getAllPorRegiao');

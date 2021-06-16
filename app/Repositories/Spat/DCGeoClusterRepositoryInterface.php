@@ -16,6 +16,8 @@ interface DCGeoClusterRepositoryInterface
 
     public function getEstadosPorRegiao($id_regiao);
 
+    public function getOSCsPorEstado($id_regiao);
+
     public function get($_id);
 
     public function getRegiaoAll();
