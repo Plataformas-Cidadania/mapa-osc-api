@@ -388,10 +388,13 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
-    //ATENÇÃO!!! VERIFICAR ESSAS ROTAS, POIS DERAM CONFLITOS EM UM MERGE. FORAM MANTIDOS OS DOIS BLOCOS PARA VERIFICAÇÃO.
     $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
     $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
     $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
+
+    $router->get('/geo/estados/regiao/{id_regiao}', 'DCGeoClusterController@getEstadosPorRegiao');
+    $router->get('/geo/municipios/estado/{id_estado}', 'DCGeoClusterController@getMunicipiosPorEstado');
+    //$router->get('/geo/{id}', 'DCGeoClusterController@get');
 
     //--------------------------//-----------------------------------------------------------//
     //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO IPEADATA
@@ -400,12 +403,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
     $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
-
-    $router->get('/geo/regiao/', 'DCGeoClusterController@getRegiaoAll');
-    $router->get('/geo/estado/', 'DCGeoClusterController@getEstadoAll');
-    $router->get('/geo/{id}', 'DCGeoClusterController@get');
-    //$router->get('/geoloc/', 'DCGeoClusterController@getAll');
-
+    $router->get('/ipeadata/municipios/estado/{id}', 'DCIpeadataMunicipioController@getAllPorEstado');
 });
 
 
