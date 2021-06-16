@@ -30,6 +30,26 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    public function getMunicipiosPorEstado($id_estado)
+    {
+        try {
+            return response()->json($this->service->getMunicipiosPorEstado($id_estado), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getEstadosPorRegiao($id_regiao)
+    {
+        try {
+            return response()->json($this->service->getEstadosPorRegiao($id_regiao), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

@@ -20,6 +20,11 @@ class DCListaOSCsRegiaoService
         return $this->repo->getListaOSCsMunicipio($id_localidade, $pagina);
     }
 
+    public function getListaOSCsTotal($pagina)
+    {
+        return $this->repo->getListaOSCsTotal($pagina);
+    }
+
     public function getListaOSCsEstado($id_localidade, $pagina)
     {
         return $this->repo->getListaOSCsEstado($id_localidade, $pagina);

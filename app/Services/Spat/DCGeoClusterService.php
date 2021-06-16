@@ -20,6 +20,16 @@ class DCGeoClusterService
         return $this->repo->getAll();
     }
 
+    public function getMunicipiosPorEstado($id_estado)
+    {
+        return $this->repo->getMunicipiosPorEstado($id_estado);
+    }
+
+    public function getEstadosPorRegiao($id_regiao)
+    {
+        return $this->repo->getEstadosPorRegiao($id_regiao);
+    }
+
     public function get($id)
     {
         return $this->repo->get($id);

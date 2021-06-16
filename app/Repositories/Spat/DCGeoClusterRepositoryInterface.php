@@ -12,6 +12,10 @@ interface DCGeoClusterRepositoryInterface
 
     public function getAll();
 
+    public function getMunicipiosPorEstado($id_estado);
+
+    public function getEstadosPorRegiao($id_regiao);
+
     public function get($_id);
 
     public function getRegiaoAll();
