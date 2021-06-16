@@ -9,6 +9,8 @@ interface DCListaOSCsRegiaoRepositoryInterface
 {
     public function __construct();
 
+    public function getListaOSCsTotal($pagina);
+
     public function getListaOSCsMunicipio($id_localidade, $pagina);
 
     public function getListaOSCsEstado($id_localidade, $pagina);

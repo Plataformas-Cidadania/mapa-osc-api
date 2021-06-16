@@ -21,6 +21,16 @@ class DCListaOSCsRegiaoController extends Controller
         $this->service = $_service;
     }
 
+    public function getListaOSCsTotal($pagina)
+    {
+        try {
+            return response()->json($this->service->getListaOSCsTotal($pagina), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getListaOSCsMunicipio($id_localidade, $pagina)
     {
         try {
