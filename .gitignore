@@ -52,3 +52,5 @@ composer.lock
 composer4.lock
 
 README.md
+
+*.md
