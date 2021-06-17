@@ -1,45 +1,21 @@
-# Nova Versão API do Mapa das OSC. v3
+# Lumen PHP Framework
 
-API de dados do Mapa das Organizações da Sociedade Civil
+[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
+[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
+[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
 
-![alt tag](https://raw.githubusercontent.com/Plataformas-Cidadania/mapa-osc-client/master/img/logo_grande.png)
+Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-* [Mapa das Organizações da Sociedade Civil](https://www.mapaosc.ipea.gov.br/)
-* [Instituto de Pesquisa Econômica Aplicada - Ipea](http://www.ipea.gov.br/)
+## Official Documentation
 
-## Descrição do projeto
+Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
 
-O [Mapa das Organizações da Sociedade Civil](https://www.mapaosc.ipea.gov.br/) é um portal de dados desenvolvido pelo [Instituto de Pesquisa Econômica Aplicada - Ipea](http://www.ipea.gov.br/) sobre as organizações da sociedade civil (OSCs) e seus principais objetivos são:
-* dar transparência à atuação das OSCs, principalmente ações executadas em parceria com a administração pública;
-* informar mais e melhor sobre a importância e diversidade de projetos e atividades conduzidas por essas organizações;
-* disponibilizar dados e fomentar pesquisas sobre OSCs;
-* apoiar os gestores públicos a tomarem decisões sobre políticas públicas que já têm ou possam ter interface com OSCs.
+## Security Vulnerabilities
 
-O portal também é parte do processo de implementação e consolidação da Lei 13.019/2014, conhecida como Marco Regulatório das OSCs, e está previsto no artigo 81 do [Decreto 8.726/2016](http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/Decreto/D8726.htm), que regulamenta aquela lei.
+If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-Para alcançar seus objetivos, o Portal integra um amplo e crescente volume de bases de dados provenientes de fontes públicas e privadas e é uma plataforma colaborativa, pois pode receber e integrar continuamente informações enviadas pelas OSCs e por entes federados.
-As OSCs podem inserir as informações em páginas individuais e manter um perfil completo e atualizado, para a visualização dos interessados.
+## License
 
-Os governos poderão aumentar a transparência de suas práticas e, seguindo as orientações deste [arquivo](https://www.mapaosc.ipea.gov.br/pdf/tutorial_para_formatacao_dados.pdf), encaminhar dados sobre as parcerias celebradas com OSCs.
-Quanto mais informações forem inseridas, mais transparentes serão as práticas do Estado e das OSCs e mais a sociedade conhecerá as diferentes ações de interesse público.
-
-## Documentação
-
-Para mais informações consulte a documentação na [Wiki](https://github.com/Plataformas-Cidadania/portalosc/wiki) do GitHub.
-
-## Contato
-
-Em casos de duvida, sugestão, reclamação ou qualquer outro tipo de informação, entre em contato pela [página de contato](https://mapaosc.ipea.gov.br/contato.html) do Mapa das Organizações da Sociedade Civil.
-
-Ou pelo e-mail: [mapaosc@ipea.gov.br](mapaosc@ipea.gov.br)
-
-## Autores
-
-* Thiago Giannini
-* Relison Galvão
-* Eric Ferreira
-
-## Licença
-
-Este projeto está licenciado sob a GNU General Public License v3.0 - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
+The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
