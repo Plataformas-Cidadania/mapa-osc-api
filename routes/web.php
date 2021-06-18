@@ -11,10 +11,12 @@
 |
 */
 
+/** @var TYPE_NAME $router */
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+//ROTA PAR CHEKAR AUTENTICAÇÃO DO USUARIO
 $router->get('/api/check-token', ['middleware' => 'auth', function(){
     return 1;
 }]);
@@ -40,38 +42,64 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-//PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+$router->group(['prefix' => '/api'], function() use ($router) {
 
+    //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
 //---ODS----//
-$router->get('/api/objetivos/', 'DCObjetivoProjetoController@getAll');
-$router->get('/api/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
+    $router->get('/objetivos/', 'DCObjetivoProjetoController@getAll');
+    $router->get('/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');
 
 //---AREA E SUBAREA DE ATUAÇÃO----//
-$router->get('/api/area_atuacao/', 'DCAreaAtuacaoController@getAll');
-$router->get('/api/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
+    $router->get('/area_atuacao/', 'DCAreaAtuacaoController@getAll');
+    $router->get('/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
 //---ROTAS da BUSCA HOME----//
-$router->get('/api/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
-$router->get('/api/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
-$router->get('/api/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
-$router->get('/api/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
+    $router->get('/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
+    $router->get('/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
+    $router->get('/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
+    $router->get('/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
 
+
+    //ROTAS PARA ALIMENTAR DADOS DO MAPA
 //---ROTAS LISTA OSC POR REGIÃO----//
-$router->get('/api/lista_osc/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsTotal');
-$router->get('/api/lista_osc/estado/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
-$router->get('/api/lista_osc/municipio/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
-$router->get('/api/lista_osc/regiao/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
+    $router->get('/lista_osc/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsTotal');
+    $router->get('/lista_osc/estado/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
+    $router->get('/lista_osc/municipio/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
+    $router->get('/lista_osc/regiao/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
+//Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacao');
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
 
+//---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
+    $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
+    $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
+    $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
+
+    $router->get('/geo/estados/regiao/{id_regiao}', 'DCGeoClusterController@getEstadosPorRegiao');
+    $router->get('/geo/municipios/estado/{id_estado}', 'DCGeoClusterController@getMunicipiosPorEstado');
+    $router->get('/geo/oscs/estado/{id_estado}', 'DCGeoClusterController@getOSCsPorEstado');
+
+//--------------------------//-----------------------------------------------------------//
+//---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
+    $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
+    $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
+    $router->get('/ipeadata/uffs/regiao/{id_regiao}', 'DCIpeadataUffController@getAllPorRegiao');
+
+    $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
+    $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
+    $router->get('/ipeadata/municipios/estado/{id_estado}', 'DCIpeadataMunicipioController@getAllPorEstado');
 
 //PERFIL LOCALIDADE
-$router->get('/api/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
-$router->get('/api/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
-$router->get('/api/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
-$router->get('/api/perfil_localidade/repasse_recursos/{idlocalidade}', 'DCPerfilLocalidadeController@getRepasseRecursos');
-$router->get('/api/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
-$router->get('/api/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
-$router->get('/api/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
+    $router->get('/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
+    $router->get('/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
+    $router->get('/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
+    $router->get('/perfil_localidade/repasse_recursos/{idlocalidade}', 'DCPerfilLocalidadeController@getRepasseRecursos');
+    $router->get('/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
+    $router->get('/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
+    $router->get('/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
+});
 
+//ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
@@ -194,6 +222,9 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //ROTAS BARRA DE TRANSPARENCIA OSC
     $router->get('/indice_preenchimento/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
 
+    //INFORMAÇÕES RESUMIDAS PARA SELEÇÃO NO MAPA
+    $router->get('/popup/{id_osc}', 'OscController@getPopupOSC');
+
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/', 'OscController@getAll');
     $router->get('/{id}', 'OscController@get');
@@ -304,29 +335,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/projeto/recurso/{id}', 'FonteRecursosProjetoController@get');
 
     //--------------------------//-----------------------------------------------------------//
-
-    //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
-    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacao');
-    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
-
-    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
-    $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
-    $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
-    $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
-
-    $router->get('/geo/estados/regiao/{id_regiao}', 'DCGeoClusterController@getEstadosPorRegiao');
-    $router->get('/geo/municipios/estado/{id_estado}', 'DCGeoClusterController@getMunicipiosPorEstado');
-    $router->get('/geo/oscs/estado/{id_estado}', 'DCGeoClusterController@getOSCsPorEstado');
-
-    //--------------------------//-----------------------------------------------------------//
-    //---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
-    $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
-    $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
-    $router->get('/ipeadata/uffs/regiao/{id_regiao}', 'DCIpeadataUffController@getAllPorRegiao');
-
-    $router->get('/ipeadata/municipio/{id}', 'DCIpeadataMunicipioController@get');
-    $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
-    $router->get('/ipeadata/municipios/estado/{id_estado}', 'DCIpeadataMunicipioController@getAllPorEstado');
 });
 
 
