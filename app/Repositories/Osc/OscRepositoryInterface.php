@@ -43,6 +43,8 @@ interface OscRepositoryInterface
 
     public function getPerfilLocalidadeCaracteristicas($id_localidade);
 
+    public function getPopupOSC($id_osc);
+
     public function getListaOscsPorIds(array $ids);
 
     public function getListaOscCnpjAutocomplete($cnpj);

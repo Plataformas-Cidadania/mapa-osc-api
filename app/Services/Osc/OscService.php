@@ -106,10 +106,14 @@ class OscService
         return $this->repo->getGrafico($tipo_graf);
     }
 
-
     public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit)
     {
         return $this->repo->getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
+    }
+
+    public function getPopupOSC($id_osc)
+    {
+        return $this->repo->getPopupOSC($id_osc);
     }
 
     public function getListaOscUsuarioAutenticado(){

@@ -234,6 +234,16 @@ class OscController extends Controller
         }
     }
 
+    public function getPopupOSC($id_osc)
+    {
+        try {
+            return response()->json($this->service->getPopupOSC($id_osc), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getListaOscUsuarioAutenticado(){
         try {
             return response()->json($this->service->getListaOscUsuarioAutenticado(), Response::HTTP_OK);
