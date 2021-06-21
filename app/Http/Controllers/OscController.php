@@ -214,20 +214,10 @@ class OscController extends Controller
         }
     }
 
-    public function getListaOscAreaAtuacao($areaAtuacao, $limit = 5)
+    public function getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $cd_municipio, $limit = 5)
     {
         try {
-            return response()->json($this->service->getListaOscAreaAtuacao($areaAtuacao, $limit), Response::HTTP_OK);
-        }
-        catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit = 5)
-    {
-        try {
-            return response()->json($this->service->getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit), Response::HTTP_OK);
+            return response()->json($this->service->getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $cd_municipio, $limit), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
