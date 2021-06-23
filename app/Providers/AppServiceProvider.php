@@ -8,7 +8,9 @@ use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
 use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
+use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
+use App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -118,6 +120,12 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCConferenciaRepositoryInterface', 'App\Repositories\Syst\DCConferenciaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface', 'App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface', 'App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT
