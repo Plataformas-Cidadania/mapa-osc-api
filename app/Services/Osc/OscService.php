@@ -138,4 +138,8 @@ class OscService
     public function getListaOscCnpjAutocomplete($cnpj){
         return $this->repo->getListaOscCnpjAutocomplete($cnpj);
     }
+
+    public function getListaOscNomeCnpjAutocomplete($search){
+        return $this->repo->getListaOscNomeCnpjAutocomplete($search);
+    }
 }

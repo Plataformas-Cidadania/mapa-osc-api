@@ -455,4 +455,13 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return DB::table('osc.vw_busca_osc')->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$cnpj%")->get();
     }
 
+    public function getListaOscNomeCnpjAutocomplete($search){
+        return DB::table('osc.vw_busca_osc')
+            ->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$search%")
+            ->orWhere('tx_nome_osc', 'ilike', "%$search%")
+            ->orWhere('tx_razao_social_osc', 'ilike', "%$search%")
+            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$search%")
+            ->get();
+    }
+
 }

@@ -52,4 +52,6 @@ interface OscRepositoryInterface
     public function getListaOscsPorIds(array $ids);
 
     public function getListaOscCnpjAutocomplete($cnpj);
+
+    public function getListaOscNomeCnpjAutocomplete($search);
 }
