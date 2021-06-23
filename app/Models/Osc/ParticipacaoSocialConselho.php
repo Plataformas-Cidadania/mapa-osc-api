@@ -63,7 +63,7 @@ class ParticipacaoSocialConselho extends Model
      */
     public function dc_periodicidade_reuniao_conselho()
     {
-        return $this->belongsTo('App\Models\Syst\PeriodicidadeReuniaoConselho', 'cd_periodicidade_reuniao_conselho', 'cd_periodicidade_reuniao_conselho');
+        return $this->belongsTo('App\Models\Syst\DCPeriodicidadeReuniaoConselho', 'cd_periodicidade_reuniao_conselho', 'cd_periodicidade_reuniao_conselho');
     }
 
     /**

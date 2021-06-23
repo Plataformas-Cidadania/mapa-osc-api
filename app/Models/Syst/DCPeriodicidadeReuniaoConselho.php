@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_periodicidade_reuniao_conselho
  * @property Osc.tbParticipacaoSocialConselho[] $osc.tbParticipacaoSocialConselhos
  */
-class PeriodicidadeReuniaoConselho extends Model
+class DCPeriodicidadeReuniaoConselho extends Model
 {
     /**
      * The table associated with the model.

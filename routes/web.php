@@ -56,9 +56,11 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 //---PARTICIPAÇÃO SOCIAL----//
     $router->get('/ps_conselhos/', 'DCConselhoController@getAll');
+    $router->get('/ps_conselhos_periodicidade/', 'DCPeriodicidadeReuniaoConselhoController@getAll');
 
     //--------------------------------Conferência-------------------------//
     $router->get('/ps_conferencias/', 'DCConferenciaController@getAll');
+    $router->get('/ps_conferencias_formas/', 'DCFormaParticipacaoConferenciaController@getAll');
 
     //-----------------------------------Outra-------------------------------//
     $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
