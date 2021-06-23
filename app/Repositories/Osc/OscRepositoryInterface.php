@@ -41,7 +41,7 @@ interface OscRepositoryInterface
 
     public function getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $municipio, $limit);
 
-    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit);
+    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $geo, $limit);
 
     public function getListaOscAreaAtuacao($cd_area_atuacao, $limit);
 

@@ -356,53 +356,24 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return $analise;
     }
 
-    public function getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $municipio, $limit)
-    {
-        $sql = $query = 'SELECT * FROM portal.obter_osc_por_area_atuacao(?::INTEGER, ?::DOUBLE PRECISION[], ?::INTEGER, ?::INTEGER)';
-
-        $geo = '{' . 0 . ', ' . 0 . '}';
-        $params = [$cd_area_atuacao, $geo, $municipio, $limit];;
-
-        if ($params) {
-            $resultado = DB::select($sql, $params);
-        }
-        else {
-            $resultado = DB::select($sql);
-        }
-
-        $analise = $resultado;
-
-        return $analise;
-    }
-
-    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit)
+    public function getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $cd_municipio, $limit)
     {
         $sql = $query = "SELECT vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc 
 			FROM portal.vw_osc_area_atuacao 
 			INNER JOIN osc.vw_busca_resultado ON vw_osc_area_atuacao.id_osc = vw_busca_resultado.id_osc
 			INNER JOIN osc.vw_geo_osc ON vw_geo_osc.id_osc = vw_osc_area_atuacao.id_osc
             AND vw_osc_area_atuacao.id_osc <> 789809 
-			WHERE vw_osc_area_atuacao.cd_area_atuacao = ' . $cd_area_atuacao . '
+			WHERE vw_osc_area_atuacao.cd_area_atuacao = " . $cd_area_atuacao . "
+			 AND vw_geo_osc.cd_municipio = " . $cd_municipio . "
 			GROUP BY vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc, vw_busca_resultado.tx_nome_osc,  vw_geo_osc.geo_lng, vw_geo_osc.geo_lat
-			ORDER BY ST_Distance(ST_GeomFromText('POINT(' || vw_geo_osc.geo_lng || ' ' || vw_geo_osc.geo_lat || ')', 4674), ST_GeomFromText('POINT('|| geolocalizacao[2] || ' ' || geolocalizacao[1] || ')'', 4674)
-		)";
+			LIMIT " . $limit;
 
-        $geo = '{' . 0 . ', ' . 0 . '}';
-        $params = [$cd_area_atuacao, $geo, $municipio, $limit];;
+        $resultado = DB::select($sql);
 
-        if ($params) {
-            $resultado = DB::select($sql, $params);
-        }
-        else {
-            $resultado = DB::select($sql);
-        }
-
-        $analise = $resultado;
-
-        return $analise;
+        return $resultado;
     }
 
-    public function getListaOscAreaAtuacao($cd_area_atuacao, $limit)
+    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $geo, $limit)
     {
         $sql = $query = "SELECT vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc 
 			FROM portal.vw_osc_area_atuacao 
@@ -411,6 +382,27 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             AND vw_osc_area_atuacao.id_osc <> 789809 
 			WHERE vw_osc_area_atuacao.cd_area_atuacao = " . $cd_area_atuacao . "
 			GROUP BY vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc, vw_busca_resultado.tx_nome_osc,  vw_geo_osc.geo_lng, vw_geo_osc.geo_lat
+			ORDER BY ST_Distance(
+			    ST_GeomFromText('POINT(' || vw_geo_osc.geo_lng || ' ' || vw_geo_osc.geo_lat || ')', 4674), 
+			    ST_GeomFromText('POINT(" . $geo[1] . " " . $geo[0] . ")', 4674)
+		        )
+		    LIMIT " . $limit;
+
+        //dd($sql);
+
+        $resultado = DB::select($sql);
+
+        return $resultado;
+    }
+
+    public function getListaOscAreaAtuacao($cd_area_atuacao, $limit)
+    {
+        $sql = $query = "SELECT vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc 
+			FROM portal.vw_osc_area_atuacao 
+			INNER JOIN osc.vw_busca_resultado ON vw_osc_area_atuacao.id_osc = vw_busca_resultado.id_osc
+            AND vw_osc_area_atuacao.id_osc <> 789809 
+			WHERE vw_osc_area_atuacao.cd_area_atuacao = " . $cd_area_atuacao . "
+			GROUP BY vw_osc_area_atuacao.id_osc, vw_busca_resultado.tx_nome_osc
 			LIMIT " . $limit;
 
         $resultado = DB::select($sql);

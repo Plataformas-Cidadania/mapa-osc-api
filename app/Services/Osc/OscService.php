@@ -111,9 +111,9 @@ class OscService
         return $this->repo->getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $municipio, $limit);
     }
 
-    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit)
+    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $geo, $limit)
     {
-        return $this->repo->getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit);
+        return $this->repo->getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $geo, $limit);
     }
 
     public function getListaOscAreaAtuacao($cd_area_atuacao, $limit)

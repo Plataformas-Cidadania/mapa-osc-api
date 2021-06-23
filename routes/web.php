@@ -68,6 +68,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/lista_osc/regiao/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
 //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
     $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
+    $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/{lat}/{lon}', 'OscController@getListaOscAreaAtuacaoAndGEO');
     $router->get('/lista_por_area_atuacao/{cd_area_atuacao}', 'OscController@getListaOscAreaAtuacao');
 
 //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
