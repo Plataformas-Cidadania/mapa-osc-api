@@ -75,8 +75,8 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
             array_push($anos,$item->ano);
         }
         $anos=array_unique($anos);
-        ksort($anos);
-        //dd($anos);
+        sort($anos);
+        dd($anos);
         return $anos;
     }
 
