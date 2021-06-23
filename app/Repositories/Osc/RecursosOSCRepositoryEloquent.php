@@ -76,7 +76,6 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
         }
         $anos=array_unique($anos);
         sort($anos);
-        dd($anos);
         return $anos;
     }
 
