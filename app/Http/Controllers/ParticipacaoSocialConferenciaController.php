@@ -20,6 +20,22 @@ class ParticipacaoSocialConferenciaController extends Controller
         $this->service = $_service;
     }
 
+    public function getAll()
+    {
+        try {
+            $ps_conferencias = $this->service->getAll();
+            if (is_null($ps_conferencias))
+            {
+                return response()->json(['Resposta' => 'Item Participação Social Conferência não encontrado!'], Response::HTTP_OK);
+            }
+
+            return $ps_conferencias;
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

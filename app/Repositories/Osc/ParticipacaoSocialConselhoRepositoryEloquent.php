@@ -23,6 +23,11 @@ class ParticipacaoSocialConselhoRepositoryEloquent implements ParticipacaoSocial
         return $_conselho;
     }
 
+    public function getAll()
+    {
+        return $this->model->all();
+    }
+
     public function getParticipacaoSocialConselhoPorOSC($_id_osc)
     {
         $_conselhos = $this->model->where('id_osc', $_id_osc)->get();

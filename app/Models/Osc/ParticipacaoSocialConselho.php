@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $dt_data_fim_conselho
  * @property string $ft_data_fim_conselho
  * @property boolean $bo_oficial
- * @property Syst.dcConselho $syst.dcConselho
+ * @property DCConselho $dc_conselho
  * @property Syst.dcPeriodicidadeReuniaoConselho $syst.dcPeriodicidadeReuniaoConselho
  * @property Syst.dcTipoParticipacao $syst.dcTipoParticipacao
  * @property Osc.tbOsc $osc.tbOsc

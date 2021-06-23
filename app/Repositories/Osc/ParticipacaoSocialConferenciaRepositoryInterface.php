@@ -13,6 +13,8 @@ interface ParticipacaoSocialConferenciaRepositoryInterface
 
     public function get($id);
 
+    public function getAll();
+
     public function getParticipacaoSocialConferenciaPorOSC($_id_osc);
 
     public function store(array $data);

@@ -25,7 +25,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
     public function getAll()
     {
-        return $this->model->where;
+        return $this->model->all();
     }
 
     public function get($id)

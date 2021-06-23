@@ -13,6 +13,8 @@ interface ParticipacaoSocialConselhoRepositoryInterface
 
     public function get($id);
 
+    public function getAll();
+
     public function getParticipacaoSocialConselhoPorOSC($_id_osc);
 
     public function store(array $data);

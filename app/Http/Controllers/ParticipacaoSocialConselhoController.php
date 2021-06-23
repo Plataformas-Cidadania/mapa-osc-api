@@ -21,6 +21,22 @@ class ParticipacaoSocialConselhoController extends Controller
         $this->service = $_service;
     }
 
+    public function getAll()
+    {
+        try {
+            $ps_conselhos = $this->service->getAll();
+            if (is_null($ps_conselhos))
+            {
+                return response()->json(['Resposta' => 'Item Participação Social Conselho não encontrado!'], Response::HTTP_OK);
+            }
+
+            return $ps_conselhos;
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

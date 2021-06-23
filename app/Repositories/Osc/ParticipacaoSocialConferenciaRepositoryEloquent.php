@@ -23,6 +23,11 @@ class ParticipacaoSocialConferenciaRepositoryEloquent implements ParticipacaoSoc
         return $_ps_conferencia;
     }
 
+    public function getAll()
+    {
+        return $this->model->without('dc_periodicidade_reuniao_conselho')->all();
+    }
+
     public function getParticipacaoSocialConferenciaPorOSC($_id_osc)
     {
         $_ps_conferencias = $this->model->where('id_osc', $_id_osc)->get();

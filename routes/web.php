@@ -53,6 +53,16 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/area_atuacao/', 'DCAreaAtuacaoController@getAll');
     $router->get('/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
+
+//---PARTICIPAÇÃO SOCIAL----//
+    $router->get('/ps_conselhos/', 'DCConselhoController@getAll');
+
+    //--------------------------------Conferência-------------------------//
+    $router->get('/ps_conferencias/', 'DCConferenciaController@getAll');
+
+    //-----------------------------------Outra-------------------------------//
+    $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
+
 //---ROTAS da BUSCA HOME----//
     $router->get('/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
     $router->get('/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
