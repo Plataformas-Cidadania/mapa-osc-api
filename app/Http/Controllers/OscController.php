@@ -224,6 +224,26 @@ class OscController extends Controller
         }
     }
 
+    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $cd_municipio, $limit = 5)
+    {
+        try {
+            return response()->json($this->service->getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $cd_municipio, $limit), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getListaOscAreaAtuacao($cd_area_atuacao, $limit = 5)
+    {
+        try {
+            return response()->json($this->service->getListaOscAreaAtuacao($cd_area_atuacao, $limit), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getPopupOSC($id_osc)
     {
         try {

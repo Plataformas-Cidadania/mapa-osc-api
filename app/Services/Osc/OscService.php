@@ -106,9 +106,19 @@ class OscService
         return $this->repo->getGrafico($tipo_graf);
     }
 
-    public function getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit)
+    public function getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $municipio, $limit)
     {
-        return $this->repo->getListaOscAreaAtuacaoAndMunicipio($areaAtuacao, $municipio, $limit);
+        return $this->repo->getListaOscAreaAtuacaoAndMunicipio($cd_area_atuacao, $municipio, $limit);
+    }
+
+    public function getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit)
+    {
+        return $this->repo->getListaOscAreaAtuacaoAndGEO($cd_area_atuacao, $municipio, $limit);
+    }
+
+    public function getListaOscAreaAtuacao($cd_area_atuacao, $limit)
+    {
+        return $this->repo->getListaOscAreaAtuacao($cd_area_atuacao, $limit);
     }
 
     public function getPopupOSC($id_osc)
