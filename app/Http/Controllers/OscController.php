@@ -276,9 +276,9 @@ class OscController extends Controller
         }
     }
 
-    public function getListaOscNomeCnpjAutocomplete($search){
+    public function getListaOscNomeCnpjAutocomplete($texto_busca){
         try {
-            return response()->json($this->service->getListaOscNomeCnpjAutocomplete($search), Response::HTTP_OK);
+            return response()->json($this->service->getListaOscNomeCnpjAutocomplete($texto_busca), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

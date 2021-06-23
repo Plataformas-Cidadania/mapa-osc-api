@@ -53,5 +53,5 @@ interface OscRepositoryInterface
 
     public function getListaOscCnpjAutocomplete($cnpj);
 
-    public function getListaOscNomeCnpjAutocomplete($search);
+    public function getListaOscNomeCnpjAutocomplete($texto_busca);
 }

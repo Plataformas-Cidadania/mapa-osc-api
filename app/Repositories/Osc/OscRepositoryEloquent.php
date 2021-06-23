@@ -10,6 +10,7 @@ use App\Models\Osc\Osc;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use PHPUnit\Util\Json;
 use function MongoDB\BSON\toJSON;
 use function Sodium\add;
@@ -455,12 +456,12 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return DB::table('osc.vw_busca_osc')->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$cnpj%")->get();
     }
 
-    public function getListaOscNomeCnpjAutocomplete($search){
+    public function getListaOscNomeCnpjAutocomplete($texto_busca){
         return DB::table('osc.vw_busca_osc')
-            ->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$search%")
-            ->orWhere('tx_nome_osc', 'ilike', "%$search%")
-            ->orWhere('tx_razao_social_osc', 'ilike', "%$search%")
-            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$search%")
+            ->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$texto_busca%")
+            ->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
+            ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
+            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
             ->get();
     }
 

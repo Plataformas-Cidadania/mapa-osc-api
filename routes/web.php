@@ -70,6 +70,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
     $router->get('/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
     $router->get('/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
+    $router->get('/busca/osc/{texto_busca}', 'OscController@getListaOscNomeCnpjAutocomplete');
 
 
     //ROTAS PARA ALIMENTAR DADOS DO MAPA
