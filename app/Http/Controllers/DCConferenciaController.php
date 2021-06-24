@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Syst\DCConferencia;
-use App\Services\Syst\DCConselhoService;
+use App\Services\Syst\DCConferenciaService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,9 +14,9 @@ class DCConferenciaController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param DCConselhoService $service
+     * @param DCConferenciaService $service
      */
-    public function __construct(DCConselhoService $_service)
+    public function __construct(DCConferenciaService $_service)
     {
         $this->service = $_service;
     }
