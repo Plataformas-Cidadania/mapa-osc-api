@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
+use App\Repositories\Portal\BuscaAvancadaRepositoryInterface;
 use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //Mapeamento das Interfaces para Classes Concretas
+        $this->app->bind(
+            'App\Repositories\Portal\BuscaAvancadaRepositoryInterface', 'App\Repositories\Portal\BuscaAvancadaRepositoryEloquent'
+        );
         $this->app->bind(
             'App\Repositories\Portal\RepresentacaoRepositoryInterface', 'App\Repositories\Portal\RepresentacaoRepositoryEloquent'
         );
