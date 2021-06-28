@@ -60,6 +60,16 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    public function getOSCsPorMunicipio($id_regiao)
+    {
+        try {
+            return response()->json($this->service->getOSCsPorMunicipio($id_regiao), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

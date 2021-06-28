@@ -91,7 +91,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
     $router->get('/geo/estados/regiao/{id_regiao}', 'DCGeoClusterController@getEstadosPorRegiao');
     $router->get('/geo/municipios/estado/{id_estado}', 'DCGeoClusterController@getMunicipiosPorEstado');
+
     $router->get('/geo/oscs/estado/{id_estado}', 'DCGeoClusterController@getOSCsPorEstado');
+    $router->get('/geo/oscs/municipio/{id_municipio}', 'DCGeoClusterController@getOSCsPorMunicipio');
 
 //--------------------------//-----------------------------------------------------------//
 //---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
