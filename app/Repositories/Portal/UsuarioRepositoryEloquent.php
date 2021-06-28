@@ -32,11 +32,11 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        return $this->model->find($id)->update($data);
     }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        return $this->model->find(id)->delete();
     }
 }

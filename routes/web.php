@@ -31,11 +31,10 @@ $router->get('/api/', function () use ($router) {
     ];
 });
 
-//$router->post('/api/user/', 'UsuarioController@store');
-
 $router->post('/api/user/','UsuarioController@store');
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('/api/get-user-auth', 'UsuarioController@getUserAuth');
+    $router->put('/api/user/{id_usuario}', 'UsuarioController@update');
 });
 //Esta rota deve ser usada para gerar um key que deve ser colocado no .env. Esse key necessario para o uso do passport
 $router->get('/key', function() {
@@ -122,10 +121,12 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
+    //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
+    $router->post('/user', 'OscController@getFromUsuario');
+
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/list-oscs-usuario', 'OscController@getListaOscUsuarioAutenticado');
     $router->post('/', 'OscController@store');
-    $router->post('/user', 'OscController@getFromUsuario');
     $router->put('/{id}', 'OscController@update');
     $router->delete('/{id}', 'OscController@destroy');
 

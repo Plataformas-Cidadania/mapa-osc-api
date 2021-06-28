@@ -60,7 +60,6 @@ class ObjetivoOscController extends Controller
             $parceira = $this->service->update($id, $dados);
 
             if ($parceira) {
-
                 return response()->json(['Resposta' => 'Objetivo da OSC atualizado com sucesso!'], Response::HTTP_OK);
             }
         }

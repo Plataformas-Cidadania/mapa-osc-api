@@ -105,9 +105,7 @@ class OscController extends Controller
     public function updateLogo($id, Request $request)
     {
         try {
-
             $file = $request->file('logo');
-
             $logo = $this->service->updateLogo($id, $file);
 
             if (!$logo)
@@ -115,9 +113,7 @@ class OscController extends Controller
                 return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
 
-
             return \response()->json($logo, Response::HTTP_OK);
-
         }
         catch (\Exception $e) {
             return $e->getMessage();
