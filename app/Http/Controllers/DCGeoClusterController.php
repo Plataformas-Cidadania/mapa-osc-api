@@ -70,6 +70,16 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    public function getOSCsPorRazaoSocial($tx_parametro)
+    {
+        try {
+            return response()->json($this->service->getOSCsPorRazaoSocial($tx_parametro), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function get($id)
     {
         try {

@@ -40,6 +40,11 @@ class DCGeoClusterService
         return $this->repo->getOSCsPorMunicipio($id_regiao);
     }
 
+    public function getOSCsPorRazaoSocial($tx_parametro)
+    {
+        return $this->repo->getOSCsPorRazaoSocial($tx_parametro);
+    }
+
     public function get($id)
     {
         return $this->repo->get($id);

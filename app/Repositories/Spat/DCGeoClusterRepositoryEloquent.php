@@ -5,6 +5,7 @@ namespace App\Repositories\Spat;
 
 use App\Models\Spat\DCGeoCluster;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
+use App\Util\TratarString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -90,6 +91,48 @@ class DCGeoClusterRepositoryEloquent implements DCGeoClusterRepositoryInterface
             geo_centroid_municipio
 		FROM osc.vw_geo_osc
 		WHERE cd_municipio = " . $id_regiao;
+
+        $regs = DB::select($query);
+
+        return $regs;
+    }
+
+    public function getOSCsPorRazaoSocial($tx_parametro)
+    {
+        $tx_parametro = strtolower($tx_parametro);
+
+        $tx_parametro_cnpj = trim($tx_parametro, '0');
+        $tx_parametro = str_replace('_', ' ', $tx_parametro);
+
+        //dd($tx_parametro);
+
+        //$tx_parametro = TratarString::removerAcentos($tx_parametro);
+
+
+        $query = "SELECT 
+			vw_busca_resultado.id_osc, 
+			vw_busca_resultado.geo_lat, 
+			vw_busca_resultado.geo_lng 
+		FROM 
+			osc.vw_busca_resultado 
+		WHERE 
+			vw_busca_resultado.id_osc IN 
+			(
+                SELECT vw_busca_osc.id_osc 
+                FROM osc.vw_busca_osc 
+                WHERE vw_busca_osc.cd_identificador_osc::TEXT = '" . $tx_parametro_cnpj . "'
+                            OR
+                            (
+                                LOWER(UNACCENT(vw_busca_osc.tx_razao_social_osc)) = '" . $tx_parametro . "'
+                                OR
+                                LOWER(UNACCENT(vw_busca_osc.tx_nome_fantasia_osc)) = '" . $tx_parametro . "'
+                            )
+                ORDER BY GREATEST(
+                    similarity(vw_busca_osc.cd_identificador_osc::TEXT, '" . $tx_parametro_cnpj . "'), 
+                    similarity(vw_busca_osc.tx_razao_social_osc::TEXT, '" . $tx_parametro . "'), 
+                    similarity(vw_busca_osc.tx_nome_fantasia_osc::TEXT, '" . $tx_parametro . "')
+                ) DESC, vw_busca_osc.tx_nome_osc ASC LIMIT 1
+			)";
 
         $regs = DB::select($query);
 

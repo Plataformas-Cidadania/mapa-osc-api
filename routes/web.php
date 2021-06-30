@@ -240,6 +240,8 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
     $router->post('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
 
+    $router->get('/busca/geo/{tx_parametro}', 'DCGeoClusterController@getOSCsPorRazaoSocial');
+
     //ROTAS BARRA DE TRANSPARENCIA OSC
     $router->get('/indice_preenchimento/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
 
