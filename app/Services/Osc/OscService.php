@@ -60,9 +60,13 @@ class OscService
 
     public function getLogo($id){
         $logo = $this->repo->getLogo($id);
-        if($logo === false){
+        if($logo === false || $logo === null){
             return null;
         }
+        if(substr($logo, 0, 10) === "data:image"){
+            return $logo;
+        }
+        //if(substr($logo))
         return 'data:image/png;base64,'.base64_encode(file_get_contents(storage_path('app/osc/'.$logo)));
     }
 
