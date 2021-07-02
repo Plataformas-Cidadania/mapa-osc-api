@@ -5,6 +5,7 @@ namespace App\Repositories\Osc;
 
 use App\Models\Osc\Contato;
 use App\Models\Osc\DadosGerais;
+use App\Models\Osc\Localizacao;
 use App\Models\Osc\ObjetivoOsc;
 use App\Models\Osc\Osc;
 use App\Repositories\Osc\OscRepositoryInterface;
@@ -71,6 +72,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
     {
         $osc = $this->model->find($id);
 
+
         $dados_gerais = [
             //DADOS GERAIS
             'tx_sigla_osc' => $osc->dados_gerais->tx_sigla_osc,
@@ -121,8 +123,12 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'bo_nao_possui_sigla_osc' => $osc->contato->bo_nao_possui_sigla_osc,
             //OBJETIVOS
             'objetivos_metas' => $osc->objetivos,
-
         ];
+
+        $geo = Localizacao::select(DB::Raw('ST_AsGeoJSON(geo_localizacao) as geo_localizacao'))->where('id_osc', $id)->get();
+        $coo = json_decode($geo[0]->geo_localizacao)->coordinates;
+        $dados_gerais['geo_localizacao'] = $coo;
+        //dd($coo);
         return $dados_gerais;
     }
 
