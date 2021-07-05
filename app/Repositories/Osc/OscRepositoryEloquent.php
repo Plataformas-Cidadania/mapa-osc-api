@@ -285,17 +285,17 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         foreach ($projetos as $projeto) {
             //array_push($dados, ['nome_projeto'] => $projeto->tx_nome_projeto);
             $var = ['id' => $projeto->id_projeto,'titulo' => $projeto->tx_nome_projeto, 'data_inicio' => $projeto->dt_data_inicio_projeto];
-            $total_valor_projetos += $projeto->nr_valor_total_projeto;
+            //$total_valor_projetos += $projeto->nr_valor_total_projeto;
             array_push($dados, $var);
         }
 
-    /*
+        /*
         $resultado = [
             $dados,
             "nr_valor_total" => $total_valor_projetos
         ];
-*/
-        array_push($dados, ["nr_valor_total" => $total_valor_projetos]);
+        */
+        //array_push($dados, ["nr_valor_total" => $total_valor_projetos]);
 
         //return $resultado;
 
