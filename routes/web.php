@@ -44,6 +44,10 @@ $router->get('/key', function() {
 $router->group(['prefix' => '/api'], function() use ($router) {
 
     //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+
+//---Classe Econômica---///
+    $router->get('/classe_economica/autocomplete/{param}', 'DCClasseAtividadeEconomicaController@getAutocomplete');
+
 //---ODS----//
     $router->get('/objetivos/', 'DCObjetivoProjetoController@getAll');
     $router->get('/objetivos/metas/{id_obj}', 'DCMetaProjetoController@getMetasPorObjetivo');

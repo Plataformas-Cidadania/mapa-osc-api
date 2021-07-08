@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property string $cd_classe_atividade_economica
  * @property string $tx_nome_classe_atividade_economica
- * @property Syst.dcSubclasseAtividadeEconomica[] $syst.dcSubclasseAtividadeEconomicas
+ * @property SubclasseAtividadeEconomica[] $DCSubclasseAtividadeEconomicas
  */
-class ClasseAtividadeEconomica extends Model
+class DCClasseAtividadeEconomica extends Model
 {
     /**
      * The table associated with the model.

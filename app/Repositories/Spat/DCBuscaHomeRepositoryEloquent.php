@@ -49,6 +49,7 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
 
         return $regs;
     }
+
     public function getListaRegioes($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];

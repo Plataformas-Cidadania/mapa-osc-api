@@ -50,6 +50,6 @@ class SubclasseAtividadeEconomica extends Model
      */
     public function classe_atividade_economica()
     {
-        return $this->belongsTo('App\Models\Syst\ClasseAtividadeEconomica', 'cd_classe_atividade_economica', 'cd_classe_atividade_economica');
+        return $this->belongsTo('App\Models\Syst\DCClasseAtividadeEconomica', 'cd_classe_atividade_economica', 'cd_classe_atividade_economica');
     }
 }

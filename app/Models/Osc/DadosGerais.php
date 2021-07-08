@@ -48,7 +48,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * @property boolean $bo_nao_possui_sigla_osc
  * @property boolean $bo_nao_possui_link_estatuto_osc
  * @property \App\Models\Syst\DCNaturezaJuridica $natureza_juridica
- * @property \App\Models\Syst\ClasseAtividadeEconomica $classe_atividade_economica
+ * @property \App\Models\Syst\DCClasseAtividadeEconomica $classe_atividade_economica
  * @property \App\Models\Syst\SituacaoImovel $situacao_imovel
  * @property Osc $osc
  */
@@ -125,7 +125,7 @@ class DadosGerais extends Model
      */
     public function classe_atividade_economica()
     {
-        return $this->hasOne('App\Models\Syst\ClasseAtividadeEconomica', 'cd_classe_atividade_economica', 'cd_classe_atividade_economica_osc');
+        return $this->hasOne('App\Models\Syst\DCClasseAtividadeEconomica', 'cd_classe_atividade_economica', 'cd_classe_atividade_economica_osc');
     }
 
     /**

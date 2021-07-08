@@ -8,6 +8,7 @@ use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
 use App\Repositories\Portal\BuscaAvancadaRepositoryInterface;
 use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
+use App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
@@ -130,6 +131,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface', 'App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface', 'App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT
