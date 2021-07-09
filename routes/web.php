@@ -54,6 +54,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //---Status do Projeto---///
     $router->get('/status_projeto/', 'DCStatusProjetoController@getAll');
 
+//---Zona de Atuação do Projeto---///
+    $router->get('/zona_atuacao_projeto/', 'DCZonaAtuacaoProjetoController@getAll');
+
 //---Tipo de Participaao---///
     $router->get('/tipo_participacao/', 'DCTipoParticipacaoController@getAll');
 

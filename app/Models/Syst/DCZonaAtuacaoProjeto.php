@@ -2,12 +2,13 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\Projeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $cd_zona_atuacao_projeto
  * @property string $tx_nome_zona_atuacao
- * @property Osc.tbProjeto[] $osc.tbProjetos
+ * @property Projeto[] $projetos
  */
 class DCZonaAtuacaoProjeto extends Model
 {
