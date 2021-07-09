@@ -9,6 +9,7 @@ use App\Repositories\Portal\BuscaAvancadaRepositoryInterface;
 use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
 use App\Repositories\Syst\DCAbrangenciaProjetoRepositoryInterface;
+use App\Repositories\Syst\DCCertificadoRepositoryInterface;
 use App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
@@ -157,6 +158,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCAbrangenciaProjetoRepositoryInterface', 'App\Repositories\Syst\DCAbrangenciaProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCCertificadoRepositoryInterface', 'App\Repositories\Syst\DCCertificadoRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT

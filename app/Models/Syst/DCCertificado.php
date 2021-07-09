@@ -2,12 +2,13 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\Certificado;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $cd_certificado
  * @property string $tx_nome_certificado
- * @property Osc.tbCertificado[] $osc.tbCertificados
+ * @property Certificado[] $certificados
  */
 class DCCertificado extends Model
 {

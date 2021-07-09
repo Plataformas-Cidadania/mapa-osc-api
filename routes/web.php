@@ -48,6 +48,10 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
     //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
 
+
+//---Certificados da OSC---///
+    $router->get('/certificado/', 'DCCertificadoController@getAll');
+
 //---Situação do Imóvel---///
     $router->get('/situacao_imovel/', 'DCSituacaoImovelController@getAll');
 
@@ -61,7 +65,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/zona_atuacao_projeto/', 'DCZonaAtuacaoProjetoController@getAll');
 
 //---Origem Fonte de Recursos do Projeto---///
-    $router->get('/origem_fonte_recurso_projeto/', 'DCZonaAtuacaoProjetoController@getAll');
+    $router->get('/origem_fonte_recurso_projeto/', 'DCOrigemFonteRecursosProjetoController@getAll');
 
 //---Tipo de Participaao---///
     $router->get('/tipo_participacao/', 'DCTipoParticipacaoController@getAll');
