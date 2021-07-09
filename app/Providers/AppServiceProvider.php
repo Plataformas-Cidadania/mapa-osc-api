@@ -143,6 +143,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Syst\DCTipoParticipacaoRepositoryInterface', 'App\Repositories\Syst\DCTipoParticipacaoRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Syst\DCStatusProjetoRepositoryInterface', 'App\Repositories\Syst\DCStatusProjetoRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SPAT
         $this->app->bind(

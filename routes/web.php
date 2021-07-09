@@ -51,6 +51,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //---Situação do Imóvel---///
     $router->get('/situacao_imovel/', 'DCSituacaoImovelController@getAll');
 
+//---Status do Projeto---///
+    $router->get('/status_projeto/', 'DCStatusProjetoController@getAll');
+
 //---Tipo de Participaao---///
     $router->get('/tipo_participacao/', 'DCTipoParticipacaoController@getAll');
 
