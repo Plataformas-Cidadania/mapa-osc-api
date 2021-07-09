@@ -8,10 +8,12 @@ use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
 use App\Repositories\Portal\BuscaAvancadaRepositoryInterface;
 use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
 use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
+use App\Repositories\Syst\DCAbrangenciaProjetoRepositoryInterface;
 use App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
+use App\Repositories\Syst\DCOrigemFonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface;
 use App\Repositories\Syst\DCSituacaoImovelRepositoryInterface;
 use App\Repositories\Syst\DCTipoParticipacaoRepositoryInterface;
@@ -149,6 +151,12 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCZonaAtuacaoProjetoRepositoryInterface', 'App\Repositories\Syst\DCZonaAtuacaoProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCOrigemFonteRecursosProjetoRepositoryInterface', 'App\Repositories\Syst\DCOrigemFonteRecursosProjetoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCAbrangenciaProjetoRepositoryInterface', 'App\Repositories\Syst\DCAbrangenciaProjetoRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT

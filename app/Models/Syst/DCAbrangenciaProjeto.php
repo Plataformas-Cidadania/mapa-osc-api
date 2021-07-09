@@ -2,12 +2,13 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\Projeto;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $cd_abrangencia_projeto
  * @property string $tx_nome_abrangencia_projeto
- * @property Osc.tbProjeto[] $osc.tbProjetos
+ * @property Projeto[] $projetos
  */
 class DCAbrangenciaProjeto extends Model
 {

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $cd_origem_fonte_recursos_projeto
  * @property string $tx_nome_origem_fonte_recursos_projeto
- * @property Osc.tbFonteRecursosProjeto[] $osc.tbFonteRecursosProjetos
- * @property Syst.dcFonteRecursosProjeto[] $syst.dcFonteRecursosProjetos
+ * @property DCFonteRecursosProjeto[] $origem_fonte_recursos_projetos
+ * @property DCFonteRecursosProjeto[] $fonte_recursos_projetos
  */
 class DCOrigemFonteRecursosProjeto extends Model
 {
