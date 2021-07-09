@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_indice
  * @property string $tx_sigla
  * @property string $tx_tema
- * @property Ipeadata.tbIpeadatum[] $ipeadata.tbIpeadatas
- * @property Ipeadata.tbIpeadataUf[] $ipeadata.tbIpeadataUfs
+ * @property IpeaData[] $ipea_datas
+ * @property DCIpeadataUff[] $ipea_datas_uff
  */
-class Indice extends Model
+class DCIndice extends Model
 {
     /**
      * The table associated with the model.
@@ -36,7 +36,7 @@ class Indice extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Ipeadatas()
+    public function ipea_datas()
     {
         return $this->hasMany('App\Models\IpeaData\IpeaData', 'cd_indice', 'cd_indice');
     }
@@ -44,7 +44,7 @@ class Indice extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function IpeadataUfs()
+    public function ipea_data_ufs()
     {
         return $this->hasMany('App\Models\IpeaData\DCIpeadataUff', 'cd_indice', 'cd_indice');
     }

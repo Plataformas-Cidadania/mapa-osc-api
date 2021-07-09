@@ -39,7 +39,7 @@ class IpeaData extends Model
      */
     public function Indice()
     {
-        return $this->belongsTo('App\Models\IpeaData\Indice', 'cd_indice', 'cd_indice');
+        return $this->belongsTo('App\Models\IpeaData\DCIndice', 'cd_indice', 'cd_indice');
     }
 
     /**

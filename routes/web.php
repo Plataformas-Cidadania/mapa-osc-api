@@ -52,6 +52,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //---Certificados da OSC---///
     $router->get('/certificado/', 'DCCertificadoController@getAll');
 
+//---Indices do IPEA DATA---///
+    $router->get('/indice_ipeadata/', 'DCIndiceController@getAll');
+
 //---Situação do Imóvel---///
     $router->get('/situacao_imovel/', 'DCSituacaoImovelController@getAll');
 

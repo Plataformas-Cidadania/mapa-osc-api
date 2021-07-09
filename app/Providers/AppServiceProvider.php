@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Ipeadata\DCIndiceRepositoryInterface;
 use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
 use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
@@ -177,6 +178,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryInterface', 'App\Repositories\Ipeadata\DCIpeadataMunicipioRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Ipeadata\DCIndiceRepositoryInterface', 'App\Repositories\Ipeadata\DCIndiceRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA ANALISYS
