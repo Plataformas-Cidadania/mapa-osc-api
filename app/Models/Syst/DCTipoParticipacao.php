@@ -2,14 +2,15 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\ParticipacaoSocialConselho;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $cd_tipo_participacao
  * @property string $tx_nome_tipo_participacao
- * @property Osc.tbParticipacaoSocialConselho[] $osc.tbParticipacaoSocialConselhos
+ * @property ParticipacaoSocialConselho $participacao_social_conselhos
  */
-class TipoParticipacao extends Model
+class DCTipoParticipacao extends Model
 {
     /**
      * The table associated with the model.
@@ -33,7 +34,7 @@ class TipoParticipacao extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ParticipacaoSocialConselhos()
+    public function participacao_social_conselhos()
     {
         return $this->hasMany('App\Models\Osc\ParticipacaoSocialConselho', 'cd_tipo_participacao', 'cd_tipo_participacao');
     }

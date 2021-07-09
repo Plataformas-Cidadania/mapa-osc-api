@@ -14,6 +14,7 @@ use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
 use App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface;
 use App\Repositories\Syst\DCSituacaoImovelRepositoryInterface;
+use App\Repositories\Syst\DCTipoParticipacaoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -138,6 +139,9 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCSituacaoImovelRepositoryInterface', 'App\Repositories\Syst\DCSituacaoImovelRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCTipoParticipacaoRepositoryInterface', 'App\Repositories\Syst\DCTipoParticipacaoRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT
