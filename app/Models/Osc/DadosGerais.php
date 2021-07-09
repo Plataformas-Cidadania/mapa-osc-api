@@ -49,7 +49,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * @property boolean $bo_nao_possui_link_estatuto_osc
  * @property \App\Models\Syst\DCNaturezaJuridica $natureza_juridica
  * @property \App\Models\Syst\DCClasseAtividadeEconomica $classe_atividade_economica
- * @property \App\Models\Syst\SituacaoImovel $situacao_imovel
+ * @property \App\Models\Syst\DCSituacaoImovel $situacao_imovel
  * @property Osc $osc
  */
 class DadosGerais extends Model
@@ -141,7 +141,7 @@ class DadosGerais extends Model
      */
     public function situacao_imovel()
     {
-        return $this->belongsTo('App\Models\Syst\SituacaoImovel', 'cd_situacao_imovel_osc', 'cd_situacao_imovel');
+        return $this->belongsTo('App\Models\Syst\DCSituacaoImovel', 'cd_situacao_imovel_osc', 'cd_situacao_imovel');
     }
 
     /**

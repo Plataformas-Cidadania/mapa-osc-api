@@ -2,14 +2,15 @@
 
 namespace App\Models\Syst;
 
+use App\Models\Osc\DadosGerais;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $cd_situacao_imovel
  * @property string $tx_nome_situacao_imovel
- * @property Osc.tbDadosGerai[] $osc.tbDadosGerais
+ * @property DadosGerais $dados_gerais
  */
-class SituacaoImovel extends Model
+class DCSituacaoImovel extends Model
 {
     /**
      * The table associated with the model.
@@ -33,8 +34,8 @@ class SituacaoImovel extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function DadosGerais()
+    public function dados_gerais()
     {
-        return $this->hasMany('App\Models\Osc\DadosGerai', 'cd_situacao_imovel_osc', 'cd_situacao_imovel');
+        return $this->hasMany('App\Models\Osc\DadosGerais', 'cd_situacao_imovel_osc', 'cd_situacao_imovel');
     }
 }

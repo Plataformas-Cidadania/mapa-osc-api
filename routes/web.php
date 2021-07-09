@@ -12,6 +12,9 @@
 */
 
 /** @var TYPE_NAME $router */
+
+use App\Services\Syst\DCSituacaoImovelService;
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -44,6 +47,9 @@ $router->get('/key', function() {
 $router->group(['prefix' => '/api'], function() use ($router) {
 
     //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+
+//---Situação do Imóvel---///
+    $router->get('/situacao_imovel/', 'DCSituacaoImovelController@getAll');
 
 //---Classe Econômica---///
     $router->get('/classe_economica/autocomplete/{param}', 'DCClasseAtividadeEconomicaController@getAutocomplete');
