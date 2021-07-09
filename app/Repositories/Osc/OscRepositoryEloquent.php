@@ -480,6 +480,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             ->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
             ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
             ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
+            ->take(30)
             ->get();
     }
 
