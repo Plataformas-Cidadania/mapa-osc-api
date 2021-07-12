@@ -51,27 +51,34 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 //---Certificados da OSC---///
     $router->get('/certificado/', 'DCCertificadoController@getAll');
+    $router->get('/certificado/{id}', 'DCCertificadoController@get');
 
 //---Indices do IPEA DATA---///
     $router->get('/indice_ipeadata/', 'DCIndiceController@getAll');
 
 //---Situação do Imóvel---///
     $router->get('/situacao_imovel/', 'DCSituacaoImovelController@getAll');
+    $router->get('/situacao_imovel/{id}', 'DCSituacaoImovelController@get');
 
 //---Status do Projeto---///
     $router->get('/status_projeto/', 'DCStatusProjetoController@getAll');
+    $router->get('/status_projeto/{id}', 'DCStatusProjetoController@get');
 
 //---Abrangência do Projeto---///
     $router->get('/abrangencia_projeto/', 'DCAbrangenciaProjetoController@getAll');
+    $router->get('/abrangencia_projeto/{id}', 'DCAbrangenciaProjetoController@get');
 
 //---Zona de Atuação do Projeto---///
     $router->get('/zona_atuacao_projeto/', 'DCZonaAtuacaoProjetoController@getAll');
+    $router->get('/zona_atuacao_projeto/{id}', 'DCZonaAtuacaoProjetoController@get');
 
 //---Origem Fonte de Recursos do Projeto---///
     $router->get('/origem_fonte_recurso_projeto/', 'DCOrigemFonteRecursosProjetoController@getAll');
+    $router->get('/origem_fonte_recurso_projeto/{id}', 'DCOrigemFonteRecursosProjetoController@get');
 
 //---Tipo de Participaao---///
     $router->get('/tipo_participacao/', 'DCTipoParticipacaoController@getAll');
+    $router->get('/tipo_participacao/{id}', 'DCTipoParticipacaoController@get');
 
 //---Classe Econômica---///
     $router->get('/classe_economica/autocomplete/{param}', 'DCClasseAtividadeEconomicaController@getAutocomplete');
