@@ -23,10 +23,8 @@ class BuscaAvancadaController extends Controller
 
     public function buscarOSCs(Request $request, $type_result, $limit = 0, $offset = 0)
     {
-
         try {
             $param = [$limit, $offset];
-
             if($request->input('avancado')) {
                 $avancado = $request->input('avancado');
 
@@ -52,40 +50,13 @@ class BuscaAvancadaController extends Controller
                     isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH)
                 )
                 {
-                    //$resultado = new \stdClass();
-                    //dd('teste');
                     return response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
-                    //$buscaAvancadoDao = $this->dao->searchAdvancedList($type_result, $param, $busca);
-                    //$resultado->lista_osc = $buscaAvancadoDao;
-
-                    //$listaId = array_keys($buscaAvancadoDao);
-                    //array_shift($listaId);
-
-                    //$listaChave = $busca;
-                    //unset($listaChave->Adicionais);
-
-                    //$cache = new \stdClass();
-                    //$cache->chave = md5(serialize($listaChave));
-                    //$cache->valor = '{' . implode(",", $listaId) . '}';
-
-                    //$resultado->chave_cache_exportar = $cache->chave;
-
-                    //(new CacheExportarDao())->inserirExportar($cache);
-
-                    //$this->configResponse($resultado);
                 }else{
                     return response()->json(['Resposta' => 'Atributos(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
-                    //$resultado = ['msg' => 'Atributos(s) obrigatório(s) não enviado(s).'];
-                    //$this->configResponse($resultado, 400);
                 }
             }else{
                 return response()->json(['Resposta' => 'Dado(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
-                //$resultado = ['msg' => 'Dado(s) obrigatório(s) não enviado(s).'];
-                //$this->configResponse($resultado, 400);
             }
-
-            //return $this->response();
-            //return response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -96,8 +67,6 @@ class BuscaAvancadaController extends Controller
         try {
             $type_result = 'exportar';
             $param = null;
-            $type_result = 'lista';
-
             if($request->input('avancado')) {
                 $avancado = $request->input('avancado');
 
@@ -123,26 +92,40 @@ class BuscaAvancadaController extends Controller
                     isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH)
                 )
                 {
-                    //$resultado = new \stdClass();
-                    //dd('teste');
-                    $listaOsc = response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
+                    //$lista_oscs = $this->service->buscarOSCs($type_result, $param, $busca);
 
+                    $json_teste = [497385,
+                    579266,
+                    613127,
+                    623997,
+                    707335,
+                    707343,
+                    708052,
+                    709665,
+                    711909,
+                    712289];
 
+                    /*
+                    $lista_oscs = [];
+                    foreach ($json_teste as $osc) {
+                        array_push($lista_oscs, $osc->id_osc);
+                    }
+                    */
 
+                    $lista_indices = [];
+                    foreach ($busca->Adicionais as $key=>$indice) {
+                        $temp = explode("-", $key);
+                        array_push($lista_indices, $temp[1]);
+                    }
+
+                    return response()->json($this->service->exportarOSCs($json_teste, $lista_indices), Response::HTTP_OK);
 
                 }else{
                     return response()->json(['Resposta' => 'Atributos(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
-                    //$resultado = ['msg' => 'Atributos(s) obrigatório(s) não enviado(s).'];
-                    //$this->configResponse($resultado, 400);
                 }
             }else{
                 return response()->json(['Resposta' => 'Dado(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
-                //$resultado = ['msg' => 'Dado(s) obrigatório(s) não enviado(s).'];
-                //$this->configResponse($resultado, 400);
             }
-
-            //return $this->response();
-            //return response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
