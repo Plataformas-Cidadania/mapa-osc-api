@@ -92,25 +92,14 @@ class BuscaAvancadaController extends Controller
                     isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH)
                 )
                 {
-                    //$lista_oscs = $this->service->buscarOSCs($type_result, $param, $busca);
+                    $lista_oscs = $this->service->buscarOSCs($type_result, $param, $busca);
 
-                    $json_teste = [497385,
-                    579266,
-                    613127,
-                    623997,
-                    707335,
-                    707343,
-                    708052,
-                    709665,
-                    711909,
-                    712289];
+                    //$json_teste = [497385,579266,613127,623997,707335,707343,708052,709665,711909,712289];
 
-                    /*
-                    $lista_oscs = [];
-                    foreach ($json_teste as $osc) {
-                        array_push($lista_oscs, $osc->id_osc);
+                    $lista_ids_oscs = [];
+                    foreach ($lista_oscs as $osc) {
+                        array_push($lista_ids_oscs, $osc->id_osc);
                     }
-                    */
 
                     $lista_indices = [];
                     foreach ($busca->Adicionais as $key=>$indice) {
@@ -118,7 +107,7 @@ class BuscaAvancadaController extends Controller
                         array_push($lista_indices, $temp[1]);
                     }
 
-                    return response()->json($this->service->exportarOSCs($json_teste, $lista_indices), Response::HTTP_OK);
+                    return response()->json($this->service->exportarOSCs($lista_ids_oscs, $lista_indices), Response::HTTP_OK);
 
                 }else{
                     return response()->json(['Resposta' => 'Atributos(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
