@@ -19,6 +19,8 @@ class BuscaAvancadaService
 
     public function buscarOSCs($type_result, $param = null, $busca)
     {
-        return $this->repo->buscarOSCs($type_result, $param = null, $busca);
+        //Log::info($param);
+        //return $this->repo->buscarOSCs($type_result, $param = null, $busca);
+        return $this->repo->buscarOSCs($type_result, $param, $busca);
     }
 }

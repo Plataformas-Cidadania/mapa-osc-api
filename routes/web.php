@@ -281,6 +281,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //BUSCA AVANÇADA
     $router->get('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
     $router->post('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
+    $router->post('/exportar/', 'BuscaAvancadaController@exportarOscs');
 
     $router->get('/busca/geo/{tx_parametro}', 'DCGeoClusterController@getOSCsPorRazaoSocial');
 

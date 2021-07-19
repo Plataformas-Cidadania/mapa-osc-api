@@ -7,6 +7,7 @@ use App\Models\Osc\Osc;
 use App\Util\FormatacaoUtil;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterface
 {
@@ -17,7 +18,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
         $this->model = $_osc;
     }
 
-    public function buscarOSCs($type_result, $param = null, $busca)
+    public function buscarOSCs($type_result, $param, $busca)
     {
         $regs = ['teste'];
 
@@ -29,7 +30,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
         }
 
         if($count_busca > 0){
-            if($type_result == 'lista'){
+            if($type_result == 'lista' || $type_result == 'exportar'){
                 $query_var = 'vw_busca_resultado.id_osc, vw_busca_resultado.tx_nome_osc, vw_busca_resultado.cd_identificador_osc, vw_busca_resultado.tx_natureza_juridica_osc, vw_busca_resultado.tx_endereco_osc, vw_busca_resultado.tx_nome_atividade_economica, vw_busca_resultado.im_logo ';
             }else if($type_result == 'geo'){
                 $query_var = 'vw_busca_resultado.id_osc, vw_busca_resultado.geo_lat, vw_busca_resultado.geo_lng ';
@@ -1717,14 +1718,14 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                 $query .= ')';
             }
 
-            if($param[1] > 0){
-                $query_limit = 'LIMIT ' . $param[0] . ' OFFSET ' . $param[1] . ';';
-            }
-            else if($param[0] > 0){
-                $query_limit = 'LIMIT ' . $param[0] . ';';
-            }
-            else{
-                $query_limit = ';';
+            $query_limit = ';';
+            if($type_result === 'lista'){
+                if($param[1] > 0){
+                    $query_limit = 'LIMIT ' . $param[0] . ' OFFSET ' . $param[1] . ';';
+                }
+                else if($param[0] > 0){
+                    $query_limit = 'LIMIT ' . $param[0] . ';';
+                }
             }
 
             $query .= ' ORDER BY vw_busca_resultado.id_osc '.$query_limit;
