@@ -467,7 +467,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
     }
 
     public function getListaOscsPorIds(array $ids){
-        return DB::table('osc.tb_dados_gerais')->whereIn('id_osc', $ids)->get();
+        return DB::table('osc.tb_dados_gerais')->select('id_osc', 'tx_razao_social_osc')->whereIn('id_osc', $ids)->get();
     }
 
     public function getListaOscCnpjAutocomplete($cnpj){
