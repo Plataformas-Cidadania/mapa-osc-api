@@ -5,6 +5,10 @@ namespace App\Services\Portal;
 
 
 use App\Repositories\Portal\UsuarioRepositoryInterface;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UsuarioService
 {
@@ -27,12 +31,17 @@ class UsuarioService
 
     public function store(array $data)
     {
+        Log::info('CADASTRAR USUARIO');
         $data['cd_tipo_usuario'] = 2;
-        $data['bo_lista_email'] = 1;
-        $data['bo_ativo'] = 1;
-        $data['dt_cadastro'] = date('Y-m-d');
+        $data['bo_lista_email'] = 0;
+        $data['bo_ativo'] = 0;
+        $data['bo_email_confirmado'] = 0;
+        $data['dt_cadastro'] = date('Y-m-d H:i:s');
         $data['tx_senha_usuario'] = sha1($data['tx_senha_usuario']);
-        return $this->repo->store($data);
+        $data['tx_hash_ativacao_usuario'] = Str::random(15);
+        $usuario = $this->repo->store($data);
+        $this->enviaEmailAtivacao($usuario);
+        return $usuario;
     }
 
     public function update($id, array $data)
@@ -43,5 +52,49 @@ class UsuarioService
     public function destroy($id)
     {
         $this->destroy($id);
+    }
+
+    private function enviaEmailAtivacao($usuario){
+
+        $data = [
+            'name' => $usuario->tx_nome_usuario,
+            'email' => $usuario->tx_email_usuario,
+            'hash' => $usuario->tx_hash_ativacao_usuario,
+            'id_usuario' => $usuario->id_usuario,
+        ];
+
+        $settings = [
+            'from' => env('MAIL_FROM_ADDRESS'),
+            'name' => env('MAIL_FROM_NAME'),
+        ];
+
+        $usuario = env('MAIL_USERNAME', '');
+        $password = env('MAIL_PASSWORD', '');
+
+        Config::set('mail.host', env('MAIL_HOST'));
+        Config::set('mail.port', env('MAIL_PORT'));
+        Config::set('mail.address',$settings['from']);
+        Config::set('mail.name', $settings['name']);
+        Config::set('mail.username', $usuario);
+        Config::set('mail.password', $password);
+        Config::set('mail.encryption', 'tls');
+
+        //mensagem para o usuario///////////////////////////////////////////////////////////////////////
+        Mail::send('emails.usuario.ativar-usuario', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
+        {
+            $message->from($settings['from'], $settings['name']);
+            $message->sender($settings['from'], $settings['name']);
+            $message->to($data['email'], $data['name']);
+            $message->replyTo($data['email'], $data['name']);
+            $message->subject('Ativar Usuário - '.$settings['name']);
+
+            //$message->priority($level);
+            //$message->attach($pathToFile, array $options = []);
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    public function activate($id, $hash){
+       return $this->repo->activate($id, $hash);
     }
 }

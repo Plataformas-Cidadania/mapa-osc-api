@@ -37,6 +37,17 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
 
     public function destroy($id)
     {
-        return $this->model->find(id)->delete();
+        return $this->model->find($id)->delete();
+    }
+    public function activate($id, $hash)
+    {
+        $usuario = $this->model->where('id_usuario', $id)->where('tx_hash_ativacao_usuario', $hash)->first();
+        if($usuario){
+            return $usuario->update([
+                'bo_ativo' => 1,
+                'bo_email_confirmado' => 1
+            ]);
+        }
+        return false;
     }
 }

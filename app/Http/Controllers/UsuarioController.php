@@ -68,4 +68,21 @@ class UsuarioController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function activate($id_usuario, $hash){
+        try {
+
+            $usuario = $this->service->activate($id_usuario, $hash);
+
+            if ($usuario) {
+                return redirect(env('FRONT_URL')."/usuario-ativado");
+                //return response()->json(['Resposta' => 'Representante (Usuário) da OSC atualizado com sucesso!'], Response::HTTP_OK);
+            }
+
+            return redirect(env('FRONT_URL')."/ativacao-invalida");
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

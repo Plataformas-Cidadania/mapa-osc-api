@@ -77,7 +77,8 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
         'tx_dado_institucional',
         'tx_email_confirmacao',
         'bo_lista_atualizacao_anual',
-        'bo_lista_atualizacao_trimestral'
+        'bo_lista_atualizacao_trimestral',
+        'tx_hash_ativacao_usuario'
     ];
 
     public $timestamps = false;
@@ -89,7 +90,7 @@ class Usuario extends Model  implements AuthenticatableContract, AuthorizableCon
     public function validateForPassportPasswordGrant($password)
     {
         //return Hash::check($password, $this->tx_senha_usuario);
-        return sha1($password) === $this->tx_senha_usuario;
+        return sha1($password) === $this->tx_senha_usuario && $this->bo_ativo;
     }
 
 

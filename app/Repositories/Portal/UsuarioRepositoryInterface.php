@@ -19,4 +19,6 @@ interface UsuarioRepositoryInterface
     public function update($id, array $data);
 
     public function destroy($id);
+
+    public function activate($id_usuario, $hash);
 }
