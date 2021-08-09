@@ -31,7 +31,6 @@ class UsuarioService
 
     public function store(array $data)
     {
-        Log::info('CADASTRAR USUARIO');
         $data['cd_tipo_usuario'] = 2;
         $data['bo_lista_email'] = 0;
         $data['bo_ativo'] = 0;
