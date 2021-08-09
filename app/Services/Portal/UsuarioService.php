@@ -32,9 +32,9 @@ class UsuarioService
     public function store(array $data)
     {
         $data['cd_tipo_usuario'] = 2;
-        $data['bo_lista_email'] = 0;
-        $data['bo_ativo'] = 0;
-        $data['bo_email_confirmado'] = 0;
+        $data['bo_lista_email'] = false;
+        $data['bo_ativo'] = false;
+        $data['bo_email_confirmado'] = false;
         $data['dt_cadastro'] = date('Y-m-d H:i:s');
         $data['tx_senha_usuario'] = sha1($data['tx_senha_usuario']);
         $data['tx_hash_ativacao_usuario'] = Str::random(15);
