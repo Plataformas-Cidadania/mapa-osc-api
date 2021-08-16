@@ -54,7 +54,7 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
     public function trocarSenha($id, $hash, $senha)
     {
         $date = Date('Y-m-d');
-        $recuperacao = DB::table('tb_recuperacao_senhas_usuario')
+        $recuperacao = DB::table('portal.tb_recuperacao_senhas_usuario')
             ->where('id_usuario', $id)
             ->where('tx_hash', $hash)
             ->where('dt_expiracao', '>=', $date)
@@ -62,7 +62,7 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
         if($recuperacao){
             $usuario = $this->model->find($id);
             return $usuario->update([
-                'senha' => $senha,
+                'tx_senha_usuario' => $senha,
             ]);
         }
         return false;
