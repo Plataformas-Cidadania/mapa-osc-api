@@ -78,6 +78,12 @@ class UsuarioService
         Config::set('mail.password', $password);
         Config::set('mail.encryption', 'tls');
 
+        Log::info('nome usuario: '.$data['name']);
+        Log::info('email usuario: '.$data['email']);
+        Log::info('hash ativacao: '.$data['hash']);
+        Log::info('email from: '.$settings['from']);
+        Log::info('email name: '.$settings['name']);
+
         //mensagem para o usuario///////////////////////////////////////////////////////////////////////
         Mail::send('emails.usuario.ativar-usuario', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
         {
@@ -95,5 +101,14 @@ class UsuarioService
 
     public function activate($id, $hash){
        return $this->repo->activate($id, $hash);
+    }
+
+    public function trocarSenha(array $data)
+    {
+        $id_usuario = $data['id_usuario'];
+        $hash = $data['hash'];
+        $senha = sha1($data['tx_senha_usuario']);
+
+        return $this->repo->trocarSenha($id_usuario, $hash, $senha);
     }
 }

@@ -85,4 +85,21 @@ class UsuarioController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function trocarSenha(Request $request){
+        try {
+            $dados = $request->all();
+
+            $usuario = $this->service->trocarSenha($dados);
+
+            if ($usuario) {
+                return response()->json(['Resposta' => 'Senha atualizada com sucesso!'], Response::HTTP_OK);
+            }
+
+            return response()->json(['Resposta' => 'Código inválido ou expirado!'], Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

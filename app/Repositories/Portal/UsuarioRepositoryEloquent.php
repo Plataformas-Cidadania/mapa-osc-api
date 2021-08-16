@@ -5,6 +5,7 @@ namespace App\Repositories\Portal;
 
 use App\Models\Portal\Usuario;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
 {
@@ -46,6 +47,22 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
             return $usuario->update([
                 'bo_ativo' => 1,
                 'bo_email_confirmado' => 1
+            ]);
+        }
+        return false;
+    }
+    public function trocarSenha($id, $hash, $senha)
+    {
+        $date = Date('Y-m-d');
+        $recuperacao = DB::table('tb_recuperacao_senhas_usuario')
+            ->where('id_usuario', $id)
+            ->where('tx_hash', $hash)
+            ->where('dt_expiracao', '>=', $date)
+            ->first();
+        if($recuperacao){
+            $usuario = $this->model->find($id);
+            return $usuario->update([
+                'senha' => $senha,
             ]);
         }
         return false;

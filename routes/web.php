@@ -40,6 +40,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->put('/api/user/{id_usuario}', 'UsuarioController@update');
 });
 $router->get('/api/activate-user/{id_usuario}/{hash}','UsuarioController@activate');
+$router->post('/api/trocar-senha-user/','UsuarioController@trocarSenha');
 
 //Esta rota deve ser usada para gerar um key que deve ser colocado no .env. Esse key necessario para o uso do passport
 $router->get('/key', function() {
