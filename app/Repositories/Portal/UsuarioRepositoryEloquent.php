@@ -6,6 +6,7 @@ namespace App\Repositories\Portal;
 use App\Models\Portal\Usuario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
 {
@@ -51,6 +52,33 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
         }
         return false;
     }
+
+    public function gerarLinkRedefinicaoSenha($email)
+    {
+        $date = Date('Y-m-d');
+        $usuario = $this->model->where('tx_email_usuario', $email)->first();
+        $hash = Str::random(15);
+        if($usuario){
+            DB::table('portal.tb_recuperacao_senhas_usuario')->insert(
+                [
+                    'id_usuario' => $usuario->id_usuario,
+                    'tx_hash' => $hash,
+                    'dt_expiracao' => $date
+                ]
+            );
+
+            return [
+                'id_usuario' => $usuario->id_usuario,
+                'name' => $usuario->tx_nome_usuario,
+                'email' => $usuario->tx_email_usuario,
+                'date' => $date,
+                'hash' => $hash
+            ];
+
+        }
+        return false;
+    }
+
     public function trocarSenha($id, $hash, $senha)
     {
         $date = Date('Y-m-d');

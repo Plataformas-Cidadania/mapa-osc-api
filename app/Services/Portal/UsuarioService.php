@@ -76,11 +76,10 @@ class UsuarioService
         Config::set('mail.name', $settings['name']);
         Config::set('mail.username', $usuario);
         Config::set('mail.password', $password);
-        Config::set('mail.encryption', 'tls');
+        //Config::set('mail.encryption', 'tls');
 
         Log::info('nome usuario: '.$data['name']);
         Log::info('email usuario: '.$data['email']);
-        Log::info('hash ativacao: '.$data['hash']);
         Log::info('email from: '.$settings['from']);
         Log::info('email name: '.$settings['name']);
 
@@ -110,5 +109,60 @@ class UsuarioService
         $senha = sha1($data['tx_senha_usuario']);
 
         return $this->repo->trocarSenha($id_usuario, $hash, $senha);
+    }
+
+    public function esqueciSenha(array $data)
+    {
+
+        $result = $this->repo->gerarLinkRedefinicaoSenha($data['email']);
+
+        if($result){
+
+            $data = [
+                'id_usuario' => $result['id_usuario'],
+                'name' => $result['name'],
+                'email' => $result['email'],
+                'hash' => $result['hash'],
+                'date' => $result['name'],
+            ];
+
+            $settings = [
+                'from' => env('MAIL_FROM_ADDRESS'),
+                'name' => env('MAIL_FROM_NAME'),
+            ];
+
+            $usuario = env('MAIL_USERNAME', '');
+            $password = env('MAIL_PASSWORD', '');
+
+            Config::set('mail.host', env('MAIL_HOST'));
+            Config::set('mail.port', env('MAIL_PORT'));
+            Config::set('mail.address',$settings['from']);
+            Config::set('mail.name', $settings['name']);
+            Config::set('mail.username', $usuario);
+            Config::set('mail.password', $password);
+            //Config::set('mail.encryption', 'tls');
+
+            Log::info('nome usuario: '.$data['name']);
+            Log::info('email usuario: '.$data['email']);
+            Log::info('email from: '.$settings['from']);
+            Log::info('email name: '.$settings['name']);
+
+            //mensagem para o usuario///////////////////////////////////////////////////////////////////////
+            Mail::send('emails.usuario.redefinir-senha', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
+            {
+                $message->from($settings['from'], $settings['name']);
+                $message->sender($settings['from'], $settings['name']);
+                $message->to($data['email'], $data['name']);
+                $message->replyTo($data['email'], $data['name']);
+                $message->subject('Redefinir Senha - '.$settings['name']);
+
+                //$message->priority($level);
+                //$message->attach($pathToFile, array $options = []);
+            });
+            ////////////////////////////////////////////////////////////////////////////////////////////
+
+            return true;
+        }
+        return false;
     }
 }

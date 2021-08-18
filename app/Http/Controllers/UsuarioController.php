@@ -90,7 +90,7 @@ class UsuarioController extends Controller
         try {
             $dados = $request->all();
 
-            $usuario = $this->service->trocarSenha($dados);
+            $usuario = $this->service->trocarSenha($dados['form']);
 
             if ($usuario) {
                 return response()->json(['Resposta' => 'Senha atualizada com sucesso!'], Response::HTTP_OK);
@@ -100,6 +100,23 @@ class UsuarioController extends Controller
         }
         catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    public function esqueciSenha(Request $request){
+        try {
+            $dados = $request->all();
+
+            $usuario = $this->service->esqueciSenha($dados);
+
+            if ($usuario) {
+                return response()->json(['Resposta' => 'Link de recuperação de senha Gerado! Verifique o seu email!'], Response::HTTP_OK);
+            }
+
+            return response()->json(['Resposta' => 'E-mail inválido!'], Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return response()->json(['Resposta' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

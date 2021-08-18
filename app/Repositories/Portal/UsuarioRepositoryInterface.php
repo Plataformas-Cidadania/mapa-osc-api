@@ -21,4 +21,9 @@ interface UsuarioRepositoryInterface
     public function destroy($id);
 
     public function activate($id_usuario, $hash);
+
+    public function gerarLinkRedefinicaoSenha($email);
+
+    public function trocarSenha($id, $hash, $senha);
+
 }
