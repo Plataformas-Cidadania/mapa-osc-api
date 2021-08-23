@@ -13,7 +13,7 @@ class AlterTable2TbUsuario extends Migration
      */
     public function up()
     {
-        Schema::table('tb_usuario', function (Blueprint $table) {
+        Schema::table('portal.tb_usuario', function (Blueprint $table) {
             $table->string('teste2')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AlterTable2TbUsuario extends Migration
      */
     public function down()
     {
-        Schema::table('tb_usuario', function (Blueprint $table) {
+        Schema::table('portal.tb_usuario', function (Blueprint $table) {
             $table->dropColumn('teste2');
         });
     }
