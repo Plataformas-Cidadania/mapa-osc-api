@@ -18,6 +18,8 @@ class UsuarioController extends Controller
      * @return void
      */
 
+    //...
+
     private $service;
 
     public function __construct(UsuarioService $_service)
