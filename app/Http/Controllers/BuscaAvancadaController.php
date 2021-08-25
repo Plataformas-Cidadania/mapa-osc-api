@@ -102,7 +102,7 @@ class BuscaAvancadaController extends Controller
                     }
 
                     $lista_indices = [];
-                    if(property_exists('busca', 'Adicionais')){
+                    if(property_exists($busca, 'Adicionais')){
                         foreach ($busca->Adicionais as $key=>$indice) {
                             $temp = explode("-", $key);
                             array_push($lista_indices, $temp[1]);
