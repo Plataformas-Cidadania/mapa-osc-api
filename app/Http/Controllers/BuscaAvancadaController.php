@@ -102,11 +102,12 @@ class BuscaAvancadaController extends Controller
                     }
 
                     $lista_indices = [];
-                    foreach ($busca->Adicionais as $key=>$indice) {
-                        $temp = explode("-", $key);
-                        array_push($lista_indices, $temp[1]);
+                    if(property_exists('busca', 'Adicionais')){
+                        foreach ($busca->Adicionais as $key=>$indice) {
+                            $temp = explode("-", $key);
+                            array_push($lista_indices, $temp[1]);
+                        }
                     }
-
                     return response()->json($this->service->exportarOSCs($lista_ids_oscs, $lista_indices), Response::HTTP_OK);
 
                 }else{

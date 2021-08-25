@@ -142,10 +142,10 @@ class UsuarioService
             Config::set('mail.password', $password);
             //Config::set('mail.encryption', 'tls');
 
-            Log::info('nome usuario: '.$data['name']);
-            Log::info('email usuario: '.$data['email']);
-            Log::info('email from: '.$settings['from']);
-            Log::info('email name: '.$settings['name']);
+            //Log::info('nome usuario: '.$data['name']);
+            //Log::info('email usuario: '.$data['email']);
+            //Log::info('email from: '.$settings['from']);
+            //Log::info('email name: '.$settings['name']);
 
             //mensagem para o usuario///////////////////////////////////////////////////////////////////////
             Mail::send('emails.usuario.redefinir-senha', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)

@@ -42,7 +42,7 @@ class RepresentacaoService
     {
         $id_usuario = Auth::user()->id_usuario;
         $representacao = $this->repo->getId($id_osc, $id_usuario);
-        Log::info($representacao);
+        //Log::info($representacao);
         return $this->repo->destroy($representacao->id_representacao);
     }
 }
