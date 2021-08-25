@@ -32,14 +32,14 @@ class UsuarioService
     public function store(array $data)
     {
         $data['cd_tipo_usuario'] = 2;
-        $data['bo_lista_email'] = false;
-        $data['bo_ativo'] = false;
+        $data['bo_lista_email'] = true;
+        $data['bo_ativo'] = true;
         $data['bo_email_confirmado'] = false;
         $data['dt_cadastro'] = date('Y-m-d H:i:s');
         $data['tx_senha_usuario'] = sha1($data['tx_senha_usuario']);
         $data['tx_hash_ativacao_usuario'] = Str::random(15);
         $usuario = $this->repo->store($data);
-        $this->enviaEmailAtivacao($usuario);
+        //$this->enviaEmailAtivacao($usuario);
         return $usuario;
     }
 
@@ -78,10 +78,10 @@ class UsuarioService
         Config::set('mail.password', $password);
         //Config::set('mail.encryption', 'tls');
 
-        Log::info('nome usuario: '.$data['name']);
-        Log::info('email usuario: '.$data['email']);
-        Log::info('email from: '.$settings['from']);
-        Log::info('email name: '.$settings['name']);
+        //Log::info('nome usuario: '.$data['name']);
+        //Log::info('email usuario: '.$data['email']);
+        //Log::info('email from: '.$settings['from']);
+        //Log::info('email name: '.$settings['name']);
 
         //mensagem para o usuario///////////////////////////////////////////////////////////////////////
         Mail::send('emails.usuario.ativar-usuario', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
