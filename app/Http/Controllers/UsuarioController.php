@@ -19,6 +19,7 @@ class UsuarioController extends Controller
      */
 
     //...
+    //...
 
     private $service;
 
