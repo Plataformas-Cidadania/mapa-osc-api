@@ -5,6 +5,7 @@ namespace App\Services\Portal;
 
 
 use App\Repositories\Portal\UsuarioRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -100,6 +101,15 @@ class UsuarioService
 
     public function activate($id, $hash){
        return $this->repo->activate($id, $hash);
+    }
+
+    public function trocarSenhaNaAreaRestrita(array $data)
+    {
+        $id_usuario = Auth::user()->id;
+        $senha_atual = sha1($data['senha_atual']);
+        $nova_senha = sha1($data['tx_senha_usuario']);
+
+        return $this->repo->trocarSenhaNaAreaRestrita($id_usuario, $senha_atual, $nova_senha);
     }
 
     public function trocarSenha(array $data)

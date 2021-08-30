@@ -95,4 +95,19 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
         }
         return false;
     }
+
+    public function trocarSenhaNaAreaRestrita($id, $senha_atual, $nova_senha)
+    {
+        $usuario = DB::table('portal.tb_usuario')
+            ->where('id_usuario', $id)
+            ->where('tx_senha_usuario', $senha_atual)
+            ->first();
+        if($usuario){
+            $usuario = $this->model->find($id);
+            return $usuario->update([
+                'tx_senha_usuario' => $nova_senha,
+            ]);
+        }
+        return false;
+    }
 }

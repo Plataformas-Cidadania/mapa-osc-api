@@ -163,6 +163,8 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
+    $router->post('/api/trocar-senha-na-area-restrita/','UsuarioController@trocarSenhaNaAreaRestrita');
+
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');

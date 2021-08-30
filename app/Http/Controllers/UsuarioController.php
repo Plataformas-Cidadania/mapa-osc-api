@@ -89,6 +89,23 @@ class UsuarioController extends Controller
         }
     }
 
+    public function trocarSenhaNaAreaRestrita(){
+        try {
+            $dados = $request->all();
+
+            $usuario = $this->service->trocarSenhaNaAreaRestrita($dados['form']);
+
+            if ($usuario) {
+                return response()->json(['Resposta' => 'Senha atualizada com sucesso!'], Response::HTTP_OK);
+            }
+
+            return response()->json(['Resposta' => 'Senha atual inválida!'], Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function trocarSenha(Request $request){
         try {
             $dados = $request->all();

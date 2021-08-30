@@ -26,4 +26,6 @@ interface UsuarioRepositoryInterface
 
     public function trocarSenha($id, $hash, $senha);
 
+    public function trocarSenhaNaAreaRestrita($id, $senha_atual, $nova_senha);
+
 }
