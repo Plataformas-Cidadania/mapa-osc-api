@@ -6,6 +6,7 @@ namespace App\Repositories\Portal;
 use App\Models\Portal\Usuario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface

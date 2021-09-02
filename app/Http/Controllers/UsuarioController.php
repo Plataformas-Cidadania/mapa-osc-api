@@ -89,11 +89,11 @@ class UsuarioController extends Controller
         }
     }
 
-    public function trocarSenhaNaAreaRestrita(){
+    public function trocarSenhaNaAreaRestrita(Request $request){
         try {
             $dados = $request->all();
 
-            $usuario = $this->service->trocarSenhaNaAreaRestrita($dados['form']);
+            $usuario = $this->service->trocarSenhaNaAreaRestrita($dados);
 
             if ($usuario) {
                 return response()->json(['Resposta' => 'Senha atualizada com sucesso!'], Response::HTTP_OK);

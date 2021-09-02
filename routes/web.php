@@ -38,6 +38,7 @@ $router->post('/api/user/','UsuarioController@store');
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('/api/get-user-auth', 'UsuarioController@getUserAuth');
     $router->put('/api/user/{id_usuario}', 'UsuarioController@update');
+    $router->post('/api/trocar-senha-na-area-restrita/','UsuarioController@trocarSenhaNaAreaRestrita');
 });
 $router->get('/api/activate-user/{id_usuario}/{hash}','UsuarioController@activate');
 $router->post('/api/trocar-senha-user/','UsuarioController@trocarSenha');
@@ -162,8 +163,6 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
-
-    $router->post('/api/trocar-senha-na-area-restrita/','UsuarioController@trocarSenhaNaAreaRestrita');
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');

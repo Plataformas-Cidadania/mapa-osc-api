@@ -105,10 +105,9 @@ class UsuarioService
 
     public function trocarSenhaNaAreaRestrita(array $data)
     {
-        $id_usuario = Auth::user()->id;
+        $id_usuario = Auth::user()->id_usuario;
         $senha_atual = sha1($data['senha_atual']);
-        $nova_senha = sha1($data['tx_senha_usuario']);
-
+        $nova_senha = sha1($data['nova_senha']);
         return $this->repo->trocarSenhaNaAreaRestrita($id_usuario, $senha_atual, $nova_senha);
     }
 
