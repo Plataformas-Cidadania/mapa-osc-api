@@ -50,7 +50,19 @@ class BuscaAvancadaController extends Controller
                     isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH)
                 )
                 {
-                    return response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
+
+                    $rows = $this->service->buscarOSCs($type_result, $param, $busca);
+                    if($type_result == 'geo'){
+                        $oscs = [];
+                        foreach ($rows as $item) {
+                            if(!empty($item->geo_lat)){
+                                array_push($oscs, [$item->id_osc, $item->geo_lat, $item->geo_lng]);
+                            }
+                        }
+                        $rows = $oscs;
+                    }
+                    return response()->json($rows, Response::HTTP_OK);
+                    //return response()->json($this->service->buscarOSCs($type_result, $param, $busca), Response::HTTP_OK);
                 }else{
                     return response()->json(['Resposta' => 'Atributos(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
                 }
