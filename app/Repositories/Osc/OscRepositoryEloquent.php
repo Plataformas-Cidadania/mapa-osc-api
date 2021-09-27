@@ -475,10 +475,12 @@ class OscRepositoryEloquent implements OscRepositoryInterface
     }
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca){
-        $numeros = preg_replace('/[^0-9]/', '', $texto_busca);;
+        $numeros = preg_replace('/[^0-9]/', '', $texto_busca);
         $oscs =  DB::table('osc.vw_busca_osc')
             ->when(!empty($numeros), function ($query) use ($numeros){
-                return $query->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "%$numeros%");
+                $query->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$numeros%");
+                $query->orWhere(DB::Raw("CONCAT('0', CAST(cd_identificador_osc AS TEXT))"), 'like', "$numeros%");
+                return $query;
             })
             ->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
             ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
