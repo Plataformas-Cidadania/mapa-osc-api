@@ -486,10 +486,6 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             ->take(30)
             ->get();
 
-        foreach ($oscs as $osc) {
-            Log::info($texto_busca.' - '.$osc->tx_nome_osc.' - '.$osc->tx_razao_social_osc.' - '.$osc->tx_nome_fantasia_osc);
-        }
-
         return $oscs;
     }
 
