@@ -120,7 +120,23 @@ class BuscaAvancadaController extends Controller
                             array_push($lista_indices, $temp[1]);
                         }
                     }
-                    return response()->json($this->service->exportarOSCs($lista_ids_oscs, $lista_indices), Response::HTTP_OK);
+                    $rows = $this->service->exportarOSCs($lista_ids_oscs, $lista_indices);
+                    $columns = "";
+                    foreach ($rows[0] as $index => $value) {
+                        $columns .= $index.";";
+                    }
+                    $columns = substr($columns, 0, -1);
+                    $csv = "$columns\n";
+                    foreach ($rows as $item) {
+                        $linha = "";
+                        foreach ($item as $value) {
+                            $linha .= $value.";";
+                        }
+                        $linha = substr($linha, 0, -1);
+                        $csv .= "$linha\n";
+                    }
+                    return $csv;
+                    //return response()->json($this->service->exportarOSCs($lista_ids_oscs, $lista_indices), Response::HTTP_OK);
 
                 }else{
                     return response()->json(['Resposta' => 'Atributos(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
