@@ -97,6 +97,20 @@ class UsuarioService
             //$message->attach($pathToFile, array $options = []);
         });
         ////////////////////////////////////////////////////////////////////////////////////////////
+
+        //mensagem para o mapaosc///////////////////////////////////////////////////////////////////////
+        /*Mail::send('emails.usuario.usuario-cadastrado', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
+        {
+            $message->from($settings['from'], $settings['name']);
+            $message->sender($settings['from'], $settings['name']);
+            $message->to('mapaosc@ipea.gov.br', 'Mapa das Osc');
+            $message->replyTo($data['email'], $data['name']);
+            $message->subject('Ativar Usuário - '.$settings['name']);
+
+            //$message->priority($level);
+            //$message->attach($pathToFile, array $options = []);
+        });*/
+        ////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public function activate($id, $hash){
