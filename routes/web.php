@@ -117,6 +117,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
     $router->get('/busca/cnpj/{cnpj}', 'OscController@getListaOscCnpjAutocomplete');
     $router->get('/busca/osc/{texto_busca}', 'OscController@getListaOscNomeCnpjAutocomplete');
+    $router->get('/busca/osc-autocomplete', 'OscController@getListaOscNomeCnpjAutocomplete');
 
 
     //ROTAS PARA ALIMENTAR DADOS DO MAPA
@@ -359,7 +360,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //--------------------------------Conferência-------------------------//
     $router->get('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@get');
     $router->get('/ps_conferencias/{id}', 'ParticipacaoSocialConferenciaController@getParticipacaoSocialConferenciaPorOSC');
-    
+
     //-----------------------------------Outra-------------------------------//
     $router->get('/ps_outra/{id}', 'ParticipacaoSocialOutraController@get');
     $router->get('/ps_outras/{id}', 'ParticipacaoSocialOutraController@getParticipacaoSocialOutraPorOSC');

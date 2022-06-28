@@ -185,7 +185,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $metas = $data["objetivos_metas"];
         ObjetivoOsc::where('id_osc', $id)->whereNotIn('cd_meta_osc', $metas)->delete();
         $objetivos_metas = ObjetivoOsc::where('id_osc', $id)->get();
-        
+
         foreach ($metas as $meta)
         {
             $existe = false;
@@ -475,6 +475,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
     }
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca){
+        Log::info($texto_busca);
         $numeros = preg_replace('/[^0-9]/', '', $texto_busca);
         $oscs =  DB::table('osc.vw_busca_osc')
             ->when(!empty($numeros), function ($query) use ($numeros){
@@ -482,9 +483,12 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 $query->orWhere(DB::Raw("CONCAT('0', CAST(cd_identificador_osc AS TEXT))"), 'like', "$numeros%");
                 return $query;
             })
-            ->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
-            ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
-            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
+            ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%')")
+            //->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
+            ->whereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
+            //->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
+            ->whereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
+            //->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
             ->take(30)
             ->get();
 
