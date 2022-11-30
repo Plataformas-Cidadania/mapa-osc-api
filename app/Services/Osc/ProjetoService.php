@@ -4,6 +4,7 @@
 namespace App\Services\Osc;
 
 use App\Repositories\Osc\ProjetoRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 
 class ProjetoService
 {
@@ -31,16 +32,34 @@ class ProjetoService
 
     public function store(array $data)
     {
+        $data = $this->formatValues($data);
         return $this->repo->store($data);
     }
 
     public function update($id, array $data)
     {
+        $data = $this->formatValues($data);
         return $this->repo->update($id, $data);
     }
 
     public function destroy($id_projeto)
     {
         return $this->repo->destroy($id_projeto);
+    }
+
+    private function formatValues($data){
+
+        if(array_key_exists('nr_valor_total_projeto', $data)){
+            $data['nr_valor_total_projeto'] = str_replace('.', '', $data['nr_valor_total_projeto']);
+            $data['nr_valor_total_projeto'] = str_replace(',', '.', $data['nr_valor_total_projeto']);
+        }
+
+        if(array_key_exists('nr_valor_captado_projeto', $data)){
+            $data['nr_valor_captado_projeto'] = str_replace('.', '', $data['nr_valor_captado_projeto']);
+            $data['nr_valor_captado_projeto'] = str_replace(',', '.', $data['nr_valor_captado_projeto']);
+        }
+
+
+        return $data;
     }
 }
