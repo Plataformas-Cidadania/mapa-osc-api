@@ -160,6 +160,11 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/perfil_localidade/transferencias_federais/{idlocalidade}', 'DCPerfilLocalidadeController@getTransferenciasFederais');
     $router->get('/perfil_localidade/qtds_areas_atuacao/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdOscPorAreasAtuacao');
     $router->get('/perfil_localidade/qtds_trabalhadores/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdTrabalhadores');
+
+
+     //-----------------------------------Inserir dados de perfil de acesso---------------------------//
+     $router->post('/dados_perfil_de_acesso/', 'DadosPerfilDeAcessoController@store');
+
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
@@ -405,7 +410,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //-----------------------------------Fontes de Recursos Projeto---------------------------//
     $router->get('/projeto/recursos/{id_projeto}', 'FonteRecursosProjetoController@getFonteRecursosPorProjeto');
     $router->get('/projeto/recurso/{id}', 'FonteRecursosProjetoController@get');
-
+     
     //--------------------------//-----------------------------------------------------------//
 });
 
