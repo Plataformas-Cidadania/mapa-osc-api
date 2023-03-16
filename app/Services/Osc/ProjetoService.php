@@ -39,12 +39,25 @@ class ProjetoService
     public function update($id, array $data)
     {
         $data = $this->formatValues($data);
+        // o banco de dados nao aceita strings vazias como data. Só null mesmo
+        // Versoes futuras do laravel resolvem isso com um middleware que converte string vazia para null
+        // esse metodo faz a mesma coisa.
+        $data= $this->setEmptyStringsToNull($data);
         return $this->repo->update($id, $data);
     }
 
     public function destroy($id_projeto)
     {
         return $this->repo->destroy($id_projeto);
+    }
+
+    private function setEmptyStringsToNull($data)
+    {
+        foreach ($data as &$value) {
+            if ($value === '')
+                $value = null;
+        }
+        return $data;
     }
 
     private function formatValues($data){
