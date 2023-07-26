@@ -28,4 +28,9 @@ class DCBuscaHomeService
     {
         return $this->repo->getListaRegioes($texto_busca);
     }
+
+    public function getListaTodasLocalizacoes($texto_busca)
+    {
+        return $this->repo->getListaTodasLocalizacoes($texto_busca);
+    }
 }

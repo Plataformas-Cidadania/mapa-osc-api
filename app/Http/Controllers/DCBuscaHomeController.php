@@ -48,4 +48,14 @@ class DCBuscaHomeController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getListaTodasLocalizacoes($texto_busca)
+    {
+        try {
+            return response()->json($this->service->getListaTodasLocalizacoes($texto_busca), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
