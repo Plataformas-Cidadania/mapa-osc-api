@@ -1810,6 +1810,6 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
         $result = DB::select($query);
 
-        return $query;
+        return $result;
     }
 }
