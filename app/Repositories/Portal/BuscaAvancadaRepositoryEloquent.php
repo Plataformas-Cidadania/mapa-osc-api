@@ -1786,11 +1786,17 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
         $query = "
             SELECT
                     a.id_osc AS id_osc,
+                   -- Verificacao de matriz x filial --
+                    CASE
+                        WHEN  SUBSTR(LPAD(cd_identificador_osc::text, 14, '0'), 10, 3) = '001' THEN '1'
+                        ELSE '0'
+                    END AS matriz,
                     a.tx_razao_social_osc AS tx_razao_social,
                     b.tx_nome_natureza_juridica AS tx_natureza_juridica,
-                    c.tx_nome_classe_atividade_economica AS tx_classe_atividade_economica,
+                    c.tx_nome_classe_atividade_economica AS tx_classe_atividade_economica,                    
                     d.edmu_nm_municipio AS tx_municipio,
-                    d.eduf_nm_uf AS tx_estado
+                    d.eduf_nm_uf AS tx_estado,
+                    e.tx_endereco_osc AS tx_endereco
                     $colunas_adicionais
                 FROM osc.tb_dados_gerais AS a
                 LEFT JOIN syst.dc_natureza_juridica AS b
@@ -1805,6 +1811,8 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                     ON b.eduf_cd_uf = c.eduf_cd_uf
                 ) AS d
                 ON a.id_osc = d.id_osc
+                LEFT JOIN osc.vw_busca_resultado as e
+                ON a.id_osc = e.id_osc            
                 WHERE a.id_osc IN ( " . implode(',', $lista_oscs) . ")
         ";
 
