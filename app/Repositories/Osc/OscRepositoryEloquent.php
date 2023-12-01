@@ -485,11 +485,11 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             })
             ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%')")
             //->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
-            ->whereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
+            //->orwhereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
             //->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
-            ->whereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
+            //->orwhereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
             //->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
-            ->take(30)
+            ->take(15)
             ->get();
 
         return $oscs;
