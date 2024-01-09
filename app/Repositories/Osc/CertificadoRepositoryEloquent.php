@@ -37,11 +37,11 @@ class CertificadoRepositoryEloquent implements CertificadoRepositoryInterface
 
     public function update($id, array $data)
     {
-        if($data["cd_uf"] == "NULL")
+        if(!array_key_exists('cd_uf', $data))
         {
             $data["cd_uf"] = NULL;
         }
-        if($data["cd_municipio"] == "NULL")
+        if(!array_key_exists("cd_municipio", $data))
         {
             $data["cd_municipio"] = NULL;
         }
