@@ -182,36 +182,36 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $contato->fill($data);
         $contato->save();
 
-        $metas = $data["objetivos_metas"];
-        ObjetivoOsc::where('id_osc', $id)->whereNotIn('cd_meta_osc', $metas)->delete();
-        $objetivos_metas = ObjetivoOsc::where('id_osc', $id)->get();
-
-        foreach ($metas as $meta)
-        {
-            $existe = false;
-            foreach ($objetivos_metas as $item)
-            {
-                if ($item->cd_meta_osc == $meta)
-                {
-                    $existe = true;
-                }
-            }
-            if (!$existe)
-            {
-                $newObjetivo = new ObjetivoOsc();
-
-                $newObjetivo->id_osc = $id;
-                $newObjetivo->cd_meta_osc = $meta;
-                $newObjetivo->bo_oficial = false;
-                $newObjetivo->ft_objetivo_osc = 'Representante';
-
-                $newObjetivo->save();
-
-                $objetivos_metas->push($newObjetivo);
-            }
-        }
-
-        //dd($objetivos);
+//        $metas = $data["objetivos_metas"];
+//        ObjetivoOsc::where('id_osc', $id)->whereNotIn('cd_meta_osc', $metas)->delete();
+//        $objetivos_metas = ObjetivoOsc::where('id_osc', $id)->get();
+//
+//        foreach ($metas as $meta)
+//        {
+//            $existe = false;
+//            foreach ($objetivos_metas as $item)
+//            {
+//                if ($item->cd_meta_osc == $meta)
+//                {
+//                    $existe = true;
+//                }
+//            }
+//            if (!$existe)
+//            {
+//                $newObjetivo = new ObjetivoOsc();
+//
+//                $newObjetivo->id_osc = $id;
+//                $newObjetivo->cd_meta_osc = $meta;
+//                $newObjetivo->bo_oficial = false;
+//                $newObjetivo->ft_objetivo_osc = 'Representante';
+//
+//                $newObjetivo->save();
+//
+//                $objetivos_metas->push($newObjetivo);
+//            }
+//        }
+//
+//        //dd($objetivos);
 
         $dados_atualizados = [
             //DADOS GERAIS
@@ -245,8 +245,8 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'bo_nao_possui_email' => $contato->bo_nao_possui_email,
             'bo_nao_possui_sigla_osc' => $contato->bo_nao_possui_sigla_osc,
 
-            //OBJETIVOS
-            'objetivos_metas' => $objetivos_metas
+//            OBJETIVOS
+//            'objetivos_metas' => $objetivos_metas
         ];
 
         return $dados_atualizados;
