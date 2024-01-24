@@ -216,31 +216,31 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $dados_atualizados = [
             //DADOS GERAIS
             'tx_sigla_osc' => $dados_gerais->tx_sigla_osc,
-            'ft_sigla_osc' => $dados_gerais->ft_sigla_osc,
+            'ft_sigla_osc' => $dados_gerais->ft_sigla_osc === null ? "Representante de OSC" : $dados_gerais->ft_sigla_osc,
             'tx_nome_fantasia_osc' => $dados_gerais->tx_nome_fantasia_osc,
-            'ft_nome_fantasia_osc' => $dados_gerais->ft_nome_fantasia_osc,
+            'ft_nome_fantasia_osc' => $dados_gerais->ft_nome_fantasia_osc === null ? "Representante de OSC" : $dados_gerais->ft_nome_fantasia_osc,
             'tx_resumo_osc' => $dados_gerais->tx_resumo_osc,
-            'ft_resumo_osc' => $dados_gerais->ft_resumo_osc,
+            'ft_resumo_osc' => $dados_gerais->ft_resumo_osc === null ? "Representante de OSC" : $dados_gerais->ft_resumo_osc,
             'cd_classe_atividade_economica_osc' => $dados_gerais->cd_classe_atividade_economica_osc,//É A ATIVIDADE ECONÔMICA, N SEI PQ TROCARAM
             'tx_nome_classe_atividade_economica' => $dados_gerais->classe_atividade_economica === null ? "" : $dados_gerais->classe_atividade_economica->tx_nome_classe_atividade_economica,//É A ATIVIDADE ECONÔMICA, N SEI PQ TROCARAM
-            'ft_classe_atividade_economica_osc' => $dados_gerais->ft_classe_atividade_economica_osc,//É A ATIVIDADE ECONÔMICA, N SEI PQ TROCARAM
+            'ft_classe_atividade_economica_osc' => $dados_gerais->ft_classe_atividade_economica_osc === null ? "Representante de OSC" : $dados_gerais->ft_classe_atividade_economica_osc,//É A ATIVIDADE ECONÔMICA, N SEI PQ TROCARAM
             'tx_nome_responsavel_legal' => $dados_gerais->tx_nome_responsavel_legal,
-            'ft_nome_responsavel_legal' => $dados_gerais->ft_nome_responsavel_legal,
+            'ft_nome_responsavel_legal' => $dados_gerais->ft_nome_responsavel_legal === null ? "" : $dados_gerais->ft_nome_responsavel_legal,
             'cd_situacao_imovel_osc' => $dados_gerais->cd_situacao_imovel_osc,
             'tx_nome_situacao_imovel_osc' => $dados_gerais->situacao_imovel === null ? "" : $dados_gerais->situacao_imovel->tx_nome_situacao_imovel,//É A ATIVIDADE ECONÔMICA, N SEI PQ TROCARAM
-            'ft_situacao_imovel_osc' => $dados_gerais->ft_situacao_imovel_osc,
+            'ft_situacao_imovel_osc' => $dados_gerais->ft_situacao_imovel_osc === null ? "Representante de OSC" : $dados_gerais->ft_situacao_imovel_osc,
             'dt_ano_cadastro_cnpj' => $dados_gerais->dt_ano_cadastro_cnpj,
-            'ft_ano_cadastro_cnpj' => $dados_gerais->ft_ano_cadastro_cnpj,
+            'ft_ano_cadastro_cnpj' => $dados_gerais->ft_ano_cadastro_cnpj === null ? "Representante de OSC" : $dados_gerais->ft_ano_cadastro_cnpj,
             'dt_fundacao_osc' => $dados_gerais->dt_fundacao_osc,
-            'ft_fundacao_osc' => $dados_gerais->ft_fundacao_osc,
+            'ft_fundacao_osc' => $dados_gerais->ft_fundacao_osc === null ? "Representante de OSC" : $dados_gerais->ft_fundacao_osc,
 
             //CONTATOS
             'tx_site' => $contato->tx_site,
-            'ft_site' => $contato->ft_site,
+            'ft_site' => $contato->ft_site === null ? "Representante de OSC" : $contato->ft_site,
             'tx_email' => $contato->tx_email,
-            'ft_email' => $contato->ft_email,
+            'ft_email' => $contato->ft_email === null ? "Representante de OSC" : $contato->ft_email,
             'tx_telefone' => $contato->tx_telefone,
-            'ft_telefone' => $contato->ft_telefone,
+            'ft_telefone' => $contato->ft_telefone === null ? "Representante de OSC" : $contato->ft_telefone,
             'bo_nao_possui_site' => $contato->bo_nao_possui_site,
             'bo_nao_possui_email' => $contato->bo_nao_possui_email,
             'bo_nao_possui_sigla_osc' => $contato->bo_nao_possui_sigla_osc,
