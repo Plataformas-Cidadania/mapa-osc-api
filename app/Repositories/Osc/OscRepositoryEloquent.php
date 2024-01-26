@@ -483,7 +483,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 $query->orWhere(DB::Raw("CONCAT('0', CAST(cd_identificador_osc AS TEXT))"), 'like', "$numeros%");
                 return $query;
             })
-            ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%')")
+            ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%') OR unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
             //->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
             //->orwhereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
             //->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
