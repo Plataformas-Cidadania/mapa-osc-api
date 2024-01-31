@@ -14,6 +14,10 @@
                                 {{env('FRONT_URL')}}/redefinir-senha/{{$data['id_usuario']}}/{{$data['hash']}}
                             </a>
                         </h4>
+                        @if(isset($data['error']))
+                            <p>Mensagem: {{$data['error']}}</p>
+                        @endif
+
                     </p>
                     <br>
                 </div>

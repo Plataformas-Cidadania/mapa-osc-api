@@ -5,6 +5,7 @@ namespace App\Services\Portal;
 
 
 use App\Repositories\Portal\UsuarioRepositoryInterface;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
@@ -170,19 +171,34 @@ class UsuarioService
             Log::info('email from: '.$settings['from']);
             Log::info('email name: '.$settings['name']);
 
+            try {
             //mensagem para o usuario///////////////////////////////////////////////////////////////////////
-            Mail::send('emails.usuario.redefinir-senha', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
-            {
-                $message->from($settings['from'], $settings['name']);
-                $message->sender($settings['from'], $settings['name']);
-                $message->to($data['email'], $data['name']);
-                $message->replyTo($data['email'], $data['name']);
-                $message->subject('Redefinir Senha - '.$settings['name']);
+                Mail::send('emails.usuario.redefinir-senha', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
+                {
+                    $message->from($settings['from'], $settings['name']);
+                    $message->sender($settings['from'], $settings['name']);
+                    $message->to($data['email'], $data['name']);
+                    $message->replyTo($data['email'], $data['name']);
+                    $message->subject('Redefinir Senha - '.$settings['name']);
 
-                //$message->priority($level);
-                //$message->attach($pathToFile, array $options = []);
-            });
+                    //$message->priority($level);
+                    //$message->attach($pathToFile, array $options = []);
+                });
             ////////////////////////////////////////////////////////////////////////////////////////////
+            } catch (Exception $e) {
+                array_push($data, ['error' => $e->getMessage()]);
+                Mail::send('emails.usuario.redefinir-senha', ['data' => $data, 'settings' => $settings], function($message) use ($settings, $data)
+                {
+                    $message->from($settings['from'], $settings['name']);
+                    $message->sender($settings['from'], $settings['name']);
+                    $message->to('thiago.ramos@ipea.gov.br', 'Thiago Giannini Ramos');
+                    $message->replyTo('thiago.ramos@ipea.gov.br', 'Thiago Giannini Ramos');
+                    $message->subject('Redefinir Senha - '.$settings['name']);
+
+                    //$message->priority($level);
+                    //$message->attach($pathToFile, array $options = []);
+                });
+            }
 
             return true;
         }
