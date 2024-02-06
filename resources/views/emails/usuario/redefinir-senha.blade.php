@@ -5,7 +5,7 @@
                 <div style="background-color: #FFFFFF; width: 600px; margin: 20px; padding: 30px;">
                     <div></div>
                     <div style="height: 1px; background-color: #CCCCCC; margin: 10px;"></div>
-                    <h2>{{$data['name']}},</h2>
+                    <h2>{{$data['name']}} ({{$data['email']}}),</h2>
                     <p>Clique no link abaixo ou copia e cole a url no navegador para redefinir sua senha.</p>
                     <br>
                     <p>
@@ -17,7 +17,6 @@
                         @if(isset($data['error']))
                             <p>Mensagem: {{$data['error']}}</p>
                         @endif
-
                     </p>
                     <br>
                 </div>
