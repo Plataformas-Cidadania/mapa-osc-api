@@ -96,7 +96,6 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                     if($key == "cd_identificador_osc"){
                         $cleanedString = str_replace([".", "/","-"], "", $value);
                         $var_sql = "(similarity(vw_busca_osc.cd_identificador_osc::TEXT, LTRIM('' || " . $cleanedString . " || '', '0')) >= 0.25 AND vw_busca_osc.cd_identificador_osc::TEXT ILIKE LTRIM('' || ".$cleanedString." || '', '0') || '%')";
-                        //dd($var_sql);
 
                         if($count_params_dados == $count_dados_gerais && $count_params_busca == $count_busca) $query .=  $var_sql;
                         else $query .= $var_sql." AND ";
@@ -1760,8 +1759,9 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
             }elseif($countParenteresFaltantes < 0){
                 $query = substr_replace($query, '', strrpos($query, ')'), 1);
             }
-
+            
             $result = DB::select($query);
+            dd($query);
             //return $query;
             return $result;
         }
