@@ -94,7 +94,10 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                     }
 
                     if($key == "cd_identificador_osc"){
-                        $var_sql = "(similarity(vw_busca_osc.cd_identificador_osc::TEXT, LTRIM('' || " . $value . " || '', '0')) >= 0.25 AND vw_busca_osc.cd_identificador_osc::TEXT ILIKE LTRIM('' || ".$value." || '', '0') || '%')";
+                        $cleanedString = str_replace([".", "/","-"], "", $value);
+                        $var_sql = "(similarity(vw_busca_osc.cd_identificador_osc::TEXT, LTRIM('' || " . $cleanedString . " || '', '0')) >= 0.25 AND vw_busca_osc.cd_identificador_osc::TEXT ILIKE LTRIM('' || ".$cleanedString." || '', '0') || '%')";
+                        //dd($var_sql);
+
                         if($count_params_dados == $count_dados_gerais && $count_params_busca == $count_busca) $query .=  $var_sql;
                         else $query .= $var_sql." AND ";
                     }
