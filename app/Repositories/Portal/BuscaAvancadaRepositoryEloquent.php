@@ -1761,7 +1761,6 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
             }
             
             $result = DB::select($query);
-            dd($query);
             //return $query;
             return $result;
         }
