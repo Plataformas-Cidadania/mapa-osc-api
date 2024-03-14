@@ -169,7 +169,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
+$router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');
@@ -299,6 +299,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //ROTAS BARRA DE TRANSPARENCIA OSC
     $router->get('/indice_preenchimento/{id_osc}', 'BarratransparenciaController@getBarraPorOSC');
+    $router->get('/indice_preenchimento_com_calculo/{id_osc}', 'BarratransparenciaController@getBarraPorOscComCalculo');
 
     //INFORMAÇÕES RESUMIDAS PARA SELEÇÃO NO MAPA
     $router->get('/popup/{id_osc}', 'OscController@getPopupOSC');

@@ -30,6 +30,16 @@ class BarratransparenciaController extends Controller
         }
     }
 
+    public function getBarraPorOscComCalculo($id_osc)
+    {
+        try {
+            return response()->json($this->service->getBarraPorOscComCalculo($id_osc), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function store(Request $request) {
         try {
             $dados = $request->all();

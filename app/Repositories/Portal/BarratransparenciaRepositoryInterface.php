@@ -12,6 +12,8 @@ interface BarratransparenciaRepositoryInterface
 
     public function getBarraPorOSC($id_osc);
 
+    public function getBarraPorOscComCalculo($id_osc);
+
     public function store(array $data);
 
     public function update($id, array $data);

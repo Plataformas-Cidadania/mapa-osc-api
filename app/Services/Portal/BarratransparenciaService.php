@@ -22,6 +22,11 @@ class BarratransparenciaService
         return $this->repo->getBarraPorOSC($id_osc);
     }
 
+    public function getBarraPorOscComCalculo($id_osc)
+    {
+        return $this->repo->getBarraPorOscComCalculo($id_osc);
+    }
+
     public function store(array $data)
     {
         // TODO: Implement update() method.
