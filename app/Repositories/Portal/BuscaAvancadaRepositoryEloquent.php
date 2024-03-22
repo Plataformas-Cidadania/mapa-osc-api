@@ -17,13 +17,20 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
     {
         $this->model = $_osc;
     }
-
+    private function convertToFloat($val){
+        $val = str_replace(".", "", $val);
+        return floatval($val);
+    }
+    private function convertToInt($val){
+        $val = str_replace(".", "", $val);
+        return intval($val);
+    }
     public function buscarOSCs($type_result, $param, $busca)
     {
         $regs = ['teste'];
 
         //return $regs;
-
+        
         $count_busca = 0;
         foreach($busca as $value){
             $count_busca++;
@@ -713,18 +720,18 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                     if($key == "valorTotalMIN"){
                         if(isset($projetos['valorTotalMAX'])){
-                            $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN " . $this->Getfloat($projetos['valorTotalMIN']) . " AND " . $this->Getfloat($projetos['valorTotalMAX']) . "";
+                            $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN " .  $this->convertToFloat($projetos['valorTotalMIN']) . " AND " .  $this->convertToFloat($projetos['valorTotalMAX']) . "";
                             if($count_params_projetos == $count_projetos-1 && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                             else $query .=  $var_sql . " AND ";
                         }else{
-                            $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN " . $this->Getfloat($projetos['valorTotalMIN']) . " AND 1000000";
+                            $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN " .  $this->convertToFloat($projetos['valorTotalMIN']) . " AND 1000000";
                             if($count_params_projetos == $count_projetos && $count_params_busca == $count_busca) $query .=  $var_sql.")";
                             else $query .=  $var_sql . " AND ";
                         }
                     }else{
                         if($key == "valorTotalMAX"){
                             if(!isset($projetos['valorTotalMIN'])){
-                                $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN 0 AND " . $this->Getfloat($projetos['valorTotalMAX']) . "";
+                                $var_sql = "cast(nr_valor_total_projeto as double precision) BETWEEN 0 AND " .  $this->convertToFloat($projetos['valorTotalMAX']) . "";
                                 if($count_params_projetos == $count_projetos && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                                 else $query .=  $var_sql . " AND ";
                             }
@@ -733,18 +740,18 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                     if($key == "valorRecebidoMIN"){
                         if(isset($projetos['valorRecebidoMAX'])){
-                            $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN " . $this->Getfloat($projetos['valorRecebidoMIN']) . " AND " . $this->Getfloat($projetos['valorRecebidoMAX']) . "";
+                            $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN " .  $this->convertToFloat($projetos['valorRecebidoMIN']) . " AND " .  $this->convertToFloat($projetos['valorRecebidoMAX']) . "";
                             if($count_params_projetos == $count_projetos-1 && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN " . $this->Getfloat($projetos['valorRecebidoMIN']) . " AND 1000000";
+                            $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN " .  $this->convertToFloat($projetos['valorRecebidoMIN']) . " AND 1000000";
                             if($count_params_projetos == $count_projetos && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                             else $query .=  $var_sql." AND ";
                         }
                     }else{
                         if($key == "valorRecebidoMAX"){
                             if(!isset($projetos['valorRecebidoMIN'])){
-                                $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN 0 AND " . $this->Getfloat($projetos['valorRecebidoMAX']) . "";
+                                $var_sql = "cast(nr_valor_captado_projeto as double precision) BETWEEN 0 AND " .  $this->convertToFloat($projetos['valorRecebidoMAX']) . "";
                                 if($count_params_projetos == $count_projetos && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                                 else $query .=  $var_sql . " AND ";
                             }
@@ -772,18 +779,18 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                     if($key == "anoFonteRecursoMIN"){
                         if(isset($fontes_recursos['anoFonteRecursoMAX'])){
-                            $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN " . $fontes_recursos['anoFonteRecursoMIN'] . " AND " . $fontes_recursos['anoFonteRecursoMAX'];
+                            $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN " . $this->convertToInt($fontes_recursos['anoFonteRecursoMIN']) . " AND " . $this->convertToInt($fontes_recursos['anoFonteRecursoMAX']);
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                             else $query .=  $var_sql . " AND ";
                         }else{
-                            $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN " . $fontes_recursos['anoFonteRecursoMIN'] . " AND 2100";
+                            $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN " . $this->convertToInt($fontes_recursos['anoFonteRecursoMIN']) . " AND 2100";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                             else $query .=  $var_sql . " AND ";
                         }
                     }else{
                         if($key == "anoFonteRecursoMAX"){
                             if(!isset($fontes_recursos['anoFonteRecursoMIN'])){
-                                $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN 1600 AND " . $fontes_recursos['anoFonteRecursoMAX'];
+                                $var_sql = $var_rec . "cast(dt_ano_recursos_osc as integer) BETWEEN 1600 AND " . $this->convertToInt($fontes_recursos['anoFonteRecursoMAX']);
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca) $query .=  $var_sql . ")";
                                 else $query .=  $var_sql . " AND ";
                             }
@@ -795,13 +802,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMIN'])." AND ".$this->Getfloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMIN'])." AND ". $this->convertToFloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -813,7 +820,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "rendimentosFinanceirosReservasContasCorrentesPropriasMAX"){
                             if(!isset($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['rendimentosFinanceirosReservasContasCorrentesPropriasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -827,13 +834,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['rendimentosFundosPatrimoniaisMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['rendimentosFundosPatrimoniaisMIN'])." AND ".$this->Getfloat($fontes_recursos['rendimentosFundosPatrimoniaisMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['rendimentosFundosPatrimoniaisMIN'])." AND ". $this->convertToFloat($fontes_recursos['rendimentosFundosPatrimoniaisMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['endimentosFundosPatrimoniaisMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['endimentosFundosPatrimoniaisMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -845,7 +852,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "rendimentosFundosPatrimoniaisMAX"){
                             if(!isset($fontes_recursos['rendimentosFundosPatrimoniaisMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['rendimentosFundosPatrimoniaisMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['rendimentosFundosPatrimoniaisMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -859,13 +866,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['mensalidadesContribuicoesAssociadosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['mensalidadesContribuicoesAssociadosMIN'])." AND ".$this->Getfloat($fontes_recursos['mensalidadesContribuicoesAssociadosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['mensalidadesContribuicoesAssociadosMIN'])." AND ". $this->convertToFloat($fontes_recursos['mensalidadesContribuicoesAssociadosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['mensalidadesContribuicoesAssociadosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['mensalidadesContribuicoesAssociadosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -877,7 +884,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "mensalidadesContribuicoesAssociadosMAX"){
                             if(!isset($fontes_recursos['mensalidadesContribuicoesAssociadosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['mensalidadesContribuicoesAssociadosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['mensalidadesContribuicoesAssociadosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -891,13 +898,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['vendaBensDireitosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['vendaBensDireitosMIN'])." AND ".$this->Getfloat($fontes_recursos['vendaBensDireitosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['vendaBensDireitosMIN'])." AND ". $this->convertToFloat($fontes_recursos['vendaBensDireitosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['vendaBensDireitosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['vendaBensDireitosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -909,7 +916,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "vendaBensDireitosMAX"){
                             if(!isset($fontes_recursos['vendaBensDireitosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['vendaBensDireitosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['vendaBensDireitosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -923,13 +930,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['premiosRecebidosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['premiosRecebidosMIN'])." AND ".$this->Getfloat($fontes_recursos['premiosRecebidosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['premiosRecebidosMIN'])." AND ". $this->convertToFloat($fontes_recursos['premiosRecebidosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['premiosRecebidosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['premiosRecebidosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -941,7 +948,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "premiosRecebidosMAX"){
                             if(!isset($fontes_recursos['premiosRecebidosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['premiosRecebidosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['premiosRecebidosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -955,13 +962,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['vendaProdutosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['vendaProdutosMIN'])." AND ".$this->Getfloat($fontes_recursos['vendaProdutosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['vendaProdutosMIN'])." AND ". $this->convertToFloat($fontes_recursos['vendaProdutosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['vendaProdutosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['vendaProdutosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -973,7 +980,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "vendaProdutosMAX"){
                             if(!isset($fontes_recursos['vendaProdutosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['vendaProdutosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['vendaProdutosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -987,13 +994,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['prestacaoServicosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['prestacaoServicosMIN'])." AND ".$this->Getfloat($fontes_recursos['prestacaoServicosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['prestacaoServicosMIN'])." AND ". $this->convertToFloat($fontes_recursos['prestacaoServicosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['prestacaoServicosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['prestacaoServicosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1005,7 +1012,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "prestacaoServicosMAX"){
                             if(!isset($fontes_recursos['prestacaoServicosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['prestacaoServicosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['prestacaoServicosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1019,13 +1026,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMIN'])." AND ".$this->Getfloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMIN'])." AND ". $this->convertToFloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1037,7 +1044,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "empresasPublicasSociedadesEconomiaMistaMAX"){
                             if(!isset($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['empresasPublicasSociedadesEconomiaMistaMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1051,13 +1058,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['acordoOrganismosMultilateraisMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['acordoOrganismosMultilateraisMIN'])." AND ".$this->Getfloat($fontes_recursos['acordoOrganismosMultilateraisMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['acordoOrganismosMultilateraisMIN'])." AND ". $this->convertToFloat($fontes_recursos['acordoOrganismosMultilateraisMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['acordoOrganismosMultilateraisMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['acordoOrganismosMultilateraisMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1069,7 +1076,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "acordoOrganismosMultilateraisMAX"){
                             if(!isset($fontes_recursos['acordoOrganismosMultilateraisMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['acordoOrganismosMultilateraisMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['acordoOrganismosMultilateraisMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1083,13 +1090,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaGovernoFederalMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoFederalMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaGovernoFederalMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoFederalMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoFederalMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoFederalMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoFederalMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1101,7 +1108,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaGovernoFederalMAX"){
                             if(!isset($fontes_recursos['parceriaGovernoFederalMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaGovernoFederalMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoFederalMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1115,13 +1122,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaGovernoEstadualMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoEstadualMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaGovernoEstadualMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoEstadualMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoEstadualMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoEstadualMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoEstadualMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1133,7 +1140,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaGovernoEstadualMAX"){
                             if(!isset($fontes_recursos['parceriaGovernoEstadualMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaGovernoEstadualMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoEstadualMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1147,13 +1154,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaGovernoMunicipalMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoMunicipalMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaGovernoMunicipalMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoMunicipalMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoMunicipalMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaGovernoMunicipalMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaGovernoMunicipalMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1165,7 +1172,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaGovernoMunicipalMAX"){
                             if(!isset($fontes_recursos['parceriaGovernoMunicipalMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaGovernoMunicipalMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaGovernoMunicipalMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1179,13 +1186,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['acordoGovernosEstrangeirosMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['acordoGovernosEstrangeirosMIN'])." AND ".$this->Getfloat($fontes_recursos['acordoGovernosEstrangeirosMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['acordoGovernosEstrangeirosMIN'])." AND ". $this->convertToFloat($fontes_recursos['acordoGovernosEstrangeirosMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['acordoGovernosEstrangeirosMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['acordoGovernosEstrangeirosMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1197,7 +1204,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "acordoGovernosEstrangeirosMAX"){
                             if(!isset($fontes_recursos['acordoGovernosEstrangeirosMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['acordoGovernosEstrangeirosMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['acordoGovernosEstrangeirosMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1211,13 +1218,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaOscBrasileirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOscBrasileirasMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaOscBrasileirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOscBrasileirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaOscBrasileirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOscBrasileirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOscBrasileirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1229,7 +1236,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaOscBrasileirasMAX"){
                             if(!isset($fontes_recursos['parceriaOscBrasileirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaOscBrasileirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaOscBrasileirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1243,13 +1250,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaOscEstrangeirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOscEstrangeirasMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaOscEstrangeirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOscEstrangeirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaOscEstrangeirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOscEstrangeirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOscEstrangeirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1261,7 +1268,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaOscEstrangeirasMAX"){
                             if(!isset($fontes_recursos['parceriaOscEstrangeirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaOscEstrangeirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaOscEstrangeirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1275,13 +1282,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1293,7 +1300,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaOrganizacoesReligiosasBrasileirasMAX"){
                             if(!isset($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasBrasileirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1307,13 +1314,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMIN'])." AND ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1325,7 +1332,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "parceriaOrganizacoesReligiosasEstrangeirasMAX"){
                             if(!isset($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['parceriaOrganizacoesReligiosasEstrangeirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1339,13 +1346,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['empresasPrivadasBrasileirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['empresasPrivadasBrasileirasMIN'])." AND ".$this->Getfloat($fontes_recursos['empresasPrivadasBrasileirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['empresasPrivadasBrasileirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['empresasPrivadasBrasileirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['empresasPrivadasBrasileirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['empresasPrivadasBrasileirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1357,7 +1364,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "empresasPrivadasBrasileirasMAX"){
                             if(!isset($fontes_recursos['empresasPrivadasBrasileirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['empresasPrivadasBrasileirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['empresasPrivadasBrasileirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1371,13 +1378,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['EmpresasEstrangeirasMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['EmpresasEstrangeirasMIN'])." AND ".$this->Getfloat($fontes_recursos['EmpresasEstrangeirasMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['EmpresasEstrangeirasMIN'])." AND ". $this->convertToFloat($fontes_recursos['EmpresasEstrangeirasMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['EmpresasEstrangeirasMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['EmpresasEstrangeirasMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1389,7 +1396,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "EmpresasEstrangeirasMAX"){
                             if(!isset($fontes_recursos['EmpresasEstrangeirasMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['EmpresasEstrangeirasMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['EmpresasEstrangeirasMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1403,13 +1410,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['doacoesPessoaJuridicaMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesPessoaJuridicaMIN'])." AND ".$this->Getfloat($fontes_recursos['doacoesPessoaJuridicaMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesPessoaJuridicaMIN'])." AND ". $this->convertToFloat($fontes_recursos['doacoesPessoaJuridicaMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesPessoaJuridicaMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesPessoaJuridicaMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1421,7 +1428,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "doacoesPessoaJuridicaMAX"){
                             if(!isset($fontes_recursos['doacoesPessoaJuridicaMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['doacoesPessoaJuridicaMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['doacoesPessoaJuridicaMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1435,13 +1442,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['doacoesPessoaFisicaMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesPessoaFisicaMIN'])." AND ".$this->Getfloat($fontes_recursos['doacoesPessoaFisicaMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesPessoaFisicaMIN'])." AND ". $this->convertToFloat($fontes_recursos['doacoesPessoaFisicaMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesPessoaFisicaMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesPessoaFisicaMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1453,7 +1460,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "doacoesPessoaFisicaMAX"){
                             if(!isset($fontes_recursos['doacoesPessoaFisicaMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['doacoesPessoaFisicaMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['doacoesPessoaFisicaMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1467,13 +1474,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMIN'])." AND ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMIN'])." AND ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1485,7 +1492,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "doacoesRecebidasFormaProdutosServicosComNFMAX"){
                             if(!isset($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosComNFMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1499,13 +1506,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['voluntariadoMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['voluntariadoMIN'])." AND ".$this->Getfloat($fontes_recursos['voluntariadoMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['voluntariadoMIN'])." AND ". $this->convertToFloat($fontes_recursos['voluntariadoMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['voluntariadoMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['voluntariadoMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1517,7 +1524,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "voluntariadoMAX"){
                             if(!isset($fontes_recursos['voluntariadoMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['voluntariadoMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['voluntariadoMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1531,13 +1538,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['isencoesMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['isencoesMIN'])." AND ".$this->Getfloat($fontes_recursos['isencoesMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['isencoesMIN'])." AND ". $this->convertToFloat($fontes_recursos['isencoesMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['isencoesMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['isencoesMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1549,7 +1556,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "isencoesMAX"){
                             if(!isset($fontes_recursos['isencoesMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['isencoesMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['isencoesMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1563,13 +1570,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['imunidadesMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['imunidadesMIN'])." AND ".$this->Getfloat($fontes_recursos['imunidadesMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['imunidadesMIN'])." AND ". $this->convertToFloat($fontes_recursos['imunidadesMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['imunidadesMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['imunidadesMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1581,7 +1588,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "imunidadesMAX"){
                             if(!isset($fontes_recursos['imunidadesMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['imunidadesMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['imunidadesMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1595,13 +1602,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['bensRecebidosDireitoUsoMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['bensRecebidosDireitoUsoMIN'])." AND ".$this->Getfloat($fontes_recursos['bensRecebidosDireitoUsoMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['bensRecebidosDireitoUsoMIN'])." AND ". $this->convertToFloat($fontes_recursos['bensRecebidosDireitoUsoMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['bensRecebidosDireitoUsoMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['bensRecebidosDireitoUsoMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1613,7 +1620,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "bensRecebidosDireitoUsoMAX"){
                             if(!isset($fontes_recursos['bensRecebidosDireitoUsoMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['bensRecebidosDireitoUsoMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['bensRecebidosDireitoUsoMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1627,13 +1634,13 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         $sqlFonteRecursos = $sqlFonteRecursosInicio . $nomeTipoRecursos . $sqlFonteRecursosFim;
 
                         if(isset($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMAX'])){
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMIN'])." AND ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMAX']).")";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMIN'])." AND ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMAX']).")";
                             if($count_params_recursos == $count_fontes_recursos-1 && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
                             else $query .=  $var_sql." AND ";
                         }else{
-                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMIN'])." AND 1000000)";
+                            $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMIN'])." AND 1000000)";
                             if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                 if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                 else $query .=  $var_sql;
@@ -1645,7 +1652,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
 
                         if($key == "doacoesRecebidasFormaProdutosServicosSemNFMAX"){
                             if(!isset($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMIN'])){
-                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " AND nr_valor_recursos_osc BETWEEN 0 AND ".$this->Getfloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMAX']).")";
+                                $var_sql = "id_osc IN (SELECT id_osc FROM portal.vw_osc_recursos_osc WHERE cd_fonte_recursos_osc = " . $sqlFonteRecursos . " GROUP BY ID_OSC HAVING SUM(nr_valor_recursos_osc) BETWEEN 0 AND ". $this->convertToFloat($fontes_recursos['doacoesRecebidasFormaProdutosServicosSemNFMAX']).")";
                                 if($count_params_recursos == $count_fontes_recursos && $count_params_busca == $count_busca)
                                     if(isset($fontes_recursos['anoFonteRecursoMIN']) || isset($fontes_recursos['anoFonteRecursoMAX'])) $query .=  $var_sql.")";
                                     else $query .=  $var_sql;
@@ -1761,6 +1768,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
             }
             
             $result = DB::select($query);
+           
             //return $query;
             return $result;
         }
