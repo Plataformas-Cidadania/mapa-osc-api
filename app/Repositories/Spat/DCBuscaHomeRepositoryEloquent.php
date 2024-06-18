@@ -70,7 +70,8 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
     public function getListaTodasLocalizacoes($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];
-        //$texto_busca = str_replace($vetReplace, '', $texto_busca);
+        $texto_busca = str_replace($vetReplace, '', $texto_busca);
+
         $texto_busca = urldecode($texto_busca);
         //dd($texto_busca);
 
