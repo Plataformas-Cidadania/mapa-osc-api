@@ -1766,10 +1766,10 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
             }elseif($countParenteresFaltantes < 0){
                 $query = substr_replace($query, '', strrpos($query, ')'), 1);
             }
-            
+            //return $query;
             $result = DB::select($query);
            
-            //return $query;
+            
             return $result;
         }
     }
@@ -1805,8 +1805,8 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                     b.tx_nome_natureza_juridica AS tx_natureza_juridica,
                     c.tx_nome_classe_atividade_economica AS tx_classe_atividade_economica,                    
                     d.edmu_nm_municipio AS tx_municipio,
-                    d.eduf_nm_uf AS tx_estado,
-                    e.tx_endereco_osc AS tx_endereco
+                    d.eduf_nm_uf AS tx_estado
+                    -- e.tx_endereco_osc AS tx_endereco
                     $colunas_adicionais
                 FROM osc.tb_dados_gerais AS a
                 LEFT JOIN syst.dc_natureza_juridica AS b
