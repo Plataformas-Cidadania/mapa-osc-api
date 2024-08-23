@@ -25,7 +25,7 @@ class TransferegovController extends Controller
         ini_set('memory_limit', '10G');
         try {
             $files = [
-                //'programa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa.csv.zip',
+                'programa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa.csv.zip',
                 'programa_proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa_proposta.csv.zip',
                 'proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proposta.csv.zip',
                 'convenio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_convenio.csv.zip',
