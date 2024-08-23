@@ -17,6 +17,12 @@
             "email": "brpassos.programador@gmail.com",
             "homepage": "https://www.brunopassos.com.br",
             "role": "Developer"
+        },
+        {
+            "name": "Otávio Basílio Saraiva",
+            "email": "otavio.basiliosaraiva@gmail.com",
+            "homepage": "https://www.brunopassos.com.br",
+            "role": "Developer"
         }
     ],
     "type": "project",
