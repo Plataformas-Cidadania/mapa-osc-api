@@ -5,7 +5,6 @@ namespace App\Models\Transferegov;
 use Illuminate\Database\Eloquent\Model;
 
 /**
-  * @property int $seq_programa_proposta
   * @property int $id_programa
   * @property int $id_proposta
  */
@@ -24,12 +23,12 @@ use Illuminate\Database\Eloquent\Model;
      * 
      * @var string
      */
-    protected $primaryKey = 'seq_programa_proposta';
+    protected $primaryKey = 'id_programa';
 
     /**
      * @var array
      */
     protected $fillable = ['id_programa','id_proposta'];
 
-    public $timestamps = false;
+    public $timestamps = true;
 }

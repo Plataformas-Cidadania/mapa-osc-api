@@ -62,5 +62,5 @@ use Illuminate\Database\Eloquent\Model;
      */
     protected $fillable = ['id_proposta','uf_proponente','munic_proponente','cod_munic_ibge','cod_orgao_sup','desc_orgao_sup','natureza_juridica','nr_proposta','dia_prop','mes_prop','ano_prop','dia_proposta','cod_orgao','desc_orgao','modalidade','identif_proponente','nm_proponente','cep_proponente','endereco_proponente','bairro_proponente','nm_banco','situacao_conta','situacao_projeto_basico','sit_proposta','dia_inic_vigencia_proposta','dia_fim_vigencia_proposta','objeto_proposta','item_investimento','enviada_mandataria','nome_subtipo_proposta','descricao_subtipo_proposta','vl_global_prop','vl_repasse_prop','vl_contrapartida_prop'];
 
-    public $timestamps = false;
+    public $timestamps = true;
 }

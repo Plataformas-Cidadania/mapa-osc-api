@@ -13,11 +13,11 @@ class ProgramaRepositoryEloquent implements ProgramaRepositoryInterface
         $this->model = $_programa;
     }
 
-    public function get($id_programa, $modalidade_programa, $natureza_juridica_programa, $uf_programa)
+    public function get($id_programa, $cod_programa, $natureza_juridica_programa, $uf_programa)
     {
-        //var_dump($id_programa, $modalidade_programa, $natureza_juridica_programa, $uf_programa);die;
+        //var_dump($id_programa, $cod_programa, $natureza_juridica_programa, $uf_programa);die;
         return $this->model::where('id_programa', $id_programa)
-                                ->where('modalidade_programa', $modalidade_programa)
+                                ->where('cod_programa', $cod_programa)
                                 ->where('natureza_juridica_programa', $natureza_juridica_programa)
                                 ->where('uf_programa', $uf_programa)
                             ->get();
@@ -33,10 +33,10 @@ class ProgramaRepositoryEloquent implements ProgramaRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update($id_programa, $modalidade_programa, $natureza_juridica_programa, $uf_programa, array $data)
+    public function update($id_programa, $cod_programa, $natureza_juridica_programa, $uf_programa, array $data)
     {
         return $this->model::where('id_programa', $id_programa)
-                                ->where('modalidade_programa', $modalidade_programa)
+                                ->where('cod_programa', $cod_programa)
                                 ->where('natureza_juridica_programa', $natureza_juridica_programa)
                                 ->where('uf_programa', $uf_programa)
                             ->update($data);
@@ -50,7 +50,7 @@ class ProgramaRepositoryEloquent implements ProgramaRepositoryInterface
     public function updateOrCreate(array $data)
     {
         return $this->model::updateOrCreate(
-                    ['id_programa' => $data['id_programa'], 'modalidade_programa' => $data['modalidade_programa'], 'natureza_juridica_programa' => $data['natureza_juridica_programa'], 'uf_programa' => $data['uf_programa']],
+                    ['id_programa' => $data['id_programa'], 'cod_programa' => $data['cod_programa'], 'natureza_juridica_programa' => $data['natureza_juridica_programa'], 'uf_programa' => $data['uf_programa']],
                     $data
                 );
     }

@@ -240,5 +240,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Transferegov\ConsorcioRepositoryInterface', 'App\Repositories\Transferegov\ConsorcioRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Transferegov\EmpenhoDesembolsoRepositoryInterface', 'App\Repositories\Transferegov\EmpenhoDesembolsoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ProponenteRepositoryInterface', 'App\Repositories\Transferegov\ProponenteRepositoryEloquent'
+        );
     }
 }

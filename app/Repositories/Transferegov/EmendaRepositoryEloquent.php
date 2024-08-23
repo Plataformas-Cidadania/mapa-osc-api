@@ -12,9 +12,11 @@ class EmendaRepositoryEloquent implements EmendaRepositoryInterface
         $this->model = $_emenda;
     }
 
-    public function get($seq_emenda)
+    public function get($cod_programa_emenda, $beneficiario_emenda, $nr_emenda)
     {
-        return $this->model::where('seq_emenda', $seq_emenda)->get();
+        return $this->model::where('cod_programa_emenda', $cod_programa_emenda)
+                            ->where('beneficiario_emenda', $beneficiario_emenda)
+                            ->where('nr_emenda', $nr_emenda)->get();
     }
 
     public function getAll()
@@ -27,14 +29,16 @@ class EmendaRepositoryEloquent implements EmendaRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update($seq_emenda, array $data)
+    public function update($cod_programa_emenda, $beneficiario_emenda, $nr_emenda, array $data)
     {
-        return $this->model::where('seq_emenda', $seq_emenda)->update($data);
+        return $this->model::where('cod_programa_emenda', $cod_programa_emenda)
+                            ->where('beneficiario_emenda', $beneficiario_emenda)
+                            ->where('nr_emenda', $nr_emenda)->update($data);
     }
 
-    public function destroy($seq_emenda)
+    public function destroy($cod_programa_emenda, $beneficiario_emenda, $nr_emenda)
     {
-        return $this->model->find($seq_emenda)->delete();
+        return $this->model->find($cod_programa_emenda)->find($beneficiario_emenda)->find($nr_emenda)->delete();
     }
 
     public function updateOrCreate(array $data)

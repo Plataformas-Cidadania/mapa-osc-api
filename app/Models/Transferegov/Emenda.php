@@ -5,7 +5,6 @@ namespace App\Models\Transferegov;
 use Illuminate\Database\Eloquent\Model;
 
 /**
-  * @property int seq_emenda
   * @property int cod_programa_emenda
   * @property int id_proposta
   * @property string qualif_proponente
@@ -32,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
      * 
      * @var string
      */
-    protected $primaryKey = 'seq_emenda';
+    protected $primaryKey = 'cod_programa_emenda';
     
     public $timestamps = true;
     

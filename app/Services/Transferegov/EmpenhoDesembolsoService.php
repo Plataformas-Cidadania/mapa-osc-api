@@ -3,13 +3,13 @@
 
 namespace App\Services\Transferegov;
 
-use App\Repositories\Transferegov\ConsorcioRepositoryInterface;
+use App\Repositories\Transferegov\EmpenhoDesembolsoRepositoryInterface;
 
-class ConsorcioService
+class EmpenhoDesembolsoService
 {
     private $repo;
 
-    public function __construct(ConsorcioRepositoryInterface $_repo)
+    public function __construct(EmpenhoDesembolsoRepositoryInterface $_repo)
     {
         $this->repo = $_repo;
     }
@@ -19,9 +19,9 @@ class ConsorcioService
         return $this->repo->getAll();
     }
 
-    public function get($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario)
+    public function get($id_desembolso, $id_empenho)
     {
-        return $this->repo->get($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario);
+        return $this->repo->get($id_desembolso, $id_empenho);
     }
 
     public function store(array $data)
@@ -32,16 +32,16 @@ class ConsorcioService
 
     }
 
-    public function update($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario, array $data)
+    public function update($id_desembolso, $id_empenho, array $data)
     {
         $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
-        return $this->repo->update($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario, $data);
+        return $this->repo->update($id_desembolso, $id_empenho, $data);
     }
 
-    public function destroy($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario)
+    public function destroy($id_desembolso, $id_empenho)
     {
-        return $this->repo->destroy($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario);
+        return $this->repo->destroy($id_desembolso, $id_empenho);
     }
 
     public function updateOrCreate(array $data)
@@ -61,11 +61,9 @@ class ConsorcioService
     }
 
     private function formatValues($data){
-        $data['id_proposta'] = (int) $data['id_proposta'];
-        $data['cnpj_consorcio'] = (int) $data['cnpj_consorcio'];
-        $data['codigo_cnae_primario'] = (int) $data['codigo_cnae_primario'];
-        $data['codigo_cnae_secundario'] = (int) $data['codigo_cnae_secundario'];
-
+        $data['id_desembolso'] = (int) $data['id_desembolso'];
+        $data['id_empenho'] = (int) $data['id_empenho'];
+        $data['valor_grupo'] = (double) str_replace(',', '.', $data['valor_grupo']);
         return $data;
     }
 

@@ -19,9 +19,9 @@ class ProgramaPropostaService
         return $this->repo->getAll();
     }
 
-    public function get($id_programa, $id_projeto)
+    public function get($id_programa, $id_proposta)
     {
-        return $this->repo->get($id_programa, $id_projeto);
+        return $this->repo->get($id_programa, $id_proposta);
     }
 
     public function store(array $data)
@@ -29,23 +29,24 @@ class ProgramaPropostaService
         return $this->repo->store($data);
     }
 
-    public function update($id_programa, $id_projeto, array $data)
+    public function update($id_programa, $id_proposta, array $data)
     {
         //$data = $this->formatValues($data);
         // o banco de dados nao aceita strings vazias como data. Só null mesmo
         // Versoes futuras do laravel resolvem isso com um middleware que converte string vazia para null
         // esse metodo faz a mesma coisa.
         $data= $this->setEmptyStringsToNull($data);
-        return $this->repo->update($id_programa, $id_projeto, $data);
+        return $this->repo->update($id_programa, $id_proposta, $data);
     }
 
-    public function destroy($id_projeto)
+    public function destroy($id_proposta)
     {
-        return $this->repo->destroy($id_projeto);
+        return $this->repo->destroy($id_proposta);
     }
 
     public function updateOrCreate(array $data)
     {
+        $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
         return $this->repo->updateOrCreate($data);
     }

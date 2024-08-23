@@ -3,13 +3,13 @@
 
 namespace App\Services\Transferegov;
 
-use App\Repositories\Transferegov\ConsorcioRepositoryInterface;
+use App\Repositories\Transferegov\ProponenteRepositoryInterface;
 
-class ConsorcioService
+class ProponenteService
 {
     private $repo;
 
-    public function __construct(ConsorcioRepositoryInterface $_repo)
+    public function __construct(ProponenteRepositoryInterface $_repo)
     {
         $this->repo = $_repo;
     }
@@ -19,9 +19,9 @@ class ConsorcioService
         return $this->repo->getAll();
     }
 
-    public function get($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario)
+    public function get($id_proponente, $identif_proponente)
     {
-        return $this->repo->get($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario);
+        return $this->repo->get($id_proponente, $identif_proponente);
     }
 
     public function store(array $data)
@@ -32,16 +32,16 @@ class ConsorcioService
 
     }
 
-    public function update($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario, array $data)
+    public function update($id_proponente, $identif_proponente, array $data)
     {
         $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
-        return $this->repo->update($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario, $data);
+        return $this->repo->update($id_proponente, $identif_proponente, $data);
     }
 
-    public function destroy($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario)
+    public function destroy($id_proponente, $identif_proponente)
     {
-        return $this->repo->destroy($id_proposta, $cnpj_consorcio, $codigo_cnae_secundario);
+        return $this->repo->destroy($id_proponente, $identif_proponente);
     }
 
     public function updateOrCreate(array $data)
@@ -61,11 +61,7 @@ class ConsorcioService
     }
 
     private function formatValues($data){
-        $data['id_proposta'] = (int) $data['id_proposta'];
-        $data['cnpj_consorcio'] = (int) $data['cnpj_consorcio'];
-        $data['codigo_cnae_primario'] = (int) $data['codigo_cnae_primario'];
-        $data['codigo_cnae_secundario'] = (int) $data['codigo_cnae_secundario'];
-
+        $data['id_proponente'] = (int) $data['id_proponente'];
         return $data;
     }
 

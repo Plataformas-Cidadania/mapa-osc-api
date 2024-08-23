@@ -49,6 +49,7 @@ class EmpenhoService
 
     public function updateOrCreate(array $data)
     {
+        $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
         return $this->repo->updateOrCreate($data);
     }

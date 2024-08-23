@@ -26,10 +26,10 @@ class TransferegovController extends Controller
         try {
             $files = [
                 //'programa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa.csv.zip',
-                //'programa_proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa_proposta.csv.zip',
-                //'proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proposta.csv.zip',
-                //'convenio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_convenio.csv.zip',
-                //'emenda' => 'http://repositorio.dados.gov.br/seges/detru/siconv_emenda.csv.zip',
+                'programa_proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa_proposta.csv.zip',
+                'proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proposta.csv.zip',
+                'convenio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_convenio.csv.zip',
+                'emenda' => 'http://repositorio.dados.gov.br/seges/detru/siconv_emenda.csv.zip',
                 'plano' => 'http://repositorio.dados.gov.br/seges/detru/siconv_plano_aplicacao.csv.zip',
                 'empenho' => 'http://repositorio.dados.gov.br/seges/detru/siconv_empenho.csv.zip',
                 'desembolso' => 'http://repositorio.dados.gov.br/seges/detru/siconv_desembolso.csv.zip',
@@ -42,6 +42,8 @@ class TransferegovController extends Controller
                 'meta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_meta_crono_fisico.csv.zip',
                 'etapa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_etapa_crono_fisico.csv.zip',
                 'consorcio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_consorcios.csv.zip',
+                'empenhoDesembolso' => 'http://repositorio.dados.gov.br/seges/detru/siconv_empenho_desembolso.csv.zip',
+                'proponente' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proponentes.csv.zip',
             ];
             $basePath = '/tmp/mineracao';
             if (!file_exists($basePath)) {
@@ -58,6 +60,7 @@ class TransferegovController extends Controller
                         foreach ($data as $row) {
                             $this->service->whichService($name, $row);
                         }
+                        print("Delete file: ".File::deletar("{$basePath}/{$name}/{$csvName[2]}").PHP_EOL);
                         print("Saved".PHP_EOL);
                     }else
                         print("Erro no unzip".PHP_EOL);

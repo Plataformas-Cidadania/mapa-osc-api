@@ -22,14 +22,14 @@ class File
         curl_setopt($ch, CURLOPT_HEADER,0); 
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
         curl_setopt($ch, CURLOPT_FILE, $fp);
 
         $page = curl_exec($ch);
 
-
         if (!$page) {
-            throw new Exception(curl_error($ch), 1);
+            print(curl_error($ch).PHP_EOL);
+            return false;
         }
         curl_close($ch);
         return true;
@@ -57,34 +57,29 @@ class File
     static function csvToArray($filename = '', $delimiter = ',') : array 
     {
         print("Transforming to array...".PHP_EOL);
-        try {
-            if (!file_exists($filename) || !is_readable($filename))
-                throw new Exception("File does not exists {$filename}", 1);
-                
+        if (!file_exists($filename) || !is_readable($filename))
+            throw new Exception("File does not exists {$filename}", 1);
+            
 
-            $header = NULL;
-            $data = array();
-            if (($handle = fopen($filename, 'r')) !== FALSE) {
-                while (($row = fgetcsv($handle, 10000, $delimiter)) !== FALSE) {
-                    if (!$header){
-                        $header = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $row);
-                        $header = array_map('strtolower', $header);
-                    }
-                    else{
-                        if(count($row) === 0)
-                            continue;
-
-                        $data[] = array_combine($header, $row);
-                    }
-
+        $header = NULL;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== FALSE) {
+            while (($row = fgetcsv($handle, 10000, $delimiter, '"')) !== FALSE) {
+                if (!$header){
+                    $header = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $row);
+                    $header = array_map('strtolower', $header);
                 }
-                fclose($handle);
+                else{
+                    if(count($row) === 0)
+                        continue;
+
+                    $data[] = array_combine($header, $row);
+                }
+
             }
-            return $data;
-        } catch (\Exception $ex) {
-            var_dump($row);
-            return ['error' => $ex->getMessage()];
+            fclose($handle);
         }
+        return $data;
 	}
 
     static function deletarPasta($pasta) : bool
@@ -102,5 +97,10 @@ class File
             return false;
         }
         
-      }
+    }
+    
+    static function deletar($pathFilename) : bool
+    { 
+        return unlink($pathFilename); 
+    }
 }

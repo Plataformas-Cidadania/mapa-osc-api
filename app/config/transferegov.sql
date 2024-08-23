@@ -1,19 +1,4 @@
 
-CREATE SEQUENCE IF NOT EXISTS transferegov.tb_programa_id_programa_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-    --OWNED BY tb_programa.id_programa;
-
-CREATE SEQUENCE IF NOT EXISTS transferegov.tb_programa_projeto_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-	
 CREATE SEQUENCE IF NOT EXISTS transferegov.tb_emenda_seq
     INCREMENT 1
     START 1
@@ -23,30 +8,29 @@ CREATE SEQUENCE IF NOT EXISTS transferegov.tb_emenda_seq
 
 CREATE TABLE IF NOT EXISTS transferegov.tb_programa
 (
-    seq_programa integer NOT NULL DEFAULT nextval('transferegov.tb_programa_id_programa_seq'::regclass),
-    id_programa text COLLATE pg_catalog."default",
-    cod_orgao_sup_programa text COLLATE pg_catalog."default",
+    id_programa bigint,
+    cod_orgao_sup_programa integer,
     desc_orgao_sup_programa text COLLATE pg_catalog."default",
-    cod_programa text COLLATE pg_catalog."default",
+    cod_programa bigint,
     nome_programa text COLLATE pg_catalog."default",
-    sit_programa text COLLATE pg_catalog."default",
-    data_disponibilizacao text COLLATE pg_catalog."default",
-    ano_disponibilizacao text COLLATE pg_catalog."default",
-    dt_prog_ini_receb_prop text COLLATE pg_catalog."default",
-    dt_prog_fim_receb_prop text COLLATE pg_catalog."default",
-    dt_prog_ini_emenda_par text COLLATE pg_catalog."default",
-    dt_prog_fim_emenda_par text COLLATE pg_catalog."default",
-    dt_prog_ini_benef_esp  text COLLATE pg_catalog."default",
-    dt_prog_fim_benef_esp  text COLLATE pg_catalog."default",
-    modalidade_programa  text COLLATE pg_catalog."default",
-    natureza_juridica_programa  text COLLATE pg_catalog."default",
-    uf_programa  text COLLATE pg_catalog."default",
-    acao_orcamentaria  text COLLATE pg_catalog."default",
-    nome_subtipo_programa text COLLATE pg_catalog."default",
+    sit_programa name,
+    data_disponibilizacao date,
+    ano_disponibilizacao smallint,
+    dt_prog_ini_receb_prop date,
+    dt_prog_fim_receb_prop date,
+    dt_prog_ini_emenda_par date,
+    dt_prog_fim_emenda_par date,
+    dt_prog_ini_benef_esp date,
+    dt_prog_fim_benef_esp date,
+    modalidade_programa name,
+    natureza_juridica_programa name,
+    uf_programa char(2),
+    acao_orcamentaria  name,
+    nome_subtipo_programa name,
     descricao_subtipo_programa text COLLATE pg_catalog."default",
     created_at TIMESTAMP,
 	updated_at TIMESTAMP,
-    CONSTRAINT pk_programa_uf_njp PRIMARY KEY (id_programa, uf_programa, natureza_juridica_programa)
+    CONSTRAINT pk_id_programa_cod_programa_uf_programa_natureza_juridica_programa PRIMARY KEY (id_programa, cod_programa, uf_programa, natureza_juridica_programa)
 );
 
 
@@ -93,7 +77,6 @@ CREATE TABLE IF NOT EXISTS transferegov.tb_proposta
 
 CREATE TABLE IF NOT EXISTS transferegov.tb_programa_proposta
 (
-    seq_programa_proposta integer NOT NULL DEFAULT nextval('transferegov.tb_programa_projeto_seq'::regclass),
     id_programa bigint,
     id_proposta bigint,
     created_at TIMESTAMP,
@@ -150,7 +133,7 @@ CREATE TABLE IF NOT EXISTS transferegov.tb_convenio
 
 CREATE TABLE IF NOT EXISTS transferegov.tb_emenda
 (
-    seq_emenda integer NOT NULL DEFAULT nextval('transferegov.tb_emenda_seq'::regclass),
+    --seq_emenda integer NOT NULL DEFAULT nextval('transferegov.tb_emenda_seq'::regclass),
     cod_programa_emenda bigint,
     id_proposta bigint,
     qualif_proponente text COLLATE pg_catalog."default",
@@ -163,7 +146,7 @@ CREATE TABLE IF NOT EXISTS transferegov.tb_emenda
     valor_repasse_emenda double precision,
     created_at TIMESTAMP,
 	updated_at TIMESTAMP,
-    CONSTRAINT pk_seq_emenda PRIMARY KEY (seq_emenda)
+    CONSTRAINT pk_cod_programa_emenda_beneficiario_emenda PRIMARY KEY (cod_programa_emenda, beneficiario_emenda)
 );
 
 CREATE TABLE IF NOT EXISTS transferegov.tb_plano
@@ -370,6 +353,33 @@ CREATE TABLE IF NOT EXISTS transferegov.tb_consorcio
     CONSTRAINT pk_id_proposta_cnpj_consorcio_codigo_cnae_secundario PRIMARY KEY (id_proposta, cnpj_consorcio, codigo_cnae_secundario)
 );
 
+CREATE TABLE IF NOT EXISTS transferegov.tb_empenho_desembolso
+(
+    id_desembolso bigint,
+    id_empenho bigint,
+    valor_grupo double precision,    
+    created_at TIMESTAMP,
+	updated_at TIMESTAMP,
+    CONSTRAINT pk_id_desembolso_id_empenho PRIMARY KEY (id_desembolso, id_empenho)
+);
+
+CREATE TABLE IF NOT EXISTS transferegov.tb_proponente
+(
+    id_proponente bigint,
+    identif_proponente name,
+    nm_proponente name,
+    municipio_proponente name,
+    uf_proponente char(2),
+    endereco_proponente name,
+    bairro_proponente name,
+    cep_proponente name,
+    email_proponente name,
+    telefone_proponente name,
+    fax_proponente name,   
+    created_at TIMESTAMP,
+	updated_at TIMESTAMP,
+    CONSTRAINT pk_id_proponente_identif_proponente PRIMARY KEY (id_proponente, identif_proponente)
+);
 
 TABLESPACE pg_default;
 

@@ -19,9 +19,9 @@ class EmendaService
         return $this->repo->getAll();
     }
 
-    public function get($seq_emenda)
+    public function get($cod_programa_emenda, $beneficiario_emenda, $nr_emenda)
     {
-        return $this->repo->get($seq_emenda);
+        return $this->repo->get($cod_programa_emenda, $beneficiario_emenda, $nr_emenda);
     }
 
     public function store(array $data)
@@ -31,7 +31,7 @@ class EmendaService
         return $this->repo->store($data);
     }
 
-    public function update($seq_emenda, array $data)
+    public function update($cod_programa_emenda, $beneficiario_emenda, $nr_emenda, array $data)
     {
         //$data = $this->formatValues($data);
         // o banco de dados nao aceita strings vazias como data. Só null mesmo
@@ -39,16 +39,17 @@ class EmendaService
         // esse metodo faz a mesma coisa.
         $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
-        return $this->repo->update($seq_emenda, $data);
+        return $this->repo->update($cod_programa_emenda, $beneficiario_emenda, $nr_emenda, $data);
     }
 
-    public function destroy($seq_emenda)
+    public function destroy($cod_programa_emenda, $beneficiario_emenda, $nr_emenda)
     {
-        return $this->repo->destroy($seq_emenda);
+        return $this->repo->destroy($cod_programa_emenda, $beneficiario_emenda, $nr_emenda);
     }
 
     public function updateOrCreate(array $data)
     {
+        $data= $this->setEmptyStringsToNull($data);
         $data= $this->formatValues($data);
         return $this->repo->updateOrCreate($data);
     }
