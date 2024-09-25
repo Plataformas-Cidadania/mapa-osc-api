@@ -113,6 +113,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryInterface', 'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Osc\QuadroSocietarioRepositoryInterface', 'App\Repositories\Osc\QuadroSocietarioRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
