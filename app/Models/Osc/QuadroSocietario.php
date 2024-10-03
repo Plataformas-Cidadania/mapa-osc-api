@@ -58,4 +58,20 @@ class QuadroSocietario extends Model
     {
         return $this->belongsTo('App\Models\Osc\Osc', 'id_osc', 'id_osc');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function qualificacaoSocio()
+    {
+        return $this->hasOne('App\Models\Syst\DCQualificacaoSocio', 'cd_qualificacao_socio', 'cd_qualificacao_socio');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tipoSocio()
+    {
+        return $this->hasOne('App\Models\Syst\DCTipoSocio', 'cd_tipo_socio', 'cd_tipo_socio');
+    }
 }

@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbParticipacaoSocialOutra[] $osc.tbParticipacaoSocialOutras
  * @property Osc.tbParticipacaoSocialConferencium[] $osc.tbParticipacaoSocialConferencias
  * @property Osc.tbParticipacaoSocialConselho[] $osc.tbParticipacaoSocialConselhos
+ * @property Osc.tbQuadrosSocietarios[] $osc.tbQuadrosSocietarios
  * @property Osc.tbRepresentanteConselho[] $osc.tbRepresentanteConselhos
  * @property Osc.tbLocalizacao $osc.tbLocalizacao
  * @property Osc.tbAreaAtuacao[] $osc.tbAreaAtuacaos
@@ -90,7 +91,6 @@ class Osc extends Model
         //'outros_espacos_participacao_social',
         //'projetos',
         //'localizacao'
-
     ];
 
     /**
@@ -192,6 +192,14 @@ class Osc extends Model
     public function representantesConselho()
     {
         return $this->hasMany('App\Models\Osc\RepresentanteConselho', 'id_osc', 'id_osc');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function quadrosSocietarios()
+    {
+        return $this->hasMany('App\Models\Osc\QuadroSocietario', 'id_osc', 'id_osc');
     }
 
     /**

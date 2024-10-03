@@ -23,7 +23,8 @@ class QuadroSocietarioRepositoryEloquent implements QuadroSocietarioRepositoryIn
 
     public function getQuadroSocietarioPorOSC($_id_osc)
     {
-        $_quadro_societarios = $this->model->where('id_osc', $_id_osc)->get();
+//        $_quadro_societarios = $this->model->where('id_osc', $_id_osc)->get();
+        $_quadro_societarios = $this->model->with(['qualificacaoSocio', 'tipoSocio'])->where('id_osc', $_id_osc)->get();
 
         return $_quadro_societarios;
     }
