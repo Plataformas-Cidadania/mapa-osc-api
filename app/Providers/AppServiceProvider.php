@@ -113,6 +113,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryInterface', 'App\Repositories\Osc\DCListaOSCsRegiaoRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Osc\QuadroSocietarioRepositoryInterface', 'App\Repositories\Osc\QuadroSocietarioRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
@@ -162,6 +165,12 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             'App\Repositories\Syst\DCCertificadoRepositoryInterface', 'App\Repositories\Syst\DCCertificadoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCQualificacaoSocioRepositoryInterface', 'App\Repositories\Syst\DCQualificacaoSocioRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCTipoSocioRepositoryInterface', 'App\Repositories\Syst\DCTipoSocioRepositoryEloquent'
         );
 
         //DADOS DO SCHEMA SPAT

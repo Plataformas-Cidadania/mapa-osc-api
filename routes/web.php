@@ -111,10 +111,19 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/ps_conferencias_formas/', 'DCFormaParticipacaoConferenciaController@getAll');
     $router->get('/ps_conferencia_forma/{id}', 'DCFormaParticipacaoConferenciaController@get');
 
+    //------------------------QUALIFICAÇÃO SÓCIO (QUADRO SOCIETÁRIO) -------------------------------------//
+    $router->get('/qualificacao-socio/all', 'DCQualificacaoSocioController@getAll');
+    $router->get('/qualificacao-socio/{id}', 'DCQualificacaoSocioController@get');
+
+    //------------------------QUALIFICAÇÃO SÓCIO (QUADRO SOCIETÁRIO) -------------------------------------//
+    $router->get('/tipo-socio/all', 'DCTipoSocioController@getAll');
+    $router->get('/tipo-socio/{id}', 'DCTipoSocioController@get');
+    //--------------------------//-----------------------------------------------------------//
+
     //-----------------------------------Outra-------------------------------//
     $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
 
-//---ROTAS da BUSCA HOME----//
+    //---ROTAS da BUSCA HOME----//
     $router->get('/busca/municipio/{texto_busca}', 'DCBuscaHomeController@getListaMunicipios');
     $router->get('/busca/estado/{texto_busca}', 'DCBuscaHomeController@getListaEstados');
     $router->get('/busca/regiao/{texto_busca}', 'DCBuscaHomeController@getListaRegioes');
@@ -125,17 +134,18 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 
     //ROTAS PARA ALIMENTAR DADOS DO MAPA
-//---ROTAS LISTA OSC POR REGIÃO----//
+    //---ROTAS LISTA OSC POR REGIÃO----//
     $router->get('/lista_osc/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsTotal');
     $router->get('/lista_osc/estado/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsEstado');
     $router->get('/lista_osc/municipio/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsMunicipio');
     $router->get('/lista_osc/regiao/{id_localidade}/{pagina}', 'DCListaOSCsRegiaoController@getListaOSCsRegiao');
-//Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
+
+    //Lista de Oscs Por Area de Atuação / Municipip / Geolocalização
     $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/municipio/{cd_municipio}', 'OscController@getListaOscAreaAtuacaoAndMunicipio');
     $router->get('/lista_por_area_atuacao/{cd_area_atuacao}/{lat}/{lon}', 'OscController@getListaOscAreaAtuacaoAndGEO');
     $router->get('/lista_por_area_atuacao/{cd_area_atuacao}', 'OscController@getListaOscAreaAtuacao');
 
-//---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
+    //---- ROTAS PARA DADOS DE GEOLOCALIZAÇÃO AGRUPADOS
     $router->get('/geo/elem/{id}', 'DCGeoClusterController@get');
     $router->get('/geo/regioes/', 'DCGeoClusterController@getRegiaoAll');
     $router->get('/geo/estados/', 'DCGeoClusterController@getEstadoAll');
@@ -146,8 +156,8 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/geo/oscs/estado/{id_estado}', 'DCGeoClusterController@getOSCsPorEstado');
     $router->get('/geo/oscs/municipio/{id_municipio}', 'DCGeoClusterController@getOSCsPorMunicipio');
 
-//--------------------------//-----------------------------------------------------------//
-//---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
+    //--------------------------//-----------------------------------------------------------//
+    //---- ROTAS PARA DADOS DE IDH e GEOLOCALIZAÇÃO IPEADATA
     $router->get('/ipeadata/uff/{id}', 'DCIpeadataUffController@get');
     $router->get('/ipeadata/uffs/', 'DCIpeadataUffController@getAll');
     $router->get('/ipeadata/uffs/regiao/{id_regiao}', 'DCIpeadataUffController@getAllPorRegiao');
@@ -156,7 +166,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/ipeadata/municipios/', 'DCIpeadataMunicipioController@getAll');
     $router->get('/ipeadata/municipios/estado/{id_estado}', 'DCIpeadataMunicipioController@getAllPorEstado');
 
-//PERFIL LOCALIDADE
+    //PERFIL LOCALIDADE
     $router->get('/perfil_localidade/evolucao_anual/{idlocalidade}', 'DCPerfilLocalidadeController@getEvolucaoQtdOscPorAno');
     $router->get('/perfil_localidade/caracteristicas/{idlocalidade}', 'DCPerfilLocalidadeController@getCaracteristicas');
     $router->get('/perfil_localidade/natureza_juridica/{idlocalidade}', 'DCPerfilLocalidadeController@getQtdNaturezaJuridica');
@@ -177,6 +187,8 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
+
+
 
     //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
     $router->post('/user', 'OscController@getFromUsuario');
@@ -289,6 +301,9 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     $router->post('/projeto/recurso/', 'FonteRecursosProjetoController@store');
     $router->delete('/projeto/recurso/{id}', 'FonteRecursosProjetoController@delete');
 
+    //------------------------QUADRO SOCIETÁRIO OSC-------------------------------------//
+    $router->post('/quadro-societario/', 'QuadroSocietarioController@store');
+    $router->delete('/quadro-societario/{id}', 'QuadroSocietarioController@delete');
 });
 
 $router->group(['prefix' => '/api/osc'], function() use ($router){
@@ -415,8 +430,10 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //-----------------------------------Fontes de Recursos Projeto---------------------------//
     $router->get('/projeto/recursos/{id_projeto}', 'FonteRecursosProjetoController@getFonteRecursosPorProjeto');
     $router->get('/projeto/recurso/{id}', 'FonteRecursosProjetoController@get');
-     
-    //--------------------------//-----------------------------------------------------------//
+
+    //------------------------QUADRO SOCIETÁRIO OSC-------------------------------------//
+    $router->get('/quadro-societario/{id}', 'QuadroSocietarioController@get');
+    $router->get('/quadro-societario-por-osc/{id_osc}', 'QuadroSocietarioController@getQuadroSocietarioPorOSC');
 });
 
 
