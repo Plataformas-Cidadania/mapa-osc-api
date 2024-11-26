@@ -8,6 +8,7 @@ use App\Models\Osc\DadosGerais;
 use App\Models\Osc\Localizacao;
 use App\Models\Osc\ObjetivoOsc;
 use App\Models\Osc\Osc;
+use App\Models\Osc\RelacoesTrabalho;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -260,9 +261,20 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         $relacoes_trabalho = $osc->relacoes_trabalho;
 
-        $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
-
-        $relacoes_trabalho['nr_trabalhores'] = $nr_trabalhores;
+        if ($relacoes_trabalho) {
+            $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
+            $relacoes_trabalho['nr_trabalhores'] = $nr_trabalhores;
+        } else  {
+            $relacoes_trabalho = [
+                "nr_trabalhadores_vinculo" => null,
+                "ft_trabalhadores_vinculo" => null,
+                "nr_trabalhadores_deficiencia" => null,
+                "ft_trabalhadores_deficiencia" => null,
+                "nr_trabalhadores_voluntarios" => null,
+                "ft_trabalhadores_voluntarios" => null,
+                "nr_trabalhores" => null
+            ];
+        }
 
         $dados = [
             'governanca' => $osc->quadro_de_dirigentes,

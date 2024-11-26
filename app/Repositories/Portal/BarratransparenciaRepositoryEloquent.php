@@ -53,10 +53,6 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
     {
         $regs = $this->model->where('id_osc', $id_osc)->get();
 
-        print_r($regs);
-
-        exit();
-
         $dados_resultado = [
             'id_osc',
             'id_barra_transparencia',
