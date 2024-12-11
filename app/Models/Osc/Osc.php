@@ -75,6 +75,16 @@ class Osc extends Model
         'ft_nao_possui_ps_outros_espacos',
     ];
 
+    protected $attributes = [
+        'ft_apelido_osc' => 'Representante de OSC',
+        'ft_identificador_osc' => 'Representante de OSC',
+        'ft_osc_ativa' => 'Representante de OSC',
+        'ft_nao_possui_projeto' => 'Representante de OSC',
+        'ft_nao_possui_ps_conselhos' => 'Representante de OSC',
+        'ft_nao_possui_ps_conferencias' => 'Representante de OSC',
+        'ft_nao_possui_ps_outros_espacos' => 'Representante de OSC'
+    ];
+
     /**
      * @var array
      */

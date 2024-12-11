@@ -28,6 +28,13 @@ class PublicoBeneficiado extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_publico_beneficiado', 'ft_publico_beneficiado'];
+    protected $fillable = [
+        'tx_nome_publico_beneficiado',
+        'ft_publico_beneficiado'
+    ];
+
+    protected $attributes = [
+        'ft_publico_beneficiado' => 'Representante de OSC'
+    ];
 
 }

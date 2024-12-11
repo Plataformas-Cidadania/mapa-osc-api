@@ -34,7 +34,16 @@ class TipoParceriaProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'cd_tipo_parceria_projeto', 'id_fonte_recursos_projeto', 'ft_tipo_parceria_projeto'];
+    protected $fillable = [
+        'id_projeto',
+        'cd_tipo_parceria_projeto',
+        'id_fonte_recursos_projeto',
+        'ft_tipo_parceria_projeto'
+    ];
+
+    protected $attributes = [
+        'ft_tipo_parceria_projeto' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
 

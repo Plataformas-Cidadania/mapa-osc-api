@@ -31,7 +31,16 @@ class FinanciadorProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'tx_nome_financiador', 'ft_nome_financiador', 'bo_oficial'];
+    protected $fillable = [
+        'id_projeto',
+        'tx_nome_financiador',
+        'ft_nome_financiador',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_nome_financiador' => 'Representante de OSC',
+    ];
 
     public $timestamps = false;
 

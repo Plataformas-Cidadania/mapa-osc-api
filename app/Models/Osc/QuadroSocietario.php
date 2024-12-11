@@ -51,6 +51,14 @@ class QuadroSocietario extends Model
         'bo_oficial'
     ];
 
+    protected $attributes = [
+        'ft_nome_socio' => 'Representante de OSC',
+        'ft_cpf_socio' => 'Representante de OSC',
+        'ft_data_entrada_socio' => 'Representante de OSC',
+        'ft_qualificacao_socio' => 'Representante de OSC',
+        'ft_tipo_socio' => 'Representante de OSC'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

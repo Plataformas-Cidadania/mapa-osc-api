@@ -32,7 +32,15 @@ class AreaAtuacaoOutra extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'id_area_atuacao_declarada', 'ft_area_atuacao_outra'];
+    protected $fillable = [
+        'id_osc',
+        'id_area_atuacao_declarada',
+        'ft_area_atuacao_outra'
+    ];
+
+    protected $attributes = [
+        'ft_area_atuacao_outra' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

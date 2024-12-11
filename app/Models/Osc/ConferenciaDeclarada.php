@@ -28,6 +28,13 @@ class ConferenciaDeclarada extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_conferencia_declarada', 'ft_conferencia_declarada'];
+    protected $fillable = [
+        'tx_nome_conferencia_declarada',
+        'ft_conferencia_declarada'
+    ];
+
+    protected $attributes = [
+        'ft_conferencia_declarada' => 'Representante de OSC'
+    ];
 
 }

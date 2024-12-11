@@ -32,7 +32,18 @@ class RelacoesTrabalhoOutra extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'nr_trabalhadores', 'ft_trabalhadores', 'tx_tipo_relacao_trabalho', 'ft_tipo_relacao_trabalho'];
+    protected $fillable = [
+        'id_osc',
+        'nr_trabalhadores',
+        'ft_trabalhadores',
+        'tx_tipo_relacao_trabalho',
+        'ft_tipo_relacao_trabalho'
+    ];
+
+    protected $attributes = [
+        'ft_trabalhadores' => 'Representante de OSC',
+        'ft_tipo_relacao_trabalho' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

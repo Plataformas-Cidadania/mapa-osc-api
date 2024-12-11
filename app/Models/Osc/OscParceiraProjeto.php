@@ -32,7 +32,16 @@ class OscParceiraProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'id_projeto', 'ft_osc_parceira_projeto', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'id_projeto',
+        'ft_osc_parceira_projeto',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_osc_parceira_projeto' => 'Representante de OSC',
+    ];
 
     public $timestamps = false;
 

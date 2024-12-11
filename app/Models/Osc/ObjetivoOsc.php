@@ -33,7 +33,16 @@ class ObjetivoOsc extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_meta_osc', 'ft_objetivo_osc', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'cd_meta_osc',
+        'ft_objetivo_osc',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_objetivo_osc' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
 

@@ -35,7 +35,22 @@ class Recurso extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_fonte_recursos_osc', 'ft_fonte_recursos_osc', 'dt_ano_recursos_osc', 'ft_ano_recursos_osc', 'nr_valor_recursos_osc', 'ft_valor_recursos_osc'];
+    protected $fillable = [
+        'id_osc',
+        'cd_fonte_recursos_osc',
+        'ft_fonte_recursos_osc',
+        'dt_ano_recursos_osc',
+        'ft_ano_recursos_osc',
+        'nr_valor_recursos_osc',
+        'ft_valor_recursos_osc'
+    ];
+
+    protected $attributes = [
+        'ft_fonte_recursos_osc' => 'Representante de OSC',
+        'ft_ano_recursos_osc' => 'Representante de OSC',
+        'ft_valor_recursos_osc' => 'Representante de OSC'
+    ];
+
     public $timestamps = false;
 
     /**

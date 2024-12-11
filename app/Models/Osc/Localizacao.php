@@ -86,6 +86,20 @@ class Localizacao extends Model
         'qualidade_classificacao'
     ];
 
+    protected $attributes = [
+        'ft_endereco' => 'Representante de OSC',
+        'ft_localizacao' => 'Representante de OSC',
+        'ft_endereco_complemento' => 'Representante de OSC',
+        'ft_bairro' => 'Representante de OSC',
+        'ft_municipio' => 'Representante de OSC',
+        'ft_geo_localizacao' => 'Representante de OSC',
+        'ft_cep' => 'Representante de OSC',
+        'ft_endereco_corrigido' => 'Representante de OSC',
+        'ft_bairro_encontrado' => 'Representante de OSC',
+        'ft_fonte_geocodificacao' => 'Representante de OSC',
+        'ft_data_geocodificacao => Representante de OSC'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

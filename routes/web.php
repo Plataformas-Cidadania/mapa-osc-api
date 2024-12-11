@@ -179,7 +179,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
+$router->group(['prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');

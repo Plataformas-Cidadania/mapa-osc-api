@@ -35,7 +35,19 @@ class Governanca extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'tx_cargo_dirigente', 'ft_cargo_dirigente', 'tx_nome_dirigente', 'ft_nome_dirigente', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'tx_cargo_dirigente',
+        'ft_cargo_dirigente',
+        'tx_nome_dirigente',
+        'ft_nome_dirigente',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_cargo_dirigente' => 'Representante de OSC',
+        'ft_nome_dirigente' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

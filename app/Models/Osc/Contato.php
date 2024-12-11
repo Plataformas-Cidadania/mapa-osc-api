@@ -54,7 +54,37 @@ class Contato extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_telefone', 'ft_telefone', 'tx_email', 'ft_email', 'nm_representante', 'ft_representante', 'tx_site', 'ft_site', 'tx_facebook', 'ft_facebook', 'tx_google', 'ft_google', 'tx_linkedin', 'ft_linkedin', 'tx_twitter', 'ft_twitter', 'bo_nao_possui_email', 'bo_nao_possui_site'];
+    protected $fillable = [
+        'tx_telefone',
+        'ft_telefone',
+        'tx_email',
+        'ft_email',
+        'nm_representante',
+        'ft_representante',
+        'tx_site',
+        'ft_site',
+        'tx_facebook',
+        'ft_facebook',
+        'tx_google',
+        'ft_google',
+        'tx_linkedin',
+        'ft_linkedin',
+        'tx_twitter',
+        'ft_twitter',
+        'bo_nao_possui_email',
+        'bo_nao_possui_site'
+    ];
+
+    protected $attributes = [
+        'ft_telefone' => 'Representante de OSC',
+        'ft_email' => 'Representante de OSC',
+        'ft_representante' => 'Representante de OSC',
+        'ft_site' => 'Representante de OSC',
+        'ft_facebook' => 'Representante de OSC',
+        'ft_google' => 'Representante de OSC',
+        'ft_linkedin' => 'Representante de OSC',
+        'ft_twitter' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

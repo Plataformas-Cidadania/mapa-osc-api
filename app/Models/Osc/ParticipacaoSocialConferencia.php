@@ -38,7 +38,22 @@ class ParticipacaoSocialConferencia extends Model
     /**
      * @var array
      */
-    protected $fillable = ['cd_conferencia', 'id_osc', 'cd_forma_participacao_conferencia', 'ft_conferencia', 'dt_ano_realizacao', 'ft_ano_realizacao', 'ft_forma_participacao_conferencia', 'bo_oficial'];
+    protected $fillable = [
+        'cd_conferencia',
+        'id_osc',
+        'cd_forma_participacao_conferencia',
+        'ft_conferencia',
+        'dt_ano_realizacao',
+        'ft_ano_realizacao',
+        'ft_forma_participacao_conferencia',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_conferencia' => 'Representante de OSC',
+        'ft_ano_realizacao' => 'Representante de OSC',
+        'ft_forma_participacao_conferencia' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
 

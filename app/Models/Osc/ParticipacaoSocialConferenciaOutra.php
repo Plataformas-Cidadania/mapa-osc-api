@@ -30,7 +30,15 @@ class ParticipacaoSocialConferenciaOutra extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_conferencia', 'tx_nome_conferencia', 'ft_nome_conferencia'];
+    protected $fillable = [
+        'id_conferencia',
+        'tx_nome_conferencia',
+        'ft_nome_conferencia'
+    ];
+
+    protected $attributes = [
+        'ft_nome_conferencia' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -42,7 +42,20 @@ class RelacoesTrabalho extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nr_trabalhadores_vinculo', 'ft_trabalhadores_vinculo', 'nr_trabalhadores_deficiencia', 'ft_trabalhadores_deficiencia', 'nr_trabalhadores_voluntarios', 'ft_trabalhadores_voluntarios'];
+    protected $fillable = [
+        'nr_trabalhadores_vinculo',
+        'ft_trabalhadores_vinculo',
+        'nr_trabalhadores_deficiencia',
+        'ft_trabalhadores_deficiencia',
+        'nr_trabalhadores_voluntarios',
+        'ft_trabalhadores_voluntarios'
+    ];
+
+    protected $attributes = [
+        'ft_trabalhadores_vinculo' => 'Representante de OSC',
+        'ft_trabalhadores_deficiencia' => 'Representante de OSC',
+        'ft_trabalhadores_voluntarios' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

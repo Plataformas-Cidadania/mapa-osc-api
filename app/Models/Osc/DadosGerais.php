@@ -120,6 +120,27 @@ class DadosGerais extends Model
         'bo_nao_possui_link_estatuto_osc'
     ];
 
+    protected $attributes = [
+        'ft_natureza_juridica_osc' => 'Representante de OSC',
+        'ft_razao_social_osc' => 'Representante de OSC',
+        'ft_nome_fantasia_osc' => 'Representante de OSC',
+        'ft_logo' => 'Representante de OSC',
+        'ft_missao_osc' => 'Representante de OSC',
+        'ft_visao_osc' => 'Representante de OSC',
+        'ft_fundacao_osc' => 'Representante de OSC',
+        'ft_ano_cadastro_cnpj' => 'Representante de OSC',
+        'ft_sigla_osc' => 'Representante de OSC',
+        'ft_resumo_osc' => 'Representante de OSC',
+        'ft_situacao_imovel_osc' => 'Representante de OSC',
+        'ft_link_estatuto_osc' => 'Representante de OSC',
+        'ft_historico' => 'Representante de OSC',
+        'ft_finalidades_estatutarias' => 'Representante de OSC',
+        'ft_link_relatorio_auditoria' => 'Representante de OSC',
+        'ft_link_demonstracao_contabil' => 'Representante de OSC',
+        'ft_nome_responsavel_legal' => 'Representante de OSC',
+        'ft_classe_atividade_economica_osc' => 'Representante de OSC'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
