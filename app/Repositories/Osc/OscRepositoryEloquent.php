@@ -272,7 +272,10 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 "ft_trabalhadores_deficiencia" => null,
                 "nr_trabalhadores_voluntarios" => null,
                 "ft_trabalhadores_voluntarios" => null,
-                "nr_trabalhores" => null
+                "nr_trabalhores" => null,
+
+                "nr_trabalhadores_vinculo_osc" => null,
+                "nr_trabalhadores_deficiencia_osc" => null
             ];
         }
 
