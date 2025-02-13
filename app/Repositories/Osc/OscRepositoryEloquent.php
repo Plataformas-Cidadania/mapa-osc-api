@@ -262,7 +262,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         $relacoes_trabalho = $osc->relacoes_trabalho;
 
         if ($relacoes_trabalho) {
-            $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
+            $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo_osc + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia_osc + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
             $relacoes_trabalho['nr_trabalhores'] = $nr_trabalhores;
         } else  {
             $relacoes_trabalho = [
