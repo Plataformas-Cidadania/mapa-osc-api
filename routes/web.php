@@ -19,6 +19,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/api/documentation', function () {
+    return view('swagger-lume::index');
+});
+
 //ROTA PAR CHEKAR AUTENTICAÇÃO DO USUARIO
 $router->get('/api/check-token', ['middleware' => 'auth', function(){
     return 1;

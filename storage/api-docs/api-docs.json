@@ -1,0 +1,38 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mapa OSC Data API",
+        "description": "This is an API that scrape data from https://www.mapaosc.ipea.gov.br/ and serve the data in JSON format",
+        "contact": {
+            "name": "Mapa das OSCs",
+            "email": "mapaosc@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/example": {
+            "get": {
+                "summary": "Exemplo de rota documentada",
+                "operationId": "e87addda51bffda941f31304b28e6001",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "API Mapa"
+                ],
+                "operationId": "/",
+                "responses": {
+                    "200": {
+                        "description": "Returns top ten COVID-19 case data"
+                    }
+                }
+            }
+        }
+    }
+}

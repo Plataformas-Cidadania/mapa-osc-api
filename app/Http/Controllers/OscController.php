@@ -21,6 +21,17 @@ class OscController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/",
+     *     operationId="/",
+     *     tags={"API Mapa"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Returns top ten COVID-19 case data",
+     *     ),
+     * )
+     */
     public function getAll()
     {
         try {
@@ -139,40 +150,7 @@ class OscController extends Controller
         }
     }
 
-    /**
-     *  @OA\GET(
-     *      path="/api/test",
-     *      summary="Get all users",
-     *      description="Get all users",
-     *      tags={"Test"},
-     *      @OA\Parameter(
-     *         name="name",
-     *         in="query",
-     *         description="name",
-     *         required=false,
-     *      ),
-     *     @OA\Parameter(
-     *         name="email",
-     *         in="query",
-     *         description="email",
-     *         required=false,
-     *      ),
-     *     @OA\Parameter(
-     *         name="page",
-     *         in="query",
-     *         description="Page Number",
-     *         required=false,
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="OK",
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *          )
-     *      ),
-     *
-     *  )
-     */
+
     public function getRelTrabalhoAndGovernanca($id)
     {
         try {
