@@ -73,7 +73,11 @@ class File
                     if(count($row) === 0)
                         continue;
 
-                    $data[] = array_combine($header, $row);
+                        try {
+                            $data[] = array_combine($header, $row);
+                        } catch (\Throwable $th) {
+                            continue;
+                        }
                 }
 
             }

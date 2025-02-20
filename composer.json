@@ -26,10 +26,12 @@
         }
     ],
     "type": "project",
+    "disable-tls":true,
     "require": {
         "php": ">=7.1.3",
         "dusterio/lumen-passport": "^0.3.4",
         "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^6.5",
         "illuminate/mail": "5.8.36",
         "laravel/lumen-framework": "5.8.*",
         "lcobucci/jwt": "3.3.3",

@@ -22,10 +22,10 @@ class TransferegovController extends Controller
 
     public function dataMigration()
     {
-        ini_set('memory_limit', '10G');
+        ini_set('memory_limit', '4G');
         try {
             $files = [
-                'programa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa.csv.zip',
+                /*'programa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa.csv.zip',
                 'programa_proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_programa_proposta.csv.zip',
                 'proposta' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proposta.csv.zip',
                 'convenio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_convenio.csv.zip',
@@ -43,7 +43,7 @@ class TransferegovController extends Controller
                 'etapa' => 'http://repositorio.dados.gov.br/seges/detru/siconv_etapa_crono_fisico.csv.zip',
                 'consorcio' => 'http://repositorio.dados.gov.br/seges/detru/siconv_consorcios.csv.zip',
                 'empenhoDesembolso' => 'http://repositorio.dados.gov.br/seges/detru/siconv_empenho_desembolso.csv.zip',
-                'proponente' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proponentes.csv.zip',
+                'proponente' => 'http://repositorio.dados.gov.br/seges/detru/siconv_proponentes.csv.zip',*/
             ];
             $basePath = '/tmp/mineracao';
             if (!file_exists($basePath)) {
