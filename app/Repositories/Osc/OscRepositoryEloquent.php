@@ -491,6 +491,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca){
         //Log::info($texto_busca);
+        $array_palavras = explode(' ', $texto_busca);
         $numeros = preg_replace('/[^0-9]/', '', $texto_busca);
         $oscs =  DB::table('osc.vw_busca_osc')
             ->when(!empty($numeros), function ($query) use ($numeros){
@@ -504,9 +505,9 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 //            ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
 //            ->orwhereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
 //            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
-            ->where(function($query) use ($texto_busca) {
+            ->where(function($query) use ($array_palavras) {
                 // Construa a lógica da consulta para pesquisar qualquer uma das palavras-chave
-                foreach ($texto_busca as $palavra) {
+                foreach ($array_palavras as $palavra) {
                     //$query->orWhereRaw("unaccent(textos_series.titulo) ilike unaccent('%$keyword%')");
                     $query->whereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$palavra%')");
                 }
