@@ -21,6 +21,28 @@ class ProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/projeto/{id}",
+     *     operationId="get",
+     *     tags={"projeto"},
+     *     @OA\Parameter(
+     *       name="id",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do projeto",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados do projeto",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/projeto")
+     *         )
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

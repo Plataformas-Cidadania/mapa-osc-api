@@ -54,6 +54,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbPublicoBeneficiadoProjeto[] $osc.tbPublicoBeneficiadoProjetos
  * @property Osc.tbObjetivoProjeto[] $osc.tbObjetivoProjetos
  * @property Osc.tbOscParceiraProjeto[] $osc.tbOscParceiraProjetos
+ * 
+ * @OA\Schema(
+ *   schema="projeto",
+ *   description="Projeto model",
+ * )
+ * 
  */
 class Projeto extends Model
 {
@@ -65,6 +71,12 @@ class Projeto extends Model
     protected $table = 'osc.tb_projeto';
 
     /**
+     *  @OA\Property(
+     *     property="id",
+     *     type="string",
+     *     example="",
+     *     description="Número de identificação do projeto"
+     *   )
      * The primary key for the model.
      * 
      * @var string

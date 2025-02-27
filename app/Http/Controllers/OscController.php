@@ -72,6 +72,7 @@ class OscController extends Controller
      *     @OA\Response(
      *         response="200",
      *         description="Retorna uma OSC de acordo com o ID",
+     *         @OA\JsonContent(ref="#/components/schemas/osc")
      *     ),
      * )
      */
