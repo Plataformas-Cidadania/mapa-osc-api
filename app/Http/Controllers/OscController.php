@@ -23,13 +23,17 @@ class OscController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/",
-     *     operationId="/",
-     *     tags={"API Mapa"},
+     *     path="/api/osc",
+     *     operationId="getAll",
+     *     tags={"osc"},
      *     @OA\Response(
      *         response="200",
-     *         description="Returns top ten COVID-19 case data",
-     *     ),
+     *         description="Retorna todos as OSCs",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/osc")
+     *         )
+     *     )
      * )
      */
     public function getAll()
@@ -52,6 +56,25 @@ class OscController extends Controller
         }
     }
 
+    
+    /**
+     * @OA\Get(
+     *     path="/api/osc/{osc_id}",
+     *     operationId="get",
+     *     tags={"osc"},
+     *     @OA\Parameter(
+     *       name="osc_id",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da OSC",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna uma OSC de acordo com o ID",
+     *     ),
+     * )
+     */
     public function get($id)
     {
         try {

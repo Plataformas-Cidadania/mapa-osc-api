@@ -21,17 +21,66 @@
                 }
             }
         },
-        "/": {
+        "/api/osc": {
             "get": {
                 "tags": [
-                    "API Mapa"
+                    "osc"
                 ],
-                "operationId": "/",
+                "operationId": "getAll",
                 "responses": {
                     "200": {
-                        "description": "Returns top ten COVID-19 case data"
+                        "description": "Retorna todos as OSCs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/osc"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+            }
+        },
+        "/api/osc/{osc_id}": {
+            "get": {
+                "tags": [
+                    "osc"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "osc_id",
+                        "in": "path",
+                        "description": "Número de identificação da OSC",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna uma OSC de acordo com o ID"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "osc": {
+                "description": "Osc model",
+                "properties": {
+                    "id_osc": {
+                        "description": "Número de identificação da Osc",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
             }
         }
     }

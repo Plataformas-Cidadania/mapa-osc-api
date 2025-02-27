@@ -36,6 +36,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbAreaAtuacaoOutra[] $osc.tbAreaAtuacaoOutras
  * @property Osc.tbOscParceiraProjeto[] $osc.tbOscParceiraProjetos
  * @property Portal.tbBarraTransparencium $portal.tbBarraTransparencium
+ * 
+ * @OA\Schema(
+ *   schema="osc",
+ *   description="Osc model",
+ * )
+ * 
  */
 class Osc extends Model
 {
@@ -47,6 +53,13 @@ class Osc extends Model
     protected $table = 'osc.tb_osc';
 
     /**
+     *   @OA\Property(
+     *     property="id_osc",
+     *     type="string",
+     *     example="",
+     *     description="Número de identificação da Osc"
+     *   )
+     *   
      * The primary key for the model.
      * 
      * @var string
