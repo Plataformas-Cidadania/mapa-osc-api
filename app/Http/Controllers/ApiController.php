@@ -8,8 +8,8 @@ class ApiController extends Controller
     //
     /**
      * @OA\Get(
-     *     path="/example",
-     *     summary="Exemplo de rota documentada",
+     *     path="/api",
+     *     summary="Api do Mapa do Mapa v3",
      *     @OA\Response(response=200, description="Success")
      * )
      */

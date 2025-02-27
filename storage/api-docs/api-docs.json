@@ -10,10 +10,10 @@
         "version": "1.0"
     },
     "paths": {
-        "/example": {
+        "/api": {
             "get": {
-                "summary": "Exemplo de rota documentada",
-                "operationId": "e87addda51bffda941f31304b28e6001",
+                "summary": "Api do Mapa do Mapa v3",
+                "operationId": "cd34c3b6e1cfbcfb266b06167c5f59b2",
                 "responses": {
                     "200": {
                         "description": "Success"
