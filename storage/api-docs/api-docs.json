@@ -63,7 +63,48 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retorna uma OSC de acordo com o ID"
+                        "description": "Retorna uma OSC de acordo com o ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/osc"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/{id}": {
+            "get": {
+                "tags": [
+                    "projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Número de identificação do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do projeto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/projeto"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -76,6 +117,17 @@
                 "properties": {
                     "id_osc": {
                         "description": "Número de identificação da Osc",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "projeto": {
+                "description": "Projeto model",
+                "properties": {
+                    "id": {
+                        "description": "Número de identificação do projeto",
                         "type": "string",
                         "example": ""
                     }
