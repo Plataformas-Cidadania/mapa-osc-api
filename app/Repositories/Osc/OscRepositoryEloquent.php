@@ -94,6 +94,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'ft_ano_cadastro_cnpj' => $osc->dados_gerais->ft_ano_cadastro_cnpj,
             'dt_fundacao_osc' => $osc->dados_gerais->dt_fundacao_osc,
             'ft_fundacao_osc' => $osc->dados_gerais->ft_fundacao_osc,
+            'cd_situacao_cadastral' => $osc->dados_gerais->cd_situacao_cadastral, //CAMPO ADICIONADO NO BD PELO MURILO
             //LOCALIZAÇÃO
             'tx_endereco' => $osc->localizacao->tx_endereco,
             'ft_endereco' => $osc->localizacao->ft_endereco,
