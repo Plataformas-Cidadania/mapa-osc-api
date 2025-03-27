@@ -25,7 +25,7 @@ class OscController extends Controller
      * @OA\Get(
      *     path="/api/osc",
      *     operationId="getAll",
-     *     tags={"osc"},
+     *     tags={"Osc"},
      *     @OA\Response(
      *         response="200",
      *         description="Retorna todos as OSCs",
@@ -61,7 +61,7 @@ class OscController extends Controller
      * @OA\Get(
      *     path="/api/osc/{osc_id}",
      *     operationId="get",
-     *     tags={"osc"},
+     *     tags={"Osc"},
      *     @OA\Parameter(
      *       name="osc_id",
      *       in="path",

@@ -25,7 +25,7 @@ class ProjetoController extends Controller
      * @OA\Get(
      *     path="/api/osc/projeto/{id}",
      *     operationId="get",
-     *     tags={"projeto"},
+     *     tags={"Projeto"},
      *     @OA\Parameter(
      *       name="id",
      *       in="path",

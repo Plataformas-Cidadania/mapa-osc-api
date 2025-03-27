@@ -12,6 +12,9 @@
     "paths": {
         "/api": {
             "get": {
+                "tags": [
+                    "Api"
+                ],
                 "summary": "Api do Mapa do Mapa v3",
                 "operationId": "cd34c3b6e1cfbcfb266b06167c5f59b2",
                 "responses": {
@@ -24,7 +27,7 @@
         "/api/osc": {
             "get": {
                 "tags": [
-                    "osc"
+                    "Osc"
                 ],
                 "operationId": "getAll",
                 "responses": {
@@ -47,7 +50,7 @@
         "/api/osc/{osc_id}": {
             "get": {
                 "tags": [
-                    "osc"
+                    "Osc"
                 ],
                 "operationId": "get",
                 "parameters": [
@@ -78,7 +81,7 @@
         "/api/osc/projeto/{id}": {
             "get": {
                 "tags": [
-                    "projeto"
+                    "Projeto"
                 ],
                 "operationId": "get",
                 "parameters": [
