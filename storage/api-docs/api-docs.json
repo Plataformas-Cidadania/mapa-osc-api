@@ -117,6 +117,71 @@
                 "properties": {
                     "id_osc": {
                         "description": "Número de identificação da Osc",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "tx_apelido_osc": {
+                        "description": "Apelido da Osc",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "ft_apelido_osc": {
+                        "description": "Fonte de origem do Apelido da Osc",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "cd_identificador_osc": {
+                        "description": "CNPJ da Osc",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "ft_identificador_osc": {
+                        "description": "Fonte da origem do CNPJ da Osc",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "bo_osc_ativa": {
+                        "description": "Campo descreve ativação da OSC no Portal",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "bo_nao_possui_projeto": {
+                        "description": "Campo que diz se a OSC tem projeto ou não",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "ft_nao_possui_projeto": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem projeto ou não",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "bo_nao_possui_ps_conselhos": {
+                        "description": "Campo que diz se a OSC tem conselhos ou não",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "ft_nao_possui_ps_conselhos": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem conselhos ou não",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "bo_nao_possui_ps_conferencias": {
+                        "description": "Campo que diz se a OSC tem conferencias ou não",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "ft_nao_possui_ps_conferencias": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem conferencias ou não",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "bo_nao_possui_ps_outros_espacos": {
+                        "description": "Campo que diz se a OSC tem outros espaços ou não",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "ft_nao_possui_ps_outros_espacos": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem outros espaços ou não",
                         "type": "string",
                         "example": ""
                     }
