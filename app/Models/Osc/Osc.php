@@ -56,7 +56,6 @@ class Osc extends Model
      *   @OA\Property(
      *     property="id_osc",
      *     type="integer",
-     *     example="",
      *     description="Número de identificação da Osc"
      *   )
      *   
@@ -77,7 +76,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="tx_apelido_osc",
          *     type="string",
-         *     example="",
          *     description="Apelido da Osc"
          *   )
          *
@@ -91,7 +89,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_apelido_osc",
          *     type="string",
-         *     example="",
          *     description="Fonte de origem do Apelido da Osc"
          *   )
          *
@@ -105,7 +102,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="cd_identificador_osc",
          *     type="integer",
-         *     example="",
          *     description="CNPJ da Osc"
          *   )
          *
@@ -119,7 +115,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_identificador_osc",
          *     type="string",
-         *     example="",
          *     description="Fonte da origem do CNPJ da Osc"
          *   )
          *
@@ -135,7 +130,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="bo_osc_ativa",
          *     type="integer",
-         *     example="",
          *     description="Campo descreve ativação da OSC no Portal"
          *   )
          *
@@ -149,7 +143,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="bo_nao_possui_projeto",
          *     type="integer",
-         *     example="",
          *     description="Campo que diz se a OSC tem projeto ou não"
          *   )
          *
@@ -163,7 +156,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_nao_possui_projeto",
          *     type="string",
-         *     example="",
          *     description="Fonte da origem do Campo que diz se a OSC tem projeto ou não"
          *   )
          *
@@ -177,7 +169,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="bo_nao_possui_ps_conselhos",
          *     type="integer",
-         *     example="",
          *     description="Campo que diz se a OSC tem conselhos ou não"
          *   )
          *
@@ -191,7 +182,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_nao_possui_ps_conselhos",
          *     type="string",
-         *     example="",
          *     description="Fonte da origem do Campo que diz se a OSC tem conselhos ou não"
          *   )
          *
@@ -205,7 +195,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="bo_nao_possui_ps_conferencias",
          *     type="integer",
-         *     example="",
          *     description="Campo que diz se a OSC tem conferencias ou não"
          *   )
          *
@@ -219,7 +208,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_nao_possui_ps_conferencias",
          *     type="string",
-         *     example="",
          *     description="Fonte da origem do Campo que diz se a OSC tem conferencias ou não"
          *   )
          *
@@ -233,7 +221,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="bo_nao_possui_ps_outros_espacos",
          *     type="integer",
-         *     example="",
          *     description="Campo que diz se a OSC tem outros espaços ou não"
          *   )
          *
@@ -247,7 +234,6 @@ class Osc extends Model
          *   @OA\Property(
          *     property="ft_nao_possui_ps_outros_espacos",
          *     type="string",
-         *     example="",
          *     description="Fonte da origem do Campo que diz se a OSC tem outros espaços ou não"
          *   )
          *
