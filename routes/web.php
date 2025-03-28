@@ -96,6 +96,10 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/area_atuacao/', 'DCAreaAtuacaoController@getAll');
     $router->get('/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
+//---SITUAÇÃO CADASTRAL----//
+    $router->get('/situacao_cadastral/', 'DCSituacaoCadastralController@getAll');
+    $router->get('/situacao_cadastral/{id}', 'DCSituacaoCadastralController@get');
+
 
 //---PARTICIPAÇÃO SOCIAL----//
     $router->get('/ps_conselhos/', 'DCConselhoController@getAll');

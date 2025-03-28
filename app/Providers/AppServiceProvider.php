@@ -119,6 +119,9 @@ class AppServiceProvider extends ServiceProvider
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
+            'App\Repositories\Syst\DCSituacaoCadastralRepositoryInterface', 'App\Repositories\Syst\DCSituacaoCadastralRepositoryEloquent'
+        );
+        $this->app->bind(
             'App\Repositories\Syst\DCAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCAreaAtuacaoRepositoryEloquent'
         );
         $this->app->bind(
