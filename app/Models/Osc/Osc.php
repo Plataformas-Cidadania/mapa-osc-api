@@ -73,6 +73,7 @@ class Osc extends Model
         'ft_nao_possui_ps_conferencias',
         'bo_nao_possui_ps_outros_espacos',
         'ft_nao_possui_ps_outros_espacos',
+        'dc_situacao_cadastral',
     ];
 
     protected $attributes = [
