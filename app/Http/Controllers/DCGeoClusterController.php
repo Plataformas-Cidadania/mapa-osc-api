@@ -34,7 +34,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/municipios/estado/{id_estado}",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Parameter(
      *       name="id_estado",
      *       in="path",
@@ -62,7 +62,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/estados/regiao/{id_regiao}",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Parameter(
      *       name="id_regiao",
      *       in="path",
@@ -90,7 +90,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/oscs/estado/{id_estado}",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Parameter(
      *       name="id_estado",
      *       in="path",
@@ -118,7 +118,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/oscs/municipio/{id_municipio}",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Parameter(
      *       name="id_municipio",
      *       in="path",
@@ -166,7 +166,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/regioes",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Response(
      *         response="200",
      *         description="Retorna todas as regiões."
@@ -187,7 +187,7 @@ class DCGeoClusterController extends Controller
      * @OA\Get(
      *     path="/api/geo/estados",
      *     operationId="get",
-     *     tags={"geo"},
+     *     tags={"Geo"},
      *     @OA\Response(
      *         response="200",
      *         description="Retorna todos os estados."
