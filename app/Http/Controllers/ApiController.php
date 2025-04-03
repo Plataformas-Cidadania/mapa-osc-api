@@ -9,6 +9,7 @@ class ApiController extends Controller
     /**
      * @OA\Get(
      *     path="/api",
+     *     tags={"Api"},
      *     summary="Api do Mapa do Mapa v3",
      *     @OA\Response(response=200, description="Success")
      * )
