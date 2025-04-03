@@ -31,7 +31,7 @@ class ProjetoController extends Controller
      *       in="path",
      *       required=true,
      *       description="Número de identificação do projeto",
-     *       @OA\Schema(type="string")
+     *       @OA\Schema(type="int")
      *     ),
      *     @OA\Response(
      *         response="200",
