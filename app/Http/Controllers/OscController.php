@@ -188,7 +188,7 @@ class OscController extends Controller
     /**
      * @OA\Get(
      *     path="/api/osc/projetos/{id_osc}",
-     *     operationId="get",
+     *     operationId="getProjetos",
      *     tags={"Projeto"},
      *     @OA\Parameter(
      *       name="id_osc",

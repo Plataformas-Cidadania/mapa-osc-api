@@ -52,7 +52,7 @@ class OscParceiraProjetoController extends Controller
     /**
      * @OA\Get(
      *     path="/api/osc/projeto/parceiras/{id_projeto}",
-     *     operationId="get",
+     *     operationId="getParceriasPorProjeto",
      *     tags={"Projeto"},
      *     @OA\Parameter(
      *       name="id_projeto",
