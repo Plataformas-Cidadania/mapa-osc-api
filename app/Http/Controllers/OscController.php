@@ -185,6 +185,24 @@ class OscController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/projetos/{id_osc}",
+     *     operationId="getProjetos",
+     *     tags={"Projeto"},
+     *     @OA\Parameter(
+     *       name="id_osc",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da OSC",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados e todos os projetos de acordo com a OSC informado."
+     *     )
+     * )
+     */
     public function getProjetos($id)
     {
         try {

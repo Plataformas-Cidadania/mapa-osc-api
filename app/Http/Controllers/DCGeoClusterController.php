@@ -30,6 +30,24 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/geo/municipios/estado/{id_estado}",
+     *     operationId="getMunicipiosPorEstado",
+     *     tags={"Geo"},
+     *     @OA\Parameter(
+     *       name="id_estado",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do estado",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados do estado de acordo com o estado informado."
+     *     )
+     * )
+     */
     public function getMunicipiosPorEstado($id_estado)
     {
         try {
@@ -40,6 +58,28 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/geo/estados/regiao/{id_regiao}",
+     *     operationId="getEstadosPorRegiao",
+     *     tags={"Geo"},
+     *     @OA\Parameter(
+     *       name="id_regiao",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da região",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da região de acordo com a região informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
+     *         )
+     *     )
+     * )
+     */
     public function getEstadosPorRegiao($id_regiao)
     {
         try {
@@ -50,6 +90,24 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/geo/oscs/estado/{id_estado}",
+     *     operationId="getOSCsPorEstado",
+     *     tags={"Geo"},
+     *     @OA\Parameter(
+     *       name="id_estado",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do estado",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as OSCs de acordo com o estado informado."
+     *     )
+     * )
+     */
     public function getOSCsPorEstado($id_regiao)
     {
         try {
@@ -60,6 +118,24 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/geo/oscs/municipio/{id_municipio}",
+     *     operationId="getOSCsPorMunicipio",
+     *     tags={"Geo"},
+     *     @OA\Parameter(
+     *       name="id_municipio",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do municipio",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as OSCs de acordo com o municipio informado."
+     *     )
+     * )
+     */
     public function getOSCsPorMunicipio($id_regiao)
     {
         try {
@@ -90,6 +166,17 @@ class DCGeoClusterController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/geo/regioes",
+     *     operationId="getRegiaoAll",
+     *     tags={"Geo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as regiões."
+     *     )
+     * )
+     */
     public function getRegiaoAll()
     {
         try {
@@ -99,6 +186,18 @@ class DCGeoClusterController extends Controller
             return $e->getMessage();
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/geo/estados",
+     *     operationId="getEstadoAll",
+     *     tags={"Geo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os estados."
+     *     )
+     * )
+     */
 
     public function getEstadoAll()
     {

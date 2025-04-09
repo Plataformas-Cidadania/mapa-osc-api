@@ -31,14 +31,14 @@ class ProjetoController extends Controller
      *       in="path",
      *       required=true,
      *       description="Número de identificação do projeto",
-     *       @OA\Schema(type="string")
+     *       @OA\Schema(type="int")
      *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Retorna dados do projeto",
      *         @OA\JsonContent(
      *           type="array",
-     *           @OA\Items(ref="#/components/schemas/projeto")
+     *           @OA\Items(ref="#/components/schemas/Projeto")
      *         )
      *     )
      * )
