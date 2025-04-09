@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Mapa OSC Data API",
-        "description": "This is an API that scrape data from https://www.mapaosc.ipea.gov.br/ and serve the data in JSON format",
+        "description": "É uma API REST que alimenta o website https://www.mapaosc.ipea.gov.br/",
         "contact": {
             "name": "Mapa das OSCs",
             "email": "mapaosc@gmail.com"
@@ -20,6 +20,138 @@
                 "responses": {
                     "200": {
                         "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/geo/municipios/estado/{id_estado}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getMunicipiosPorEstado",
+                "parameters": [
+                    {
+                        "name": "id_estado",
+                        "in": "path",
+                        "description": "Número de identificação do estado",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do estado de acordo com o estado informado."
+                    }
+                }
+            }
+        },
+        "/api/geo/estados/regiao/{id_regiao}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getEstadosPorRegiao",
+                "parameters": [
+                    {
+                        "name": "id_regiao",
+                        "in": "path",
+                        "description": "Número de identificação da região",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da região de acordo com a região informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCGeoCluster"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/oscs/estado/{id_estado}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getOSCsPorEstado",
+                "parameters": [
+                    {
+                        "name": "id_estado",
+                        "in": "path",
+                        "description": "Número de identificação do estado",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as OSCs de acordo com o estado informado."
+                    }
+                }
+            }
+        },
+        "/api/geo/oscs/municipio/{id_municipio}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getOSCsPorMunicipio",
+                "parameters": [
+                    {
+                        "name": "id_municipio",
+                        "in": "path",
+                        "description": "Número de identificação do municipio",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as OSCs de acordo com o municipio informado."
+                    }
+                }
+            }
+        },
+        "/api/geo/regioes": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getRegiaoAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as regiões."
+                    }
+                }
+            }
+        },
+        "/api/geo/estados": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getEstadoAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os estados."
                     }
                 }
             }
@@ -78,6 +210,78 @@
                 }
             }
         },
+        "/api/osc/projetos/{id_osc}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "getProjetos",
+                "parameters": [
+                    {
+                        "name": "id_osc",
+                        "in": "path",
+                        "description": "Número de identificação da OSC",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados e todos os projetos de acordo com a OSC informado."
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/parceira/{id}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Número de identificação da parceira",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os dados da parceria do projeto de acordo com identificação da parceira informado."
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/parceiras/{id_projeto}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "getParceriasPorProjeto",
+                "parameters": [
+                    {
+                        "name": "id_projeto",
+                        "in": "path",
+                        "description": "Número de identificação do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as parcerias dos projetos de acordo com o projeto informado."
+                    }
+                }
+            }
+        },
         "/api/osc/projeto/{id}": {
             "get": {
                 "tags": [
@@ -91,7 +295,7 @@
                         "description": "Número de identificação do projeto",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "int"
                         }
                     }
                 ],
@@ -103,7 +307,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/projeto"
+                                        "$ref": "#/components/schemas/Projeto"
                                     }
                                 }
                             }
@@ -177,13 +381,183 @@
                 },
                 "type": "object"
             },
-            "projeto": {
+            "Projeto": {
                 "description": "Projeto model",
                 "properties": {
                     "id": {
                         "description": "Número de identificação do projeto",
                         "type": "string",
                         "example": ""
+                    },
+                    "id_osc": {
+                        "description": "Identificação da OSC.",
+                        "type": "int"
+                    },
+                    "cd_status_projeto": {
+                        "description": "Identificação de status do projeto.",
+                        "type": "int"
+                    },
+                    "cd_abrangencia_projeto": {
+                        "description": "Identificação da abrangencia.",
+                        "type": "int"
+                    },
+                    "cd_zona_atuacao_projeto": {
+                        "description": "Identificação da zona de atuação.",
+                        "type": "int"
+                    },
+                    "cd_municipio": {
+                        "description": "Identificação do município.",
+                        "type": "int"
+                    },
+                    "cd_uf": {
+                        "description": "Identificação do estado.",
+                        "type": "string"
+                    },
+                    "tx_nome_projeto": {
+                        "description": "Nome do projeto.",
+                        "type": "string"
+                    },
+                    "ft_nome_projeto": {
+                        "description": "Fonte do dado sobre o nome do projeto.",
+                        "type": "string"
+                    },
+                    "ft_status_projeto": {
+                        "description": "Fonte do dado sobre o status do projeto.",
+                        "type": "string"
+                    },
+                    "dt_data_inicio_projeto": {
+                        "description": "Data de inicio do projeto.",
+                        "type": "string"
+                    },
+                    "ft_data_inicio_projeto": {
+                        "description": "Fonte do dado sobre data de inicio do projeto.",
+                        "type": "string"
+                    },
+                    "dt_data_fim_projeto": {
+                        "description": "Data de fim do projeto.",
+                        "type": "string"
+                    },
+                    "ft_data_fim_projeto": {
+                        "description": "Fonte do dado sobre data de inicio do projetoIdentificação da OSC.",
+                        "type": "string"
+                    },
+                    "tx_link_projeto": {
+                        "description": "Link do projeto.",
+                        "type": "string"
+                    },
+                    "ft_link_projeto": {
+                        "description": "Fonte do dado sobre link do projeto.",
+                        "type": "string"
+                    },
+                    "nr_total_beneficiarios": {
+                        "description": "Total de beneficiários.",
+                        "type": "string"
+                    },
+                    "ft_total_beneficiarios": {
+                        "description": "Fonte do dado sobre total de beneficiários.",
+                        "type": "string"
+                    },
+                    "nr_valor_captado_projeto": {
+                        "description": "Valor captado do projeto.",
+                        "type": "string"
+                    },
+                    "ft_valor_captado_projeto": {
+                        "description": "Fonte do dado sobre valor captado do projeto.",
+                        "type": "string"
+                    },
+                    "nr_valor_total_projeto": {
+                        "description": "Valor total do projeto.",
+                        "type": "string"
+                    },
+                    "ft_valor_total_projeto": {
+                        "description": "Fonte do dado sobre valor total do projeto.",
+                        "type": "string"
+                    },
+                    "ft_abrangencia_projeto": {
+                        "description": "Fonte do dado sobre abrangencia.",
+                        "type": "string"
+                    },
+                    "ft_zona_atuacao_projeto": {
+                        "description": "Fonte do dado sobre zona de atuação.",
+                        "type": "string"
+                    },
+                    "tx_descricao_projeto": {
+                        "description": "Descrição do projeto.",
+                        "type": "string"
+                    },
+                    "ft_descricao_projeto": {
+                        "description": "Fonte do dado sobre descrição do projeto.",
+                        "type": "string"
+                    },
+                    "ft_metodologia_monitoramento": {
+                        "description": "Fonte do dado sobre metodologia de monitoramento.",
+                        "type": "string"
+                    },
+                    "tx_metodologia_monitoramento": {
+                        "description": "Metodologia de monitoramento.",
+                        "type": "string"
+                    },
+                    "tx_identificador_projeto_externo": {
+                        "description": "Identificador do projeto externo.",
+                        "type": "string"
+                    },
+                    "ft_identificador_projeto_externo": {
+                        "description": "Fonte do dado sobre identificador do projeto externo.",
+                        "type": "string"
+                    },
+                    "bo_oficial": {
+                        "description": "BO oficial.",
+                        "type": "boolean"
+                    },
+                    "tx_status_projeto_outro": {
+                        "description": "Status de outro projeto.",
+                        "type": "string"
+                    },
+                    "ft_municipio": {
+                        "description": "Fonte do dado sobre município.",
+                        "type": "string"
+                    },
+                    "ft_uf": {
+                        "description": "Fonte do dado sobre estado.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCGeoCluster": {
+                "description": "Descrição ",
+                "properties": {
+                    "id_regiao": {
+                        "description": "Número de identificação da região",
+                        "type": "integer"
+                    },
+                    "cd_tipo_regiao": {
+                        "description": "Identificação do tipo da região.",
+                        "type": "string"
+                    },
+                    "tx_tipo_regiao": {
+                        "description": "Texto do tipo da região.",
+                        "type": "string"
+                    },
+                    "tx_nome_regiao": {
+                        "description": "Texto do nome da região.",
+                        "type": "string"
+                    },
+                    "tx_sigla_regiao": {
+                        "description": "Texto da sigla da região.",
+                        "type": "string"
+                    },
+                    "geo_lat_centroid_regiao": {
+                        "description": "Latitude da região.",
+                        "type": "string"
+                    },
+                    "geo_lng_centroid_regiao": {
+                        "description": "Longitude da região.",
+                        "type": "string"
+                    },
+                    "nr_quantidade_osc_regiao": {
+                        "description": "Quantidade de OSC na região.",
+                        "type": "string"
                     }
                 },
                 "type": "object"

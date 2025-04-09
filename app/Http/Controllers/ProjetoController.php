@@ -38,7 +38,7 @@ class ProjetoController extends Controller
      *         description="Retorna dados do projeto",
      *         @OA\JsonContent(
      *           type="array",
-     *           @OA\Items(ref="#/components/schemas/projeto")
+     *           @OA\Items(ref="#/components/schemas/Projeto")
      *         )
      *     )
      * )

@@ -56,7 +56,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbOscParceiraProjeto[] $osc.tbOscParceiraProjetos
  * 
  * @OA\Schema(
- *   schema="projeto",
+ *   schema="Projeto",
  *   description="Projeto model",
  * )
  * 
@@ -161,7 +161,7 @@ class Projeto extends Model
 
          /**
          *   @OA\Property(
-         *     property="id_osc",
+         *     property="ft_status_projeto",
          *     type="string",
          *     description="Fonte do dado sobre o status do projeto."
          *   )
@@ -351,7 +351,7 @@ class Projeto extends Model
          /**
          *   @OA\Property(
          *     property="bo_oficial",
-         *     type="string",
+         *     type="boolean",
          *     description="BO oficial."
          *   )
          */
