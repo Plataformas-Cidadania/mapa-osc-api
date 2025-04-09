@@ -242,6 +242,7 @@ class Osc extends Model
          * @var string
          */
         'ft_nao_possui_ps_outros_espacos',
+        'dc_situacao_cadastral',
     ];
 
     protected $attributes = [
