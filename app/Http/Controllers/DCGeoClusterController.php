@@ -44,7 +44,11 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna dados do estado de acordo com o estado informado."
+     *         description="Retorna dados do estado de acordo com o estado informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
+     *         )
      *     )
      * )
      */
@@ -104,7 +108,11 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos as OSCs de acordo com o estado informado."
+     *         description="Retorna todos as OSCs de acordo com o estado informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")
+     *         )
      *     )
      * )
      */
@@ -132,7 +140,11 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos as OSCs de acordo com o municipio informado."
+     *         description="Retorna todos as OSCs de acordo com o municipio informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")
+     *         )
      *     )
      * )
      */
@@ -173,7 +185,11 @@ class DCGeoClusterController extends Controller
      *     tags={"Geo"},
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todas as regiões."
+     *         description="Retorna todas as regiões.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
+     *         )
      *     )
      * )
      */
@@ -194,7 +210,11 @@ class DCGeoClusterController extends Controller
      *     tags={"Geo"},
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos os estados."
+     *         description="Retorna todos os estados.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
+     *         )
      *     )
      * )
      */
