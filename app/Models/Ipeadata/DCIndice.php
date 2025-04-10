@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_tema
  * @property IpeaData[] $ipea_datas
  * @property DCIpeadataUff[] $ipea_datas_uff
+ * 
+ * @OA\Schema(
+ *   schema="DCIndice",
+ *   description="Objeto de indice ",
+ * )
  */
 class DCIndice extends Model
 {
@@ -22,6 +27,11 @@ class DCIndice extends Model
     protected $table = 'ipeadata.tb_indice';
 
     /**
+     * @OA\Property(
+     *     property="cd_certificado",
+     *     type="integer",
+     *     description="Número de identificação do certificado"
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -31,7 +41,34 @@ class DCIndice extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_indice', 'tx_sigla', 'tx_tema'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_indice",
+         *     type="string",
+         *     description="Nome do indice."
+         *   )
+         */
+        'tx_nome_indice', 
+        
+        /**
+         * @OA\Property(
+         *     property="tx_sigla",
+         *     type="string",
+         *     description="Sigla do indice."
+         *   )
+         */
+        'tx_sigla', 
+        
+        /**
+         * @OA\Property(
+         *     property="tx_tema",
+         *     type="string",
+         *     description="Tema do indice."
+         *   )
+         */
+        'tx_tema'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

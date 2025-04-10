@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @OA\Schema(
  *   schema="DCGeoCluster",
- *   description="Descrição ",
+ *   description="Objeto de geolocalização ",
  * )
  */
 class DCGeoCluster extends Model

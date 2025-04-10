@@ -65,6 +65,18 @@ class DCGeoClusterRepositoryEloquent implements DCGeoClusterRepositoryInterface
         return $regs;
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="OSCsPorEstado",
+     *     type="object",
+     *     @OA\Property(property="id_osc", type="int", example="0"),
+     *     @OA\Property(property="tx_apelido_osc", type="string", example="string"),
+     *     @OA\Property(property="geo_lat", type="string", example="string"),
+     *     @OA\Property(property="geo_lng", type="string", example="string"),
+     *     @OA\Property(property="geo_centroid_municipio", type="string", example="string")
+     * )
+    */
+
     public function getOSCsPorEstado($id_regiao)
     {
         $query = "SELECT

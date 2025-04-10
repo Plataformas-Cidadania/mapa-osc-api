@@ -21,6 +21,21 @@ class DCStatusProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/status_projeto",
+     *     operationId="getAll",
+     *     tags={"Status projeto"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os status do projeto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCStatusProjeto")
+     *         )
+     *     )
+     * )
+     */ 
     public function getAll()
     {
         try {
@@ -31,6 +46,28 @@ class DCStatusProjetoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/status_projeto/{id_status_projeto}",
+     *     operationId="get",
+     *     tags={"Status projeto"},
+     *     @OA\Parameter(
+     *       name="id_certificado",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do status projeto",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados status do projeto de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCStatusProjeto")
+     *         )
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {
