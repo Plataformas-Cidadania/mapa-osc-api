@@ -104,7 +104,6 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/situacao_cadastral/', 'DCSituacaoCadastralController@getAll');
     $router->get('/situacao_cadastral/{id}', 'DCSituacaoCadastralController@get');
 
-
 //---PARTICIPAÇÃO SOCIAL----//
     $router->get('/ps_conselhos/', 'DCConselhoController@getAll');
     $router->get('/ps_conselhos/{id}', 'DCConselhoController@get');
@@ -193,7 +192,20 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
+    //ROTAS PADA ASSINATURA DE TERMOS PELO REPRESENTANTE USUARIO
+    $router->get('/assinatura-termos/{id}', 'AssinaturaTermoController@get');
+    $router->get('/assinatura-termos/', 'AssinaturaTermoController@getAll');
+    $router->get('/assinatura-termos/all-por-representacao/{id_representacao}', 'AssinaturaTermoController@getAllPorRepresentacao');
+    $router->get('/assinatura-termos/representacao/{id_representacao}/termo/{id_termo}', 'AssinaturaTermoController@getPorRepresentacaoAndTermo');
+    $router->post('/assinatura-termos', 'AssinaturaTermoController@store');
+    $router->delete('/assinatura-termos/{id}', 'AssinaturaTermoController@delete');
 
+    //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
+    $router->get('/termos/{id}', 'TermoController@get');
+    $router->get('/termos', 'TermoController@getAll');
+    $router->put('/termos/{id}', 'TermoController@update');
+    $router->post('/termos', 'TermoController@store');
+    $router->delete('/termos/{id_termo}', 'TermoController@delete');
 
     //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
     $router->post('/user', 'OscController@getFromUsuario');
