@@ -31,7 +31,7 @@ class OscController extends Controller
      *         description="Retorna todos as OSCs",
      *         @OA\JsonContent(
      *           type="array",
-     *           @OA\Items(ref="#/components/schemas/osc")
+     *           @OA\Items(ref="#/components/schemas/Osc")
      *         )
      *     )
      * )
@@ -72,7 +72,7 @@ class OscController extends Controller
      *     @OA\Response(
      *         response="200",
      *         description="Retorna uma OSC de acordo com o ID",
-     *         @OA\JsonContent(ref="#/components/schemas/osc")
+     *         @OA\JsonContent(ref="#/components/schemas/Osc")
      *     ),
      * )
      */

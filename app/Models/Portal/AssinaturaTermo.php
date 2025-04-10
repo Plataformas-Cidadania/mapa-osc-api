@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_termo
  * @property Portal.tbRepresentacao $portal.tbRepresentacao
  * @property Portal.tbTermos $portal.tbTermos
+ *
+ * @OA\Schema(
+ *    schema="AssinaturaTermo",
+ *    description="AssinaturaTermo model",
+ *  )
  */
 class AssinaturaTermo extends Model
 {
@@ -21,6 +26,11 @@ class AssinaturaTermo extends Model
     protected $table = 'portal.tb_assinatura_termo';
 
     /**
+     * @OA\Property(
+     *      property="id_assinatura",
+     *      type="integer",
+     *      description="Número de identificação da Assinatura do Termo"
+     *    )
      * The primary key for the model.
      * 
      * @var string
@@ -30,7 +40,26 @@ class AssinaturaTermo extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_representacao', 'id_termo'];
+    protected $fillable = [
+
+        /**
+         *   @OA\Property(
+         *     property="id_representacao",
+         *     type="int",
+         *     description="Identificação da Representação Criada para OSC."
+         *   )
+         */
+        'id_representacao',
+
+        /**
+         *   @OA\Property(
+         *     property="id_termo",
+         *     type="int",
+         *     description="Identificação do Termo Assinado."
+         *   )
+         */
+        'id_termo'
+    ];
 
     public $timestamps = false;
 

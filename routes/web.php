@@ -187,6 +187,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
 $router->group(['prefix' => '/api/osc'], function() use ($router){
+//$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->post('/representacao/', 'RepresentacaoController@store');
@@ -201,8 +202,6 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/assinatura-termos/{id}', 'AssinaturaTermoController@delete');
 
     //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
-    $router->get('/termos/{id}', 'TermoController@get');
-    $router->get('/termos', 'TermoController@getAll');
     $router->put('/termos/{id}', 'TermoController@update');
     $router->post('/termos', 'TermoController@store');
     $router->delete('/termos/{id_termo}', 'TermoController@delete');
@@ -323,7 +322,12 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->delete('/quadro-societario/{id}', 'QuadroSocietarioController@delete');
 });
 
+//ROTAS SEM AUTENTICAÇÃO DO USUARIO
 $router->group(['prefix' => '/api/osc'], function() use ($router){
+
+    //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
+    $router->get('/termos/{id}', 'TermoController@get');
+    $router->get('/termos', 'TermoController@getAll');
 
     //BUSCA AVANÇADA
     $router->get('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');

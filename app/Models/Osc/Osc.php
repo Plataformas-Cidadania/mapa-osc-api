@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Portal.tbBarraTransparencium $portal.tbBarraTransparencium
  * 
  * @OA\Schema(
- *   schema="osc",
+ *   schema="Osc",
  *   description="Osc model",
  * )
  * 

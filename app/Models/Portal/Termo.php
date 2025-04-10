@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id_termo
  * @property string $tx_nome
+ * @OA\Schema(
+ *     schema="Termo",
+ *     description="Termo model",
+ *   )
+ * /
  */
 class Termo extends Model
 {

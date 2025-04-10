@@ -20,6 +20,21 @@ class TermoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/termos",
+     *     operationId="getAll",
+     *     tags={"Termo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as Termos da Base",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/Termo")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -30,6 +45,21 @@ class TermoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/termos/{id}",
+     *     operationId="get",
+     *     tags={"Termo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna Termo pelo Identificador",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/Termo")
+     *         )
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

@@ -20,6 +20,21 @@ class AssinaturaTermoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/assinatura-termos",
+     *     operationId="getAll",
+     *     tags={"Assinaturas de Termo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as Assinaturas da Base",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/AssinaturaTermo")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -30,6 +45,21 @@ class AssinaturaTermoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/assinatura-termos/{id}",
+     *     operationId="get",
+     *     tags={"Assinaturas de Termo"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna a Assinatura pelo Identificador",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/AssinaturaTermo")
+     *         )
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

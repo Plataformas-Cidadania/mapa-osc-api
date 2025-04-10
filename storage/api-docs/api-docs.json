@@ -24,6 +24,52 @@
                 }
             }
         },
+        "/api/osc/assinatura-termos": {
+            "get": {
+                "tags": [
+                    "Assinaturas de Termo"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as Assinaturas da Base",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AssinaturaTermo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/assinatura-termos/{id}": {
+            "get": {
+                "tags": [
+                    "Assinaturas de Termo"
+                ],
+                "operationId": "get",
+                "responses": {
+                    "200": {
+                        "description": "Retorna a Assinatura pelo Identificador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AssinaturaTermo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/geo/municipios/estado/{id_estado}": {
             "get": {
                 "tags": [
@@ -170,7 +216,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/osc"
+                                        "$ref": "#/components/schemas/Osc"
                                     }
                                 }
                             }
@@ -202,7 +248,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/osc"
+                                    "$ref": "#/components/schemas/Osc"
                                 }
                             }
                         }
@@ -315,11 +361,57 @@
                     }
                 }
             }
+        },
+        "/api/osc/termos": {
+            "get": {
+                "tags": [
+                    "Termo"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as Termos da Base",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Termo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/termos/{id}": {
+            "get": {
+                "tags": [
+                    "Termo"
+                ],
+                "operationId": "get",
+                "responses": {
+                    "200": {
+                        "description": "Retorna Termo pelo Identificador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Termo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
-            "osc": {
+            "Osc": {
                 "description": "Osc model",
                 "properties": {
                     "id_osc": {
@@ -523,6 +615,12 @@
                     }
                 },
                 "type": "object"
+            },
+            "AssinaturaTermo": {
+                "description": "AssinaturaTermo model"
+            },
+            "Termo": {
+                "description": "Termo model"
             },
             "DCGeoCluster": {
                 "description": "Descrição ",
