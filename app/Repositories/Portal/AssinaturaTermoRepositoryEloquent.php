@@ -21,22 +21,21 @@ class AssinaturaTermoRepositoryEloquent implements AssinaturaTermoRepositoryInte
 
     public function get($id)
     {
-        return $this->model->find($id)->with('termo')->with('representacao');
+        return $this->model->with(['representacao', 'termo'])
+            ->find($id);
     }
 
     public function getAllPorRepresentacao($id_representacao)
     {
-        return $this->model
-            ->with('representacao')
-            ->with('termo')
-            ->where('id_representacao', $id_representacao)->get();
+        return $this->model->with(['representacao', 'termo'])
+            ->where('id_representacao', $id_representacao)
+            ->get();
     }
 
     public function getPorRepresentacaoAndTermo($id_representacao, $id_termo)
     {
         return $this->model
-            ->with('representacao')
-            ->with('termo')
+            ->with(['representacao', 'termo'])
             ->where('id_representacao', $id_representacao)
             ->where('id_termo', $id_termo)
             ->first();

@@ -65,7 +65,7 @@ class TermoController extends Controller
     public function delete($id_termo) {
 
         try {
-            return response()->json($this->service->delete($id), Response::HTTP_OK);
+            return response()->json($this->service->delete($id_termo), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

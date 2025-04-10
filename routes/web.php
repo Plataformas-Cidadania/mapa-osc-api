@@ -188,21 +188,20 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
-
     //ROTAS PADA ASSINATURA DE TERMOS PELO REPRESENTANTE USUARIO
-    $router->get('/assinatura-temos/{id}', 'AssinaturaTermoController@get');
-    $router->get('/assinatura-temos/all-por-representacao/{id_representacao', 'AssinaturaTermoController@getAllPorRepresentacao');
-    $router->get('/assinatura-temos/representacao/{id_representacao}/termo/{id_termo}', 'AssinaturaTermoController@getPorRepresentacaoAndTermo');
-    $router->post('/assinatura-temos', 'AssinaturaTermoController@store');
-    $router->delete('/assinatura-temos', 'AssinaturaTermoController@delete');
-
+    $router->get('/assinatura-termos/{id}', 'AssinaturaTermoController@get');
+    $router->get('/assinatura-termos/', 'AssinaturaTermoController@getAll');
+    $router->get('/assinatura-termos/all-por-representacao/{id_representacao}', 'AssinaturaTermoController@getAllPorRepresentacao');
+    $router->get('/assinatura-termos/representacao/{id_representacao}/termo/{id_termo}', 'AssinaturaTermoController@getPorRepresentacaoAndTermo');
+    $router->post('/assinatura-termos', 'AssinaturaTermoController@store');
+    $router->delete('/assinatura-termos/{id}', 'AssinaturaTermoController@delete');
 
     //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
-    $router->get('/temos/{id}', 'TermoController@get');
-    $router->get('/temos/all', 'TermoController@getAll');
-    $router->put('/temos', 'TermoController@update');
-    $router->post('/temos', 'TermoController@store');
-    $router->delete('/temos/{id_termo}', 'TermoController@delete');
+    $router->get('/termos/{id}', 'TermoController@get');
+    $router->get('/termos', 'TermoController@getAll');
+    $router->put('/termos/{id}', 'TermoController@update');
+    $router->post('/termos', 'TermoController@store');
+    $router->delete('/termos/{id_termo}', 'TermoController@delete');
 
     //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
     $router->post('/user', 'OscController@getFromUsuario');
