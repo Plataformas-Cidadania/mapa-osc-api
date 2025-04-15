@@ -27,6 +27,11 @@ class RepresentacaoService
         return $this->repo->get($id);
     }
 
+    public function getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario)
+    {
+        return $this->repo->where($id_osc, $id_usuario)->first();
+    }
+
     public function store(array $data)
     {
         $data['id_usuario'] = Auth::user()->id_usuario;
