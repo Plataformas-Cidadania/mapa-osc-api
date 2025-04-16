@@ -58,7 +58,15 @@ class AssinaturaTermo extends Model
          *     description="Identificação do Termo Assinado."
          *   )
          */
-        'id_termo'
+        'id_termo',
+        /**
+         *   @OA\Property(
+         *     property="dt_assinatura_termo",
+         *     type="date",
+         *     description="Data da Assinatura do Termo."
+         *   )
+         */
+        'dt_assinatura_termo'
     ];
 
     public $timestamps = false;

@@ -186,10 +186,11 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-$router->group(['prefix' => '/api/osc'], function() use ($router){
-//$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
+//$router->group(['prefix' => '/api/osc'], function() use ($router){
+$router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
+    $router->get('/representacao/{id_osc}/{id_usuario}', 'RepresentacaoController@getRepresetacaoPorOscAndUsuario');
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
