@@ -44,7 +44,7 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna dados do estado de acordo com o estado informado.",
+     *         description="Retorna os municípios de acordo com o estado informado.",
      *         @OA\JsonContent(
      *           type="array",
      *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
@@ -76,7 +76,7 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna dados da região de acordo com a região informado.",
+     *         description="Retorna os estados de acordo com a região informado.",
      *         @OA\JsonContent(
      *           type="array",
      *           @OA\Items(ref="#/components/schemas/DCGeoCluster")
@@ -108,7 +108,7 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos as OSCs de acordo com o estado informado.",
+     *         description="Retorna todas OSCs de acordo com o estado informado.",
      *         @OA\JsonContent(
      *           type="array",
      *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")
@@ -140,7 +140,7 @@ class DCGeoClusterController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos as OSCs de acordo com o municipio informado.",
+     *         description="Retorna todas OSCs de acordo com o municipio informado.",
      *         @OA\JsonContent(
      *           type="array",
      *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")

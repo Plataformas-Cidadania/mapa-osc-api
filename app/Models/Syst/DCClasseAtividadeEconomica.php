@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $cd_classe_atividade_economica
  * @property string $tx_nome_classe_atividade_economica
  * @property SubclasseAtividadeEconomica[] $DCSubclasseAtividadeEconomicas
+ * 
+ * @OA\Schema(
+ *   schema="DCClasseAtividadeEconomica",
+ *   description="Objeto da classe de atividade econômica"
+ * )
  */
 class DCClasseAtividadeEconomica extends Model
 {
@@ -19,6 +24,11 @@ class DCClasseAtividadeEconomica extends Model
     protected $table = 'syst.dc_classe_atividade_economica';
 
     /**
+     * @OA\Property(
+     *     property="cd_classe_atividade_economica",
+     *     type="integer",
+     *     description="Número da classe de atividade econômica."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -42,7 +52,16 @@ class DCClasseAtividadeEconomica extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_classe_atividade_economica'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_classe_atividade_economica",
+         *     type="string",
+         *     description="Nome da classe de atividade econômica."
+         *   )
+         */
+        'tx_nome_classe_atividade_economica'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -61,10 +61,7 @@ class DCStatusProjetoController extends Controller
      *     @OA\Response(
      *         response="200",
      *         description="Retorna dados status do projeto de acordo com o número de identificação informado.",
-     *         @OA\JsonContent(
-     *           type="array",
-     *           @OA\Items(ref="#/components/schemas/DCStatusProjeto")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/DCStatusProjeto")
      *     )
      * )
      */

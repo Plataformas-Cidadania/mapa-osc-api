@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_status_projeto
  * @property Osc.tbProjeto[] $osc.tbProjetos
  * 
- * * @OA\Schema(
+ * @OA\Schema(
  *   schema="DCStatusProjeto",
  *   description="Objeto de status do projeto ",
  * )

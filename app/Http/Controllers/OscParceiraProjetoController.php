@@ -35,7 +35,8 @@ class OscParceiraProjetoController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna os dados da parceria do projeto de acordo com identificação da parceira informado."
+     *         description="Retorna os dados da parceria do projeto de acordo com identificação da parceira informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/OscParceiraProjeto")
      *     )
      * )
      */
@@ -63,7 +64,11 @@ class OscParceiraProjetoController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todas as parcerias dos projetos de acordo com o projeto informado."
+     *         description="Retorna todas as parcerias dos projetos de acordo com o projeto informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")
+     *         )
      *     )
      * )
      */

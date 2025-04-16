@@ -41,6 +41,28 @@ class DCMetaProjetoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/objetivos/metas/{id_obj}",
+     *     operationId="get",
+     *     tags={"Objetivos"},
+     *     @OA\Parameter(
+     *       name="id_obj",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do objetivo.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados de metas de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCMetaProjeto")
+     *         )
+     *     )
+     * )
+     */
     public function getMetasPorObjetivo($id_objetivo)
     {
         try {

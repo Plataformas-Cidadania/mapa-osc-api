@@ -31,6 +31,25 @@ class DCClasseAtividadeEconomicaController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/classe_economica/autocomplete/{nome_classe_atividade_economica}",
+     *     operationId="getAutocomplete",
+     *     tags={"Classe econômica"},
+     *     @OA\Parameter(
+     *       name="nome_classe_atividade_economica",
+     *       in="path",
+     *       required=true,
+     *       description="Nome classe atividade econômica.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da classe econômica.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCClasseAtividadeEconomica")
+     *     )
+     * )
+     */
     public function getAutocomplete($param)
     {
         try {

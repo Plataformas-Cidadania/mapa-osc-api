@@ -21,6 +21,21 @@ class DCAbrangenciaProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/abrangencia_projeto",
+     *     operationId="getAll",
+     *     tags={"Abrangência projeto"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as abrangências do projeto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCAbrangenciaProjeto")
+     *         )
+     *     )
+     * )
+     */ 
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCAbrangenciaProjetoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/abrangencia_projeto/{id_abrangencia_projeto}",
+     *     operationId="get",
+     *     tags={"Abrangência projeto"},
+     *     @OA\Parameter(
+     *       name="id_abrangencia_projeto",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da abrangência do projeto.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da abrangência do projeto de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCAbrangenciaProjeto")         
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

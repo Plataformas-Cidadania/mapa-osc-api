@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_area_atuacao
  * @property string $tx_nome_area_atuacao
  * @property DCSubareaAtuacao[] $subareas_atuacao
+ * 
+ * @OA\Schema(
+ *   schema="DCAreaAtuacao",
+ *   description="Objeto da area de atuação. "
+ * )
  */
 class DCAreaAtuacao extends Model
 {
@@ -19,6 +24,11 @@ class DCAreaAtuacao extends Model
     protected $table = 'syst.dc_area_atuacao';
 
     /**
+     * @OA\Property(
+     *     property="cd_area_atuacao",
+     *     type="integer",
+     *     description="Número de identificação da area de atuação."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -28,7 +38,16 @@ class DCAreaAtuacao extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_area_atuacao'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_area_atuacao",
+         *     type="string",
+         *     description="Nome da area de atuação."
+         *   )
+         */
+        'tx_nome_area_atuacao'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

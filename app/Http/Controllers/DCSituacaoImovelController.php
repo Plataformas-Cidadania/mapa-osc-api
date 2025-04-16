@@ -61,10 +61,7 @@ class DCSituacaoImovelController extends Controller
      *     @OA\Response(
      *         response="200",
      *         description="Retorna dados da situação do imovel de acordo com o número de identificação informado.",
-     *         @OA\JsonContent(
-     *           type="array",
-     *           @OA\Items(ref="#/components/schemas/DCSituacaoImovel")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/DCSituacaoImovel")
      *     )
      * )
      */

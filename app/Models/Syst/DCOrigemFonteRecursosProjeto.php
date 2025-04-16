@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_origem_fonte_recursos_projeto
  * @property DCFonteRecursosProjeto[] $origem_fonte_recursos_projetos
  * @property DCFonteRecursosProjeto[] $fonte_recursos_projetos
+ * 
+ * @OA\Schema(
+ *   schema="DCOrigemFonteRecursosProjeto",
+ *   description="Objeto da fonte de recursos do projeto ",
+ * )
  */
 class DCOrigemFonteRecursosProjeto extends Model
 {
@@ -20,16 +25,30 @@ class DCOrigemFonteRecursosProjeto extends Model
     protected $table = 'syst.dc_origem_fonte_recursos_projeto';
 
     /**
+     * @OA\Property(
+     *     property="cd_origem_fonte_recursos_projeto",
+     *     type="integer",
+     *     description="Número de identificação da fonte de recursos do projeto"
+     *   )
      * The primary key for the model.
      * 
-     * @var string
+     * @var int
      */
     protected $primaryKey = 'cd_origem_fonte_recursos_projeto';
 
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_origem_fonte_recursos_projeto'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_origem_fonte_recursos_projeto",
+         *     type="string",
+         *     description="Nome da fonte de recursos do projeto"
+         *   )
+         */
+        'tx_nome_origem_fonte_recursos_projeto'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

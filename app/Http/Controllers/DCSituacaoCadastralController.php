@@ -21,6 +21,21 @@ class DCSituacaoCadastralController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/situacao_cadastral",
+     *     operationId="getAll",
+     *     tags={"Situação cadastral"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as situações cadastrais.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCSituacaoCadastral")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -31,6 +46,28 @@ class DCSituacaoCadastralController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/situacao_cadastral/{id_situacao_cadastral}",
+     *     operationId="get",
+     *     tags={"Situação cadastral"},
+     *     @OA\Parameter(
+     *       name="id_situacao_cadastral",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da sitação cadastral.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da situação cadastral de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCSituacaoCadastral")
+     *         )
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

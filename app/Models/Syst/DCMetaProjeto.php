@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property DCObjetivoProjeto $objetivoProjeto
  * @property ObjetivoOsc[] $objetivoOscs
  * @property ObjetivoProjeto[] $objetivoProjetos
+ * 
+ * @OA\Schema(
+ *   schema="DCMetaProjeto",
+ *   description="Objeto metas de projeto."
+ * )
  */
 class DCMetaProjeto extends Model
 {
@@ -24,6 +29,11 @@ class DCMetaProjeto extends Model
     protected $table = 'syst.dc_meta_projeto';
 
     /**
+     * @OA\Property(
+     *     property="cd_meta_projeto",
+     *     type="integer",
+     *     description="Número de meta de projeto."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -33,7 +43,34 @@ class DCMetaProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['cd_objetivo_projeto', 'tx_nome_meta_projeto', 'tx_codigo_meta_projeto'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="cd_objetivo_projeto",
+         *     type="integer",
+         *     description="Número de identificação do objetivo de projeto."
+         *   )
+         */
+        'cd_objetivo_projeto',
+        
+        /**
+         * @OA\Property(
+         *     property="tx_nome_meta_projeto",
+         *     type="string",
+         *     description="Nome da meta de projeto."
+         *   )
+         */
+        'tx_nome_meta_projeto', 
+        
+        /**
+         * @OA\Property(
+         *     property="tx_codigo_meta_projeto",
+         *     type="string",
+         *     description="Nome do número da meta de projeto."
+         *   )
+         */
+        'tx_codigo_meta_projeto'
+    ];
 
     public $timestamps = false;
 

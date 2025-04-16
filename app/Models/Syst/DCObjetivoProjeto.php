@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_objetivo_projeto
  * @property string $tx_codigo_objetivo_projeto
  * @property DCMetaProjeto[] $metaProjetos
+ * 
+ * @OA\Schema(
+ *   schema="DCObjetivoProjeto",
+ *   description="Objeto do objetivo de projeto."
+ * )
  */
 class DCObjetivoProjeto extends Model
 {
@@ -20,6 +25,11 @@ class DCObjetivoProjeto extends Model
     protected $table = 'syst.dc_objetivo_projeto';
 
     /**
+     * @OA\Property(
+     *     property="cd_objetivo_projeto",
+     *     type="integer",
+     *     description="Número do objetivo de projeto."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -29,7 +39,25 @@ class DCObjetivoProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_objetivo_projeto', 'tx_codigo_objetivo_projeto'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_objetivo_projeto",
+         *     type="string",
+         *     description="Nome do objetivo de projeto."
+         *   )
+         */    
+        'tx_nome_objetivo_projeto', 
+        
+        /**
+         * @OA\Property(
+         *     property="tx_codigo_objetivo_projeto",
+         *     type="string",
+         *     description="Nome do número do objetivo de projeto."
+         *   )
+         */
+        'tx_codigo_objetivo_projeto'
+    ];
 
     public $timestamps = false;
 

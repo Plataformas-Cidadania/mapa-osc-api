@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_tipo_participacao
  * @property string $tx_nome_tipo_participacao
  * @property ParticipacaoSocialConselho $participacao_social_conselhos
+ * 
+ * @OA\Schema(
+ *   schema="DCTipoParticipacao",
+ *   description="Objeto do tipo de participação "
+ * )
  */
 class DCTipoParticipacao extends Model
 {
@@ -20,6 +25,11 @@ class DCTipoParticipacao extends Model
     protected $table = 'syst.dc_tipo_participacao';
 
     /**
+     * @OA\Property(
+     *     property="cd_tipo_participacao",
+     *     type="integer",
+     *     description="Número de identificação do tipo de participação"
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -29,7 +39,16 @@ class DCTipoParticipacao extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_tipo_participacao'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_tipo_participacao",
+         *     type="string",
+         *     description="Nome do tipo de participação"
+         *   )
+         */
+        'tx_nome_tipo_participacao'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

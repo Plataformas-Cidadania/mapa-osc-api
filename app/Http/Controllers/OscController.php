@@ -199,7 +199,8 @@ class OscController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna dados e todos os projetos de acordo com a OSC informado."
+     *         description="Retorna dados e todos os projetos de acordo com a OSC informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/Projeto")
      *     )
      * )
      */

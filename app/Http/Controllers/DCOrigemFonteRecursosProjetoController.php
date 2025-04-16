@@ -21,6 +21,21 @@ class DCOrigemFonteRecursosProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/origem_fonte_recurso_projeto",
+     *     operationId="getAll",
+     *     tags={"Fonte de recursos do projeto"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as fontes de recursos do projeto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCOrigemFonteRecursosProjeto")
+     *         )
+     *     )
+     * )
+     */ 
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCOrigemFonteRecursosProjetoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/origem_fonte_recurso_projeto/{id_origem_fonte_recurso_projeto}",
+     *     operationId="get",
+     *     tags={"Fonte de recursos do projeto"},
+     *     @OA\Parameter(
+     *       name="id_origem_fonte_recurso_projeto",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da fonte de recursos do projeto.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da fonte de recursos do projeto de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCOrigemFonteRecursosProjeto")
+     *     )
+     * )
+     */ 
     public function get($id)
     {
         try {
