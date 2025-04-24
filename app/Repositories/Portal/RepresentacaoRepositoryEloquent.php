@@ -25,7 +25,7 @@ class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterfac
         return $this->model->with('usuario')->with('osc')->where('id_representacao', $id)->get();
     }
 
-    public function getId($id_osc, $id_usuario)
+    public function getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario)
     {
         return $this->model->with('usuario')
             ->with('osc')
