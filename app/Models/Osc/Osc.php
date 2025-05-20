@@ -242,7 +242,8 @@ class Osc extends Model
          * @var string
          */
         'ft_nao_possui_ps_outros_espacos',
-        'dc_situacao_cadastral',
+
+        'cd_situacao_cadastral',
     ];
 
     protected $attributes = [
@@ -462,4 +463,13 @@ class Osc extends Model
     {
         return $this->hasMany('App\Models\Osc\FonteRecursos', 'id_osc', 'id_osc');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function situacao_cadastral()
+    {
+        return $this->belongsTo('App\Models\Syst\DCSituacaoCadastral', 'cd_situacao_cadastral', 'cd_situacao_cadastral');
+    }
+
 }

@@ -336,4 +336,13 @@ class OscController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getQuantitativoOscPorSituacaoCadastral(){
+        try {
+            return response()->json($this->service->getQuantitativoOscPorSituacaoCadastral(), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

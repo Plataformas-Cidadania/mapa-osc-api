@@ -347,6 +347,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/', 'OscController@getAll');
     $router->get('/{id}', 'OscController@get');
+    $router->get('/quantitativo/situacao-cadastral', 'OscController@getQuantitativoOscPorSituacaoCadastral');
 
     //ROTAS PARA POPULAR DADOS DA HOME
 

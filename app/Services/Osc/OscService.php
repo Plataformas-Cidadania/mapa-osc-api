@@ -147,4 +147,11 @@ class OscService
         $texto_busca = str_replace("%20", " ", $texto_busca);
         return $this->repo->getListaOscNomeCnpjAutocomplete($texto_busca);
     }
+
+    public function getQuantitativoOscPorSituacaoCadastral()
+    {
+        $quantitativo = $this->repo->getQuantitativoOscPorSituacaoCadastral();
+
+        return $quantitativo;
+    }
 }
