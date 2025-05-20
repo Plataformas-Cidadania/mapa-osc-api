@@ -521,12 +521,6 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
     public function getQuantitativoOscPorSituacaoCadastral()
     {
-//        return $this->model
-//            ->select('cd_situacao_cadastral', DB::raw('count(*) as total'))
-//            ->whereNotNull('cd_situacao_cadastral')
-//            ->groupBy('cd_situacao_cadastral')
-//            ->get();
-
         return $this->model
             ->select(
                 'dc_situacao_cadastral',
