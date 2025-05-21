@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_conferencia
  * @property string $tx_nome_conferencia
  * @property Osc.tbParticipacaoSocialConferencium[] $osc.tbParticipacaoSocialConferencias
+ * 
+ * @OA\Schema(
+ *   schema="DCConferencia",
+ *   description="Conferência"
+ * )
  */
 class DCConferencia extends Model
 {
@@ -19,6 +24,11 @@ class DCConferencia extends Model
     protected $table = 'syst.dc_conferencia';
 
     /**
+     * @OA\Property(
+     *     property="cd_conferencia",
+     *     type="integer",
+     *     description="Número de identificação da conferência."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -28,7 +38,15 @@ class DCConferencia extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_conferencia'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_conferencia",
+         *     type="string",
+         *     description="Nome da conferência."
+         *   )
+         */
+        'tx_nome_conferencia'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

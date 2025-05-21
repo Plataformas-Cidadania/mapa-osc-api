@@ -16,6 +16,15 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
         //$this->model = $_modelo;
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="ListaMunicipio",
+     *     type="object",
+     *     @OA\Property(property="edmu_cd_municipio", type="int", example="0"),
+     *     @OA\Property(property="edmu_nm_municipio", type="string", example="string"),
+     *     @OA\Property(property="eduf_sg_uf", type="string", example="string")
+     * )
+    */
     public function getListaMunicipios($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];
@@ -33,6 +42,14 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
         return $regs;
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="ListaEstado",
+     *     type="object",
+     *     @OA\Property(property="eduf_cd_uf", type="int", example="0"),
+     *     @OA\Property(property="eduf_nm_uf", type="string", example="string")
+     * )
+    */
     public function getListaEstados($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];
@@ -50,6 +67,14 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
         return $regs;
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="ListaRegiao",
+     *     type="object",
+     *     @OA\Property(property="edre_cd_regiao", type="int", example="0"),
+     *     @OA\Property(property="edre_nm_regiao", type="string", example="string")
+     * )
+    */
     public function getListaRegioes($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];
@@ -67,6 +92,14 @@ class DCBuscaHomeRepositoryEloquent implements DCBuscaHomeRepositoryInterface
         return $regs;
     }
 
+    /** 
+     *  @OA\Schema(
+     *      schema="ListaLocalizacao",
+     *      type="object",
+     *      @OA\Property(property="eduf_cd_uf", type="int", example="0"),
+     *      @OA\Property(property="eduf_nm_uf", type="string", example="string")
+     *  )
+    */
     public function getListaTodasLocalizacoes($texto_busca)
     {
         $vetReplace = ['_', '-', '%20'];

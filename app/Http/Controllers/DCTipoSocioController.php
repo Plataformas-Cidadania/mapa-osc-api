@@ -21,6 +21,25 @@ class DCTipoSocioController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/tipo-socio/{id_tipo-socio}",
+     *     operationId="get",
+     *     tags={"Quadro societário"},
+     *     @OA\Parameter(
+     *       name="id_tipo-socio",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do tipo de sócio.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados do tipo de sócio de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCTipoSocio")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {
@@ -37,6 +56,21 @@ class DCTipoSocioController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/tipo-socio/all",
+     *     operationId="getAll",
+     *     tags={"Quadro societário"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas os tipos de sócio.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCTipoSocio")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {

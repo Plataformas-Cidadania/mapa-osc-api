@@ -21,6 +21,25 @@ class DCQualificacaoSocioController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/qualificacao-socio/{id_qualificacao-socio}",
+     *     operationId="get",
+     *     tags={"Quadro societário"},
+     *     @OA\Parameter(
+     *       name="id_qualificacao-socio",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação das qualificações de sócio.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados das qualificações de sócio de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCQualificacaoSocio")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {
@@ -37,6 +56,21 @@ class DCQualificacaoSocioController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/qualificacao-socio/all",
+     *     operationId="getAll",
+     *     tags={"Quadro societário"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as qualificações de sócio.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCQualificacaoSocio")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {

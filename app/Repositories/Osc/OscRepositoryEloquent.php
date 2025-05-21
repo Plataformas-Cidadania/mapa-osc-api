@@ -486,6 +486,31 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return DB::table('osc.tb_dados_gerais')->select('id_osc', 'tx_razao_social_osc')->whereIn('id_osc', $ids)->get();
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="ListaOscCnpjAutocomplete",
+     *     type="object",
+     *     @OA\Property(property="id_osc", type="int", example="0"),
+     *     @OA\Property(property="cd_identificador_osc", type="int", example="0"),
+     *     @OA\Property(property="tx_nome_osc", type="string", example="string"),
+     *     @OA\Property(property="tx_razao_social_osc", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_fantasia_osc", type="string", example="string"),
+     *     @OA\Property(property="document", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_natureza_juridica_osc", type="string", example="string"),
+     *     @OA\Property(property="dt_fundacao_osc", type="string", example="string"),
+     *     @OA\Property(property="cd_situacao_imovel_osc", type="int", example="0"),
+     *     @OA\Property(property="cd_municipio", type="int", example="0"),
+     *     @OA\Property(property="cd_uf", type="int", example="0"),
+     *     @OA\Property(property="tx_sigla_uf", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_uf", type="string", example="string"),
+     *     @OA\Property(property="cd_regiao", type="int", example="0"),
+     *     @OA\Property(property="tx_nome_regiao", type="string", example="string"),
+     *     @OA\Property(property="total_trabalhadores", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_vinculo", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_deficiencia", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_voluntarios", type="int", example="0")
+     * )
+    */
     public function getListaOscCnpjAutocomplete($cnpj){
         return DB::table('osc.vw_busca_osc')->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$cnpj%")->get();
     }

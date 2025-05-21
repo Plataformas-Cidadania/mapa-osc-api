@@ -21,6 +21,21 @@ class DCPeriodicidadeReuniaoConselhoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conselhos_periodicidade",
+     *     operationId="getAll",
+     *     tags={"Participação social"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as participações sociais concelhos periodicidade.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCPeriodicidadeReuniaoConselho")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {

@@ -21,6 +21,28 @@ class DCBuscaHomeController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/busca/municipio/{texto_busca}",
+     *     operationId="getListaMunicipios",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="texto_busca",
+     *       in="path",
+     *       required=true,
+     *       description="Texto que irá procurar nos municípios.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os municípios de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaMunicipio")
+     *         )
+     *     )
+     * )
+     */
     public function getListaMunicipios($texto_busca)
     {
         try {
@@ -30,6 +52,29 @@ class DCBuscaHomeController extends Controller
             return $e->getMessage();
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/busca/estado/{texto_busca}",
+     *     operationId="getListaEstados",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="texto_busca",
+     *       in="path",
+     *       required=true,
+     *       description="Texto que irá procurar nos estados.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os estados de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaEstado")
+     *         )
+     *     )
+     * )
+     */
     public function getListaEstados($texto_busca)
     {
         try {
@@ -39,6 +84,29 @@ class DCBuscaHomeController extends Controller
             return $e->getMessage();
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/busca/regiao/{texto_busca}",
+     *     operationId="getListaRegioes",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="texto_busca",
+     *       in="path",
+     *       required=true,
+     *       description="Texto que irá procurar nas regiões.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as regiões de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaRegiao")
+     *         )
+     *     )
+     * )
+     */
     public function getListaRegioes($texto_busca)
     {
         try {
@@ -49,6 +117,28 @@ class DCBuscaHomeController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/busca/todas_localizacoes/{texto_busca}",
+     *     operationId="getListaTodasLocalizacoes",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="texto_busca",
+     *       in="path",
+     *       required=true,
+     *       description="Texto que irá procurar as localizações.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as localizações de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaLocalizacao")
+     *         )
+     *     )
+     * )
+     */
     public function getListaTodasLocalizacoes($texto_busca)
     {
         try {

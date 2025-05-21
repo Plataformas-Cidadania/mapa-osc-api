@@ -318,6 +318,28 @@ class OscController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/cnpj/{cnpj}",
+     *     operationId="getListaOscCnpjAutocomplete",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="cnpj",
+     *       in="path",
+     *       required=true,
+     *       description="CNPJ para pesquisar.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os CNJPs de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaOscCnpjAutocomplete")
+     *         )
+     *     )
+     * )
+     */
     public function getListaOscCnpjAutocomplete($cnpj){
         try {
             return response()->json($this->service->getListaOscCnpjAutocomplete($cnpj), Response::HTTP_OK);
