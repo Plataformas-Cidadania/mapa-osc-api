@@ -243,6 +243,17 @@ class Osc extends Model
          */
         'ft_nao_possui_ps_outros_espacos',
 
+        /**
+         *   @OA\Property(
+         *     property="cd_situacao_cadastral",
+         *     type="integer",
+         *     description="Codigo do Tipo de Situação Cadastral"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var codigo
+         */
         'cd_situacao_cadastral',
     ];
 
