@@ -50,6 +50,16 @@ class RepresentacaoController extends Controller
         }
     }
 
+    public function getRepresetacaoPorCnpjOsc($cnpj_osc)
+    {
+        try {
+            return response()->json($this->service->getRepresetacaoPorCnpjOsc($cnpj_osc), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function store(Request $request) {
         try {
             $dados = $request->all();

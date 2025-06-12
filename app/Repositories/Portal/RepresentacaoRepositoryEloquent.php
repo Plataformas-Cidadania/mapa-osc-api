@@ -6,6 +6,8 @@ namespace App\Repositories\Portal;
 use App\Models\Portal\Representacao;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Util\FormatacaoUtil;
+
 class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterface
 {
     private $model;
@@ -33,6 +35,38 @@ class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterfac
             ->where('id_usuario', $id_usuario)
             ->first();
     }
+
+    public function getRepresetacaoPorCnpjOsc($cnpj_osc)
+    {
+//        return $this->model->with('usuario')
+//            ->with('osc')
+//            ->where('cd_identificador_osc', $cnpj_osc)
+//            ->first();
+
+//        return $this->model->with('usuario')
+//            ->with('osc')
+//            ->where('cd_identificador_osc', $cnpj_osc)
+//            ->get()
+//            ->map(function($representacao) {
+//                return $representacao->usuario;
+//            });
+
+        return $this->model->with('usuario')
+            ->join('osc.tb_osc', 'portal.tb_representacao.id_osc', '=', 'osc.tb_osc.id_osc')
+            ->where('osc.tb_osc.cd_identificador_osc', $cnpj_osc)
+            ->get()
+            ->map(function($representacao) {
+                $usuario = $representacao->usuario;
+                $dados = [
+                    'id_usuario' => $usuario->id_usuario,
+                    'tx_nome_usuario' => $usuario->tx_nome_usuario,
+                    'tx_email_usuario' => (new FormatacaoUtil())->mascararEmail($usuario->tx_email_usuario)
+                ];
+                return $dados;
+            });
+    }
+
+
 
     public function store(array $data)
     {

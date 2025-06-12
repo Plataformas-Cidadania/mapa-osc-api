@@ -32,6 +32,11 @@ class RepresentacaoService
         return $this->repo->getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario);
     }
 
+    public function getRepresetacaoPorCnpjOsc($cnpj_osc)
+    {
+        return $this->repo->getRepresetacaoPorCnpjOsc($cnpj_osc);
+    }
+
     public function store(array $data)
     {
         $data['id_usuario'] = Auth::user()->id_usuario;
