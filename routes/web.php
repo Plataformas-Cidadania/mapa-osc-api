@@ -55,7 +55,9 @@ $router->get('/key', function() {
 
 $router->group(['prefix' => '/api'], function() use ($router) {
 
-    //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+    //ROTAS PARA GERENCIAMENTO DE DADOS DO USUÁRIO
+    $router->get('/user/buscar-email/{cpf}', 'UsuarioController@getEmail');
+    $router->get('/representantes/buscar-representacoes/{cnpj}', 'RepresentacaoController@getRepresetacaoPorCnpjOsc');
 
 
 //---Certificados da OSC---///

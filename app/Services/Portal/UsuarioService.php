@@ -50,6 +50,11 @@ class UsuarioService
         return $this->repo->update($id, $data);
     }
 
+    public function getEmail($cpf)
+    {
+        return $this->repo->getEmail($cpf);
+    }
+
     public function destroy($id)
     {
         $this->destroy($id);

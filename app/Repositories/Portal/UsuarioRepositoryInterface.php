@@ -14,6 +14,8 @@ interface UsuarioRepositoryInterface
 
     public function get($id);
 
+    public function getEmail($cpf);
+
     public function store(array $data);
 
     public function update($id, array $data);

@@ -4,6 +4,7 @@
 namespace App\Repositories\Portal;
 
 use App\Models\Portal\Usuario;
+use App\Util\FormatacaoUtil;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -26,6 +27,19 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
     public function get($id)
     {
         return $this->model->with('usuario')->with('osc')->where('id_usuario', $id)->get();
+    }
+
+    public function getEmail($cpf)
+    {
+        $usuario = $this->model->where('nr_cpf_usuario', $cpf)->first([
+            "id_usuario",
+            "tx_nome_usuario",
+            "tx_email_usuario"
+        ]);
+
+        $usuario->tx_email_usuario = (new FormatacaoUtil())->mascararEmail($usuario->tx_email_usuario);
+
+        return $usuario;
     }
 
     public function store(array $data)
