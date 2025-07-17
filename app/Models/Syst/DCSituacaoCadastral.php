@@ -38,6 +38,7 @@ class DCSituacaoCadastral extends Model
      * @var array
      */
     protected $fillable = [
+
         /**
          * @OA\Property(
          *     property="tx_nome_situacao_cadastral",
@@ -45,7 +46,16 @@ class DCSituacaoCadastral extends Model
          *     description="Nome da situação cadastral."
          *   )
          */
-        'tx_nome_situacao_cadastral'
+        'tx_nome_situacao_cadastral',
+
+        /**
+         * @OA\Property(
+         *     property="tx_descricao_situacao_cadastral",
+         *     type="string",
+         *     description="Descrição da situação cadastral."
+         *   )
+         */
+        'tx_desc_situacao_cadastral'
     ];
 
 }
