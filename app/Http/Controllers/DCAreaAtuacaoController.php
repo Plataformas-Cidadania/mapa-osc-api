@@ -21,6 +21,21 @@ class DCAreaAtuacaoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/area_atuacao",
+     *     operationId="getAll",
+     *     tags={"Area e subarea de atuação"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas areas de atuação.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCAreaAtuacao")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {

@@ -21,6 +21,21 @@ class DCConferenciaController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conferencias",
+     *     operationId="getAll",
+     *     tags={"Conferência"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as conferência.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCConferencia")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCConferenciaController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conferencias/{id_ps_conferencias}",
+     *     operationId="get",
+     *     tags={"Conferência"},
+     *     @OA\Parameter(
+     *       name="id_ps_conferencias",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da conferência.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da conferência de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCConferencia")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

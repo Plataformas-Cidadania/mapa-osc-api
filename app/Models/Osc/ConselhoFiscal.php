@@ -33,7 +33,16 @@ class ConselhoFiscal extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'tx_nome_conselheiro', 'ft_nome_conselheiro', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'tx_nome_conselheiro',
+        'ft_nome_conselheiro',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_nome_conselheiro' => 'Representante de OSC',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

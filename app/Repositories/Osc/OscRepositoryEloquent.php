@@ -8,6 +8,7 @@ use App\Models\Osc\DadosGerais;
 use App\Models\Osc\Localizacao;
 use App\Models\Osc\ObjetivoOsc;
 use App\Models\Osc\Osc;
+use App\Models\Osc\RelacoesTrabalho;
 use App\Repositories\Osc\OscRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -93,6 +94,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'ft_ano_cadastro_cnpj' => $osc->dados_gerais->ft_ano_cadastro_cnpj,
             'dt_fundacao_osc' => $osc->dados_gerais->dt_fundacao_osc,
             'ft_fundacao_osc' => $osc->dados_gerais->ft_fundacao_osc,
+            'cd_situacao_cadastral' => $osc->cd_situacao_cadastral, //CAMPO ADICIONADO NO BD PELO MURILO
             //LOCALIZAÇÃO
             'tx_endereco' => $osc->localizacao->tx_endereco,
             'ft_endereco' => $osc->localizacao->ft_endereco,
@@ -260,9 +262,23 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         $relacoes_trabalho = $osc->relacoes_trabalho;
 
-        $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
+        if ($relacoes_trabalho) {
+            $nr_trabalhores = $osc->relacoes_trabalho->nr_trabalhadores_vinculo_osc + $osc->relacoes_trabalho->nr_trabalhadores_deficiencia_osc + $osc->relacoes_trabalho->nr_trabalhadores_voluntarios;
+            $relacoes_trabalho['nr_trabalhores'] = $nr_trabalhores;
+        } else  {
+            $relacoes_trabalho = [
+                "nr_trabalhadores_vinculo" => null,
+                "ft_trabalhadores_vinculo" => null,
+                "nr_trabalhadores_deficiencia" => null,
+                "ft_trabalhadores_deficiencia" => null,
+                "nr_trabalhadores_voluntarios" => null,
+                "ft_trabalhadores_voluntarios" => null,
+                "nr_trabalhores" => null,
 
-        $relacoes_trabalho['nr_trabalhores'] = $nr_trabalhores;
+                "nr_trabalhadores_vinculo_osc" => null,
+                "nr_trabalhadores_deficiencia_osc" => null
+            ];
+        }
 
         $dados = [
             'governanca' => $osc->quadro_de_dirigentes,
@@ -470,12 +486,38 @@ class OscRepositoryEloquent implements OscRepositoryInterface
         return DB::table('osc.tb_dados_gerais')->select('id_osc', 'tx_razao_social_osc')->whereIn('id_osc', $ids)->get();
     }
 
+    /** 
+     *   @OA\Schema(
+     *     schema="ListaOscCnpjAutocomplete",
+     *     type="object",
+     *     @OA\Property(property="id_osc", type="int", example="0"),
+     *     @OA\Property(property="cd_identificador_osc", type="int", example="0"),
+     *     @OA\Property(property="tx_nome_osc", type="string", example="string"),
+     *     @OA\Property(property="tx_razao_social_osc", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_fantasia_osc", type="string", example="string"),
+     *     @OA\Property(property="document", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_natureza_juridica_osc", type="string", example="string"),
+     *     @OA\Property(property="dt_fundacao_osc", type="string", example="string"),
+     *     @OA\Property(property="cd_situacao_imovel_osc", type="int", example="0"),
+     *     @OA\Property(property="cd_municipio", type="int", example="0"),
+     *     @OA\Property(property="cd_uf", type="int", example="0"),
+     *     @OA\Property(property="tx_sigla_uf", type="string", example="string"),
+     *     @OA\Property(property="tx_nome_uf", type="string", example="string"),
+     *     @OA\Property(property="cd_regiao", type="int", example="0"),
+     *     @OA\Property(property="tx_nome_regiao", type="string", example="string"),
+     *     @OA\Property(property="total_trabalhadores", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_vinculo", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_deficiencia", type="int", example="0"),
+     *     @OA\Property(property="nr_trabalhadores_voluntarios", type="int", example="0")
+     * )
+    */
     public function getListaOscCnpjAutocomplete($cnpj){
         return DB::table('osc.vw_busca_osc')->where(DB::Raw('CAST(cd_identificador_osc AS TEXT)'), 'like', "$cnpj%")->get();
     }
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca){
         //Log::info($texto_busca);
+        $array_palavras = explode(' ', $texto_busca);
         $numeros = preg_replace('/[^0-9]/', '', $texto_busca);
         $oscs =  DB::table('osc.vw_busca_osc')
             ->when(!empty($numeros), function ($query) use ($numeros){
@@ -483,16 +525,43 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 $query->orWhere(DB::Raw("CONCAT('0', CAST(cd_identificador_osc AS TEXT))"), 'like', "$numeros%");
                 return $query;
             })
-            ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%') OR unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
-            //->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
-            //->orwhereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
-            //->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
-            //->orwhereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
-            //->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
+//            ->whereRaw("unaccent(tx_nome_osc) ilike unaccent('%$texto_busca%') OR unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
+//            ->orWhere('tx_nome_osc', 'ilike', "%$texto_busca%")
+//            ->orwhereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$texto_busca%')")
+//            ->orWhere('tx_razao_social_osc', 'ilike', "%$texto_busca%")
+//            ->orwhereRaw("unaccent(tx_nome_fantasia_osc) ilike unaccent('%$texto_busca%')")
+//            ->orWhere('tx_nome_fantasia_osc', 'ilike', "%$texto_busca%")
+            ->where(function($query) use ($array_palavras) {
+                // Construa a lógica da consulta para pesquisar qualquer uma das palavras-chave
+                foreach ($array_palavras as $palavra) {
+                    //$query->orWhereRaw("unaccent(textos_series.titulo) ilike unaccent('%$keyword%')");
+                    $query->whereRaw("unaccent(tx_razao_social_osc) ilike unaccent('%$palavra%')");
+                }
+            })
             ->take(15)
             ->get();
 
         return $oscs;
+    }
+
+    public function getQuantitativoOscPorSituacaoCadastral()
+    {
+        return $this->model
+            ->select(
+                'dc_situacao_cadastral',
+                DB::raw('count(*) as total')
+            )
+            ->join(
+                'syst.dc_situacao_cadastral',
+                'osc.tb_osc.cd_situacao_cadastral',
+                '=',
+                'syst.dc_situacao_cadastral.cd_situacao_cadastral'
+            )
+            ->whereNotNull('dc_situacao_cadastral')
+            ->groupBy('dc_situacao_cadastral')
+            ->get();
+
+
     }
 
 }

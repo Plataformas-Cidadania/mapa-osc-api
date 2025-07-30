@@ -46,7 +46,27 @@ class ParticipacaoSocialConselho extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_conselho', 'cd_periodicidade_reuniao_conselho', 'ft_conselho', 'ft_tipo_participacao', 'ft_periodicidade_reuniao', 'dt_data_inicio_conselho', 'ft_data_inicio_conselho', 'dt_data_fim_conselho', 'ft_data_fim_conselho', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'cd_conselho',
+        'cd_periodicidade_reuniao_conselho',
+        'ft_conselho',
+        'ft_tipo_participacao',
+        'ft_periodicidade_reuniao',
+        'dt_data_inicio_conselho',
+        'ft_data_inicio_conselho',
+        'dt_data_fim_conselho',
+        'ft_data_fim_conselho',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_conselho' => 'Representante de OSC',
+        'ft_tipo_participacao' => 'Representante de OSC',
+        'ft_periodicidade_reuniao' => 'Representante de OSC',
+        'ft_data_inicio_conselho' => 'Representante de OSC',
+        'ft_data_fim_conselho' => 'Representante de OSC'
+    ];
 
     protected $with = ['dc_conselho', 'dc_periodicidade_reuniao_conselho'];
 

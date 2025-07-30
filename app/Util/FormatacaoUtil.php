@@ -50,4 +50,10 @@ class FormatacaoUtil
 
         return $data_formatada;
     }
+
+    function mascararEmail($email) {
+        list($nome, $dominio) = explode('@', $email);
+        $nomeMascarado = substr($nome, 0, 3) . str_repeat('*', max(0, strlen($nome) - 2));
+        return $nomeMascarado . '@' . $dominio;
+    }
 }

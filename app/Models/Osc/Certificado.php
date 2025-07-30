@@ -42,7 +42,28 @@ class Certificado extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_certificado', 'cd_municipio', 'cd_uf', 'ft_certificado', 'dt_inicio_certificado', 'ft_inicio_certificado', 'dt_fim_certificado', 'ft_fim_certificado', 'bo_oficial', 'ft_municipio', 'ft_uf'];
+    protected $fillable = [
+        'id_osc',
+        'cd_certificado',
+        'cd_municipio',
+        'cd_uf',
+        'ft_certificado' => 'Representante de OSC',
+        'dt_inicio_certificado',
+        'ft_inicio_certificado',
+        'dt_fim_certificado',
+        'ft_fim_certificado',
+        'bo_oficial',
+        'ft_municipio',
+        'ft_uf'
+    ];
+
+    protected $attributes = [
+        'ft_certificado' => 'Representante de OSC',
+        'ft_inicio_certificado' => 'Representante de OSC',
+        'ft_fim_certificado' => 'Representante de OSC',
+        'ft_municipio' => 'Representante de OSC',
+        'ft_uf' => 'Representante de OSC'
+    ];
 
     protected $with = ['dc_certificado', 'municipio', 'uf'];
 

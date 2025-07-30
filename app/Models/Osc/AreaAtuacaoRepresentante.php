@@ -35,7 +35,12 @@ class AreaAtuacaoRepresentante extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_area_atuacao', 'cd_subarea_atuacao', 'tx_nome_outra'];
+    protected $fillable = [
+        'id_osc',
+        'cd_area_atuacao',
+        'cd_subarea_atuacao',
+        'tx_nome_outra'
+    ];
 
     public $timestamps = false;
 

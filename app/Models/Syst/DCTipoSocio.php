@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_status_projeto
  * @property string $tx_nome_status_projeto
  * @property Osc.tbQuadroSocietario[] $osc.tbQuadrosSocietarios
+ * 
+ * @OA\Schema(
+ *   schema="DCTipoSocio",
+ *   description="Tipo de sócio"
+ * )
  */
 class DCTipoSocio extends Model
 {
@@ -19,6 +24,11 @@ class DCTipoSocio extends Model
     protected $table = 'syst.dc_tipo_socio';
 
     /**
+     * @OA\Property(
+     *     property="cd_tipo_socio",
+     *     type="integer",
+     *     description="Número de identificação do tipo de sócio."
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -28,7 +38,15 @@ class DCTipoSocio extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_tipo_socio'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_tipo_socio",
+         *     type="string",
+         *     description="Nome do tipo de sócio"
+         *   )
+         */
+        'tx_tipo_socio'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

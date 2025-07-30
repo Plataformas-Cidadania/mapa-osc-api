@@ -31,7 +31,15 @@ class AreaAtuacaoOutraProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'id_area_atuacao_outra', 'ft_area_atuacao_outra_projeto'];
+    protected $fillable = [
+        'id_projeto',
+        'id_area_atuacao_outra',
+        'ft_area_atuacao_outra_projeto'
+    ];
+
+    protected $attributes = [
+        'ft_area_atuacao_outra_projeto' => 'Representante de OSC',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

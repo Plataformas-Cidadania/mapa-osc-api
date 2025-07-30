@@ -19,6 +19,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/api/documentation', function () {
+    return view('swagger-lume::index');
+});
+
 //ROTA PAR CHEKAR AUTENTICAÇÃO DO USUARIO
 $router->get('/api/check-token', ['middleware' => 'auth', function(){
     return 1;
@@ -54,7 +58,9 @@ $router->get('/key', function() {
 
 $router->group(['prefix' => '/api'], function() use ($router) {
 
-    //PARA ALIMENTAR O FRONT COM TODAS ESCOLHAS POSSIVEIS DA CATEGORIA
+    //ROTAS PARA GERENCIAMENTO DE DADOS DO USUÁRIO
+    $router->get('/user/buscar-email/{cpf}', 'UsuarioController@getEmail');
+    $router->get('/representantes/buscar-representacoes/{cnpj}', 'RepresentacaoController@getRepresetacaoPorCnpjOsc');
 
 
 //---Certificados da OSC---///
@@ -99,6 +105,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
     $router->get('/area_atuacao/', 'DCAreaAtuacaoController@getAll');
     $router->get('/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
+//---SITUAÇÃO CADASTRAL----//
+    $router->get('/situacao_cadastral/', 'DCSituacaoCadastralController@getAll');
+    $router->get('/situacao_cadastral/{id}', 'DCSituacaoCadastralController@get');
 
 //---PARTICIPAÇÃO SOCIAL----//
     $router->get('/ps_conselhos/', 'DCConselhoController@getAll');
@@ -182,13 +191,26 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
+//$router->group(['prefix' => '/api/osc'], function() use ($router){
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
+    $router->get('/representacao/{id_osc}/{id_usuario}', 'RepresentacaoController@getRepresetacaoPorOscAndUsuario');
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
 
+    //ROTAS PADA ASSINATURA DE TERMOS PELO REPRESENTANTE USUARIO
+    $router->get('/assinatura-termos/{id}', 'AssinaturaTermoController@get');
+    $router->get('/assinatura-termos/', 'AssinaturaTermoController@getAll');
+    $router->get('/assinatura-termos/all-por-representacao/{id_representacao}', 'AssinaturaTermoController@getAllPorRepresentacao');
+    $router->get('/assinatura-termos/representacao/{id_representacao}/termo/{id_termo}', 'AssinaturaTermoController@getPorRepresentacaoAndTermo');
+    $router->post('/assinatura-termos', 'AssinaturaTermoController@store');
+    $router->delete('/assinatura-termos/{id}', 'AssinaturaTermoController@delete');
 
+    //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
+    $router->put('/termos/{id}', 'TermoController@update');
+    $router->post('/termos', 'TermoController@store');
+    $router->delete('/termos/{id_termo}', 'TermoController@delete');
 
     //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
     $router->post('/user', 'OscController@getFromUsuario');
@@ -306,7 +328,12 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     $router->delete('/quadro-societario/{id}', 'QuadroSocietarioController@delete');
 });
 
+//ROTAS SEM AUTENTICAÇÃO DO USUARIO
 $router->group(['prefix' => '/api/osc'], function() use ($router){
+
+    //ROTAS PADA GERENCIAMENTOS DE TERMOS (CMS)
+    $router->get('/termos/{id}', 'TermoController@get');
+    $router->get('/termos', 'TermoController@getAll');
 
     //BUSCA AVANÇADA
     $router->get('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
@@ -325,6 +352,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/', 'OscController@getAll');
     $router->get('/{id}', 'OscController@get');
+    $router->get('/quantitativo/situacao-cadastral', 'OscController@getQuantitativoOscPorSituacaoCadastral');
 
     //ROTAS PARA POPULAR DADOS DA HOME
 

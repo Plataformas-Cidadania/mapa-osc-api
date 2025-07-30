@@ -14,7 +14,9 @@ interface RepresentacaoRepositoryInterface
 
     public function get($id);
 
-    public function getId($id_osc, $id_usuario);
+    public function getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario);
+
+    public function getRepresetacaoPorCnpjOsc($cnpj_osc);
 
     public function store(array $data);
 

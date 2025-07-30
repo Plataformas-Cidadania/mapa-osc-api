@@ -58,6 +58,19 @@ class UsuarioController extends Controller
         return Auth::user();
     }
 
+    public function getEmail($cpf) {
+        try {
+            $usuario = $this->service->getEmail($cpf);
+
+            if ($usuario) {
+                return response()->json($usuario, Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function update($id_usuario, Request $request) {
         try {
             $dados = $request->all();

@@ -21,6 +21,25 @@ class OscParceiraProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/projeto/parceira/{id}",
+     *     operationId="get",
+     *     tags={"Projeto"},
+     *     @OA\Parameter(
+     *       name="id",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da parceira",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna os dados da parceria do projeto de acordo com identificação da parceira informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/OscParceiraProjeto")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {
@@ -31,6 +50,28 @@ class OscParceiraProjetoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/projeto/parceiras/{id_projeto}",
+     *     operationId="getParceriasPorProjeto",
+     *     tags={"Projeto"},
+     *     @OA\Parameter(
+     *       name="id_projeto",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do projeto",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as parcerias dos projetos de acordo com o projeto informado.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/OSCsPorEstado")
+     *         )
+     *     )
+     * )
+     */
     public function getParceriasPorProjeto($id_projeto)
     {
         try {

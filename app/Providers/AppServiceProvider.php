@@ -117,7 +117,19 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Osc\QuadroSocietarioRepositoryInterface', 'App\Repositories\Osc\QuadroSocietarioRepositoryEloquent'
         );
 
+        //DADOS DO SCHEMA PORTAL
+        $this->app->bind(
+            'App\Repositories\Portal\AssinaturaTermoRepositoryInterface', 'App\Repositories\Portal\AssinaturaTermoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Portal\TermoRepositoryInterface', 'App\Repositories\Portal\TermoRepositoryEloquent'
+        );
+
+
         //DADOS DO SCHEMA SYST
+        $this->app->bind(
+            'App\Repositories\Syst\DCSituacaoCadastralRepositoryInterface', 'App\Repositories\Syst\DCSituacaoCadastralRepositoryEloquent'
+        );
         $this->app->bind(
             'App\Repositories\Syst\DCAreaAtuacaoRepositoryInterface', 'App\Repositories\Syst\DCAreaAtuacaoRepositoryEloquent'
         );

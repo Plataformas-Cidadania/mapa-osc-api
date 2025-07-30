@@ -29,7 +29,14 @@ class AreaAtuacaoDeclarada extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_area_atuacao_declarada', 'ft_nome_area_atuacao_declarada'];
+    protected $fillable = [
+        'tx_nome_area_atuacao_declarada',
+        'ft_nome_area_atuacao_declarada'
+    ];
+
+    protected $attributes = [
+        'ft_nome_area_atuacao_declarada' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $bo_oficial
  * @property Osc $osc
  * @property Projeto $projeto
+ * 
+ * @OA\Schema(
+ *   schema="OscParceiraProjeto",
+ *   description="Objeto de OSC parceira de projeto ",
+ * )
  */
 class OscParceiraProjeto extends Model
 {
@@ -23,6 +28,11 @@ class OscParceiraProjeto extends Model
     protected $table = 'osc.tb_osc_parceira_projeto';
 
     /**
+     * @OA\Property(
+     *     property="id_osc_parceira_projeto",
+     *     type="integer",
+     *     description="Número de identificação da OSC parceira de projeto"
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -32,7 +42,48 @@ class OscParceiraProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'id_projeto', 'ft_osc_parceira_projeto', 'bo_oficial'];
+    protected $fillable = [
+
+        /**
+         *   @OA\Property(
+         *     property="id_osc",
+         *     type="integer",
+         *     description="Identificação da OSC."
+         *   )
+         */
+        'id_osc',
+
+         /**
+         *   @OA\Property(
+         *     property="id_projeto",
+         *     type="integer",
+         *     description="Identificação de projeto."
+         *   )
+         */
+        'id_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_osc_parceira_projeto",
+         *     type="integer",
+         *     description="Fonte de origem da OSC parceira de projeto."
+         *   )
+         */
+        'ft_osc_parceira_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="bo_oficial",
+         *     type="integer",
+         *     description="BO oficial."
+         *   )
+         */
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_osc_parceira_projeto' => 'Representante de OSC',
+    ];
 
     public $timestamps = false;
 

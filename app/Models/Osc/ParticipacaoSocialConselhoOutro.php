@@ -30,7 +30,15 @@ class ParticipacaoSocialConselhoOutro extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_conselho', 'tx_nome_conselho', 'ft_nome_conselho'];
+    protected $fillable = [
+        'id_conselho',
+        'tx_nome_conselho',
+        'ft_nome_conselho'
+    ];
+
+    protected $attributes = [
+        'ft_nome_conselho' => 'Representante de OSC'
+    ];
 
     public $timestamp = false;
 

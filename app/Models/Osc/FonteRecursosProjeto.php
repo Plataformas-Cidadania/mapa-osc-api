@@ -40,7 +40,21 @@ class FonteRecursosProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'cd_fonte_recursos_projeto', 'cd_origem_fonte_recursos_projeto', 'ft_fonte_recursos_projeto', 'bo_oficial', 'tx_orgao_concedente', 'ft_orgao_concedente', 'tx_tipo_parceria_outro'];
+    protected $fillable = [
+        'id_projeto',
+        'cd_fonte_recursos_projeto',
+        'cd_origem_fonte_recursos_projeto',
+        'ft_fonte_recursos_projeto',
+        'bo_oficial',
+        'tx_orgao_concedente',
+        'ft_orgao_concedente',
+        'tx_tipo_parceria_outro'
+    ];
+
+    protected $attributes = [
+        'ft_fonte_recursos_projeto' => 'Representante de OSC',
+        'ft_orgao_concedente' => 'Representante de OSC',
+    ];
 
     public $timestamps = false;
 

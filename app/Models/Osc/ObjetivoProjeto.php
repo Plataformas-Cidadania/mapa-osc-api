@@ -33,7 +33,16 @@ class ObjetivoProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'cd_meta_projeto', 'ft_objetivo_projeto', 'bo_oficial'];
+    protected $fillable = [
+        'id_projeto',
+        'cd_meta_projeto',
+        'ft_objetivo_projeto',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_objetivo_projeto' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
 

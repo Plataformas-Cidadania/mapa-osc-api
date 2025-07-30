@@ -21,6 +21,21 @@ class DCConselhoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conselhos",
+     *     operationId="getAll",
+     *     tags={"Participação social"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as participações sociais conselho.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCConselho")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCConselhoController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conselhos/{id_ps_conselhos}",
+     *     operationId="get",
+     *     tags={"Participação social"},
+     *     @OA\Parameter(
+     *       name="id_ps_conselhos",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da participação social conselho.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da participação social conselho de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCConselho")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

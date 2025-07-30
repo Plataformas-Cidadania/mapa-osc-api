@@ -21,6 +21,21 @@ class OscController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc",
+     *     operationId="getAll",
+     *     tags={"Osc"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as OSCs",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/Osc")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -41,6 +56,26 @@ class OscController extends Controller
         }
     }
 
+    
+    /**
+     * @OA\Get(
+     *     path="/api/osc/{osc_id}",
+     *     operationId="get",
+     *     tags={"Osc"},
+     *     @OA\Parameter(
+     *       name="osc_id",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da OSC",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna uma OSC de acordo com o ID",
+     *         @OA\JsonContent(ref="#/components/schemas/Osc")
+     *     ),
+     * )
+     */
     public function get($id)
     {
         try {
@@ -139,6 +174,7 @@ class OscController extends Controller
         }
     }
 
+
     public function getRelTrabalhoAndGovernanca($id)
     {
         try {
@@ -149,6 +185,25 @@ class OscController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/osc/projetos/{id_osc}",
+     *     operationId="getProjetos",
+     *     tags={"Projeto"},
+     *     @OA\Parameter(
+     *       name="id_osc",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da OSC",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados e todos os projetos de acordo com a OSC informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/Projeto")
+     *     )
+     * )
+     */
     public function getProjetos($id)
     {
         try {
@@ -263,6 +318,28 @@ class OscController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/cnpj/{cnpj}",
+     *     operationId="getListaOscCnpjAutocomplete",
+     *     tags={"Busca"},
+     *     @OA\Parameter(
+     *       name="cnpj",
+     *       in="path",
+     *       required=true,
+     *       description="CNPJ para pesquisar.",
+     *       @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os CNJPs de acordo com o texto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/ListaOscCnpjAutocomplete")
+     *         )
+     *     )
+     * )
+     */
     public function getListaOscCnpjAutocomplete($cnpj){
         try {
             return response()->json($this->service->getListaOscCnpjAutocomplete($cnpj), Response::HTTP_OK);
@@ -276,6 +353,15 @@ class OscController extends Controller
         $texto_busca = $request->texto_busca;
         try {
             return response()->json($this->service->getListaOscNomeCnpjAutocomplete($texto_busca), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getQuantitativoOscPorSituacaoCadastral(){
+        try {
+            return response()->json($this->service->getQuantitativoOscPorSituacaoCadastral(), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

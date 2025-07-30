@@ -37,7 +37,22 @@ class LocalizacaoProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'id_regiao_localizacao_projeto', 'ft_regiao_localizacao_projeto', 'tx_nome_regiao_localizacao_projeto', 'ft_nome_regiao_localizacao_projeto', 'bo_localizacao_prioritaria', 'ft_localizacao_prioritaria', 'bo_oficial'];
+    protected $fillable = [
+        'id_projeto',
+        'id_regiao_localizacao_projeto',
+        'ft_regiao_localizacao_projeto',
+        'tx_nome_regiao_localizacao_projeto',
+        'ft_nome_regiao_localizacao_projeto',
+        'bo_localizacao_prioritaria',
+        'ft_localizacao_prioritaria',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_regiao_localizacao_projeto' => 'Representante de OSC',
+        'ft_nome_regiao_localizacao_projeto' => 'Representante de OSC',
+        'ft_localizacao_prioritaria' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

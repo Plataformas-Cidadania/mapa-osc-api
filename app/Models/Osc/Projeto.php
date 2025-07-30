@@ -54,6 +54,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbPublicoBeneficiadoProjeto[] $osc.tbPublicoBeneficiadoProjetos
  * @property Osc.tbObjetivoProjeto[] $osc.tbObjetivoProjetos
  * @property Osc.tbOscParceiraProjeto[] $osc.tbOscParceiraProjetos
+ * 
+ * @OA\Schema(
+ *   schema="Projeto",
+ *   description="Projeto model",
+ * )
+ * 
  */
 class Projeto extends Model
 {
@@ -65,6 +71,12 @@ class Projeto extends Model
     protected $table = 'osc.tb_projeto';
 
     /**
+     *  @OA\Property(
+     *     property="id",
+     *     type="string",
+     *     example="",
+     *     description="Número de identificação do projeto"
+     *   )
      * The primary key for the model.
      * 
      * @var string
@@ -74,7 +86,322 @@ class Projeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'cd_status_projeto', 'cd_abrangencia_projeto', 'cd_zona_atuacao_projeto', 'cd_municipio', 'cd_uf', 'tx_nome_projeto', 'ft_nome_projeto', 'ft_status_projeto', 'dt_data_inicio_projeto', 'ft_data_inicio_projeto', 'dt_data_fim_projeto', 'ft_data_fim_projeto', 'tx_link_projeto', 'ft_link_projeto', 'nr_total_beneficiarios', 'ft_total_beneficiarios', 'nr_valor_captado_projeto', 'ft_valor_captado_projeto', 'nr_valor_total_projeto', 'ft_valor_total_projeto', 'ft_abrangencia_projeto', 'ft_zona_atuacao_projeto', 'tx_descricao_projeto', 'ft_descricao_projeto', 'ft_metodologia_monitoramento', 'tx_metodologia_monitoramento', 'tx_identificador_projeto_externo', 'ft_identificador_projeto_externo', 'bo_oficial', 'tx_status_projeto_outro', 'ft_municipio', 'ft_uf'];
+    protected $fillable = [
+        /**
+         *   @OA\Property(
+         *     property="id_osc",
+         *     type="int",
+         *     description="Identificação da OSC."
+         *   )
+         */
+        'id_osc',
+
+         /**
+         *   @OA\Property(
+         *     property="cd_status_projeto",
+         *     type="int",
+         *     description="Identificação de status do projeto."
+         *   )
+         */
+        'cd_status_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="cd_abrangencia_projeto",
+         *     type="int",
+         *     description="Identificação da abrangencia."
+         *   )
+         */
+        'cd_abrangencia_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="cd_zona_atuacao_projeto",
+         *     type="int",
+         *     description="Identificação da zona de atuação."
+         *   )
+         */
+        'cd_zona_atuacao_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="cd_municipio",
+         *     type="int",
+         *     description="Identificação do município."
+         *   )
+         */
+        'cd_municipio',
+
+         /**
+         *   @OA\Property(
+         *     property="cd_uf",
+         *     type="string",
+         *     description="Identificação do estado."
+         *   )
+         */
+        'cd_uf',
+
+         /**
+         *   @OA\Property(
+         *     property="tx_nome_projeto",
+         *     type="string",
+         *     description="Nome do projeto."
+         *   )
+         */
+        'tx_nome_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_nome_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre o nome do projeto."
+         *   )
+         */
+        'ft_nome_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_status_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre o status do projeto."
+         *   )
+         */
+        'ft_status_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="dt_data_inicio_projeto",
+         *     type="string",
+         *     description="Data de inicio do projeto."
+         *   )
+         */
+        'dt_data_inicio_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_data_inicio_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre data de inicio do projeto."
+         *   )
+         */
+        'ft_data_inicio_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="dt_data_fim_projeto",
+         *     type="string",
+         *     description="Data de fim do projeto."
+         *   )
+         */
+        'dt_data_fim_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_data_fim_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre data de inicio do projetoIdentificação da OSC."
+         *   )
+         */
+        'ft_data_fim_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="tx_link_projeto",
+         *     type="string",
+         *     description="Link do projeto."
+         *   )
+         */
+        'tx_link_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_link_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre link do projeto."
+         *   )
+         */
+        'ft_link_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="nr_total_beneficiarios",
+         *     type="string",
+         *     description="Total de beneficiários."
+         *   )
+         */
+        'nr_total_beneficiarios',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_total_beneficiarios",
+         *     type="string",
+         *     description="Fonte do dado sobre total de beneficiários."
+         *   )
+         */
+        'ft_total_beneficiarios',
+
+         /**
+         *   @OA\Property(
+         *     property="nr_valor_captado_projeto",
+         *     type="string",
+         *     description="Valor captado do projeto."
+         *   )
+         */
+        'nr_valor_captado_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_valor_captado_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre valor captado do projeto."
+         *   )
+         */
+        'ft_valor_captado_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="nr_valor_total_projeto",
+         *     type="string",
+         *     description="Valor total do projeto."
+         *   )
+         */
+        'nr_valor_total_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_valor_total_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre valor total do projeto."
+         *   )
+         */
+        'ft_valor_total_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_abrangencia_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre abrangencia."
+         *   )
+         */
+        'ft_abrangencia_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_zona_atuacao_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre zona de atuação."
+         *   )
+         */
+        'ft_zona_atuacao_projeto',
+        
+         /**
+         *   @OA\Property(
+         *     property="tx_descricao_projeto",
+         *     type="string",
+         *     description="Descrição do projeto."
+         *   )
+         */
+        'tx_descricao_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_descricao_projeto",
+         *     type="string",
+         *     description="Fonte do dado sobre descrição do projeto."
+         *   )
+         */
+        'ft_descricao_projeto',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_metodologia_monitoramento",
+         *     type="string",
+         *     description="Fonte do dado sobre metodologia de monitoramento."
+         *   )
+         */
+        'ft_metodologia_monitoramento',
+
+         /**
+         *   @OA\Property(
+         *     property="tx_metodologia_monitoramento",
+         *     type="string",
+         *     description="Metodologia de monitoramento."
+         *   )
+         */
+        'tx_metodologia_monitoramento',
+
+         /**
+         *   @OA\Property(
+         *     property="tx_identificador_projeto_externo",
+         *     type="string",
+         *     description="Identificador do projeto externo."
+         *   )
+         */
+        'tx_identificador_projeto_externo',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_identificador_projeto_externo",
+         *     type="string",
+         *     description="Fonte do dado sobre identificador do projeto externo."
+         *   )
+         */
+        'ft_identificador_projeto_externo',
+
+         /**
+         *   @OA\Property(
+         *     property="bo_oficial",
+         *     type="boolean",
+         *     description="BO oficial."
+         *   )
+         */
+        'bo_oficial',
+
+         /**
+         *   @OA\Property(
+         *     property="tx_status_projeto_outro",
+         *     type="string",
+         *     description="Status de outro projeto."
+         *   )
+         */
+        'tx_status_projeto_outro',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_municipio",
+         *     type="string",
+         *     description="Fonte do dado sobre município."
+         *   )
+         */
+        'ft_municipio',
+
+         /**
+         *   @OA\Property(
+         *     property="ft_uf",
+         *     type="string",
+         *     description="Fonte do dado sobre estado."
+         *   )
+         */
+        'ft_uf'
+    ];
+
+    protected $attributes = [
+        'ft_nome_projeto' => 'Representante de OSC',
+        'ft_status_projeto' => 'Representante de OSC',
+        'ft_data_inicio_projeto' => 'Representante de OSC',
+        'ft_data_fim_projeto' => 'Representante de OSC',
+        'ft_link_projeto' => 'Representante de OSC',
+        'ft_total_beneficiarios' => 'Representante de OSC',
+        'ft_valor_captado_projeto' => 'Representante de OSC',
+        'ft_valor_total_projeto' => 'Representante de OSC',
+        'ft_abrangencia_projeto' => 'Representante de OSC',
+        'ft_zona_atuacao_projeto' => 'Representante de OSC',
+        'ft_descricao_projeto' => 'Representante de OSC',
+        'ft_metodologia_monitoramento' => 'Representante de OSC',
+        'ft_identificador_projeto_externo' => 'Representante de OSC',
+        'ft_municipio' => 'Representante de OSC',
+        'ft_uf' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
 

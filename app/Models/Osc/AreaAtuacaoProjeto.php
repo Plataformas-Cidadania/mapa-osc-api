@@ -32,7 +32,16 @@ class AreaAtuacaoProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'cd_subarea_atuacao', 'ft_area_atuacao_projeto', 'bo_oficial'];
+    protected $fillable = [
+        'id_projeto',
+        'cd_subarea_atuacao',
+        'ft_area_atuacao_projeto',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_area_atuacao_projeto' => 'Representante de OSC',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cd_zona_atuacao_projeto
  * @property string $tx_nome_zona_atuacao
  * @property Projeto[] $projetos
+ * 
+ * @OA\Schema(
+ *   schema="DCZonaAtuacaoProjeto",
+ *   description="Objeto da zona de atuação do projeto ",
+ * )
  */
 class DCZonaAtuacaoProjeto extends Model
 {
@@ -20,16 +25,30 @@ class DCZonaAtuacaoProjeto extends Model
     protected $table = 'syst.dc_zona_atuacao_projeto';
 
     /**
+     * @OA\Property(
+     *     property="cd_zona_atuacao_projeto",
+     *     type="integer",
+     *     description="Número de identificação da zona de atuação do projeto"
+     *   )
      * The primary key for the model.
      * 
-     * @var string
+     * @var int
      */
     protected $primaryKey = 'cd_zona_atuacao_projeto';
 
     /**
      * @var array
      */
-    protected $fillable = ['tx_nome_zona_atuacao'];
+    protected $fillable = [
+        /**
+         * @OA\Property(
+         *     property="tx_nome_zona_atuacao",
+         *     type="string",
+         *     description="Nome da zona de atuação do projeto"
+         *   )
+         */
+        'tx_nome_zona_atuacao'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -28,7 +28,20 @@ class PublicoBeneficiadoProjeto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_projeto', 'id_publico_beneficiado_projeto', 'ft_estimativa_pessoas_atendidas', 'nr_estimativa_pessoas_atendidas', 'bo_oficial', 'tx_nome_publico_beneficiado', 'ft_nome_publico_beneficiado'];
+    protected $fillable = [
+        'id_projeto',
+        'id_publico_beneficiado_projeto',
+        'ft_estimativa_pessoas_atendidas',
+        'nr_estimativa_pessoas_atendidas',
+        'bo_oficial',
+        'tx_nome_publico_beneficiado',
+        'ft_nome_publico_beneficiado'
+    ];
+
+    protected $attributes = [
+        'ft_estimativa_pessoas_atendidas' => 'Representante de OSC',
+        'ft_nome_publico_beneficiado' => 'Representante de OSC'
+    ];
 
     public $timestamps = false;
     /**

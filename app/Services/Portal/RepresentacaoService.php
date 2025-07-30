@@ -27,6 +27,16 @@ class RepresentacaoService
         return $this->repo->get($id);
     }
 
+    public function getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario)
+    {
+        return $this->repo->getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario);
+    }
+
+    public function getRepresetacaoPorCnpjOsc($cnpj_osc)
+    {
+        return $this->repo->getRepresetacaoPorCnpjOsc($cnpj_osc);
+    }
+
     public function store(array $data)
     {
         $data['id_usuario'] = Auth::user()->id_usuario;
@@ -41,7 +51,7 @@ class RepresentacaoService
     public function delete($id_osc)
     {
         $id_usuario = Auth::user()->id_usuario;
-        $representacao = $this->repo->getId($id_osc, $id_usuario);
+        $representacao = $this->repo->getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario);
         //Log::info($representacao);
         return $this->repo->destroy($representacao->id_representacao);
     }

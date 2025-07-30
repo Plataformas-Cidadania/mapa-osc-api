@@ -23,6 +23,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
+$app->configure('swagger-lume');
+
 $app->withEloquent();
 
 // Load auth config files
@@ -107,6 +109,8 @@ $app->configure('mail');
 $app->alias('mailer', Illuminate\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
+
+$app->register(\SwaggerLume\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

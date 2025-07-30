@@ -36,6 +36,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Osc.tbAreaAtuacaoOutra[] $osc.tbAreaAtuacaoOutras
  * @property Osc.tbOscParceiraProjeto[] $osc.tbOscParceiraProjetos
  * @property Portal.tbBarraTransparencium $portal.tbBarraTransparencium
+ * 
+ * @OA\Schema(
+ *   schema="Osc",
+ *   description="Osc model",
+ * )
+ * 
  */
 class Osc extends Model
 {
@@ -47,9 +53,15 @@ class Osc extends Model
     protected $table = 'osc.tb_osc';
 
     /**
+     *   @OA\Property(
+     *     property="id_osc",
+     *     type="integer",
+     *     description="Número de identificação da Osc"
+     *   )
+     *   
      * The primary key for the model.
      * 
-     * @var string
+     * @var integer
      */
     protected $primaryKey = 'id_osc';
 
@@ -59,20 +71,200 @@ class Osc extends Model
      * @var array
      */
     protected $fillable = [
+
+        /**
+         *   @OA\Property(
+         *     property="tx_apelido_osc",
+         *     type="string",
+         *     description="Apelido da Osc"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'tx_apelido_osc',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_apelido_osc",
+         *     type="string",
+         *     description="Fonte de origem do Apelido da Osc"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_apelido_osc',
+
+        /**
+         *   @OA\Property(
+         *     property="cd_identificador_osc",
+         *     type="integer",
+         *     description="CNPJ da Osc"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'cd_identificador_osc',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_identificador_osc",
+         *     type="string",
+         *     description="Fonte da origem do CNPJ da Osc"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_identificador_osc',
+
         'ft_osc_ativa',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_osc_ativa",
+         *     type="integer",
+         *     description="Campo descreve ativação da OSC no Portal"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'bo_osc_ativa',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_nao_possui_projeto",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem projeto ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'bo_nao_possui_projeto',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_projeto",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem projeto ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_nao_possui_projeto',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_nao_possui_ps_conselhos",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem conselhos ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'bo_nao_possui_ps_conselhos',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_ps_conselhos",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem conselhos ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_nao_possui_ps_conselhos',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_nao_possui_ps_conferencias",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem conferencias ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'bo_nao_possui_ps_conferencias',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_ps_conferencias",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem conferencias ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_nao_possui_ps_conferencias',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_nao_possui_ps_outros_espacos",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem outros espaços ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
         'bo_nao_possui_ps_outros_espacos',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_ps_outros_espacos",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem outros espaços ou não"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var string
+         */
         'ft_nao_possui_ps_outros_espacos',
+
+        /**
+         *   @OA\Property(
+         *     property="cd_situacao_cadastral",
+         *     type="integer",
+         *     description="Codigo do Tipo de Situação Cadastral"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var codigo
+         */
+        'cd_situacao_cadastral',
+    ];
+
+    protected $attributes = [
+        'ft_apelido_osc' => 'Representante de OSC',
+        'ft_identificador_osc' => 'Representante de OSC',
+        'ft_osc_ativa' => 'Representante de OSC',
+        'ft_nao_possui_projeto' => 'Representante de OSC',
+        'ft_nao_possui_ps_conselhos' => 'Representante de OSC',
+        'ft_nao_possui_ps_conferencias' => 'Representante de OSC',
+        'ft_nao_possui_ps_outros_espacos' => 'Representante de OSC'
     ];
 
     /**
@@ -282,4 +474,13 @@ class Osc extends Model
     {
         return $this->hasMany('App\Models\Osc\FonteRecursos', 'id_osc', 'id_osc');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function situacao_cadastral()
+    {
+        return $this->belongsTo('App\Models\Syst\DCSituacaoCadastral', 'cd_situacao_cadastral', 'cd_situacao_cadastral');
+    }
+
 }

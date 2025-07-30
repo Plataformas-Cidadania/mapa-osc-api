@@ -21,6 +21,21 @@ class DCIndiceController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/indice_ipeadata",
+     *     operationId="getAll",
+     *     tags={"Indices"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os indices do IPEA Data.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCIndice")
+     *         )
+     *     )
+     * )
+     */  
     public function getAll()
     {
         try {

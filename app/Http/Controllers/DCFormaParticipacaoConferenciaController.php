@@ -21,6 +21,21 @@ class DCFormaParticipacaoConferenciaController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conferencias_formas",
+     *     operationId="getAll",
+     *     tags={"Conferência"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todas as formas de participação da conferência.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCFormaParticipacaoConferencia")
+     *         )
+     *     )
+     * )
+     */
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCFormaParticipacaoConferenciaController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/ps_conferencia_forma/{id_ps_conferencia_forma}",
+     *     operationId="get",
+     *     tags={"Conferência"},
+     *     @OA\Parameter(
+     *       name="id_ps_conferencia_forma",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da forma de participação da conferência.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da forma de participação da conferência de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCFormaParticipacaoConferencia")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

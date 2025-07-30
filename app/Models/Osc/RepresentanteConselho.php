@@ -33,7 +33,17 @@ class RepresentanteConselho extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'id_participacao_social_conselho', 'tx_nome_representante_conselho', 'ft_nome_representante_conselho', 'bo_oficial'];
+    protected $fillable = [
+        'id_osc',
+        'id_participacao_social_conselho',
+        'tx_nome_representante_conselho',
+        'ft_nome_representante_conselho',
+        'bo_oficial'
+    ];
+
+    protected $attributes = [
+        'ft_nome_representante_conselho' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

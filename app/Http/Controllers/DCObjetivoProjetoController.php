@@ -21,6 +21,21 @@ class DCObjetivoProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/objetivos",
+     *     operationId="getAll",
+     *     tags={"Objetivos"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os objetivos de projeto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCObjetivoProjeto")
+     *         )
+     *     )
+     * )
+     */ 
     public function getAll()
     {
         try {

@@ -21,6 +21,21 @@ class DCCertificadoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/certificado",
+     *     operationId="getAll",
+     *     tags={"Certificado"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos os certificados.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCCertificado")
+     *         )
+     *     )
+     * )
+     */    
     public function getAll()
     {
         try {
@@ -31,6 +46,25 @@ class DCCertificadoController extends Controller
         }
     }
 
+     /**
+     * @OA\Get(
+     *     path="/api/certificado/{id_certificado}",
+     *     operationId="get",
+     *     tags={"Certificado"},
+     *     @OA\Parameter(
+     *       name="id_certificado",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação do certificado",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados do certificado de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCCertificado")
+     *     )
+     * )
+     */
     public function get($id)
     {
         try {

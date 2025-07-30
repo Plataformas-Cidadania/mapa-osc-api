@@ -21,6 +21,21 @@ class DCZonaAtuacaoProjetoController extends Controller
         $this->service = $_service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/zona_atuacao_projeto",
+     *     operationId="getAll",
+     *     tags={"Atuação projeto"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna todos as atuações do projeto.",
+     *         @OA\JsonContent(
+     *           type="array",
+     *           @OA\Items(ref="#/components/schemas/DCZonaAtuacaoProjeto")
+     *         )
+     *     )
+     * )
+     */ 
     public function getAll()
     {
         try {
@@ -31,6 +46,26 @@ class DCZonaAtuacaoProjetoController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/zona_atuacao_projeto/{id_zona_atuacao_projeto}",
+     *     operationId="get",
+     *     tags={"Atuação projeto"},
+     *     @OA\Parameter(
+     *       name="id_abrangencia_projeto",
+     *       in="path",
+     *       required=true,
+     *       description="Número de identificação da atuação do projeto.",
+     *       @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Retorna dados da atuação do projeto de acordo com o número de identificação informado.",
+     *         @OA\JsonContent(ref="#/components/schemas/DCZonaAtuacaoProjeto")
+     *     )
+     * )
+     */ 
     public function get($id)
     {
         try {

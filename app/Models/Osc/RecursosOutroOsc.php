@@ -34,7 +34,21 @@ class RecursosOutroOsc extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'tx_nome_fonte_recursos_outro_osc', 'ft_nome_fonte_recursos_outro_osc', 'dt_ano_recursos_outro_osc', 'ft_ano_recursos_outro_osc', 'nr_valor_recursos_outro_osc', 'ft_valor_recursos_outro_osc'];
+    protected $fillable = [
+        'id_osc',
+        'tx_nome_fonte_recursos_outro_osc',
+        'ft_nome_fonte_recursos_outro_osc',
+        'dt_ano_recursos_outro_osc',
+        'ft_ano_recursos_outro_osc',
+        'nr_valor_recursos_outro_osc',
+        'ft_valor_recursos_outro_osc'
+    ];
+
+    protected $attributes = [
+        'ft_nome_fonte_recursos_outro_osc' => 'Representante de OSC',
+        'ft_ano_recursos_outro_osc' => 'Representante de OSC',
+        'ft_valor_recursos_outro_osc' => 'Representante de OSC'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -32,7 +32,16 @@ class ParticipacaoSocialOutra extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_osc', 'tx_nome_participacao_social_outra', 'ft_participacao_social_outra', 'bo_oficial', 'bo_nao_possui'];
+    protected $fillable = [
+        'id_osc',
+        'tx_nome_participacao_social_outra',
+        'ft_participacao_social_outra',
+        'bo_oficial', 'bo_nao_possui'
+    ];
+
+    protected $attributes = [
+        'ft_participacao_social_outra' => 'Representante de OSC',
+    ];
     
     public $timestamps = false;
     /**
