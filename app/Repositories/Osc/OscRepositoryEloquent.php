@@ -560,8 +560,59 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             ->whereNotNull('dc_situacao_cadastral')
             ->groupBy('dc_situacao_cadastral')
             ->get();
-
-
     }
 
+    public function getQuantitativoOscPorSituacaoCadastralPorLocalidade($localidadeId)
+    {
+        $where_localidade = '';
+        $count = strlen($localidadeId);
+
+        switch ($count) {
+            case 1:
+                $where_localidade = 'spat.ed_uf.edre_cd_regiao';
+                break;
+            case 2:
+                $where_localidade = 'spat.ed_municipio.eduf_cd_uf';
+                break;
+            case 7:
+                $where_localidade = 'spat.ed_municipio.edmu_cd_municipio';
+                break;
+        }
+
+        $sql = $this->model
+            ->select(
+                'dc_situacao_cadastral',
+                DB::raw('count(*) as total')
+            )
+            ->join(
+                'syst.dc_situacao_cadastral',
+                'osc.tb_osc.cd_situacao_cadastral',
+                '=',
+                'syst.dc_situacao_cadastral.cd_situacao_cadastral'
+            )
+            ->join(
+                'osc.tb_localizacao',
+                'osc.tb_osc.id_osc',
+                '=',
+                'osc.tb_localizacao.id_osc'
+            )
+            ->join(
+                'spat.ed_municipio',
+                'spat.ed_municipio.edmu_cd_municipio',
+                '=',
+                'osc.tb_localizacao.cd_municipio'
+            )
+            ->join(
+                'spat.ed_uf',
+                'spat.ed_uf.eduf_cd_uf',
+                '=',
+                'spat.ed_municipio.eduf_cd_uf'
+            )
+            ->where($where_localidade, $localidadeId)
+            ->whereNotNull('dc_situacao_cadastral')
+            ->groupBy('dc_situacao_cadastral')
+            ->get();
+
+        return ($sql);
+    }
 }

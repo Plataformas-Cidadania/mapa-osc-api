@@ -154,4 +154,11 @@ class OscService
 
         return $quantitativo;
     }
+
+    public function getQuantitativoOscPorSituacaoCadastralPorLocalidade($localidadeId)
+    {
+        $quantitativo = $this->repo->getQuantitativoOscPorSituacaoCadastralPorLocalidade($localidadeId);
+
+        return $quantitativo;
+    }
 }
