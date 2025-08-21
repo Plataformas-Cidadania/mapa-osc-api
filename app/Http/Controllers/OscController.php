@@ -350,7 +350,13 @@ class OscController extends Controller
     }
 
     public function getListaOscNomeCnpjAutocomplete(Request $request){
-        $texto_busca = $request->texto_busca;
+
+        //Retorira zeros inciais pelo fato do CNPJ ser armazenado em NUMERIC no BD e Isso faz com que os Zeros não sejam gravados
+        $texto_busca = preg_replace('/^0+/', '', $request->texto_busca) ?: '0';
+
+        //Retira os pontos do CNPJ, pois no BD somente são guardados os Números (CNPJ é um campo NUMERIC)
+        $texto_busca = str_replace("%20", " ", $texto_busca);
+
         try {
             return response()->json($this->service->getListaOscNomeCnpjAutocomplete($texto_busca), Response::HTTP_OK);
         }

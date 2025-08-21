@@ -144,7 +144,7 @@ class OscService
     }
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca){
-        $texto_busca = str_replace("%20", " ", $texto_busca);
+
         return $this->repo->getListaOscNomeCnpjAutocomplete($texto_busca);
     }
 
