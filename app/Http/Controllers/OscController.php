@@ -357,6 +357,10 @@ class OscController extends Controller
         //Retira os pontos do CNPJ, pois no BD somente são guardados os Números (CNPJ é um campo NUMERIC)
         $texto_busca = str_replace("%20", " ", $texto_busca);
 
+        $quantidade_aspas_simples = substr_count($texto_busca, "'");
+        if ($quantidade_aspas_simples / 2 !== 0)
+            $texto_busca = str_replace("'", "", $texto_busca);
+
         try {
             return response()->json($this->service->getListaOscNomeCnpjAutocomplete($texto_busca), Response::HTTP_OK);
         }
