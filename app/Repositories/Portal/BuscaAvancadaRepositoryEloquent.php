@@ -114,6 +114,12 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                         else $query .= $var_sql." AND ";
                     }
 
+                    if($key == "cd_situacao_cadastral"){
+                        $var_sql = $key." = ".$value;
+                        if($count_params_dados == $count_dados_gerais && $count_params_busca == $count_busca) $query .=  $var_sql;
+                        else $query .= $var_sql." AND ";
+                    }
+
                     if($key == "anoFundacaoMIN"){
                         if(isset($dados_gerais['anoFundacaoMAX'])){
                             $var_sql = "dt_fundacao_osc BETWEEN '" . $value . "-01-01' AND '" . $dados_gerais['anoFundacaoMAX'] . "-12-31'";
@@ -1803,6 +1809,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                     END AS matriz,
                     a.tx_razao_social_osc AS tx_razao_social,
                     b.tx_nome_natureza_juridica AS tx_natureza_juridica,
+                    e.tx_nome_situacao_cadastral AS tx_nome_situacao_cadastral,
                     c.tx_nome_classe_atividade_economica AS tx_classe_atividade_economica,                    
                     d.edmu_nm_municipio AS tx_municipio,
                     d.eduf_nm_uf AS tx_estado
@@ -1825,6 +1832,8 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
                 ON a.id_osc = e.id_osc            
                 WHERE a.id_osc IN ( " . implode(',', $lista_oscs) . ")
         ";
+
+//        return $query;
 
         $result = DB::select($query);
 
