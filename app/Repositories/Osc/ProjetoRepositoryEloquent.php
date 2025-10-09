@@ -18,7 +18,21 @@ class ProjetoRepositoryEloquent implements ProjetoRepositoryInterface
 
     public function get($id)
     {
-        return $this->model->find($id);
+        $projeto = $this->model->find($id);
+
+        $nr_valor_total_projeto = $projeto['nr_valor_total_projeto'];
+        $numerosVetor = explode(".", $nr_valor_total_projeto);
+        $qtdVetor = count($numerosVetor);
+        if ($qtdVetor === 2) {
+            if (strlen($numerosVetor[1]) === 1) {
+                $nr_valor_total_projeto = $nr_valor_total_projeto . "0";
+            }
+        } else
+        {
+            $nr_valor_total_projeto = $nr_valor_total_projeto . ".00";
+        }
+
+        $projeto['nr_valor_total_projeto'] = $nr_valor_total_projeto;
 
         return $projeto;
     }
