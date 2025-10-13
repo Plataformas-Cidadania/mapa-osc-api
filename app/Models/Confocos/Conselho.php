@@ -177,7 +177,7 @@ class Conselho extends Model
      */
     public function nivel_federativo()
     {
-        return $this->belongsTo('App\Models\Syst\DCNivelFederativo', 'cd_nivel_federativo', 'cd_nivel_federativo');
+        return $this->hasOne('App\Models\Syst\DCNivelFederativo', 'cd_nivel_federativo', 'cd_nivel_federativo');
     }
 
     /**
@@ -185,7 +185,12 @@ class Conselho extends Model
      */
     public function tipo_abrangencia()
     {
-        return $this->belongsTo('App\Models\Syst\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
+        return $this->hasOne('App\Models\Syst\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
+    }
+
+    public function conselheiros()
+    {
+        return $this->hasMany('App\Models\Confocos\Conselheiro', 'id_conselho', 'id_conselho');
     }
 
     //    /**
