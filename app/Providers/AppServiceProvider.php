@@ -15,6 +15,7 @@ use App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface;
 use App\Repositories\Syst\DCConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
 use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
+use App\Repositories\Syst\DCNivelFederativoRepositoryInterface;
 use App\Repositories\Syst\DCOrigemFonteRecursosProjetoRepositoryInterface;
 use App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface;
 use App\Repositories\Syst\DCSituacaoImovelRepositoryInterface;
@@ -125,8 +126,18 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Portal\TermoRepositoryInterface', 'App\Repositories\Portal\TermoRepositoryEloquent'
         );
 
+        //DADOS DO SCHEMA CONFOCOS
+        $this->app->bind(
+            'App\Repositories\Confocos\ConselhoRepositoryInterface', 'App\Repositories\Confocos\ConselhoRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SYST
+        $this->app->bind(
+            'App\Repositories\Syst\DCTipoAbrangenciaConselhoRepositoryInterface', 'App\Repositories\Syst\DCTipoAbrangenciaConselhoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Syst\DCNivelFederativoRepositoryInterface', 'App\Repositories\Syst\DCNivelFederativoRepositoryEloquent'
+        );
         $this->app->bind(
             'App\Repositories\Syst\DCSituacaoCadastralRepositoryInterface', 'App\Repositories\Syst\DCSituacaoCadastralRepositoryEloquent'
         );
