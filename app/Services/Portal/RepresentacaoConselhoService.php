@@ -27,7 +27,7 @@ class RepresentacaoConselhoService
         return $this->repo->get($id);
     }
 
-    public function getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario)
+    public function getRepresetacaoPorConselhoAndUsuario($id_osc, $id_usuario)
     {
         return $this->repo->getRepresetacaoPorConselhoAndUsuario($id_osc, $id_usuario);
     }

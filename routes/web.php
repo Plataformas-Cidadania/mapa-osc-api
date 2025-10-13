@@ -191,6 +191,11 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
+    //REPRESENTACAO CONSELHO (ASSOCIAÇÃO COM USUÁRIOS COM CONSELHOS (CONFOCOS)
+    $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
+    $router->post('/representacao_conselho/', 'RepresentacaoConselhoController@store');
+    $router->delete('/representacao_conselho/{id}', 'RepresentacaoConselhoController@delete');
+
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->get('/representacao/{id_osc}/{id_usuario}', 'RepresentacaoController@getRepresetacaoPorOscAndUsuario');
     $router->post('/representacao/', 'RepresentacaoController@store');
