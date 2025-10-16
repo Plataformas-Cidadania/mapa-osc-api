@@ -55,6 +55,9 @@ $router->get('/key', function() {
 
 $router->group(['prefix' => '/api'], function() use ($router) {
 
+    //GERENCIAMENTO CONSELHO (CONFOCOS)
+    $router->get('/conselho/{id_conselho}', 'ConselhoController@get');
+
     //ROTAS PARA GERENCIAMENTO DE DADOS DO USUÁRIO
     $router->get('/user/buscar-email/{cpf}', 'UsuarioController@getEmail');
     $router->get('/representantes/buscar-representacoes/{cnpj}', 'RepresentacaoController@getRepresetacaoPorCnpjOsc');
@@ -191,7 +194,21 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
+    //GERENCIAMENTO CONSELHO (CONFOCOS)
+    $router->post('/conselho/', 'ConselhoController@store');
+    $router->put('/conselho/{id_conselho}', 'ConselhoController@update');
+//    $router->delete('/conselho/{id_conselho}', 'ConselhoController@delete');
+
+    //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
+    $router->get('/conselheiro/', 'ConselheiroController@getAll');
+    $router->get('/conselheiro/{id_conselheiro}', 'ConselheiroController@get');
+    $router->get('/conselheiro-por-conselho/{id_conselho}', 'ConselheiroController@getListaConselheirosPorConselho');
+    $router->post('/conselheiro/', 'ConselheiroController@store');
+    $router->put('/conselheiro/{id_conselho}', 'ConselheiroController@update');
+    $router->delete('/conselheiro/{id_conselho}', 'ConselheiroController@delete');
+
     //REPRESENTACAO CONSELHO (ASSOCIAÇÃO COM USUÁRIOS COM CONSELHOS (CONFOCOS)
+    $router->get('/representacao_conselho/{id_conselho}', 'RepresentacaoConselhoController@get');
     $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
     $router->post('/representacao_conselho/', 'RepresentacaoConselhoController@store');
     $router->delete('/representacao_conselho/{id}', 'RepresentacaoConselhoController@delete');

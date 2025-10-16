@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Confocos\Conselho;
-use App\Services\Confocos\ConselhoService;
+use App\Models\Confocos\Conselheiro;
+use App\Services\Confocos\ConselheiroService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Symfony\Component\HttpFoundation\Response;
 
-class ConselhoController extends Controller
+class ConselheiroController extends Controller
 {
     private $service;
     /**
      * Create a new controller instance.
      *
-     * @param ConselhoService $service
+     * @param ConselheiroService $service
      */
-    public function __construct(ConselhoService $_service)
+    public function __construct(ConselheiroService $_service)
     {
         $this->service = $_service;
     }
@@ -26,7 +26,7 @@ class ConselhoController extends Controller
      * @OA\Get(
      *     path="/api/conselho",
      *     operationId="getAll",
-     *     tags={"Conselho"},
+     *     tags={"Conselheiro"},
      *     @OA\Response(
      *         response="200",
      *         description="Retorna todos os Conselhos",
@@ -62,7 +62,7 @@ class ConselhoController extends Controller
      * @OA\Get(
      *     path="/api/conselho/{osc_id}",
      *     operationId="get",
-     *     tags={"Conselho"},
+     *     tags={"Conselheiro"},
      *     @OA\Parameter(
      *       name="osc_id",
      *       in="path",
@@ -72,7 +72,7 @@ class ConselhoController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna um Conselho de acordo com o ID",
+     *         description="Retorna um Conselheiro de acordo com o ID",
      *         @OA\JsonContent(ref="#/components/schemas/Confocos")
      *     ),
      * )
@@ -86,17 +86,7 @@ class ConselhoController extends Controller
             return $e->getMessage();
         }
     }
-
-    public function getNumeroTotalConselhos()
-    {
-        try {
-            return response()->json($this->service->getNumeroTotalConselhos(), Response::HTTP_OK);
-        }
-        catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
+    
     public function store(Request $request) {
         try {
             $dados = $request->all();
@@ -108,63 +98,26 @@ class ConselhoController extends Controller
         }
     }
 
-    public function update($id_conselho, Request $request)
+    public function update($id_conselheiro, Request $request)
     {
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($dados, $id_conselho), Response::HTTP_OK);
+            return response()->json($this->service->update($dados, $id_conselheiro), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getListaConselhosPorNivelFederativo($tam_lista)
+    public function getListaConselheirosPorConselho($id_conselheiro)
     {
         try {
-            return response()->json($this->service->getListaConselhosPorNivelFederativo($tam_lista), Response::HTTP_OK);
+            return response()->json($this->service->getListaConselheirosPorConselho($id_conselheiro), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getListaConselhosUsuarioAutenticado(){
-        try {
-            return response()->json($this->service->getListaConselhosUsuarioAutenticado(), Response::HTTP_OK);
-        }
-        catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-//    public function getListaOscCnpjAutocomplete($cnpj){
-//        try {
-//            return response()->json($this->service->getListaOscCnpjAutocomplete($cnpj), Response::HTTP_OK);
-//        }
-//        catch (\Exception $e) {
-//            return $e->getMessage();
-//        }
-//    }
-
-//    public function getListaOscNomeCnpjAutocomplete(Request $request){
-//
-//        //Retorira zeros inciais pelo fato do CNPJ ser armazenado em NUMERIC no BD e Isso faz com que os Zeros não sejam gravados
-//        $texto_busca = preg_replace('/^0+/', '', $request->texto_busca) ?: '0';
-//
-//        //Retira os pontos do CNPJ, pois no BD somente são guardados os Números (CNPJ é um campo NUMERIC)
-//        $texto_busca = str_replace("%20", " ", $texto_busca);
-//
-//        $quantidade_aspas_simples = substr_count($texto_busca, "'");
-//        if ($quantidade_aspas_simples / 2 !== 0)
-//            $texto_busca = str_replace("'", "", $texto_busca);
-//
-//        try {
-//            return response()->json($this->service->getListaOscNomeCnpjAutocomplete($texto_busca), Response::HTTP_OK);
-//        }
-//        catch (\Exception $e) {
-//            return $e->getMessage();
-//        }
-//    }
 }
