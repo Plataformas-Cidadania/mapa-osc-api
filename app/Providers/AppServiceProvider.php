@@ -135,6 +135,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Confocos\ConselhoRepositoryInterface', 'App\Repositories\Confocos\ConselhoRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Confocos\ConselheiroRepositoryInterface', 'App\Repositories\Confocos\ConselheiroRepositoryEloquent'
+        );
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
