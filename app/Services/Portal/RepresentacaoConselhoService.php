@@ -27,9 +27,9 @@ class RepresentacaoConselhoService
         return $this->repo->get($id);
     }
 
-    public function getRepresetacaoPorConselhoAndUsuario($id_osc, $id_usuario)
+    public function getRepresetacaoPorConselhoAndUsuario($id_conselho, $id_usuario)
     {
-        return $this->repo->getRepresetacaoPorConselhoAndUsuario($id_osc, $id_usuario);
+        return $this->repo->getRepresetacaoPorConselhoAndUsuario($id_conselho, $id_usuario);
     }
 
     public function store(array $data)
@@ -38,11 +38,14 @@ class RepresentacaoConselhoService
         return $this->repo->store($data);
     }
 
-    public function delete($id_osc)
+    public function delete($id_conselho)
     {
         $id_usuario = Auth::user()->id_usuario;
-        $representacao = $this->repo->getRepresetacaoPorConselhoAndUsuario($id_osc, $id_usuario);
+
+        $representacao = $this->repo->getRepresetacaoPorConselhoAndUsuario($id_conselho, $id_usuario);
+
         //Log::info($representacao);
+
         return $this->repo->destroy($representacao->id_representacao);
     }
 }

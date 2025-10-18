@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Confocos;
 
-use App\Models\Confocos\Conselheiro;
+use App\Http\Controllers\Controller;
 use App\Services\Confocos\ConselheiroService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Symfony\Component\HttpFoundation\Response;
 
 class ConselheiroController extends Controller
@@ -80,7 +78,7 @@ class ConselheiroController extends Controller
     public function get($id)
     {
         try {
-            return response()->json($this->service->get($id), Response::HTTP_OK);
+            return response()->json($this->service->getPorId($id), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -103,21 +101,39 @@ class ConselheiroController extends Controller
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($dados, $id_conselheiro), Response::HTTP_OK);
+            $conselheiro = $this->service->update($id_conselheiro, $dados);
+
+            if ($conselheiro) {
+                return response()->json(['Resposta' => 'Conselheiro atualizado com sucesso!'], Response::HTTP_OK);
+            }
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getListaConselheirosPorConselho($id_conselheiro)
+    public function getListaConselheirosPorConselho($id_conselho)
     {
         try {
-            return response()->json($this->service->getListaConselheirosPorConselho($id_conselheiro), Response::HTTP_OK);
+            return response()->json($this->service->getListaConselheirosPorConselho($id_conselho), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
+    public function delete($id_conselheiro)
+    {
+        try {
+
+            $resposta = $this->service->destroy($id_conselheiro);
+
+            if ($resposta) {
+                return response()->json(['Resposta' => 'Conselheiro deletado com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

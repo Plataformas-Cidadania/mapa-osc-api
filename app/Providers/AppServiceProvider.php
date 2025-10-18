@@ -2,25 +2,6 @@
 
 namespace App\Providers;
 
-use App\Repositories\Ipeadata\DCIndiceRepositoryInterface;
-use App\Repositories\Ipeadata\DCIpeadataUffRepositoryInterface;
-use App\Repositories\Osc\FonteRecursosProjetoRepositoryInterface;
-use App\Repositories\Osc\ObjetivoOscRepositoryInterface;
-use App\Repositories\Portal\BuscaAvancadaRepositoryInterface;
-use App\Repositories\Spat\DCBuscaHomeRepositoryInterface;
-use App\Repositories\Spat\DCGeoClusterRepositoryInterface;
-use App\Repositories\Syst\DCAbrangenciaProjetoRepositoryInterface;
-use App\Repositories\Syst\DCCertificadoRepositoryInterface;
-use App\Repositories\Syst\DCClasseAtividadeEconomicaRepositoryInterface;
-use App\Repositories\Syst\DCConferenciaRepositoryInterface;
-use App\Repositories\Syst\DCFormaParticipacaoConferenciaRepositoryInterface;
-use App\Repositories\Syst\DCMetaProjetoRepositoryInterface;
-use App\Repositories\Syst\DCNivelFederativoRepositoryInterface;
-use App\Repositories\Syst\DCOrigemFonteRecursosProjetoRepositoryInterface;
-use App\Repositories\Syst\DCPeriodicidadeReuniaoConselhoRepositoryInterface;
-use App\Repositories\Syst\DCSituacaoImovelRepositoryInterface;
-use App\Repositories\Syst\DCTipoParticipacaoRepositoryInterface;
-use App\Repositories\Syst\DCZonaAtuacaoProjetoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -141,10 +122,10 @@ class AppServiceProvider extends ServiceProvider
 
         //DADOS DO SCHEMA SYST
         $this->app->bind(
-            'App\Repositories\Syst\DCTipoAbrangenciaConselhoRepositoryInterface', 'App\Repositories\Syst\DCTipoAbrangenciaConselhoRepositoryEloquent'
+            'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryInterface', 'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryEloquent'
         );
         $this->app->bind(
-            'App\Repositories\Syst\DCNivelFederativoRepositoryInterface', 'App\Repositories\Syst\DCNivelFederativoRepositoryEloquent'
+            'App\Repositories\Confocos\DCNivelFederativoRepositoryInterface', 'App\Repositories\Confocos\DCNivelFederativoRepositoryEloquent'
         );
         $this->app->bind(
             'App\Repositories\Syst\DCSituacaoCadastralRepositoryInterface', 'App\Repositories\Syst\DCSituacaoCadastralRepositoryEloquent'

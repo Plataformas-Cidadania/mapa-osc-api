@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Syst;
+namespace App\Models\Confocos;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,4 +48,9 @@ class DCNivelFederativo extends Model
          */
         'tx_nome_nivel_federativo',
     ];
+
+    /**
+     * @var desativar coluna BD
+     */
+    public $timestamps = false;
 }

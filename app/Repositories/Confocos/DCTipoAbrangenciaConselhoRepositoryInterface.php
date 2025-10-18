@@ -1,11 +1,10 @@
 <?php
 
 
-namespace App\Repositories\Syst;
+namespace App\Repositories\Confocos;
 
 
-use App\Models\Syst\DCTipoAbrangenciaConselho;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Confocos\DCTipoAbrangenciaConselho;
 
 interface DCTipoAbrangenciaConselhoRepositoryInterface
 {

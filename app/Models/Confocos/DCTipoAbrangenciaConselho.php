@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Syst;
+namespace App\Models\Confocos;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,4 +48,6 @@ class DCTipoAbrangenciaConselho extends Model
          */
         'tx_nome_abrangencia',
     ];
+
+    public $timestamps = false;
 }

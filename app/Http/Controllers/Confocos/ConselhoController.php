@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Confocos;
 
-use App\Models\Confocos\Conselho;
+use App\Http\Controllers\Controller;
 use App\Services\Confocos\ConselhoService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Symfony\Component\HttpFoundation\Response;
 
 class ConselhoController extends Controller
@@ -80,7 +78,7 @@ class ConselhoController extends Controller
     public function get($id)
     {
         try {
-            return response()->json($this->service->get($id), Response::HTTP_OK);
+            return response()->json($this->service->getPorId($id), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

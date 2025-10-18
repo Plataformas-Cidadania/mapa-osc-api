@@ -19,12 +19,12 @@ class RepresentacaoConselhoRepositoryEloquent implements RepresentacaoConselhoRe
 
     public function getAll()
     {
-        return $this->model->with('osc')->with('usuario')->get();//->whereIn('id_representacao', [1, 250, 251]);//->orderBy('id_representacao', 'asc');
+        return $this->model->with('conselho')->with('usuario')->get();//->whereIn('id_representacao', [1, 250, 251]);//->orderBy('id_representacao', 'asc');
     }
 
     public function get($id)
     {
-        return $this->model->with('usuario')->with('osc')->where('id_representacao', $id)->get();
+        return $this->model->with('usuario')->with('conselho')->where('id_representacao', $id)->get();
     }
 
     public function getRepresetacaoPorConselhoAndUsuario($id_conselho, $id_usuario)

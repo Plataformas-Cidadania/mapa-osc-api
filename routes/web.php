@@ -55,9 +55,6 @@ $router->get('/key', function() {
 
 $router->group(['prefix' => '/api'], function() use ($router) {
 
-    //GERENCIAMENTO CONSELHO (CONFOCOS)
-    $router->get('/conselho/{id_conselho}', 'ConselhoController@get');
-
     //ROTAS PARA GERENCIAMENTO DE DADOS DO USUÁRIO
     $router->get('/user/buscar-email/{cpf}', 'UsuarioController@getEmail');
     $router->get('/representantes/buscar-representacoes/{cnpj}', 'RepresentacaoController@getRepresetacaoPorCnpjOsc');
@@ -194,24 +191,7 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
-    //GERENCIAMENTO CONSELHO (CONFOCOS)
-    $router->post('/conselho/', 'ConselhoController@store');
-    $router->put('/conselho/{id_conselho}', 'ConselhoController@update');
-//    $router->delete('/conselho/{id_conselho}', 'ConselhoController@delete');
 
-    //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
-    $router->get('/conselheiro/', 'ConselheiroController@getAll');
-    $router->get('/conselheiro/{id_conselheiro}', 'ConselheiroController@get');
-    $router->get('/conselheiro-por-conselho/{id_conselho}', 'ConselheiroController@getListaConselheirosPorConselho');
-    $router->post('/conselheiro/', 'ConselheiroController@store');
-    $router->put('/conselheiro/{id_conselho}', 'ConselheiroController@update');
-    $router->delete('/conselheiro/{id_conselho}', 'ConselheiroController@delete');
-
-    //REPRESENTACAO CONSELHO (ASSOCIAÇÃO COM USUÁRIOS COM CONSELHOS (CONFOCOS)
-    $router->get('/representacao_conselho/{id_conselho}', 'RepresentacaoConselhoController@get');
-    $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
-    $router->post('/representacao_conselho/', 'RepresentacaoConselhoController@store');
-    $router->delete('/representacao_conselho/{id}', 'RepresentacaoConselhoController@delete');
 
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->get('/representacao/{id_osc}/{id_usuario}', 'RepresentacaoController@getRepresetacaoPorOscAndUsuario');
@@ -482,6 +462,55 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //------------------------QUADRO SOCIETÁRIO OSC-------------------------------------//
     $router->get('/quadro-societario/{id}', 'QuadroSocietarioController@get');
     $router->get('/quadro-societario-por-osc/{id_osc}', 'QuadroSocietarioController@getQuadroSocietarioPorOSC');
+});
+
+
+//ROTAS SEM AUTENTICAÇÃO DO USUARIO
+$router->group(['prefix' => '/api/confocos'], function() use ($router){
+
+    //GERENCIAMENTO CONSELHO (CONFOCOS)
+    $router->get('/conselho/{id_conselho}', 'Confocos\ConselhoController@get');
+//    $router->get('/conselho/total/', 'Confocos\ConselhoController@getNumeroTotalConselhos');
+    $router->get('/conselho', 'Confocos\ConselhoController@getAll');
+});
+
+//ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
+$router->group(['prefix' => '/api/confocos'], function() use ($router){
+//$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
+
+    //GERENCIAMENTO CONSELHO (CONFOCOS)
+    $router->post('/conselho/', 'Confocos\ConselhoController@store');
+    $router->put('/conselho/{id_conselho}', 'Confocos\ConselhoController@update');
+//    $router->delete('/conselho/{id_conselho}', 'Confocos\ConselhoController@delete');
+
+    //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
+    $router->get('/conselheiro', 'Confocos\ConselheiroController@getAll');
+    $router->get('/conselheiro/{id_conselheiro}', 'Confocos\ConselheiroController@get');
+    $router->get('/conselheiro-por-conselho/{id_conselho}', 'Confocos\ConselheiroController@getListaConselheirosPorConselho');
+    $router->post('/conselheiro/', 'Confocos\ConselheiroController@store');
+    $router->put('/conselheiro/{id_conselheiro}', 'Confocos\ConselheiroController@update');
+    $router->delete('/conselheiro/{id_conselheiro}/', 'Confocos\ConselheiroController@delete');
+
+    //REPRESENTACAO CONSELHO (ASSOCIAÇÃO COM USUÁRIOS COM CONSELHOS (CONFOCOS)
+    $router->get('/representacao_conselho/{id_representacao}', 'Confocos\RepresentacaoConselhoController@get');
+    $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'Confocos\RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
+    $router->get('/representacao_conselho', 'Confocos\RepresentacaoConselhoController@getAll');
+    $router->post('/representacao_conselho_teste/', 'Confocos\RepresentacaoConselhoController@store');
+    $router->delete('/representacao_conselho_teste/{id_conselho}', 'Confocos\RepresentacaoConselhoController@delete');
+
+    //NIVEL FEDERATIVO - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
+    $router->get('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@get');
+    $router->get('/nivel_federativo', 'Confocos\DCNivelFederativoController@getAll');
+    $router->post('/nivel_federativo', 'Confocos\DCNivelFederativoController@store');
+    $router->put('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@update');
+    $router->delete('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@delete');
+
+    //TIPO ABRANGENCIA - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
+    $router->get('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@get');
+    $router->get('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@getAll');
+    $router->post('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@store');
+    $router->put('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@update');
+    $router->delete('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@delete');
 });
 
 

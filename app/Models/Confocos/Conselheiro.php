@@ -154,10 +154,6 @@ class Conselheiro extends Model
         'id_conselho'
     ];
 
-    protected $attributes = [
-        'ft_nao_possui_ps_outros_espacos' => 'Representante de OSC'
-    ];
-
     /**
      * @var array
      */

@@ -2,8 +2,6 @@
 
 namespace App\Models\Confocos;
 
-use App\Models\Syst\DCNivelFederativo;
-use App\Models\Syst\DCTipoAbrangenciaConselho;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -143,10 +141,6 @@ class Conselho extends Model
         'cd_tipo_abrangencia'
     ];
 
-    protected $attributes = [
-        'ft_nao_possui_ps_outros_espacos' => 'Representante de OSC'
-    ];
-
     /**
      * @var array
      */
@@ -177,7 +171,7 @@ class Conselho extends Model
      */
     public function nivel_federativo()
     {
-        return $this->hasOne('App\Models\Syst\DCNivelFederativo', 'cd_nivel_federativo', 'cd_nivel_federativo');
+        return $this->hasOne('App\Models\Confocos\DCNivelFederativo', 'cd_nivel_federativo', 'cd_nivel_federativo');
     }
 
     /**
@@ -185,7 +179,7 @@ class Conselho extends Model
      */
     public function tipo_abrangencia()
     {
-        return $this->hasOne('App\Models\Syst\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
+        return $this->hasOne('App\Models\Confocos\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
     }
 
     public function conselheiros()

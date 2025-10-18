@@ -1,17 +1,15 @@
 <?php
 
 
-namespace App\Repositories\Syst;
+namespace App\Repositories\Confocos;
 
-use App\Models\Syst\DCTipoAbrangenciaConselho;
-use App\Repositories\Syst\DCTipoAbrangenciaConselhoRepositoryInterface;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Confocos\DCNivelFederativo;
 
-class DCTipoAbrangenciaConselhoRepositoryEloquent implements DCTipoAbrangenciaConselhoRepositoryInterface
+class DCNivelFederativoRepositoryEloquent implements DCNivelFederativoRepositoryInterface
 {
     private $model;
 
-    public function __construct(DCTipoAbrangenciaConselho $_modelo)
+    public function __construct(DCNivelFederativo $_modelo)
     {
         $this->model = $_modelo;
     }

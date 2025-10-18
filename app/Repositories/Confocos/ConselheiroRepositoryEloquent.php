@@ -50,7 +50,7 @@ class ConselheiroRepositoryEloquent implements ConselheiroRepositoryInterface
 
     public function getListaConselheirosPorConselho($id_conselho)
     {
-        $conselheiros = $this->model->where('$id_conselho', $id_conselho);
+        $conselheiros = $this->model->where('id_conselho', $id_conselho)->get();
 
         return $conselheiros;
     }

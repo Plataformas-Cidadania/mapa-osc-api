@@ -44,6 +44,6 @@ class ConselheiroService
 
     public function destroy($id_conselho)
     {
-        return $this->repo->delete($id_conselho);
+        return $this->repo->destroy($id_conselho);
     }
 }
