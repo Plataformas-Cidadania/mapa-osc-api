@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tx_nome_conselheiro
  * @property string $tx_orgao_origem
  * @property boolean $bo_conselheiro_ativo
- * @property int $cd_identificador_osc
+ * @property int $cd_identificador_orgao
  * @property int $dt_data_vinculo
  * @property int $dt_data_final_vinculo
  * @property boolean $bo_eh_governamental
