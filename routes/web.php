@@ -475,8 +475,8 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-$router->group(['prefix' => '/api/confocos'], function() use ($router){
-//$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
+//$router->group(['prefix' => '/api/confocos'], function() use ($router){
+$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
 
     //GERENCIAMENTO CONSELHO (CONFOCOS)
     $router->post('/conselho/', 'Confocos\ConselhoController@store');
@@ -495,8 +495,8 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
     $router->get('/representacao_conselho/{id_representacao}', 'Confocos\RepresentacaoConselhoController@get');
     $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'Confocos\RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
     $router->get('/representacao_conselho', 'Confocos\RepresentacaoConselhoController@getAll');
-    $router->post('/representacao_conselho_teste/', 'Confocos\RepresentacaoConselhoController@store');
-    $router->delete('/representacao_conselho_teste/{id_conselho}', 'Confocos\RepresentacaoConselhoController@delete');
+    $router->post('/representacao_conselho/', 'Confocos\RepresentacaoConselhoController@store');
+    $router->delete('/representacao_conselho/{id_conselho}', 'Confocos\RepresentacaoConselhoController@delete');
 
     //NIVEL FEDERATIVO - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
     $router->get('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@get');
