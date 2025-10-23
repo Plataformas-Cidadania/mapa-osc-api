@@ -470,7 +470,7 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
 
     //GERENCIAMENTO CONSELHO (CONFOCOS)
     $router->get('/conselho/{id_conselho}', 'Confocos\ConselhoController@get');
-//    $router->get('/conselho/total/', 'Confocos\ConselhoController@getNumeroTotalConselhos');
+    $router->get('/total/conselho/', 'Confocos\ConselhoController@getNumeroTotalConselhos');
     $router->get('/conselho', 'Confocos\ConselhoController@getAll');
 
     //NIVEL FEDERATIVO - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)

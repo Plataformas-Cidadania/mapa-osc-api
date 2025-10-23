@@ -111,7 +111,7 @@ class ConselhoController extends Controller
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->update($dados, $id_conselho), Response::HTTP_OK);
+            return response()->json($this->service->update($id_conselho, $dados), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
