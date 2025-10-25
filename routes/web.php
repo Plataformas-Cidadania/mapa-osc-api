@@ -502,6 +502,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
     $router->delete('/conselheiro/{id_conselheiro}/', 'Confocos\ConselheiroController@delete');
 
     //REPRESENTACAO CONSELHO (ASSOCIAÇÃO COM USUÁRIOS COM CONSELHOS (CONFOCOS)
+    $router->get('/list-conselho-usuario', 'Confocos\ConselhoController@getListaConselhosUsuarioAutenticado');
     $router->get('/representacao_conselho/{id_representacao}', 'Confocos\RepresentacaoConselhoController@get');
     $router->get('/representacao_conselho/{id_conselho}/{id_usuario}', 'Confocos\RepresentacaoConselhoController@getRepresetacaoPorConselhoAndUsuario');
     $router->get('/representacao_conselho', 'Confocos\RepresentacaoConselhoController@getAll');
