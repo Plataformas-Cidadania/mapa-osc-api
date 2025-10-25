@@ -473,6 +473,9 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
     $router->get('/total/conselho/', 'Confocos\ConselhoController@getNumeroTotalConselhos');
     $router->get('/conselho', 'Confocos\ConselhoController@getAll');
 
+    //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
+    $router->get('/conselheiro', 'Confocos\ConselheiroController@getAll');
+
     //NIVEL FEDERATIVO - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
     $router->get('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@get');
     $router->get('/nivel_federativo', 'Confocos\DCNivelFederativoController@getAll');
@@ -492,7 +495,6 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
 //    $router->delete('/conselho/{id_conselho}', 'Confocos\ConselhoController@delete');
 
     //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
-    $router->get('/conselheiro', 'Confocos\ConselheiroController@getAll');
     $router->get('/conselheiro/{id_conselheiro}', 'Confocos\ConselheiroController@get');
     $router->get('/conselheiro-por-conselho/{id_conselho}', 'Confocos\ConselheiroController@getListaConselheirosPorConselho');
     $router->post('/conselheiro/', 'Confocos\ConselheiroController@store');
