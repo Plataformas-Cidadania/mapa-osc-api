@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\Confocos;
 
 use App\Http\Controllers\Controller;
-use App\Services\Confocos\ConselheiroService;
+use App\Services\Confocos\DocumentoConselhoService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ConselheiroController extends Controller
+class DocumentoConselhoController extends Controller
 {
     private $service;
     /**
      * Create a new controller instance.
      *
-     * @param ConselheiroService $service
+     * @param DocumentoConselhoService $service
      */
-    public function __construct(ConselheiroService $_service)
+    public function __construct(DocumentoConselhoService $_service)
     {
         $this->service = $_service;
     }
 
     /**
      * @OA\Get(
-     *     path="/api/confocos/conselheiro",
+     *     path="/api/confocos/documento_conselho",
      *     operationId="getAll",
-     *     tags={"Conselheiro"},
+     *     tags={"DocumentoConselho"},
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna todos os Conselhos",
+     *         description="Retorna todos os Documentos de Conselho",
      *         @OA\JsonContent(
      *           type="array",
      *           @OA\Items(ref="#/components/schemas/Confocos")
@@ -44,12 +44,12 @@ class ConselheiroController extends Controller
             return $e->getMessage();
         }
     }
-    
+
     /**
      * @OA\Get(
-     *     path="/api/confocos/conselheiro/{osc_id}",
+     *     path="/api/confocos/documento_conselho/{id_documento_conselho}",
      *     operationId="get",
-     *     tags={"Conselheiro"},
+     *     tags={"DocumentoConselho"},
      *     @OA\Parameter(
      *       name="osc_id",
      *       in="path",
@@ -59,7 +59,7 @@ class ConselheiroController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="Retorna um Conselheiro de acordo com o ID",
+     *         description="Retorna um DocumentoConselho de acordo com o ID",
      *         @OA\JsonContent(ref="#/components/schemas/Confocos")
      *     ),
      * )
@@ -93,7 +93,7 @@ class ConselheiroController extends Controller
             $conselheiro = $this->service->update($id_conselheiro, $dados);
 
             if ($conselheiro) {
-                return response()->json(['Resposta' => 'Conselheiro atualizado com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'DocumentoConselho atualizado com sucesso!'], Response::HTTP_OK);
             }
         }
         catch (\Exception $e) {
@@ -101,10 +101,10 @@ class ConselheiroController extends Controller
         }
     }
 
-    public function getListaConselheirosPorConselho($id_conselho)
+    public function getListaDocumentosPorConselho($id_conselho)
     {
         try {
-            return response()->json($this->service->getListaConselheirosPorConselho($id_conselho), Response::HTTP_OK);
+            return response()->json($this->service->getListaDocumentosPorConselho($id_conselho), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -118,7 +118,7 @@ class ConselheiroController extends Controller
             $resposta = $this->service->destroy($id_conselheiro);
 
             if ($resposta) {
-                return response()->json(['Resposta' => 'Conselheiro deletado com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'DocumentoConselho deletado com sucesso!'], Response::HTTP_OK);
             }
         }
         catch (\Exception $e) {

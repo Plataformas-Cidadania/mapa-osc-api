@@ -514,6 +514,13 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
     $router->put('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@update');
     $router->delete('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@delete');
 
+    //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
+    $router->get('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@get');
+    $router->get('/documento-por-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@getListaDocumentosPorConselho');
+    $router->post('/documento-conselho/', 'Confocos\DocumentoConselhoController@store');
+    $router->put('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@update');
+    $router->delete('/documento-conselho/{id_documento_conselho}/', 'Confocos\DocumentoConselhoController@delete');
+
 
     $router->post('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@store');
     $router->put('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@update');

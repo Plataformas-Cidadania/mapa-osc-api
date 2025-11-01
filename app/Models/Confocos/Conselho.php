@@ -145,16 +145,7 @@ class Conselho extends Model
      * @var array
      */
     protected $with = [
-        //'contato',
         //'dados_gerais',
-        //'areas_e_subareas_atuacao',
-        //'titulos_e_certificados',
-        //'trabalhadores',
-        //'quadro_de_dirigentes',
-        //'conselho_fiscal',
-        //'conselhos_politicas_publicas',
-        //'conferencias_politicas_publicas',
-        //'outros_espacos_participacao_social',
         //'projetos',
         //'localizacao'
     ];
@@ -167,7 +158,7 @@ class Conselho extends Model
     //------------------------------------------METODOS DE RELACIONAMENTOS-------------------------------------------------------------------------------------//
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function nivel_federativo()
     {
@@ -175,32 +166,19 @@ class Conselho extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function tipo_abrangencia()
     {
         return $this->hasOne('App\Models\Confocos\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function conselheiros()
     {
         return $this->hasMany('App\Models\Confocos\Conselheiro', 'id_conselho', 'id_conselho');
     }
-
-    //    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-//     */
-//    public function dados_gerais()
-//    {
-//        return $this->hasOne('App\Models\Osc\DadosGerais', 'id_osc', 'id_osc');
-//    }
-
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-//     */
-//    public function localizacao()
-//    {
-//        return $this->hasOne('App\Models\Osc\Localizacao', 'id_osc', 'id_osc');
-//    }
 
 }
