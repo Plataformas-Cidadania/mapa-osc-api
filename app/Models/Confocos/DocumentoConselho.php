@@ -78,6 +78,19 @@ class DocumentoConselho extends Model
 
         /**
          *   @OA\Property(
+         *     property="dt_data_cadastro",
+         *     type="string",
+         *     description="Data de cadastro do documento"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var timestamp
+         */
+        'dt_data_cadastro',
+
+        /**
+         *   @OA\Property(
          *     property="tx_url_externa",
          *     type="string",
          *     description="Url externa do documento"
@@ -100,7 +113,7 @@ class DocumentoConselho extends Model
          *
          * @var integer
          */
-        'conselho_id'
+        'id_conselho'
     ];
 
     /**
