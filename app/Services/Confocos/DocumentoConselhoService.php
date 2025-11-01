@@ -24,7 +24,7 @@ class DocumentoConselhoService
 
     public function getPorId($id)
     {
-        return $this->repo->getPorId($id);
+        return $this->repo->get($id);
     }
 
     public function getListaDocumentosPorConselho($id_conselho)

@@ -85,12 +85,12 @@ class DocumentoConselhoController extends Controller
         }
     }
 
-    public function update($id_conselheiro, Request $request)
+    public function update($id_documento_conselho, Request $request)
     {
         try {
             $dados = $request->all();
 
-            $conselheiro = $this->service->update($id_conselheiro, $dados);
+            $conselheiro = $this->service->update($id_documento_conselho, $dados);
 
             if ($conselheiro) {
                 return response()->json(['Resposta' => 'DocumentoConselho atualizado com sucesso!'], Response::HTTP_OK);

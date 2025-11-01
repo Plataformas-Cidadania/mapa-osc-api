@@ -486,13 +486,13 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-//$router->group(['prefix' => '/api/confocos'], function() use ($router){
-$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
+$router->group(['prefix' => '/api/confocos'], function() use ($router){
+//$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
 
     //GERENCIAMENTO CONSELHO (CONFOCOS)
     $router->post('/conselho/', 'Confocos\ConselhoController@store');
     $router->put('/conselho/{id_conselho}', 'Confocos\ConselhoController@update');
-//    $router->delete('/conselho/{id_conselho}', 'Confocos\ConselhoController@delete');
+    $router->delete('/conselho/{id_conselho}', 'Confocos\ConselhoController@delete');
 
     //GERENCIAMENTO DE CONSELHEIROS (CONFOCOS)
     $router->get('/conselheiro/{id_conselheiro}', 'Confocos\ConselheiroController@get');
@@ -516,6 +516,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
 
     //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
     $router->get('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@get');
+    $router->get('/documento-conselho', 'Confocos\DocumentoConselhoController@getAll');
     $router->get('/documento-por-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@getListaDocumentosPorConselho');
     $router->post('/documento-conselho/', 'Confocos\DocumentoConselhoController@store');
     $router->put('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@update');
