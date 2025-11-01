@@ -486,8 +486,8 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
-$router->group(['prefix' => '/api/confocos'], function() use ($router){
-//$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
+//$router->group(['prefix' => '/api/confocos'], function() use ($router){
+$router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function() use ($router){
 
     //GERENCIAMENTO CONSELHO (CONFOCOS)
     $router->post('/conselho/', 'Confocos\ConselhoController@store');
