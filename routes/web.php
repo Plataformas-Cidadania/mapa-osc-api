@@ -480,9 +480,12 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
     $router->get('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@get');
     $router->get('/nivel_federativo', 'Confocos\DCNivelFederativoController@getAll');
 
+    //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
+    $router->get('/documento-por-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@getListaDocumentosPorConselho');
+
     //TIPO ABRANGENCIA - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
-    $router->get('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@get');
-    $router->get('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@getAll');
+//    $router->get('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@get');
+//    $router->get('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@getAll');
 });
 
 //ROTAS QUE PRECISAM DA AUTENTICAÇÃO DO USUARIO
@@ -517,15 +520,15 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
     //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
     $router->get('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@get');
     $router->get('/documento-conselho', 'Confocos\DocumentoConselhoController@getAll');
-    $router->get('/documento-por-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@getListaDocumentosPorConselho');
+
     $router->post('/documento-conselho/', 'Confocos\DocumentoConselhoController@store');
     $router->put('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@update');
     $router->delete('/documento-conselho/{id_documento_conselho}/', 'Confocos\DocumentoConselhoController@delete');
 
 
-    $router->post('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@store');
-    $router->put('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@update');
-    $router->delete('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@delete');
+//    $router->post('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@store');
+//    $router->put('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@update');
+//    $router->delete('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@delete');
 });
 
 

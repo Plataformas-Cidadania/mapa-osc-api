@@ -126,9 +126,9 @@ class AppServiceProvider extends ServiceProvider
         );
 
         //DADOS DO SCHEMA SYST
-        $this->app->bind(
-            'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryInterface', 'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryEloquent'
-        );
+//        $this->app->bind(
+//            'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryInterface', 'App\Repositories\Confocos\DCTipoAbrangenciaConselhoRepositoryEloquent'
+//        );
         $this->app->bind(
             'App\Repositories\Confocos\DCNivelFederativoRepositoryInterface', 'App\Repositories\Confocos\DCNivelFederativoRepositoryEloquent'
         );

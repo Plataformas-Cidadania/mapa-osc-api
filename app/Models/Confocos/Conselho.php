@@ -165,13 +165,13 @@ class Conselho extends Model
         return $this->hasOne('App\Models\Confocos\DCNivelFederativo', 'cd_nivel_federativo', 'cd_nivel_federativo');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function tipo_abrangencia()
-    {
-        return $this->hasOne('App\Models\Confocos\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
-    }
+//    /**
+//     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+//     */
+//    public function tipo_abrangencia()
+//    {
+//        return $this->hasOne('App\Models\Confocos\DCTipoAbrangenciaConselho', 'cd_tipo_abrangencia', 'cd_tipo_abrangencia');
+//    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
