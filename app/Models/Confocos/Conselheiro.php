@@ -90,6 +90,19 @@ class Conselheiro extends Model
 
         /**
          *   @OA\Property(
+         *     property="cd_tipo_conselheiro",
+         *     type="integer",
+         *     description="Tipo de Conselheiro (1 - Titular, 2 - Suplente)"
+         *   )
+         *
+         * The primary key for the model.
+         *
+         * @var integer
+         */
+        'cd_tipo_conselheiro',
+
+        /**
+         *   @OA\Property(
          *     property="bo_conselheiro_ativo",
          *     type="boolean",
          *     description="Campo define se o Conselheiro está ativo ou não na Portal"
