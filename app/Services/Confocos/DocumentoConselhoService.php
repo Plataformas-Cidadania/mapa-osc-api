@@ -71,11 +71,12 @@ class DocumentoConselhoService
                 'dt_data_cadastro' => date('Y-m-d H:i:s'),
             ];
 
-            return $this->repo->store($data);
+            $novo_documento =  $this->repo->store($data);
+
+            $novo_documento['arquivo'] = $this->getArquivoDocumento($novo_documento);
+
+            return $novo_documento;
         }
-
-
-        return 'data:image/png;base64,'.base64_encode(file_get_contents(storage_path('app/confocos/'.$filenameRandom)));
     }
 
     public function getArquivoDocumento($documento) {
