@@ -125,4 +125,24 @@ class DocumentoConselhoController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function uploadDocumento($id_conselho, Request $request)
+    {
+        try {
+
+            $file = $request->file('documento');
+
+            $documento = $this->service->uploadDocumento($id_conselho, $file);
+
+            if (!$documento)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            return response()->json($documento, Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

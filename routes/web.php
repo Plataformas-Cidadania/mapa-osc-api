@@ -522,6 +522,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
     $router->get('/documento-conselho', 'Confocos\DocumentoConselhoController@getAll');
 
     $router->post('/documento-conselho/', 'Confocos\DocumentoConselhoController@store');
+    $router->post('/documento-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@uploadDocumento');
     $router->put('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@update');
     $router->delete('/documento-conselho/{id_documento_conselho}/', 'Confocos\DocumentoConselhoController@delete');
 
