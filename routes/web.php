@@ -483,6 +483,10 @@ $router->group(['prefix' => '/api/confocos'], function() use ($router){
     //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
     $router->get('/documento-por-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@getListaDocumentosPorConselho');
 
+    //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
+    $router->get('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@get');
+    $router->get('/documento-conselho', 'Confocos\DocumentoConselhoController@getAll');
+
     //TIPO ABRANGENCIA - PARA GERENCIAMENTO DOS CONSELHOS (CONFOCOS)
 //    $router->get('/abrangencia_conselho/{id_abrangencia_conselho}', 'Confocos\DCTipoAbrangenciaConselhoController@get');
 //    $router->get('/abrangencia_conselho/', 'Confocos\DCTipoAbrangenciaConselhoController@getAll');
@@ -517,9 +521,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/confocos'], function()
     $router->put('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@update');
     $router->delete('/nivel_federativo/{id_nivel_federativo}', 'Confocos\DCNivelFederativoController@delete');
 
-    //GERENCIAMENTO DE DOCUMENTOS DE CONSELHO (CONFOCOS)
-    $router->get('/documento-conselho/{id_documento_conselho}', 'Confocos\DocumentoConselhoController@get');
-    $router->get('/documento-conselho', 'Confocos\DocumentoConselhoController@getAll');
+
 
     $router->post('/documento-conselho/', 'Confocos\DocumentoConselhoController@store');
     $router->post('/documento-conselho/{id_conselho}', 'Confocos\DocumentoConselhoController@uploadDocumento');
