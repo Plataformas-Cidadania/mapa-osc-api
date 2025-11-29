@@ -1802,6 +1802,7 @@ class BuscaAvancadaRepositoryEloquent implements BuscaAvancadaRepositoryInterfac
         $query = "
             SELECT
                     a.id_osc AS id_osc,
+                    cd_identificador_osc AS cd_identificador_osc,
                    -- Verificacao de matriz x filial --
                     CASE
                         WHEN  SUBSTR(LPAD(cd_identificador_osc::text, 14, '0'), 10, 3) = '001' THEN '1'
