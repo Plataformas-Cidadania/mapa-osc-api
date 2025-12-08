@@ -34,6 +34,20 @@ class ProjetoRepositoryEloquent implements ProjetoRepositoryInterface
 
         $projeto['nr_valor_total_projeto'] = $nr_valor_total_projeto;
 
+        $nr_valor_captado_projeto = $projeto['nr_valor_captado_projeto'];
+        $numerosVetor = explode(".", $nr_valor_captado_projeto);
+        $qtdVetor = count($numerosVetor);
+        if ($qtdVetor === 2) {
+            if (strlen($numerosVetor[1]) === 1) {
+                $nr_valor_captado_projeto = $nr_valor_captado_projeto . "0";
+            }
+        } else
+        {
+            $nr_valor_captado_projeto = $nr_valor_captado_projeto . ".00";
+        }
+
+        $projeto['nr_valor_captado_projeto'] = $nr_valor_captado_projeto;
+
         return $projeto;
     }
 
