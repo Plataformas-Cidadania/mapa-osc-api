@@ -5,6 +5,14 @@ namespace App\Models\Confocos;
 use App\Models\Api\Politica;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+*
+* @OA\Schema(
+ *   schema="DocumentoConselho",
+ *   description="DocumentoConselho model",
+ * )
+ *
+ */
 class DocumentoConselho extends Model
 {
     protected $table = 'confocos.tb_documento_conselho';
