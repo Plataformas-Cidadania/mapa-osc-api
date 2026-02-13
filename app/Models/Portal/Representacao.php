@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_usuario
  * @property Osc.tbOsc $osc.tbOsc
  * @property Portal.tbUsuario $portal.tbUsuario
+ *
+ * @OA\Schema(
+ *     schema="Representacao",
+ *     description="Representacao model",
+ *   )
  */
 class Representacao extends Model
 {

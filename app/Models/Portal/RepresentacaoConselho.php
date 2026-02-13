@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  *    schema="RepresentacaoConselho",
  *    description="RepresentacaoConselho model",
  *  )
- *
- * /
  */
 class RepresentacaoConselho extends Model
 {
