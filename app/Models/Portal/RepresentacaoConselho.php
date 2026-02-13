@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_conselho
  * @property int $id_usuario
  * @property datetime $dt_data_vinculo
+ *
+ *
+ * @OA\Schema(
+ *    schema="RepresentacaoConselho",
+ *    description="RepresentacaoConselho model",
+ *  )
+ *
+ * /
  */
 class RepresentacaoConselho extends Model
 {
