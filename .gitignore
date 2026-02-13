@@ -54,3 +54,4 @@ composer4.lock
 README.md
 
 *.md
+/token-git
