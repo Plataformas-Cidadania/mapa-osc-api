@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $bo_eh_governamental
  *
  * @OA\Schema(
- *   schema="Confocos",
- *   description="Conselho model",
+ *   schema="Conselheiro",
+ *   description="Conselheiro model",
  * )
  * 
  */
