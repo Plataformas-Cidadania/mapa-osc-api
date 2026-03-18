@@ -3,6 +3,7 @@
 
 namespace App\Repositories\Portal;
 
+use App\Models\Osc\Osc;
 use App\Models\Portal\BarraTransparencia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +93,7 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             + $this->getPontuacaoDescricao($id_osc) * $pesoDescricao / 100
             + $this->getPontuacaoTitulosCertificacoes($id_osc) * $pesoTitulosCertificacoes / 100
             + $this->getPontuacaoRelacoesTrabalhoGovernanca($id_osc) * $pesoRelacoesTrabalhoGovernanca / 100
-            + $this->getPontuacaoEspacosParticipacaoSocial($id_osc) * $pesoEspacosParticipacaoSocial / 100
+            + $this->getPontuacaoEspacosParticipacaoSocialAndConferencias($id_osc) * $pesoEspacosParticipacaoSocial / 100
             + $this->getPontuacaoProjetosAtividadesProgramas($id_osc) * $pesoProjetosAtividadesProgramas / 100
             + $this->getPontuacaoFontesRecursos($id_osc) * $pesoFontesRecursos / 100;
 
@@ -116,7 +117,7 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             'transparencia_relacoes_trabalho_governanca' => $this->getPontuacaoRelacoesTrabalhoGovernanca($id_osc),
             'peso_relacoes_trabalho_governanca' => $pesoRelacoesTrabalhoGovernanca,
 
-            'transparencia_espacos_participacao_social' => $this->getPontuacaoEspacosParticipacaoSocial($id_osc),
+            'transparencia_espacos_participacao_social' => $this->getPontuacaoEspacosParticipacaoSocialAndConferencias($id_osc),
             'peso_espacos_participacao_social' => $pesoEspacosParticipacaoSocial,
 
             'transparencia_projetos_atividades_programas' => $this->getPontuacaoProjetosAtividadesProgramas($id_osc),
@@ -391,103 +392,94 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
         return $pontuacao;
     }
 
-    public function getPontuacaoEspacosParticipacaoSocial(int $osc): float
+    public function getPontuacaoEspacosParticipacaoSocialAndConferencias(int $oscId): float
     {
-        $pesoCampo = 100.0 / 10.0; // 10
+        $pesoCampo = 100.0 / 8.0; // 10
 
         $pontuacao = 0.0;
 
+        $osc = Osc::find($oscId);
+
         // -------- CONSELHO --------
 
-        if (DB::table('osc.tb_participacao_social_conselho')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_conselho')
-            ->exists()
-        ) {
+        if ($osc->bo_nao_possui_ps_conselhos === false) {
             $pontuacao += $pesoCampo;
+        } else {
+            if (DB::table('osc.tb_participacao_social_conselho')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('cd_conselho')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
+
+            if (DB::table('osc.tb_participacao_social_conselho')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('cd_periodicidade_reuniao_conselho')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
+
+            if (DB::table('osc.tb_participacao_social_conselho')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('dt_data_inicio_conselho')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
+
+            if (DB::table('osc.tb_participacao_social_conselho')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('dt_data_fim_conselho')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
         }
 
-        if (DB::table('osc.tb_participacao_social_conselho')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_tipo_participacao')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
-
-        if (DB::table('osc.tb_participacao_social_conselho')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_periodicidade_reuniao_conselho')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
-
-        if (DB::table('osc.tb_participacao_social_conselho')
-            ->where('id_osc', $osc)
-            ->whereNotNull('dt_data_inicio_conselho')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
-
-        if (DB::table('osc.tb_participacao_social_conselho')
-            ->where('id_osc', $osc)
-            ->whereNotNull('dt_data_fim_conselho')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
-
-        // Representante do conselho
-        if (DB::table('osc.tb_representante_conselho as rc')
-            ->join(
-                'osc.tb_participacao_social_conselho as pc',
-                'rc.id_participacao_social_conselho',
-                '=',
-                'pc.id_conselho'
-            )
-            ->where('pc.id_osc', $osc)
-            ->whereNotNull('rc.tx_nome_representante_conselho')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
 
         // -------- CONFERÊNCIA --------
-
-        if (DB::table('osc.tb_participacao_social_conferencia')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_conferencia')
-            ->exists()
-        ) {
+        if ($osc->bo_nao_possui_ps_conferencias === true) {
             $pontuacao += $pesoCampo;
+        } else {
+            if (DB::table('osc.tb_participacao_social_conferencia')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('cd_conferencia')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
+
+            if (DB::table('osc.tb_participacao_social_conferencia')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('dt_ano_realizacao')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
+
+            if (DB::table('osc.tb_participacao_social_conferencia')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('cd_forma_participacao_conferencia')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
         }
 
-        if (DB::table('osc.tb_participacao_social_conferencia')
-            ->where('id_osc', $osc)
-            ->whereNotNull('dt_ano_realizacao')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
-
-        if (DB::table('osc.tb_participacao_social_conferencia')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_forma_participacao_conferencia')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
 
         // -------- OUTRA PARTICIPAÇÃO --------
-
-        if (DB::table('osc.tb_participacao_social_outra')
-            ->where('id_osc', $osc)
-            ->whereNotNull('tx_nome_participacao_social_outra')
-            ->exists()
-        ) {
+        if ($osc->bo_nao_possui_ps_outros_espacos === true) {
             $pontuacao += $pesoCampo;
+        } else {
+            if (DB::table('osc.tb_participacao_social_outra')
+                ->where('id_osc', $oscId)
+                ->whereNotNull('tx_nome_participacao_social_outra')
+                ->exists()
+            ) {
+                $pontuacao += $pesoCampo;
+            }
         }
 
         return $pontuacao;
@@ -495,11 +487,19 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
 
     public function getPontuacaoProjetosAtividadesProgramas(int $osc): float
     {
-        $pesoCampo = 100.0 / 10.0; // 10
+        $pesoCampo = 100.0 / 11.0; // 10
 
         $pontuacao = 0.0;
 
         // -------- PROJETO --------
+
+        if (DB::table('osc.tb_projeto')
+            ->where('id_osc', $osc)
+            ->whereNotNull('tx_nome_projeto')
+            ->exists()
+        ) {
+            $pontuacao += $pesoCampo;
+        }
 
         if (DB::table('osc.tb_projeto')
             ->where('id_osc', $osc)
