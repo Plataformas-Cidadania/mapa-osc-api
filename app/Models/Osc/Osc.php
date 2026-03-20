@@ -167,6 +167,52 @@ class Osc extends Model
 
         /**
          *   @OA\Property(
+         *     property="bo_nao_possui_certificacoes",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem Certificações ou não"
+         *   )
+         *
+         *
+         * @var integer
+         */
+        'bo_nao_possui_certificacoes',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_certificacoes",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem Certificações ou não"
+         *   )
+         *
+         * @var string
+         */
+        'ft_nao_possui_certificacoes',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_nao_possui_link_estatuto",
+         *     type="integer",
+         *     description="Campo que diz se a OSC tem Links para Estatuto ou não"
+         *   )
+         *
+         *
+         * @var integer
+         */
+        'bo_nao_possui_link_estatuto',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nao_possui_link_estatuto",
+         *     type="string",
+         *     description="Fonte da origem do Campo que diz se a OSC tem Links para Estatuto ou não"
+         *   )
+         *
+         * @var string
+         */
+        'ft_nao_possui_link_estatuto',
+
+        /**
+         *   @OA\Property(
          *     property="bo_nao_possui_ps_conselhos",
          *     type="integer",
          *     description="Campo que diz se a OSC tem conselhos ou não"

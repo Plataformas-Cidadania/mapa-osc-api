@@ -279,15 +279,15 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             $pontuacao += $pesoCampo;
         }
 
-        return $pontuacao;
+        return round($pontuacao, 2);
     }
 
-    public function getPontuacaoDescricao(int $osc): float
+    public function getPontuacaoDescricao(int $oscId): float
     {
         $pesoCampo = 100.0 / 5.0; // 20
 
         $dados = DB::table('osc.tb_dados_gerais')
-            ->where('id_osc', $osc)
+            ->where('id_osc', $oscId)
             ->select([
                 'tx_historico',
                 'tx_missao_osc',
@@ -319,17 +319,27 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             $pontuacao += $pesoCampo;
         }
 
-        if (!is_null($dados->tx_link_estatuto_osc)) {
+        $osc = Osc::find($oscId);
+
+        if ($osc->bo_nao_possui_link_estatuto === true) {
+            $pontuacao += $pesoCampo;
+        } else if (!is_null($dados->tx_link_estatuto_osc)) {
             $pontuacao += $pesoCampo;
         }
 
-        return $pontuacao;
+        return round($pontuacao, 2);
     }
 
-    public function getPontuacaoTitulosCertificacoes(int $osc): float
+    public function getPontuacaoTitulosCertificacoes(int $oscId): float
     {
+        $osc = Osc::find($oscId);
+
+        if ($osc->bo_nao_possui_titulos_certificacoes === true) {
+            return 100.0;
+        }
+
         $existeCertificado = DB::table('osc.tb_certificado')
-            ->where('id_osc', $osc)
+            ->where('id_osc', $oscId)
             ->exists();
 
         return $existeCertificado ? 100.0 : 0.0;
@@ -389,7 +399,7 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
         // 3) Soma com relações de trabalho
         $pontuacao += $sumRelacoesTrabalho;
 
-        return $pontuacao;
+        return round($pontuacao, 2);
     }
 
     public function getPontuacaoEspacosParticipacaoSocialAndConferencias(int $oscId): float
@@ -482,12 +492,12 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             }
         }
 
-        return $pontuacao;
+        return round($pontuacao, 2);
     }
 
     public function getPontuacaoProjetosAtividadesProgramas(int $osc): float
     {
-        $pesoCampo = 100.0 / 11.0; // 10
+        $pesoCampo = 100.0 / 9.0; // 10
 
         $pontuacao = 0.0;
 
@@ -535,6 +545,14 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
 
         if (DB::table('osc.tb_projeto')
             ->where('id_osc', $osc)
+            ->whereNotNull('tx_link_projeto')
+            ->exists()
+        ) {
+            $pontuacao += $pesoCampo;
+        }
+
+        if (DB::table('osc.tb_projeto')
+            ->where('id_osc', $osc)
             ->whereNotNull('nr_valor_total_projeto')
             ->exists()
         ) {
@@ -549,34 +567,34 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             $pontuacao += $pesoCampo;
         }
 
-        if (DB::table('osc.tb_projeto')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_abrangencia_projeto')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
+//        if (DB::table('osc.tb_projeto')
+//            ->where('id_osc', $osc)
+//            ->whereNotNull('cd_abrangencia_projeto')
+//            ->exists()
+//        ) {
+//            $pontuacao += $pesoCampo;
+//        }
 
-        if (DB::table('osc.tb_projeto')
-            ->where('id_osc', $osc)
-            ->whereNotNull('cd_zona_atuacao_projeto')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
+//        if (DB::table('osc.tb_projeto')
+//            ->where('id_osc', $osc)
+//            ->whereNotNull('cd_zona_atuacao_projeto')
+//            ->exists()
+//        ) {
+//            $pontuacao += $pesoCampo;
+//        }
 
         // -------- FONTE DE RECURSOS --------
 
-        if (DB::table('osc.tb_fonte_recursos_projeto as fr')
-            ->join('osc.tb_projeto as p', 'fr.id_projeto', '=', 'p.id_projeto')
-            ->where('p.id_osc', $osc)
-            ->whereNotNull('fr.cd_origem_fonte_recursos_projeto')
-            ->exists()
-        ) {
-            $pontuacao += $pesoCampo;
-        }
+//        if (DB::table('osc.tb_fonte_recursos_projeto as fr')
+//            ->join('osc.tb_projeto as p', 'fr.id_projeto', '=', 'p.id_projeto')
+//            ->where('p.id_osc', $osc)
+//            ->whereNotNull('fr.cd_origem_fonte_recursos_projeto')
+//            ->exists()
+//        ) {
+//            $pontuacao += $pesoCampo;
+//        }
 
-        // -------- OBJETIVO DO PROJETO --------
+        // -------- META/OBJETIVO DO PROJETO --------
 
         if (DB::table('osc.tb_objetivo_projeto as op')
             ->join('osc.tb_projeto as p', 'op.id_projeto', '=', 'p.id_projeto')
@@ -587,19 +605,17 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             $pontuacao += $pesoCampo;
         }
 
-        return $pontuacao;
+        return round($pontuacao, 2);
     }
 
     public function getPontuacaoFontesRecursos(int $osc): float
     {
-        $pesoCampo = 100.0 / 4.0; // 25
-
         $rows = DB::table('osc.tb_recursos_osc as r')
             ->join(
-                'syst.dc_fonte_recursos_osc as fr', // 🔴 TROQUE para o nome real
-                'r.cd_fonte_recursos_osc',                  // 🔴 TROQUE a chave
+                'syst.dc_fonte_recursos_osc as fr',
+                'r.cd_fonte_recursos_osc',
                 '=',
-                'fr.cd_fonte_recursos_osc'                  // 🔴 TROQUE a chave
+                'fr.cd_fonte_recursos_osc'
             )
             ->join(
                 'syst.dc_origem_fonte_recursos_osc as d',
@@ -609,38 +625,50 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             )
             ->where('r.id_osc', $osc)
             ->select('d.tx_nome_origem_fonte_recursos_osc')
+            ->distinct() // 🔥 importante: garante 1 por tipo
             ->get();
 
         if ($rows->isEmpty()) {
             return 0.0;
         }
 
+        $mapaPontuacao = [
+            'Recursos públicos'        => 25.0,
+            'Recursos privados'        => 25.0,
+            'Recursos não financeiros' => 25.0,
+            'Recursos próprios'        => 25.0,
+        ];
+
         $soma = 0.0;
-        $count = 0;
 
         foreach ($rows as $row) {
-            // COUNT(*) do seu SQL conta todas as linhas
-            $count++;
+            $nome = $row->tx_nome_origem_fonte_recursos_osc;
 
-            if ($row->tx_nome_origem_fonte_recursos_osc === null) {
-                continue;
-            }
-
-            switch ($row->tx_nome_origem_fonte_recursos_osc) {
-                case 'Recursos públicos':
-                case 'Recursos privados':
-                case 'Recursos não financeiros':
-                case 'Recursos próprios':
-                    $soma += $pesoCampo;
-                    break;
+            if ($nome !== null && isset($mapaPontuacao[$nome])) {
+                $soma += $mapaPontuacao[$nome];
+            } else {
+                $soma += 0.0;
             }
         }
 
-        if ($count === 0) {
-            return 0.0;
-        }
+//        $tiposFaltantes = array_diff($mapaPontuacao, $rows);
+//        dd($tiposFaltantes);
+//        foreach ($mapaPontuacao as $tipo) {
+//
+//            $negado = DB::table('osc.tb_n_recurso_osc_ano as r') // 🔴 ajustar nome
+//                ->join('syst.dc_origem_fonte_recursos_osc as fr', 'fr.cd_origem_fonte_recursos_osc', '=', 'r.cd_origem_fonte_recursos_osc')
+//            ->where('id_osc', $osc)
+//                ->where(['tx_nome_origem_fonte_recursos_osc', $tipo], ['id_osc', $osc])
+//                ->exists();
+//
+//            if ($negado) {
+//                // tratar caso negado
+//            } else {
+//                // tratar caso realmente ausente
+//            }
+//        }
 
-        return round($soma / $count, 2);
+        return min(100.0, round($soma, 2));
     }
 
     public function getPontuacao(int $osc): float
