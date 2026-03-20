@@ -123,7 +123,7 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             'transparencia_projetos_atividades_programas' => $this->getPontuacaoProjetosAtividadesProgramas($id_osc),
             'peso_projetos_atividades_programas' => $pesoProjetosAtividadesProgramas,
 
-            'transparencia_fontes_recursos' => $this->getPontuacao($id_osc),
+            'transparencia_fontes_recursos' => $this->getPontuacaoFontesRecursos($id_osc),
             'peso_fontes_recursos' => $pesoFontesRecursos,
 
             'transparencia_osc' => $transparenciaOsc
@@ -651,71 +651,80 @@ class BarratransparenciaRepositoryEloquent implements BarratransparenciaReposito
             }
         }
 
-//        $tiposFaltantes = array_diff($mapaPontuacao, $rows);
-//        dd($tiposFaltantes);
-//        foreach ($mapaPontuacao as $tipo) {
-//
-//            $negado = DB::table('osc.tb_n_recurso_osc_ano as r') // 🔴 ajustar nome
-//                ->join('syst.dc_origem_fonte_recursos_osc as fr', 'fr.cd_origem_fonte_recursos_osc', '=', 'r.cd_origem_fonte_recursos_osc')
-//            ->where('id_osc', $osc)
-//                ->where(['tx_nome_origem_fonte_recursos_osc', $tipo], ['id_osc', $osc])
-//                ->exists();
-//
-//            if ($negado) {
-//                // tratar caso negado
-//            } else {
-//                // tratar caso realmente ausente
-//            }
-//        }
-
-        return min(100.0, round($soma, 2));
-    }
-
-    public function getPontuacao(int $osc): float
-    {
-        $pesoCampo = 100.0 / 4.0; // 25
-
-        $rows = DB::table('osc.tb_recursos_osc as r')
-            ->join(
-                'syst.dc_fonte_recursos_osc as fr',
-                'r.cd_fonte_recursos_osc',
-                '=',
-                'fr.cd_fonte_recursos_osc'
-            )
-            ->join(
-                'syst.dc_origem_fonte_recursos_osc as d',
-                'fr.cd_origem_fonte_recursos_osc',
-                '=',
-                'd.cd_origem_fonte_recursos_osc'
-            )
-            ->where('r.id_osc', $osc)
-            ->select('d.tx_nome_origem_fonte_recursos_osc')
-            ->distinct() // 🔥 importante: garante 1 por tipo
-            ->get();
-
-        if ($rows->isEmpty()) {
-            return 0.0;
-        }
-
-        $mapaPontuacao = [
-            'Recursos públicos'        => 25.0,
-            'Recursos privados'       => 25.0,
-            'Recursos não financeiros'=> 25.0,
-            'Recursos próprios'       => 25.0,
+        $tiposEsperados = [
+            'Recursos públicos',
+            'Recursos privados',
+            'Recursos não financeiros',
+            'Recursos próprios',
         ];
 
-        $soma = 0.0;
+        $tiposFaltantes = array_diff($tiposEsperados, $rows->pluck('tx_nome_origem_fonte_recursos_osc')->toArray());
+//        dd($tiposFaltantes);
+        foreach ($tiposEsperados as $tipo) {
 
-        foreach ($rows as $row) {
-            $nome = $row->tx_nome_origem_fonte_recursos_osc;
-
-            if ($nome !== null && isset($mapaPontuacao[$nome])) {
-                $soma += $mapaPontuacao[$nome];
+            $negado = DB::table('osc.tb_n_recurso_osc_ano as r')
+                ->join(
+                    'syst.dc_origem_fonte_recursos_osc as fr',
+                    'fr.cd_origem_fonte_recursos_osc',
+                    '=',
+                    'r.cd_origem_fonte_recursos_osc'
+                )
+                ->where('r.id_osc', $osc)
+                ->where('fr.tx_nome_origem_fonte_recursos_osc', $tipo)
+                ->exists();
+            if ($negado) {
+                $soma += $mapaPontuacao[$tipo];
             }
         }
 
-    // segurança extra
         return min(100.0, round($soma, 2));
-
     }
+
+//    public function getPontuacao(int $osc): float
+//    {
+//        $pesoCampo = 100.0 / 4.0; // 25
+//
+//        $rows = DB::table('osc.tb_recursos_osc as r')
+//            ->join(
+//                'syst.dc_fonte_recursos_osc as fr',
+//                'r.cd_fonte_recursos_osc',
+//                '=',
+//                'fr.cd_fonte_recursos_osc'
+//            )
+//            ->join(
+//                'syst.dc_origem_fonte_recursos_osc as d',
+//                'fr.cd_origem_fonte_recursos_osc',
+//                '=',
+//                'd.cd_origem_fonte_recursos_osc'
+//            )
+//            ->where('r.id_osc', $osc)
+//            ->select('d.tx_nome_origem_fonte_recursos_osc')
+//            ->distinct() // 🔥 importante: garante 1 por tipo
+//            ->get();
+//
+//        if ($rows->isEmpty()) {
+//            return 0.0;
+//        }
+//
+//        $mapaPontuacao = [
+//            'Recursos públicos'        => 25.0,
+//            'Recursos privados'       => 25.0,
+//            'Recursos não financeiros'=> 25.0,
+//            'Recursos próprios'       => 25.0,
+//        ];
+//
+//        $soma = 0.0;
+//
+//        foreach ($rows as $row) {
+//            $nome = $row->tx_nome_origem_fonte_recursos_osc;
+//
+//            if ($nome !== null && isset($mapaPontuacao[$nome])) {
+//                $soma += $mapaPontuacao[$nome];
+//            }
+//        }
+//
+//    // segurança extra
+//        return min(100.0, round($soma, 2));
+//
+//    }
 }
