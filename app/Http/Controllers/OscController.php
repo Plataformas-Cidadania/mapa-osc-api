@@ -79,11 +79,6 @@ class OscController extends Controller
     public function get($id)
     {
         try {
-            $osc = $this->service->get($id);
-            if (!is_null($osc)) {
-                if ($osc->bo_osc_ativa === false)
-                    return response()->json("OSC está marcada como inativa na base de dados!", Response::HTTP_OK);
-            }
             return response()->json($this->service->get($id), Response::HTTP_OK);
         }
         catch (\Exception $e) {
