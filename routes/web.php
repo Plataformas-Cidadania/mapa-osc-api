@@ -38,6 +38,9 @@ $router->get('/api/', function () use ($router) {
     ];
 });
 
+$router->get('/api/transferegov','TransferegovController@dataMigration');
+
+
 $router->post('/api/user/','UsuarioController@store');
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('/api/get-user-auth', 'UsuarioController@getUserAuth');

@@ -15,11 +15,6 @@ class ProjetoService
         $this->repo = $_repo;
     }
 
-    public function getAll()
-    {
-        return $this->repo->getAll();
-    }
-
     public function get($id)
     {
         return $this->repo->get($id);

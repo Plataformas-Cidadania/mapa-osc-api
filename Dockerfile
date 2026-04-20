@@ -29,6 +29,6 @@ RUN apt-get install -y libpq-dev \
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-CMD ./wait-for-it.sh db_mapa:5432 -- ./start.sh
+#CMD ./wait-for-it.sh db_mapa:5432 -- ./start.sh
 
 EXPOSE 8000

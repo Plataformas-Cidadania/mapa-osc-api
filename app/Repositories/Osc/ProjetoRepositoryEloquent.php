@@ -48,7 +48,6 @@ class ProjetoRepositoryEloquent implements ProjetoRepositoryInterface
 
         $projeto['nr_valor_captado_projeto'] = $nr_valor_captado_projeto;
 
-        return $projeto;
     }
 
     public function getProjetosPorOSC($_id_osc)
