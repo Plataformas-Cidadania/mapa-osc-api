@@ -26,7 +26,12 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
 
     public function get($id)
     {
-        return $this->model->with('usuario')->with('osc')->where('id_usuario', $id)->get();
+        return $this->model->where('id_usuario', $id)->get();
+    }
+
+    public function getComTokens($id)
+    {
+        return $this->model->with('tokens')->where('id_usuario', $id)->first();
     }
 
     public function getEmail($cpf)
@@ -56,6 +61,7 @@ class UsuarioRepositoryEloquent implements UsuarioRepositoryInterface
     {
         return $this->model->find($id)->delete();
     }
+
     public function activate($id, $hash)
     {
         $usuario = $this->model->where('id_usuario', $id)->where('tx_hash_ativacao_usuario', $hash)->first();

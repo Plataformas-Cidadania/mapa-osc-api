@@ -69,13 +69,6 @@ class RepresentacaoController extends Controller
         catch (\Exception $e) {
             return $e->getMessage();
         }
-        //return [];
-        //return ['tx_email_usuario' => 'teste@gmail.com'];
-        //return ['tx_nome_usuario' => '', 'tx_email_usuario' => '', 'tx_senha_usuario' => ''];
-
-        //$user = new Usuario($request->all());
-
-        //return $user;
     }
 
     public function delete($id_osc) {
@@ -84,6 +77,29 @@ class RepresentacaoController extends Controller
             {
                 return response()->json(['Resposta' => 'Representação de osc deletada com sucesso!'], Response::HTTP_OK);
             }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function deletePorOscAndUser($id_osc, $id_usuario) {
+
+        try {
+            if ($this->service->deletePorOscAndUser($id_osc, $id_usuario))
+            {
+                return response()->json(['Resposta' => 'Representação de osc deletada com sucesso!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getRepresetacoesPorUsuario($id_usuario)
+    {
+        try {
+            return response()->json($this->service->getRepresetacoesPorUsuario($id_usuario), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

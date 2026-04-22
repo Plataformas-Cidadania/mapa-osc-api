@@ -4,6 +4,7 @@
 namespace App\Services\Portal;
 
 
+use App\Models\Portal\Token;
 use App\Repositories\Portal\UsuarioRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -207,6 +208,25 @@ class UsuarioService
 
             return true;
         }
+        return false;
+    }
+
+    public function deletePorId($id_usuario)
+    {
+        $usuario = Auth::user();
+        if ($usuario->tx_email_usuario === "thiago.ramos@ipea.gov.br") {
+
+            $usuarioParadeletar = $this->repo->getComTokens($id_usuario);
+
+            if ($usuarioParadeletar) {
+                $usuarioParadeletar->tokens()->delete();
+            }
+
+            //Log::info($usuario);
+
+            return $this->repo->destroy($usuarioParadeletar->id_usuario);
+        }
+
         return false;
     }
 }

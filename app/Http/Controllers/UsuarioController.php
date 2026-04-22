@@ -18,10 +18,6 @@ class UsuarioController extends Controller
      * @return void
      */
 
-    //...
-    //...
-    //...
-
     private $service;
 
     public function __construct(UsuarioService $_service)
@@ -56,6 +52,19 @@ class UsuarioController extends Controller
 
     public function getUserAuth(){
         return Auth::user();
+    }
+
+    public function get($id_usuario){
+        try {
+            $usuario = $this->service->get($id_usuario);
+
+            if ($usuario) {
+                return response()->json($usuario, Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function getEmail($cpf) {
@@ -151,6 +160,37 @@ class UsuarioController extends Controller
         }
         catch (\Exception $e) {
             return response()->json(['Resposta' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function delete($id_usuario) {
+        try {
+            $resposta = $this->service->delete($id_usuario);
+
+            if ($resposta) {
+                return response()->json(['Resposta' => 'Usuário deleteado com sucesso!'], Response::HTTP_OK);
+            } else {
+                return response()->json(['Resposta' => 'Permissão negada!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function deletePorId($id_usuario) {
+
+        try {
+            $resposta = $this->service->deletePorId($id_usuario);
+
+            if ($resposta) {
+                return response()->json(['Resposta' => 'Usuário deleteado com sucesso!'], Response::HTTP_OK);
+            } else {
+                return response()->json(['Resposta' => 'Permissão negada!'], Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 }

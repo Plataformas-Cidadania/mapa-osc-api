@@ -35,7 +35,7 @@ class Token extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Usuario()
+    public function usuario()
     {
         return $this->belongsTo('App\Models\Portal\Usuario', 'id_usuario', 'id_usuario');
     }

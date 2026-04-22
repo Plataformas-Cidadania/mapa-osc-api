@@ -53,11 +53,18 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
+$router->group(['middleware' => 'auth', 'prefix' => '/api'], function() use ($router) {
+
+    $router->get('/user/{id_usuario}', 'UsuarioController@get');
+    $router->delete('/user-exclusiva/{id_usuario}', 'UsuarioController@deletePorId');
+});
+
 $router->group(['prefix' => '/api'], function() use ($router) {
 
     //ROTAS PARA GERENCIAMENTO DE DADOS DO USUÁRIO
     $router->get('/user/buscar-email/{cpf}', 'UsuarioController@getEmail');
     $router->get('/representantes/buscar-representacoes/{cnpj}', 'RepresentacaoController@getRepresetacaoPorCnpjOsc');
+    $router->get('/representantes/representacoes/usuario/{id_usuario}', 'RepresentacaoController@getRepresetacoesPorUsuario');
 
 
 //---Certificados da OSC---///
@@ -191,12 +198,11 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 //$router->group(['prefix' => '/api/osc'], function() use ($router){
 $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use ($router){
 
-
-
     //REPRESENTACAO OSC (ASSOCIAÇÃO COM USUÁRIOS)
     $router->get('/representacao/{id_osc}/{id_usuario}', 'RepresentacaoController@getRepresetacaoPorOscAndUsuario');
     $router->post('/representacao/', 'RepresentacaoController@store');
     $router->delete('/representacao/{id}', 'RepresentacaoController@delete');
+    $router->delete('/representacao-exclusiva/{id_osc}/{id_usuario}', 'RepresentacaoController@deletePorOscAndUser');
 
     //ROTAS PADA ASSINATURA DE TERMOS PELO REPRESENTANTE USUARIO
     $router->get('/assinatura-termos/{id}', 'AssinaturaTermoController@get');
@@ -213,6 +219,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
 
     //ROTAS PADA DADOS DO REPRESENTANTE USUARIO
     $router->post('/user', 'OscController@getFromUsuario');
+
 
     //ROTAS GERAIS DO MODELO OSC
     $router->get('/list-oscs-usuario', 'OscController@getListaOscUsuarioAutenticado');

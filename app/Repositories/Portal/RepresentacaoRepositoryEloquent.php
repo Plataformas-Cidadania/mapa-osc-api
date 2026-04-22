@@ -66,7 +66,28 @@ class RepresentacaoRepositoryEloquent implements RepresentacaoRepositoryInterfac
             });
     }
 
-
+    public function getRepresetacoesPorUsuario($id_usuario)
+    {
+        return $this->model->with('usuario')
+            ->join('osc.tb_osc', 'portal.tb_representacao.id_osc', '=', 'osc.tb_osc.id_osc')
+            ->where('portal.tb_representacao.id_usuario', $id_usuario)
+            ->get()
+            ->map(function($representacao) {
+                $usuario = $representacao->usuario;
+                $osc = $representacao->osc;
+                $dados = [
+                    'id_representacao' => $representacao->id_representacao,
+                    'id_usuario' => $usuario->id_usuario,
+                    'tx_nome_usuario' => $usuario->tx_nome_usuario,
+                    'tx_email_usuario' => (new FormatacaoUtil())->mascararEmail($usuario->tx_email_usuario),
+                    'id_osc' => $osc->id_osc,
+                    'cd_identificador_osc' => $osc->cd_identificador_osc,
+                    'tx_nome_osc' => $osc->dados_gerais->tx_razao_social_osc,
+                    'tx_nome_fantasia_osc' => $osc->dados_gerais->tx_nome_fantasia_osc
+                ];
+                return $dados;
+            });
+    }
 
     public function store(array $data)
     {

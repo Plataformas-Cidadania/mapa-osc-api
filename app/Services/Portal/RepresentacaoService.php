@@ -55,4 +55,24 @@ class RepresentacaoService
         //Log::info($representacao);
         return $this->repo->destroy($representacao->id_representacao);
     }
+
+    public function deletePorOscAndUser($id_osc, $id_usuario)
+    {
+        $usuario = Auth::user();
+//        dd($usuario->tx_email_usuario);
+        if ($usuario->tx_email_usuario === "thiago.ramos@ipea.gov.br") {
+
+            $representacao = $this->repo->getRepresetacaoPorOscAndUsuario($id_osc, $id_usuario);
+            //Log::info($representacao);
+            return $this->repo->destroy($representacao->id_representacao);
+        }
+
+        return false;
+    }
+
+    public function getRepresetacoesPorUsuario($id_usuario)
+    {
+        return $this->repo->getRepresetacoesPorUsuario($id_usuario);
+    }
 }
+
