@@ -40,6 +40,7 @@ class ProjetoService
     {
         $data = $this->formatValues($data);
 
+
         // o banco de dados nao aceita strings vazias como data. Só null mesmo
         // Versoes futuras do laravel resolvem isso com um middleware que converte string vazia para null
         // esse metodo faz a mesma coisa.

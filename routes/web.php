@@ -57,6 +57,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api'], function() use ($ro
 
     $router->get('/user/{id_usuario}', 'UsuarioController@get');
     $router->delete('/user-exclusiva/{id_usuario}', 'UsuarioController@deletePorId');
+    $router->delete('/user-exclusiva/{id_usuario}', 'UsuarioController@deletePorId');
 });
 
 $router->group(['prefix' => '/api'], function() use ($router) {

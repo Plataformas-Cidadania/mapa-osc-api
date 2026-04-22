@@ -382,7 +382,80 @@ class Projeto extends Model
          *     description="Fonte do dado sobre estado."
          *   )
          */
-        'ft_uf'
+        'ft_uf',
+
+         /**
+          *   @OA\Property(
+          *     property="ft_possui_emenda",
+          *     type="string",
+          *     description="Fonte de quem marcou possui emenda."
+          *   )
+          */
+        'ft_possui_emenda',
+
+        /**
+         *   @OA\Property(
+         *     property="bo_possui_emenda",
+         *     type="boolean",
+         *     description="Campo que marca se possui emenda."
+         *   )
+         */
+        'bo_possui_emenda',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_numero_proposta",
+         *     type="string",
+         *     description="Fonte de quem informou número da proposta."
+         *   )
+         */
+        'ft_numero_proposta',
+
+        /**
+         *   @OA\Property(
+         *     property="nr_numero_proposta",
+         *     type="int",
+         *     description="Número da proposta."
+         *   )
+         */
+        'nr_numero_proposta',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_nome_proposta",
+         *     type="string",
+         *     description="Fonte de quem informou nome da proposta."
+         *   )
+         */
+        'ft_nome_proposta',
+
+        /**
+         *   @OA\Property(
+         *     property="tx_nome_proposta",
+         *     type="string",
+         *     description="Nome da proposta."
+         *   )
+         */
+        'tx_nome_proposta',
+
+        /**
+         *   @OA\Property(
+         *     property="ft_numero_instrumento",
+         *     type="string",
+         *     description="Fonte de quem informou número da instrumento."
+         *   )
+         */
+        'ft_numero_instrumento',
+
+        /**
+         *   @OA\Property(
+         *     property="nr_numero_instrumento",
+         *     type="int",
+         *     description="Número do instrumento."
+         *   )
+         */
+        'nr_numero_instrumento'
+
     ];
 
     protected $attributes = [
@@ -401,6 +474,9 @@ class Projeto extends Model
         'ft_identificador_projeto_externo' => 'Representante de OSC',
         'ft_municipio' => 'Representante de OSC',
         'ft_uf' => 'Representante de OSC'
+//        'ft_possui_emenda' => 'Representante de OSC',
+//        'ft_numero_proposta' => 'Representante de OSC',
+//        'ft_numero_instrumento' => 'Representante de OSC'
     ];
 
     public $timestamps = false;
