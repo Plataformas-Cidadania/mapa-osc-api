@@ -213,5 +213,64 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Analisys\DCPerfilLocalidadeRepositoryInterface', 'App\Repositories\Analisys\DCPerfilLocalidadeRepositoryEloquent'
         );
+
+        //DADOS DO SCHEMA TRANSFEREGOV
+        $this->app->bind(
+            'App\Repositories\Transferegov\ProgramaRepositoryInterface', 'App\Repositories\Transferegov\ProgramaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ProgramaPropostaRepositoryInterface', 'App\Repositories\Transferegov\ProgramaPropostaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\PropostaRepositoryInterface', 'App\Repositories\Transferegov\PropostaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ConvenioRepositoryInterface', 'App\Repositories\Transferegov\ConvenioRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\EmendaRepositoryInterface', 'App\Repositories\Transferegov\EmendaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\PlanoRepositoryInterface', 'App\Repositories\Transferegov\PlanoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\EmpenhoRepositoryInterface', 'App\Repositories\Transferegov\EmpenhoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\DesembolsoRepositoryInterface', 'App\Repositories\Transferegov\DesembolsoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\PagamentoRepositoryInterface', 'App\Repositories\Transferegov\PagamentoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ObtvConvenenteRepositoryInterface', 'App\Repositories\Transferegov\ObtvConvenenteRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\HistoricoSituacaoRepositoryInterface', 'App\Repositories\Transferegov\HistoricoSituacaoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\IngressoContrapartidaRepositoryInterface', 'App\Repositories\Transferegov\IngressoContrapartidaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\TermoAditivoRepositoryInterface', 'App\Repositories\Transferegov\TermoAditivoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ProrrogaRepositoryInterface', 'App\Repositories\Transferegov\ProrrogaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\MetaRepositoryInterface', 'App\Repositories\Transferegov\MetaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\EtapaRepositoryInterface', 'App\Repositories\Transferegov\EtapaRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ConsorcioRepositoryInterface', 'App\Repositories\Transferegov\ConsorcioRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\EmpenhoDesembolsoRepositoryInterface', 'App\Repositories\Transferegov\EmpenhoDesembolsoRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Transferegov\ProponenteRepositoryInterface', 'App\Repositories\Transferegov\ProponenteRepositoryEloquent'
+        );
     }
 }
