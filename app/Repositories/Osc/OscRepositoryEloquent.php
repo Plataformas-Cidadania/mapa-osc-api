@@ -347,7 +347,13 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
     public function update($id, array $data)
     {
-        return $this->model->find($id)->update($data);
+        $osc = $this->model->findOrFail($id);
+
+        $osc->fill($data);
+
+        $osc->save();
+
+        return $osc;
     }
 
     public function getListaOscAtualizadas($tam_lista)

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Symfony\Component\HttpFoundation\Response;
+use App\Audit;
 
 class OscController extends Controller
 {
@@ -78,6 +79,12 @@ class OscController extends Controller
      */
     public function get($id)
     {
+        Audit::create([
+            'event' => 'Consulta a OSC',
+            'entity' => 'OSC',
+            'entity_id' => $id
+        ]);
+
         try {
             return response()->json($this->service->get($id), Response::HTTP_OK);
         }

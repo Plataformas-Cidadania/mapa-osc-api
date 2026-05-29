@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\Osc\Osc;
+use App\Observers\OscObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -213,5 +216,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Analisys\DCPerfilLocalidadeRepositoryInterface', 'App\Repositories\Analisys\DCPerfilLocalidadeRepositoryEloquent'
         );
+    }
+
+    public function boot()
+    {
+        Osc::observe(OscObserver::class);
     }
 }
