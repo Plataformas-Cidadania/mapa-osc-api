@@ -615,4 +615,67 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         return ($sql);
     }
+
+    /**
+     * Retorna o resumo trimestral de OSCs cadastradas por ano
+     *
+     * @param int $ano Ano para filtrar os cadastros
+     * @return array Quantidade de OSCs cadastradas por trimestre
+     */
+    public function getResumoTrimestralOscsCadastradas($ano)
+    {
+        $resultado = DB::table('osc.tb_dados_gerais')
+            ->select(DB::raw("
+                CASE 
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END AS trimestre,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 10 AND 12 THEN 4
+                END AS nr_trimestre,
+                COUNT(*) AS total_oscs
+            "))
+            ->whereNotNull('dt_ano_cadastro_cnpj')
+            ->whereRaw('EXTRACT(YEAR FROM dt_ano_cadastro_cnpj) = ?', [$ano])
+            ->groupBy(DB::raw("
+                CASE 
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM dt_ano_cadastro_cnpj) BETWEEN 10 AND 12 THEN 4
+                END
+            "))
+            ->orderBy('nr_trimestre')
+            ->get();
+
+        // Garante que todos os trimestres apareçam no resultado, mesmo com zero
+        $trimestres = [
+            ['trimestre' => '1º Trimestre', 'nr_trimestre' => 1, 'total_oscs' => 0],
+            ['trimestre' => '2º Trimestre', 'nr_trimestre' => 2, 'total_oscs' => 0],
+            ['trimestre' => '3º Trimestre', 'nr_trimestre' => 3, 'total_oscs' => 0],
+            ['trimestre' => '4º Trimestre', 'nr_trimestre' => 4, 'total_oscs' => 0],
+        ];
+
+        foreach ($resultado as $item) {
+            $index = $item->nr_trimestre - 1;
+            $trimestres[$index]['total_oscs'] = (int) $item->total_oscs;
+        }
+
+        return [
+            'ano' => $ano,
+            'trimestres' => $trimestres,
+            'total_ano' => array_sum(array_column($trimestres, 'total_oscs'))
+        ];
+    }
 }

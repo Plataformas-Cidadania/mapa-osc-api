@@ -386,4 +386,13 @@ class OscController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getResumoTrimestralOscsCadastradas($ano){
+        try {
+            return response()->json($this->service->getResumoTrimestralOscsCadastradas($ano), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

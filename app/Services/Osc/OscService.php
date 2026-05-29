@@ -161,4 +161,11 @@ class OscService
 
         return $quantitativo;
     }
+
+    public function getResumoTrimestralOscsCadastradas($ano)
+    {
+        $quantitativo = $this->repo->getResumoTrimestralOscsCadastradas($ano);
+
+        return $quantitativo;
+    }
 }
