@@ -414,29 +414,11 @@ class Projeto extends Model
         /**
          *   @OA\Property(
          *     property="nr_numero_proposta",
-         *     type="int",
+         *     type="string",
          *     description="Número da proposta."
          *   )
          */
         'nr_numero_proposta',
-
-        /**
-         *   @OA\Property(
-         *     property="ft_nome_proposta",
-         *     type="string",
-         *     description="Fonte de quem informou nome da proposta."
-         *   )
-         */
-        'ft_nome_proposta',
-
-        /**
-         *   @OA\Property(
-         *     property="tx_nome_proposta",
-         *     type="string",
-         *     description="Nome da proposta."
-         *   )
-         */
-        'tx_nome_proposta',
 
         /**
          *   @OA\Property(
