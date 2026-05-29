@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuditService;
 use App\Services\Osc\OscService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use App\Audit;
 
 class OscController extends Controller
 {
+    private $auditService;
+
     private $service;
     /**
      * Create a new controller instance.
@@ -20,6 +23,7 @@ class OscController extends Controller
     public function __construct(OscService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     /**
@@ -79,12 +83,6 @@ class OscController extends Controller
      */
     public function get($id)
     {
-        Audit::create([
-            'event' => 'Consulta a OSC',
-            'entity' => 'OSC',
-            'entity_id' => $id
-        ]);
-
         try {
             return response()->json($this->service->get($id), Response::HTTP_OK);
         }
@@ -129,12 +127,17 @@ class OscController extends Controller
 
             $data = $request->all();
 
+            $data_old = $this->service->getDadosGerais($id);
+
             $dados_gerais = $this->service->updateDadosGerais($id, $data);
 
             if (!$dados_gerais)
             {
                 return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateDadosGerais', 'OSC', $id, $usuario->id_usuario, $data_old, $dados_gerais, $request->ip());
 
             return \response()->json($dados_gerais, Response::HTTP_OK);
 
@@ -154,6 +157,9 @@ class OscController extends Controller
             {
                 return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateLogo', 'OSC', $id, $usuario->id_usuario, null, null, $request->ip());
 
             return \response()->json($logo, Response::HTTP_OK);
         }
@@ -235,12 +241,17 @@ class OscController extends Controller
         try {
             $dados = $request->all();
 
+            $data_old = $this->service->get($id);
+
             $osc = $this->service->update($id, $dados);
 
             if ($osc)
             {
                 return response()->json(['Resposta' => 'OSC atualizada com sucesso!'], Response::HTTP_OK);
             }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateOsc', 'OSC', $id, $usuario->id_usuario, $data_old, $osc, $request->ip());
 
             return $osc;
         }
