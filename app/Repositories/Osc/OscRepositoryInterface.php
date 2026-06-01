@@ -62,4 +62,6 @@ interface OscRepositoryInterface
      * @return array Quantidade de OSCs cadastradas por trimestre
      */
     public function getResumoTrimestralOscsCadastradas($ano);
+
+    public function getResumoTrimestralAlteracoesOscs($ano);
 }

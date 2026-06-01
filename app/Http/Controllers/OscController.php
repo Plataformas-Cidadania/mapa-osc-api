@@ -413,4 +413,13 @@ class OscController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getResumoAlteracoesTrimestralOscs($ano){
+        try {
+            return response()->json($this->service->getResumoAlteracoesTrimestralOscs($ano), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
