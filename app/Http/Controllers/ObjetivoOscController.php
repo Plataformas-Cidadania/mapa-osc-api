@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Osc\ObjetivoOsc;
+use App\Services\AuditService;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Osc\ObjetivoOscService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObjetivoOscController extends Controller
 {
+    private $auditService;
+
     private $service;
 
     /**
@@ -19,6 +23,7 @@ class ObjetivoOscController extends Controller
     public function __construct(ObjetivoOscService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     public function get($id)
@@ -45,8 +50,18 @@ class ObjetivoOscController extends Controller
         try {
             $dados = $request->all();
 
+            $entidade = $this->service->store($dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('novoObjetivosODS', 'ObjetivosODS', $entidade->id_objetivo_osc, $usuario->id_usuario, 'criado', $entidade, $request->ip());
+
             //Retorna novo registro
-            return response()->json($this->service->store($dados), Response::HTTP_OK);
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -55,23 +70,43 @@ class ObjetivoOscController extends Controller
 
     public function update($id, Request $request) {
         try {
+
             $dados = $request->all();
 
-            $parceira = $this->service->update($id, $dados);
+            $dados_old = $this->service->get($id);
 
-            if ($parceira) {
-                return response()->json(['Resposta' => 'Objetivo da OSC atualizado com sucesso!'], Response::HTTP_OK);
+            $entidade = $this->service->update($id, $dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateObjetivosODS', 'ObjetivosODS', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip());
+
+            //Retorna novo registro
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function delete($id_parceira) {
+    public function delete($id_ods, Request $request) {
         try {
-            if ($this->service->destroy($id_parceira))
+            $dados_old = $this->service->get($id_ods);
+
+            if (!$dados_old)
             {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            if ($this->service->destroy($id_ods))
+            {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteObjetivosODS', 'ObjetivosODS', $id_ods, $usuario->id_usuario, $dados_old, 'deletado', $request->ip());
+
                 return response()->json(['Resposta' => 'Objetivo da OSC deletado com sucesso!'], Response::HTTP_OK);
             }
         }

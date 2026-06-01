@@ -245,7 +245,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //---------------------------------Objetivos (ODS) OSC--------------------------------------//
     $router->put('/objetivo/{id}', 'ObjetivoOscController@update');
     $router->post('/objetivo/', 'ObjetivoOscController@store');
-    $router->delete('/objetivo/{id}', 'ObjetivoOscController@delete');
+    $router->delete('/objetivo/{id_ods}', 'ObjetivoOscController@delete');
 
     //INFORMAÇÕES DE TITULAÇÕES E CERTIFICAÇÕES
     $router->post('/certificado/', 'CertificadoController@store');
