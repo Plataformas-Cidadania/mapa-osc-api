@@ -54,4 +54,12 @@ interface OscRepositoryInterface
     public function getListaOscCnpjAutocomplete($cnpj);
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca);
+
+    /**
+     * Retorna o resumo trimestral de OSCs cadastradas por ano
+     *
+     * @param int $ano Ano para filtrar os cadastros
+     * @return array Quantidade de OSCs cadastradas por trimestre
+     */
+    public function getResumoTrimestralOscsCadastradas($ano);
 }
