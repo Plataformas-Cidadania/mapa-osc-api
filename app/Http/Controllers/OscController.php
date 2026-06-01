@@ -139,7 +139,7 @@ class OscController extends Controller
             $usuario = Auth::user();
             $this->auditService->auditar('updateDadosGerais', 'OSC', $id, $usuario->id_usuario, $data_old, $dados_gerais, $request->ip());
 
-            return \response()->json($dados_gerais, Response::HTTP_OK);
+            return response()->json($dados_gerais, Response::HTTP_OK);
 
         }
         catch (\Exception $e) {
@@ -159,7 +159,7 @@ class OscController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('updateLogo', 'OSC', $id, $usuario->id_usuario, null, null, $request->ip());
+            $this->auditService->auditar('updateLogo', 'OSC', $id, $usuario->id_usuario, 'logo', 'logo', $request->ip());
 
             return \response()->json($logo, Response::HTTP_OK);
         }

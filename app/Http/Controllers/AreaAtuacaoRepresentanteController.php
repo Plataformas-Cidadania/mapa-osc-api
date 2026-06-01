@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Osc\AreaAtuacaoRepresentante;
+use App\Services\AuditService;
 use App\Services\Osc\AreaAtuacaoRepresentanteService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AreaAtuacaoRepresentanteController extends Controller
 {
+    private $auditService;
     private $service;
 
     /**
@@ -19,6 +22,7 @@ class AreaAtuacaoRepresentanteController extends Controller
     public function __construct(AreaAtuacaoRepresentanteService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     public function get($id)
@@ -55,8 +59,18 @@ class AreaAtuacaoRepresentanteController extends Controller
         try {
             $dados = $request->all();
 
+            $entidade = $this->service->store($dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('novoAreaAtuacao', 'AreaAtuacao', $entidade->id_area_atuacao, $usuario->id_usuario, 'criado', $entidade, $request->ip());
+
             //Retorna novo registro
-            return response()->json($this->service->store($dados), Response::HTTP_OK);
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -67,22 +81,41 @@ class AreaAtuacaoRepresentanteController extends Controller
         try {
             $dados = $request->all();
 
-            $area_atuacao = $this->service->update($id, $dados);
+            $dados_old = $this->service->get($id);
 
-            if ($area_atuacao) {
+            $entidade = $this->service->update($id, $dados);
 
-                return response()->json(['Resposta' => 'Área de Atuação atualizada com sucesso!'], Response::HTTP_OK);
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip());
+
+            //Retorna novo registro
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function delete($id) {
+    public function delete($id, Request $request) {
         try {
+
+            $dados_old = $this->service->get($id);
+
+            if (!$dados_old)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
             if ($this->service->destroy($id))
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, 'deletado', $request->ip());
+
                 return response()->json(['Resposta' => 'Área de Atuação deletada com sucesso!'], Response::HTTP_OK);
             }
         }
