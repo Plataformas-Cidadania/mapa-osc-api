@@ -159,7 +159,7 @@ class OscController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('updateLogo', 'OSC', $id, $usuario->id_usuario, 'logo', 'logo', $request->ip(), $id);
+            $this->auditService->auditar('updateLogo', 'Logo', $id, $usuario->id_usuario, 'logo', 'logo', $request->ip(), $id);
 
             return \response()->json($logo, Response::HTTP_OK);
         }

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuditService;
 use App\Models\Osc\Certificado;
 use App\Services\Osc\CertificadoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CertificadoController extends Controller
 {
+    private $auditService;
+
     private $service;
 
     /**
@@ -19,6 +23,7 @@ class CertificadoController extends Controller
     public function __construct(CertificadoService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     public function get($id)
@@ -58,7 +63,18 @@ class CertificadoController extends Controller
         try {
             $dados = $request->all();
 
-            return response()->json($this->service->store($dados), Response::HTTP_OK);
+            $entidade = $this->service->store($dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('novoCertificado', 'Certificado', $entidade->id_certificado, $usuario->id_usuario, 'criado', $entidade, $request->ip(), $entidade->id_osc);
+
+            //Retorna novo registro
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
