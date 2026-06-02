@@ -11,7 +11,7 @@ class AuditService
 
     }
 
-    public function auditar($event, $entity, $entity_id, $user_id, $old_values, $new_values, $ip)
+    public function auditar($event, $entity, $entity_id, $user_id, $old_values, $new_values, $ip, $id_osc)
     {
         Audit::create([
             'event' => $event,
@@ -20,7 +20,8 @@ class AuditService
             'user_id' => $user_id,
             'old_values' => json_encode($old_values),
             'new_values' => json_encode($new_values),
-            'ip' => $ip
+            'ip' => $ip,
+            'id_osc' => $id_osc
         ]);
     }
 }

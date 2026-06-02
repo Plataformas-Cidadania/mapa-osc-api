@@ -58,7 +58,7 @@ class ObjetivoOscController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('novoObjetivosODS', 'ObjetivosODS', $entidade->id_objetivo_osc, $usuario->id_usuario, 'criado', $entidade, $request->ip());
+            $this->auditService->auditar('novoObjetivosODS', 'ObjetivosODS', $entidade->id_objetivo_osc, $usuario->id_usuario, 'criado', $entidade, $request->ip(), $entidade->id_osc);
 
             //Retorna novo registro
             return response()->json($entidade, Response::HTTP_OK);
@@ -83,7 +83,7 @@ class ObjetivoOscController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('updateObjetivosODS', 'ObjetivosODS', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip());
+            $this->auditService->auditar('updateObjetivosODS', 'ObjetivosODS', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip(), $entidade->id_osc);
 
             //Retorna novo registro
             return response()->json($entidade, Response::HTTP_OK);
@@ -105,7 +105,7 @@ class ObjetivoOscController extends Controller
             if ($this->service->destroy($id_ods))
             {
                 $usuario = Auth::user();
-                $this->auditService->auditar('deleteObjetivosODS', 'ObjetivosODS', $id_ods, $usuario->id_usuario, $dados_old, 'deletado', $request->ip());
+                $this->auditService->auditar('deleteObjetivosODS', 'ObjetivosODS', $id_ods, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
 
                 return response()->json(['Resposta' => 'Objetivo da OSC deletado com sucesso!'], Response::HTTP_OK);
             }

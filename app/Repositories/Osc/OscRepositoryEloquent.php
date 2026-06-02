@@ -684,4 +684,163 @@ class OscRepositoryEloquent implements OscRepositoryInterface
             'total_ano' => array_sum(array_column($trimestres, 'total_oscs'))
         ];
     }
+
+    /**
+     * Retorna o resumo trimestral de OSCs que alteraram dados por ano
+     * baseado na tabela de auditoria
+     *
+     * @param int $ano Ano para filtrar as alterações
+     * @return array Quantidade de OSCs que alteraram dados por trimestre
+     */
+    public function getResumoTrimestralAlteracoesOscs($ano)
+    {
+//        $resultado = DB::table('audits')
+//            ->select(DB::raw("
+//                entity AS parte_osc,
+//                CASE
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+//                END AS trimestre,
+//                CASE
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+//                END AS nr_trimestre,
+//                COUNT(DISTINCT entity_id) AS total_oscs_distintas,
+//                COUNT(*) AS total_alteracoes
+//            "))
+//            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$ano])
+//            ->groupBy(DB::raw("
+//                entity,
+//                CASE
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+//                END,
+//                CASE
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+//                END
+//            "))
+//            ->orderBy('parte_osc')
+//            ->orderBy('nr_trimestre')
+//            ->get();
+//
+//        // Agrupa os resultados por parte da OSC
+//        $porEntidade = [];
+//        foreach ($resultado as $item) {
+//            $parteOsc = $item->parte_osc;
+//            if (!isset($porEntidade[$parteOsc])) {
+//                $porEntidade[$parteOsc] = [
+//                    'parte_osc' => $parteOsc,
+//                    'trimestres' => [
+//                        ['trimestre' => '1º Trimestre', 'nr_trimestre' => 1, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+//                        ['trimestre' => '2º Trimestre', 'nr_trimestre' => 2, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+//                        ['trimestre' => '3º Trimestre', 'nr_trimestre' => 3, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+//                        ['trimestre' => '4º Trimestre', 'nr_trimestre' => 4, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+//                    ],
+//                    'total_alteracoes' => 0
+//                ];
+//            }
+//            $index = $item->nr_trimestre - 1;
+//            $porEntidade[$parteOsc]['trimestres'][$index]['total_oscs_distintas'] = (int) $item->total_oscs_distintas;
+//            $porEntidade[$parteOsc]['trimestres'][$index]['total_alteracoes'] = (int) $item->total_alteracoes;
+//            $porEntidade[$parteOsc]['total_alteracoes'] += (int) $item->total_alteracoes;
+//        }
+//
+//        return [
+//            'ano' => $ano,
+//            'por_entidade' => array_values($porEntidade)
+//        ];
+
+        $trimestre = null;
+
+        $query = DB::table('audits')
+            ->select(DB::raw("
+                entity_id AS id_osc,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END AS trimestre,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+                END AS nr_trimestre,
+                COUNT(*) AS total_alteracoes,
+                ARRAY_AGG(DISTINCT entity) AS partes_alteradas,
+                MIN(created_at) AS primeira_alteracao,
+                MAX(created_at) AS ultima_alteracao
+            "))
+            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$ano]);
+
+        if ($trimestre !== null) {
+            $mesInicio = (($trimestre - 1) * 3) + 1;
+            $mesFim = $trimestre * 3;
+            $query->whereRaw('EXTRACT(MONTH FROM created_at) BETWEEN ? AND ?', [$mesInicio, $mesFim]);
+        }
+
+        $resultado = $query
+            ->groupBy(DB::raw("
+                entity_id,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END,
+                CASE 
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+                END
+            "))
+            ->orderBy('nr_trimestre')
+            ->orderBy('total_alteracoes', 'desc')
+            ->get();
+
+        // Busca os nomes das OSCs
+        $idsOscs = $resultado->pluck('id_osc')->unique()->toArray();
+        $nomesOscs = DB::table('osc.tb_dados_gerais')
+            ->select('id_osc', 'tx_razao_social_osc')
+            ->whereIn('id_osc', $idsOscs)
+            ->pluck('tx_razao_social_osc', 'id_osc')
+            ->toArray();
+
+        // Formata o resultado
+        $oscsAlteradas = [];
+        foreach ($resultado as $item) {
+            // Converte o array do PostgreSQL para array PHP
+            $partesAlteradas = trim($item->partes_alteradas, '{}');
+            $partesAlteradas = $partesAlteradas ? explode(',', $partesAlteradas) : [];
+
+            $oscsAlteradas[] = [
+                'id_osc' => (int) $item->id_osc,
+                'tx_razao_social_osc' => isset($nomesOscs[$item->id_osc]) ? $nomesOscs[$item->id_osc] : null,
+                'trimestre' => $item->trimestre,
+                'nr_trimestre' => (int) $item->nr_trimestre,
+                'total_alteracoes' => (int) $item->total_alteracoes,
+                'partes_alteradas' => $partesAlteradas,
+                'primeira_alteracao' => $item->primeira_alteracao,
+                'ultima_alteracao' => $item->ultima_alteracao
+            ];
+        }
+
+        return [
+            'ano' => $ano,
+            'trimestre_filtro' => $trimestre,
+            'total_oscs' => count(array_unique(array_column($oscsAlteradas, 'id_osc'))),
+            'oscs' => $oscsAlteradas
+        ];
+    }
 }

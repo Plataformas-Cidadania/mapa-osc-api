@@ -67,7 +67,7 @@ class AreaAtuacaoRepresentanteController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('novoAreaAtuacao', 'AreaAtuacao', $entidade->id_area_atuacao, $usuario->id_usuario, 'criado', $entidade, $request->ip());
+            $this->auditService->auditar('novoAreaAtuacao', 'AreaAtuacao', $entidade->id_area_atuacao, $usuario->id_usuario, 'criado', $entidade, $request->ip(), $entidade->id_osc);
 
             //Retorna novo registro
             return response()->json($entidade, Response::HTTP_OK);
@@ -91,7 +91,7 @@ class AreaAtuacaoRepresentanteController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('updateAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip());
+            $this->auditService->auditar('updateAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, $entidade, $request->ip(), $entidade->id_osc);
 
             //Retorna novo registro
             return response()->json($entidade, Response::HTTP_OK);
@@ -114,7 +114,7 @@ class AreaAtuacaoRepresentanteController extends Controller
             if ($this->service->destroy($id))
             {
                 $usuario = Auth::user();
-                $this->auditService->auditar('deleteAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, 'deletado', $request->ip());
+                $this->auditService->auditar('deleteAreaAtuacao', 'AreaAtuacao', $id, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
 
                 return response()->json(['Resposta' => 'Área de Atuação deletada com sucesso!'], Response::HTTP_OK);
             }

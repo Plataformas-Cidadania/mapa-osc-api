@@ -31,6 +31,8 @@ class CreateAuditsTable extends Migration
 
             $table->string('ip')->nullable();
 
+            $table->string('id_osc')->nullable();
+
             $table->timestamps();
         });
     }

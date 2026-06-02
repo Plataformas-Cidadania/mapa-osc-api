@@ -15,6 +15,7 @@ class Audit extends Model
         'user_id',
         'old_values',
         'new_values',
-        'ip'
+        'ip',
+        'id_osc'
     ];
 }
