@@ -64,4 +64,7 @@ interface OscRepositoryInterface
     public function getResumoTrimestralOscsCadastradas($ano);
 
     public function getResumoTrimestralAlteracoesOscs($ano);
+
+    public function getResumoTrimestralAlteracoesPorOscsAndModulos($ano);
+
 }

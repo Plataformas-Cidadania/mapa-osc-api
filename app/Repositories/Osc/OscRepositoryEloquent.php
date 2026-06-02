@@ -694,76 +694,79 @@ class OscRepositoryEloquent implements OscRepositoryInterface
      */
     public function getResumoTrimestralAlteracoesOscs($ano)
     {
-//        $resultado = DB::table('audits')
-//            ->select(DB::raw("
-//                entity AS parte_osc,
-//                CASE
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
-//                END AS trimestre,
-//                CASE
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
-//                END AS nr_trimestre,
-//                COUNT(DISTINCT entity_id) AS total_oscs_distintas,
-//                COUNT(*) AS total_alteracoes
-//            "))
-//            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$ano])
-//            ->groupBy(DB::raw("
-//                entity,
-//                CASE
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
-//                END,
-//                CASE
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
-//                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
-//                END
-//            "))
-//            ->orderBy('parte_osc')
-//            ->orderBy('nr_trimestre')
-//            ->get();
-//
-//        // Agrupa os resultados por parte da OSC
-//        $porEntidade = [];
-//        foreach ($resultado as $item) {
-//            $parteOsc = $item->parte_osc;
-//            if (!isset($porEntidade[$parteOsc])) {
-//                $porEntidade[$parteOsc] = [
-//                    'parte_osc' => $parteOsc,
-//                    'trimestres' => [
-//                        ['trimestre' => '1º Trimestre', 'nr_trimestre' => 1, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
-//                        ['trimestre' => '2º Trimestre', 'nr_trimestre' => 2, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
-//                        ['trimestre' => '3º Trimestre', 'nr_trimestre' => 3, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
-//                        ['trimestre' => '4º Trimestre', 'nr_trimestre' => 4, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
-//                    ],
-//                    'total_alteracoes' => 0
-//                ];
-//            }
-//            $index = $item->nr_trimestre - 1;
-//            $porEntidade[$parteOsc]['trimestres'][$index]['total_oscs_distintas'] = (int) $item->total_oscs_distintas;
-//            $porEntidade[$parteOsc]['trimestres'][$index]['total_alteracoes'] = (int) $item->total_alteracoes;
-//            $porEntidade[$parteOsc]['total_alteracoes'] += (int) $item->total_alteracoes;
-//        }
-//
-//        return [
-//            'ano' => $ano,
-//            'por_entidade' => array_values($porEntidade)
-//        ];
+        $resultado = DB::table('audits')
+            ->select(DB::raw("
+                entity AS parte_osc,
+                CASE
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END AS trimestre,
+                CASE
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+                END AS nr_trimestre,
+                COUNT(DISTINCT entity_id) AS total_oscs_distintas,
+                COUNT(*) AS total_alteracoes
+            "))
+            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$ano])
+            ->groupBy(DB::raw("
+                entity,
+                CASE
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN '3º Trimestre'
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN '4º Trimestre'
+                END,
+                CASE
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN 1
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN 2
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 7 AND 9 THEN 3
+                    WHEN EXTRACT(MONTH FROM created_at) BETWEEN 10 AND 12 THEN 4
+                END
+            "))
+            ->orderBy('parte_osc')
+            ->orderBy('nr_trimestre')
+            ->get();
+
+        // Agrupa os resultados por parte da OSC
+        $porEntidade = [];
+        foreach ($resultado as $item) {
+            $parteOsc = $item->parte_osc;
+            if (!isset($porEntidade[$parteOsc])) {
+                $porEntidade[$parteOsc] = [
+                    'parte_osc' => $parteOsc,
+                    'trimestres' => [
+                        ['trimestre' => '1º Trimestre', 'nr_trimestre' => 1, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+                        ['trimestre' => '2º Trimestre', 'nr_trimestre' => 2, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+                        ['trimestre' => '3º Trimestre', 'nr_trimestre' => 3, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+                        ['trimestre' => '4º Trimestre', 'nr_trimestre' => 4, 'total_oscs_distintas' => 0, 'total_alteracoes' => 0],
+                    ],
+                    'total_alteracoes' => 0
+                ];
+            }
+            $index = $item->nr_trimestre - 1;
+            $porEntidade[$parteOsc]['trimestres'][$index]['total_oscs_distintas'] = (int)$item->total_oscs_distintas;
+            $porEntidade[$parteOsc]['trimestres'][$index]['total_alteracoes'] = (int)$item->total_alteracoes;
+            $porEntidade[$parteOsc]['total_alteracoes'] += (int)$item->total_alteracoes;
+        }
+
+        return [
+            'ano' => $ano,
+            'por_entidade' => array_values($porEntidade)
+        ];
+    }
+
+    public function getResumoTrimestralAlteracoesPorOscsAndModulos($ano) {
 
         $trimestre = null;
 
         $query = DB::table('audits')
             ->select(DB::raw("
-                entity_id AS id_osc,
+                id_osc AS id_osc,
                 CASE 
                     WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
                     WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'
@@ -791,7 +794,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         $resultado = $query
             ->groupBy(DB::raw("
-                entity_id,
+                id_osc,
                 CASE 
                     WHEN EXTRACT(MONTH FROM created_at) BETWEEN 1 AND 3 THEN '1º Trimestre'
                     WHEN EXTRACT(MONTH FROM created_at) BETWEEN 4 AND 6 THEN '2º Trimestre'

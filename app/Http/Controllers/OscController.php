@@ -137,7 +137,7 @@ class OscController extends Controller
             }
 
             $usuario = Auth::user();
-            $this->auditService->auditar('updateDadosGerais', 'OSC', $id, $usuario->id_usuario, $data_old, $dados_gerais, $request->ip(), $data_old->id_osc);
+            $this->auditService->auditar('updateDadosGerais', 'DadosGerais', $id, $usuario->id_usuario, $data_old, $dados_gerais, $request->ip(), $id);
 
             return response()->json($dados_gerais, Response::HTTP_OK);
 
@@ -417,6 +417,15 @@ class OscController extends Controller
     public function getResumoAlteracoesTrimestralOscs($ano){
         try {
             return response()->json($this->service->getResumoAlteracoesTrimestralOscs($ano), Response::HTTP_OK);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getResumoTrimestralAlteracoesPorOscsAndModulos($ano){
+        try {
+            return response()->json($this->service->getResumoTrimestralAlteracoesPorOscsAndModulos($ano), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

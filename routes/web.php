@@ -363,6 +363,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     $router->get('/quantitativo/situacao-cadastral/localidade/{localidadeId}', 'OscController@getQuantitativoOscPorSituacaoCadastralPorLocalidade');
     $router->get('/resumo/trimestral/{ano}', 'OscController@getResumoTrimestralOscsCadastradas');
     $router->get('/resumo-alteracoes/trimestral/{ano}', 'OscController@getResumoAlteracoesTrimestralOscs');
+    $router->get('/resumo-alteracoes-por-osc/trimestral/{ano}', 'OscController@getResumoTrimestralAlteracoesPorOscsAndModulos');
 
 
     //ROTAS PARA POPULAR DADOS DA HOME

@@ -175,4 +175,11 @@ class OscService
 
         return $quantitativo;
     }
+
+    public function getResumoTrimestralAlteracoesPorOscsAndModulos($ano)
+    {
+        $quantitativo = $this->repo->getResumoTrimestralAlteracoesPorOscsAndModulos($ano);
+
+        return $quantitativo;
+    }
 }
