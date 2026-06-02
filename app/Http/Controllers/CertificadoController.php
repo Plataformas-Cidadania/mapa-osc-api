@@ -83,26 +83,43 @@ class CertificadoController extends Controller
 
     public function update($id, Request $request) {
         try {
+
             $dados = $request->all();
 
-            $certificado = $this->service->update($id, $dados);
+            $dados_old = $this->service->get($id);
 
-            if ($certificado)
+            $entidade = $this->service->update($id, $dados);
+
+            if (!$entidade)
             {
-                return response()->json(['Resposta' => 'Certificado atualizado com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
 
-            return $certificado;
+            $usuario = Auth::user();
+            $this->auditService->auditar('updateCertificado', 'Certificado', $id, $usuario->id_usuario, $dados_old, $dados, $request->ip(), $dados_old->id_osc);
+
+            return response()->json($dados, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function delete($id_certificado) {
+    public function delete($id_certificado, Request $request) {
         try {
+
+            $dados_old = $this->service->get($id_certificado);
+
+            if (!$dados_old)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
             if ($this->service->delete($id_certificado))
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteCertificado', 'Certificado', $id_certificado, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
+
                 return response()->json(['Resposta' => 'Certificado deletado com sucesso!'], Response::HTTP_OK);
             }
         }

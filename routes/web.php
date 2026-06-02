@@ -249,7 +249,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
 
     //INFORMAÇÕES DE TITULAÇÕES E CERTIFICAÇÕES
     $router->post('/certificado/', 'CertificadoController@store');
-    $router->delete('/certificado/{id_osc}', 'CertificadoController@delete');
+    $router->delete('/certificado/{id_certificado}', 'CertificadoController@delete');
     $router->put('/certificado/{id}', 'CertificadoController@update');
 
     //---------------------Relações de Trabalho-----------------------------------//
