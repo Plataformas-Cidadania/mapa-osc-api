@@ -258,12 +258,12 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //---------------------Governança----------------------------------------------//
     $router->put('/governanca/{id}', 'GovernancaController@update');
     $router->post('/governanca/', 'GovernancaController@store');
-    $router->delete('/governanca/{id}', 'GovernancaController@delete');
+    $router->delete('/governanca/{id_governanca}', 'GovernancaController@delete');
 
     //---------------------Conselho Fiscal----------------------------------------------//
     $router->post('/conselho/', 'ConselhoFiscalController@store');
     $router->put('/conselho/{id}', 'ConselhoFiscalController@update');
-    $router->delete('/conselho/{id}', 'ConselhoFiscalController@delete');
+    $router->delete('/conselho/{id_conselho}', 'ConselhoFiscalController@delete');
 
     //------------------------------Conselho-----------------------------//
     $router->post('/ps_conselho/', 'ParticipacaoSocialConselhoController@store');

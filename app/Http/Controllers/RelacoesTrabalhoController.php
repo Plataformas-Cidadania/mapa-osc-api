@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuditService;
 use App\Models\Osc\RelacoesTrabalho;
 use App\Services\Osc\RelacoesTrabalhoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class RelacoesTrabalhoController extends Controller
 {
+    private $auditService;
+
     private $service;
 
     /**
@@ -19,6 +23,7 @@ class RelacoesTrabalhoController extends Controller
     public function __construct(RelacoesTrabalhoService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     public function get($id)
@@ -70,10 +75,15 @@ class RelacoesTrabalhoController extends Controller
         try {
             $dados = $request->all();
 
+            $dados_old = $this->service->get($id_osc);
+
             $relacaoTrabalho = $this->service->update($id_osc, $dados);
 
             if ($relacaoTrabalho)
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('updateRelTrabalho', 'RelTrabalho', $id_osc, $usuario->id_usuario, $dados_old, $dados, $request->ip(), $dados_old->id_osc);
+
                 return response()->json(['Resposta' => 'Relação de Trabalho atualizada com sucesso!'], Response::HTTP_OK);
             }
 
@@ -84,10 +94,20 @@ class RelacoesTrabalhoController extends Controller
         }
     }
 
-    public function delete($id_relacaoTrabalho) {
+    public function delete($id_relacaoTrabalho, Request $request) {
         try {
+            $dados_old = $this->service->get($id_relacaoTrabalho);
+
+            if (!$dados_old)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
             if ($this->service->delete($id_relacaoTrabalho))
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteCertificado', 'Certificado', $id_certificado, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
+
                 return response()->json(['Resposta' => 'Relação de Trabalho deletada com sucesso!'], Response::HTTP_OK);
             }
         }
