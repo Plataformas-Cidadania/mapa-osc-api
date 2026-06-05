@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Osc\ParticipacaoSocialOutra;
+use App\Services\AuditService;
 use App\Services\Osc\ParticipacaoSocialOutraService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ParticipacaoSocialOutraController extends Controller
 {
+    private $auditService;
+
     private $service;
 
     /**
@@ -19,6 +23,7 @@ class ParticipacaoSocialOutraController extends Controller
     public function __construct(ParticipacaoSocialOutraService $_service)
     {
         $this->service = $_service;
+        $this->auditService = new AuditService();
     }
 
     public function get($id)
@@ -58,8 +63,18 @@ class ParticipacaoSocialOutraController extends Controller
         try {
             $dados = $request->all();
 
+            $entidade = $this->service->store($dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('novoPartSocialOUTRA', 'PartSocialOUTRA', $entidade->id_participacao_social_outra, $usuario->id_usuario, 'criado', $entidade, $request->ip(), $entidade->id_osc);
+
             //Retorna novo registro
-            return response()->json($this->service->store($dados), Response::HTTP_OK);
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -70,24 +85,40 @@ class ParticipacaoSocialOutraController extends Controller
         try {
             $dados = $request->all();
 
-            $outra = $this->service->update($id, $dados);
+            $dados_old = $this->service->get($id);
 
-            if ($outra)
+            $entidade = $this->service->update($id, $dados);
+
+            if (!$entidade)
             {
-                return response()->json(['Resposta' => 'Participação Social Outra atualizado com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
 
-            return $outra;
+            $usuario = Auth::user();
+            $this->auditService->auditar('updatePartSocialOUTRA', 'PartSocialOUTRA', $id, $usuario->id_usuario, $dados_old, $dados, $request->ip(), $dados_old->id_osc);
+
+            return response()->json($dados, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function delete($id_outra) {
+    public function delete($id_outra, Request $request) {
         try {
+
+            $dados_old = $this->service->get($id_outra);
+
+            if (!$dados_old)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
             if ($this->service->delete($id_outra))
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteCertificado', 'Certificado', $id_outra, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
+
                 return response()->json(['Resposta' => 'Participação Social Outra deletado com sucesso!'], Response::HTTP_OK);
             }
         }

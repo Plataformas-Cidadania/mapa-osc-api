@@ -268,17 +268,17 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //------------------------------Conselho-----------------------------//
     $router->post('/ps_conselho/', 'ParticipacaoSocialConselhoController@store');
     $router->put('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@update');
-    $router->delete('/ps_conselho/{id}', 'ParticipacaoSocialConselhoController@delete');
+    $router->delete('/ps_conselho/{id_conselho}', 'ParticipacaoSocialConselhoController@delete');
 
     //--------------------------------Conferência-------------------------//
     $router->post('/ps_conferencia/', 'ParticipacaoSocialConferenciaController@store');
     $router->put('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@update');
-    $router->delete('/ps_conferencia/{id}', 'ParticipacaoSocialConferenciaController@delete');
+    $router->delete('/ps_conferencia/{id_conferencia}', 'ParticipacaoSocialConferenciaController@delete');
 
     //-----------------------------------Outra-------------------------------//
     $router->post('/ps_outra/', 'ParticipacaoSocialOutraController@store');
     $router->put('/ps_outra/{id}', 'ParticipacaoSocialOutraController@update');
-    $router->delete('/ps_outra/{id}', 'ParticipacaoSocialOutraController@delete');
+    $router->delete('/ps_outra/{id_outra}', 'ParticipacaoSocialOutraController@delete');
 
     //INFORMAÇÕES DE FONTES DE RECURSOS DA OSC
     $router->post('/fonte_recursos/', 'FonteRecursosController@store');

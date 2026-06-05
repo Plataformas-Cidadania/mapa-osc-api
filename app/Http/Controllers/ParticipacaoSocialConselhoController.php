@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Osc\ParticipacaoSocialConselho;
+use App\Services\AuditService;
 use App\Services\Osc\ParticipacaoSocialConselhoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ParticipacaoSocialConselhoController extends Controller
 {
+    private $auditService;
+
     private $service;
 
     /**
@@ -19,6 +23,8 @@ class ParticipacaoSocialConselhoController extends Controller
     public function __construct(ParticipacaoSocialConselhoService $_service)
     {
         $this->service = $_service;
+
+        $this->auditService = new AuditService();
     }
 
     public function getAll()
@@ -74,8 +80,18 @@ class ParticipacaoSocialConselhoController extends Controller
         try {
             $dados = $request->all();
 
+            $entidade = $this->service->store($dados);
+
+            if (!$entidade)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
+            $usuario = Auth::user();
+            $this->auditService->auditar('novoPartSocialConselho', 'PartSocialConselho', $entidade->id_conselho, $usuario->id_usuario, 'criado', $entidade, $request->ip(), $entidade->id_osc);
+
             //Retorna novo registro
-            return response()->json($this->service->store($dados), Response::HTTP_OK);
+            return response()->json($entidade, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -86,24 +102,40 @@ class ParticipacaoSocialConselhoController extends Controller
         try {
             $dados = $request->all();
 
-            $conselho = $this->service->update($id, $dados);
+            $dados_old = $this->service->get($id);
 
-            if ($conselho)
+            $entidade = $this->service->update($id, $dados);
+
+            if (!$entidade)
             {
-                return response()->json(['Resposta' => 'Participação Social Conselho atualizado com sucesso!'], Response::HTTP_OK);
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
             }
 
-            return $conselho;
+            $usuario = Auth::user();
+            $this->auditService->auditar('updatePartSocialConselho', 'PartSocialConselho', $id, $usuario->id_usuario, $dados_old, $dados, $request->ip(), $dados_old->id_osc);
+
+            return response()->json($dados, Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function delete($id_conselho) {
+    public function delete($id_conselho, Request $request) {
         try {
+
+            $dados_old = $this->service->get($id_conselho);
+
+            if (!$dados_old)
+            {
+                return response()->json(['Resposta' => 'Objeto não encontrado!'], Response::HTTP_OK);
+            }
+
             if ($this->service->delete($id_conselho))
             {
+                $usuario = Auth::user();
+                $this->auditService->auditar('deleteCertificado', 'PartSocialConselho', $id_conselho, $usuario->id_usuario, $dados_old, 'deletado', $request->ip(), $dados_old->id_osc);
+
                 return response()->json(['Resposta' => 'Participação Social Conselho deletado com sucesso!'], Response::HTTP_OK);
             }
         }
