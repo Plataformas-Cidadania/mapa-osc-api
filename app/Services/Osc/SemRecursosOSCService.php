@@ -18,6 +18,11 @@ class SemRecursosOSCService
     {
         return $this->repo->getAnosSemRecursosPorOSC($id_osc, $ano);
     }
+
+    public function getByOscAndAnoAndOrigem($id_osc, $ano, $origem)
+    {
+        return $this->repo->getByOscAndAnoAndOrigem($id_osc, $ano, $origem);
+    }
   
     public function store(array $data)
     {

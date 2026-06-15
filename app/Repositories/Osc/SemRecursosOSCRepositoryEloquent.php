@@ -48,9 +48,19 @@ class SemRecursosOSCRepositoryEloquent implements SemRecursosOSCRepositoryInterf
         
         return $nrecursos_ano_origem;
     }
+
     public function store(array $data)
     {
         return $this->model->create($data);
+    }
+
+    public function getByOscAndAnoAndOrigem($id_osc, $ano, $origem)
+    {
+        $semRecurso =  $this->model->where('id_osc',$id_osc)
+            ->where('ano',$ano)
+            ->where('cd_origem_fonte_recursos_osc',$origem);
+
+        return $semRecurso->first();
     }
 
     public function delete($id_osc, $ano, $origem)
