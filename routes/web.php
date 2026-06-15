@@ -293,7 +293,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //INFORMAÇÕES DE PROJETOS
     $router->put('/projeto/{id}', 'ProjetoController@update');
     $router->post('/projeto/', 'ProjetoController@store');
-    $router->delete('/projeto/{id}', 'ProjetoController@delete');
+    $router->delete('/projeto/{id_projeto}', 'ProjetoController@delete');
 
     //------------------------------Parceiras OSC Projeto--------------------------------------//
     $router->put('/projeto/parceira/{id}', 'OscParceiraProjetoController@update');
