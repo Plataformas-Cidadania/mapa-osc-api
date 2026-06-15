@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AreaAtuacaoRepresentanteController extends Controller
 {
     private $auditService;
+
     private $service;
 
     /**

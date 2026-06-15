@@ -13,6 +13,11 @@ class RecursosOSCRepositoryEloquent implements RecursosOSCRepositoryInterface
 {
     private $recursoModel;
 
+    public function getById($id)
+    {
+        return $this->recursoModel->find($id);
+    }
+
     public function __construct(Recurso $_recurso)
     {
         $this->recursoModel = $_recurso;

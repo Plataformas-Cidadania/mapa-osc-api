@@ -288,7 +288,7 @@ $router->group(['middleware' => 'auth', 'prefix' => '/api/osc'], function() use 
     //INFORMAÇÕES DE RECURSOS DA OSC
     $router->post('/recursos/', 'RecursosOSCController@store');
     $router->put('/recursos/{id}', 'RecursosOSCController@update');
-    $router->delete('/recursos/{id}', 'RecursosOSCController@delete');
+    $router->delete('/recursos/{id_recurso}', 'RecursosOSCController@delete');
 
     //INFORMAÇÕES DE PROJETOS
     $router->put('/projeto/{id}', 'ProjetoController@update');
