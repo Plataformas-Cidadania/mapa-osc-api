@@ -557,6 +557,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 '=',
                 'syst.dc_situacao_cadastral.cd_situacao_cadastral'
             )
+            ->where('osc.tb_osc.bo_osc_ativa', true)
             ->whereNotNull('dc_situacao_cadastral')
             ->groupBy('dc_situacao_cadastral')
             ->get();
@@ -609,6 +610,7 @@ class OscRepositoryEloquent implements OscRepositoryInterface
                 'spat.ed_municipio.eduf_cd_uf'
             )
             ->where($where_localidade, $localidadeId)
+            ->where('osc.tb_osc.bo_osc_ativa', true)
             ->whereNotNull('dc_situacao_cadastral')
             ->groupBy('dc_situacao_cadastral')
             ->get();
