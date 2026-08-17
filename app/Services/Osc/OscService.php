@@ -161,4 +161,9 @@ class OscService
 
         return $quantitativo;
     }
+
+    public function getQuantitativoOscPorSituacaoCadastralPorIds(array $idsOsc)
+    {
+        return $this->repo->getQuantitativoOscPorSituacaoCadastralPorIds($idsOsc);
+    }
 }

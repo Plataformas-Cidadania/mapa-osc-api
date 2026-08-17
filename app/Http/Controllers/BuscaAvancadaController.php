@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Portal\BuscaAvancadaService;
+use App\Services\Osc\OscService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,15 +11,49 @@ use Symfony\Component\HttpFoundation\Response;
 class BuscaAvancadaController extends Controller
 {
     private $service;
+    private $oscService;
 
     /**
      * Create a new controller instance.
      *
      * @param BuscaAvancadaService $service
      */
-    public function __construct(BuscaAvancadaService $_service)
+    public function __construct(BuscaAvancadaService $_service, OscService $_oscService)
     {
         $this->service = $_service;
+        $this->oscService = $_oscService;
+    }
+
+    private function parseBuscaAvancada(Request $request)
+    {
+        if (!$request->input('avancado')) {
+            return null;
+        }
+
+        $avancado = $request->input('avancado');
+
+        if (gettype($avancado) == 'string') {
+            $avancadoAjustado = array();
+
+            foreach (json_decode($avancado) as $key => $value) {
+                $avancadoAjustado[$key] = (array) $value;
+            }
+
+            $avancado = $avancadoAjustado;
+        }
+
+        if (is_array($avancado)) {
+            return (object) $avancado;
+        }
+
+        return json_decode($avancado);
+    }
+
+    private function buscaValida($busca)
+    {
+        return isset($busca->dadosGerais) || isset($busca->areasSubareasAtuacao) || isset($busca->atividadeEconomica) ||
+            isset($busca->titulacoesCertificacoes) || isset($busca->relacoesTrabalhoGovernanca) || isset($busca->espacosParticipacaoSocial) ||
+            isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH);
     }
 
     public function buscarOSCs(Request $request, $type_result, $limit = 0, $offset = 0)
@@ -26,31 +61,9 @@ class BuscaAvancadaController extends Controller
         try {
             $param = [$limit, $offset];
             if($request->input('avancado')) {
-                $avancado = $request->input('avancado');
+                $busca = $this->parseBuscaAvancada($request);
 
-                if(gettype($avancado) == 'string'){
-                    $avancadoAjustado = array();
-
-                    foreach(json_decode($avancado) as $key => $value){
-                        $avancadoAjustado[$key] = (array) $value;
-                    }
-
-                    $avancado = $avancadoAjustado;
-                }
-
-                if(is_array($avancado)) {
-                    $busca = (object) $avancado;
-                } else{
-                    $busca = json_decode($avancado);
-                }
-
-                if(
-                    isset($busca->dadosGerais) || isset($busca->areasSubareasAtuacao) || isset($busca->atividadeEconomica) ||
-                    isset($busca->titulacoesCertificacoes) || isset($busca->relacoesTrabalhoGovernanca) || isset($busca->espacosParticipacaoSocial) ||
-                    isset($busca->projetos) || isset($busca->fontesRecursos) || isset($busca->IDH)
-                )
-                {
-
+                if($this->buscaValida($busca)) {
                     $rows = $this->service->buscarOSCs($type_result, $param, $busca);
                     if($type_result == 'geo'){
                         $oscs = [];
@@ -69,6 +82,33 @@ class BuscaAvancadaController extends Controller
             }else{
                 return response()->json(['Resposta' => 'Dado(s) obrigatório(s) não enviado(s)!'], Response::HTTP_OK);
             }
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getQuantitativoSituacaoCadastral(Request $request)
+    {
+        try {
+            $busca = $this->parseBuscaAvancada($request);
+
+            if (!$busca || !$this->buscaValida($busca)) {
+                return response()->json(['Resposta' => 'Dado(s) obrigatÃ³rio(s) nÃ£o enviado(s)!'], Response::HTTP_OK);
+            }
+
+            $rows = $this->service->buscarOSCs('geo', [0, 0], $busca);
+            $idsOsc = [];
+
+            foreach ($rows as $item) {
+                if (!empty($item->id_osc)) {
+                    $idsOsc[] = $item->id_osc;
+                }
+            }
+
+            $idsOsc = array_values(array_unique($idsOsc));
+
+            return response()->json($this->oscService->getQuantitativoOscPorSituacaoCadastralPorIds($idsOsc), Response::HTTP_OK);
         }
         catch (\Exception $e) {
             return $e->getMessage();

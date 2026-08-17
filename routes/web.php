@@ -108,6 +108,9 @@ $router->group(['prefix' => '/api'], function() use ($router) {
 
 //---AREA E SUBAREA DE ATUAÇÃO----//
     $router->get('/area_atuacao/', 'DCAreaAtuacaoController@getAll');
+    $router->post('/area_atuacao/', 'DCAreaAtuacaoController@store');
+    $router->put('/area_atuacao/{id}', 'DCAreaAtuacaoController@update');
+    $router->delete('/area_atuacao/{id}', 'DCAreaAtuacaoController@delete');
     $router->get('/subarea_atuacao/', 'DCSubAreaAtuacaoController@getAll');
 
 //---SITUAÇÃO CADASTRAL----//
@@ -345,6 +348,7 @@ $router->group(['prefix' => '/api/osc'], function() use ($router){
     //BUSCA AVANÇADA
     $router->get('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
     $router->post('/busca_avancada/{type_result}/{limit}/{offset}', 'BuscaAvancadaController@buscarOSCs');
+    $router->post('/busca_avancada/quantitativo/situacao-cadastral', 'BuscaAvancadaController@getQuantitativoSituacaoCadastral');
     $router->post('/exportar/', 'BuscaAvancadaController@exportarOscs');
 
     $router->get('/busca/geo/{tx_parametro}', 'DCGeoClusterController@getOSCsPorRazaoSocial');

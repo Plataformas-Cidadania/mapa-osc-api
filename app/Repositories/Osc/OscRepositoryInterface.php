@@ -54,4 +54,10 @@ interface OscRepositoryInterface
     public function getListaOscCnpjAutocomplete($cnpj);
 
     public function getListaOscNomeCnpjAutocomplete($texto_busca);
+
+    public function getQuantitativoOscPorSituacaoCadastral();
+
+    public function getQuantitativoOscPorSituacaoCadastralPorLocalidade($localidadeId);
+
+    public function getQuantitativoOscPorSituacaoCadastralPorIds(array $idsOsc);
 }

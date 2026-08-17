@@ -617,4 +617,28 @@ class OscRepositoryEloquent implements OscRepositoryInterface
 
         return ($sql);
     }
+
+    public function getQuantitativoOscPorSituacaoCadastralPorIds(array $idsOsc)
+    {
+        if (empty($idsOsc)) {
+            return [];
+        }
+
+        return $this->model
+            ->select(
+                'dc_situacao_cadastral',
+                DB::raw('count(*) as total')
+            )
+            ->join(
+                'syst.dc_situacao_cadastral',
+                'osc.tb_osc.cd_situacao_cadastral',
+                '=',
+                'syst.dc_situacao_cadastral.cd_situacao_cadastral'
+            )
+            ->where('osc.tb_osc.bo_osc_ativa', true)
+            ->whereNotNull('dc_situacao_cadastral')
+            ->whereIn('osc.tb_osc.id_osc', $idsOsc)
+            ->groupBy('dc_situacao_cadastral')
+            ->get();
+    }
 }
